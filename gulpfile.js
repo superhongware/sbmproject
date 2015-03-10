@@ -19,9 +19,9 @@ var paths = {
 };
 
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass','js']);
 
-
+//sass 解析
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
     .pipe(sass())
@@ -37,8 +37,7 @@ gulp.task('sass', function(done) {
     .pipe(livereload());
 });
 
-
-
+//js 打包
 gulp.task('js', function() {
   gulp.src(paths.js)
     .pipe(jshint())
@@ -50,6 +49,7 @@ gulp.task('js', function() {
 });
 
 
+//开发调试
 gulp.task('browser-sync', function () {
   var files = [
     'www/**/*.html',
@@ -65,11 +65,14 @@ gulp.task('browser-sync', function () {
   });
 });
 
+
 gulp.task('watch', function() {
   // livereload.listen();
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.js, ['js']);
 });
+
+
 
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
