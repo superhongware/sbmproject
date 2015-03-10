@@ -14,7 +14,8 @@ var gulp = require('gulp'),
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  js: ['./src/**/*.js'],
+  jssrc:['./src'],
+  js: ['/index','/index2'],
 
 };
 
@@ -39,13 +40,16 @@ gulp.task('sass', function(done) {
 
 //js 打包
 gulp.task('js', function() {
-  gulp.src(paths.js)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(uglify())
-    .pipe(concat('app.js'))
-    .pipe(gulp.dest('www/js'))
-    .pipe(livereload());
+  for (var i = 0; i < paths.js.length; i++) {
+    console.log(i)
+    gulp.src(paths.jssrc+paths.js[i]+'/**/*.js')
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(uglify())
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest('www/js'+paths.js[i]))
+      .pipe(livereload());
+  };
 });
 
 
@@ -69,7 +73,7 @@ gulp.task('browser-sync', function () {
 gulp.task('watch', function() {
   // livereload.listen();
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.jssrc+paths.js[0]+'/**/*.js', ['js']);
 });
 
 
