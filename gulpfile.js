@@ -3,6 +3,7 @@ var gulp = require('gulp'),
   bower = require('bower'),
   concat = require('gulp-concat'),
   sass = require('gulp-sass'),
+  less = require('gulp-less');
   minifyCss = require('gulp-minify-css'),
   rename = require('gulp-rename'),
   sh = require('shelljs'),
@@ -14,6 +15,7 @@ var gulp = require('gulp'),
 
 var paths = {
   sass: ['./scss/**/*.scss'],
+  less: ['./less/**/*.less'],
   jssrc:['./src'],
   js: ['/index','/index2'],
 
@@ -38,10 +40,17 @@ gulp.task('sass', function(done) {
     .pipe(livereload());
 });
 
+// less 解析
+gulp.task('less', function () {
+  return gulp.src('./less/style.less')
+    .pipe(less())
+    .pipe(minifyCss())
+    .pipe(gulp.dest('./www/css'));
+});
+
 //js 打包
 gulp.task('js', function() {
   for (var i = 0; i < paths.js.length; i++) {
-    console.log(i)
     gulp.src(paths.jssrc+paths.js[i]+'/**/*.js')
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
@@ -73,7 +82,10 @@ gulp.task('browser-sync', function () {
 gulp.task('watch', function() {
   // livereload.listen();
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.jssrc+paths.js[0]+'/**/*.js', ['js']);
+  gulp.watch(paths.less, ['less']);
+  for (var i = 0; i < paths.js.length; i++) {
+    gulp.watch(paths.jssrc+paths.js[i]+'/**/*.js', ['js']);
+  };
 });
 
 

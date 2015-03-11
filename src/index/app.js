@@ -24,10 +24,10 @@ angular.module('starter', ['ionic','starter.controllers'])
 		templateUrl:'templates/index/login.html',
 		controller:'LoginCtrl'
 	})
-	.state('sigin', {
-		url: "/tab",
-		// abstract: true,
-		templateUrl: "templates/tabs.html"
+	.state('sign_up', {
+		url: "/sign_up",
+		templateUrl: "templates/index/sign_up.html",
+		controller:'sign_upCtrl'
 	})
 	.state('shopinfo', {
 		url: "/shopinfo",
@@ -40,5 +40,7 @@ angular.module('starter', ['ionic','starter.controllers'])
 		templateUrl: "templates/index/authorization.html"
 	});
 
-	$urlRouterProvider.otherwise('/shopinfo/authorization');
+	// $urlRouterProvider.otherwise('/shopinfo/authorization');
+	$urlRouterProvider.otherwise('/sign_up');
+//http://codepen.io/ahsx/pen/mDcEd
 }]);

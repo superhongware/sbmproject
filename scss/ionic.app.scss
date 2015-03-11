@@ -20,8 +20,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+body{
+	background-color:#000;
+}
 
+.button.button-nocolor{
+	background-color:transparent;
+	border-color:transparent;
+	color:#fff;
+}
 
-.pane, .view{
-	background-color: #f8f8f8;
+.textcenter{
+	text-align: center;
 }

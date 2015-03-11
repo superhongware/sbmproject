@@ -10,6 +10,9 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('ChatDetailCtrl', ["$scope", "$stateParams", "Chats",function($scope, $stateParams, Chats) {
+	console.log($scope);
+
+	console.log($stateParams);
   $scope.chat = Chats.get($stateParams.chatId);
 }])
 

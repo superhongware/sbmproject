@@ -7574,5 +7574,13 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-.pane, .view {
-  background-color: #f8f8f8; }
+body {
+  background-color: #000; }
+
+.button.button-nocolor {
+  background-color: transparent;
+  border-color: transparent;
+  color: #fff; }
+
+.textcenter {
+  text-align: center; }
