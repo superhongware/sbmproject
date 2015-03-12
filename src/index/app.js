@@ -3,7 +3,7 @@
 *
 * Description
 */
-angular.module('starter', ['ionic','starter.controllers'])
+angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 .run(['$ionicPlatform','$rootScope', function($ionicPlatform,$rootScope){
 	$rootScope.viewanimate="gogogo";
   $ionicPlatform.ready(function() {
@@ -30,18 +30,34 @@ angular.module('starter', ['ionic','starter.controllers'])
 		templateUrl: "templates/index/sign_up.html",
 		controller:'sign_upCtrl'
 	})
-	.state('shopinfo', {
-		url: "/shopinfo",
+	.state('sbmview', {
+		url: "/sbmview",
 		abstract: true,
-		templateUrl: "templates/index/shopinfo.html"
+		templateUrl: "templates/sbmview/sbmview.html"
 	})
-	.state('shopinfo.authorization', {
+	.state('sbmview.index', {
+		url: "/index",
+		templateUrl: "templates/sbmview/sbm-index.html",
+		controller:'indexCtrl'
+	})
+	.state('sbmview.authorization', {
 		url: "/authorization",
-		// abstract: true,
-		templateUrl: "templates/index/authorization.html"
+		templateUrl: "templates/sbmview/sbm-authorization.html"
+	})
+	.state('sbmview.details', {
+		url: "/details",
+		templateUrl: "templates/sbmview/sbm-details.html"
+	})
+	.state('sbmview.orders', {
+		url: "/orders",
+		templateUrl: "templates/sbmview/sbm-orders.html"
+	})
+	.state('sbmview.products', {
+		url: "/products",
+		templateUrl: "templates/sbmview/sbm-products.html"
 	});
-
-	// $urlRouterProvider.otherwise('/shopinfo/authorization');
-	$urlRouterProvider.otherwise('/sign_up');
+	$urlRouterProvider.otherwise('/sbmview/authorization');
+	$urlRouterProvider.otherwise('/sbmview/index');
+	// $urlRouterProvider.otherwise('/login');
 //http://codepen.io/ahsx/pen/mDcEd
 }]);
