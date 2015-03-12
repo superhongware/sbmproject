@@ -4,15 +4,27 @@
       
       <ion-item class="item-remove-animate item-avatar item-icon-right"  type="item-text-wrap" >
         <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
+        <h2>详情名称         2015-01-23</h2>
+        <p>浏览34   转发2    店铺0</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
-
         <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
+          <i class="iconfont icon-delete"></i><br/>
+          <span class="text">删除</span>
         </ion-option-button>
-      </ion-item>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          <i class="iconfont icon-delete"></i><br/>
+          <span class="text">删除</span>
+        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          <i class="iconfont icon-delete"></i><br/>
+          <span class="text">删除</span>
+        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          <i class="iconfont icon-delete"></i><br/>
+          <span class="text">删除</span>
+        </ion-option-button>
 
+      </ion-item>
 
     </ion-list>
   </ion-content>

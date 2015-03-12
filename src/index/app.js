@@ -40,9 +40,9 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 		templateUrl: "templates/sbmview/sbm-index.html",
 		controller:'indexCtrl'
 	})
-	.state('sbmview.authorization', {
-		url: "/authorization",
-		templateUrl: "templates/sbmview/sbm-authorization.html"
+	.state('sbmview.shops', {
+		url: "/shops",
+		templateUrl: "templates/sbmview/sbm-shops.html"
 	})
 	.state('sbmview.details', {
 		url: "/details",
@@ -55,7 +55,14 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 	.state('sbmview.products', {
 		url: "/products",
 		templateUrl: "templates/sbmview/sbm-products.html"
+	})
+	.state('sbmview.setting', {
+		url: "/setting",
+		templateUrl: "templates/sbmview/sbm-setting.html"
 	});
+
+
+
 	$urlRouterProvider.otherwise('/sbmview/authorization');
 	$urlRouterProvider.otherwise('/sbmview/index');
 	// $urlRouterProvider.otherwise('/login');

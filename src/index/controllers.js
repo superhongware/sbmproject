@@ -1,14 +1,17 @@
 angular.module('starter.controllers', [])
+.controller('mainviewCtrl', ['$scope','$state','myCookie', function($scope,$state,myCookie){
+
+	$scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
+		// console.log(toState.controller);
+		$scope.navbarhide=toState.controller!=="indexCtrl"?false:true;
+	});
+
+}])
 .controller('indexCtrl', ['$scope','myCookie', function($scope,myCookie){
-	// console.dir(document)
+
 
 	// userName
 	console.log(myCookie.get("userId"));
-
-
-
-}])
-.controller('mainviewCtrl', ['$scope', function($scope){
 }])
 .controller('LoginCtrl', ['$scope','$rootScope', function($scope,$rootScope){
 	$rootScope.viewanimate="gogogo";
