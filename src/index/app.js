@@ -54,13 +54,18 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 	})
 	.state('sbmview.products', {
 		url: "/products",
-		templateUrl: "templates/sbmview/sbm-products.html"
+		templateUrl: "templates/sbmview/sbm-products.html",
+		controller:'productsCtrl'
 	})
 	.state('sbmview.setting', {
 		url: "/setting",
 		templateUrl: "templates/sbmview/sbm-setting.html"
+	})
+	.state('sbmview.checkproduct', {
+		url: "/checkproduct",
+		templateUrl: "templates/sbmview/creatdetails/checkproduct.html",
+		controller:'productsCtrl'
 	});
-
 
 
 	$urlRouterProvider.otherwise('/sbmview/authorization');

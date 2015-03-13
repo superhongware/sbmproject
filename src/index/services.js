@@ -26,6 +26,13 @@ angular.module('starter.services', [])
 		}
 	};
 })
+
+.factory('hrefGo', function(){
+	return function (href){
+		location.href=href;
+	};
+})
+
 .factory('systemdata', function(){
 	var result={
 		nick:"softbanana",
