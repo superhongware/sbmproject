@@ -1,0 +1,31 @@
+<ion-view view-title="我的详情">
+  <ion-content>
+    <ion-list>
+      
+      <ion-item class="item-remove-animate item-avatar item-icon-right"  type="item-text-wrap" >
+        <img ng-src="{{chat.face}}">
+        <h2>详情名称         2015-01-23</h2>
+        <p>浏览34   转发2    店铺0</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+        <ion-option-button class="button-dark" ng-click="remove(chat)">
+          <!-- <i class="iconfont icon-delete"></i><br/> -->
+          <span class="text">编辑</span>
+        </ion-option-button>
+        <ion-option-button class="button-dark" ng-click="remove(chat)">
+          <!-- <i class="iconfont icon-delete"></i><br/> -->
+          <span class="text">分享</span>
+        </ion-option-button>
+        <ion-option-button class="button-dark" ng-click="remove(chat)">
+          <!-- <i class="iconfont icon-delete"></i><br/> -->
+          <span class="text">删除</span>
+        </ion-option-button>
+        <ion-option-button class="button-dark" ng-click="remove(chat)">
+          <!-- <i class="iconfont icon-delete"></i><br/> -->
+          <span class="text">流量</span>
+        </ion-option-button>
+
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

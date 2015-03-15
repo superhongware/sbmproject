@@ -1,0 +1,45 @@
+<ion-view view-title="设置">
+  <ion-content>
+    <ion-list>
+      
+      <ion-item class="item-icon-right" ui-sref="set-shopmanage">
+        店铺管理
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+
+      <ion-item class="item-divider">
+      </ion-item>
+
+
+      <ion-toggle toggle-class="toggle-energized" ng-model="settings.bbb">
+            宝贝同步
+      </ion-toggle>
+
+      <ion-toggle toggle-class="toggle-energized" ng-model="settings.aaa">
+            订单同步
+      </ion-toggle>
+
+      <ion-item class="item-divider">
+      </ion-item>
+
+      <ion-item class="item-icon-right" ui-sref="set-remind">
+        提醒设置
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+
+      <ion-item class="item-divider">
+      </ion-item>
+
+      <ion-item class="item-icon-right" ui-sref="set-feedback">
+        意见反馈
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+
+      <ion-item class="item-icon-right" ui-sref="set-aboutus">
+        关于我们
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

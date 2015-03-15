@@ -26,7 +26,13 @@ angular.module('starter.services', [])
 		}
 	};
 })
-
+.factory('loginCheck',['$state','myCookie',function($state,myCookie){
+	return function(){
+		if(!myCookie.get("shopname")){
+			$state.go("login");
+		}
+	};
+}])
 .factory('hrefGo', function(){
 	return function (href){
 		location.href=href;

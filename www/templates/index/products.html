@@ -1,0 +1,65 @@
+<ion-view view-title="我的宝贝" class="sbm_products">
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="show()">
+    同步
+    </button>
+  </ion-nav-buttons>
+
+  <ion-side-menus enable-menu-with-back-views-"true">
+    <!-- Center content -->
+    <ion-side-menu-content class="paddingtop88">
+
+      <div class="bar bar-subheader">
+        <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+        <div class="checkbtn">
+          <div class="button-bar">
+            <a class="button button-energized" >上架中</a>
+            <a class="button" ng-click="action()">已下架</a>
+          </div>
+        </div>
+      </div>
+      <ion-content class="paddingtop44">
+        <ion-refresher
+        pulling-text="下拉更新..."
+        on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <ion-list>
+          <ion-item
+          class="item-remove-animate item-avatar item-icon-right"  
+          type="item-text-wrap"
+          collection-repeat="product in products">
+            <img ng-src="{{chat.face}}">
+            <h2>小西装</h2>
+            <p>￥233.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;223件</p>
+            <i class="icon ion-chevron-right icon-accessory"></i>
+
+            <ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
+              制作详情
+            </ion-option-button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+
+    </ion-side-menu-content>
+
+    <!-- Left menu -->
+    <ion-side-menu side="left"  class="paddingtop44" width="100">
+      <ion-content>
+        <ion-list>
+          <ion-item
+          collection-repeat="product in products">
+            我的店铺
+          </ion-item>
+        </ion-list>
+      </ion-content>
+
+    </ion-side-menu>
+
+  </ion-side-menus>
+
+
+
+
+</ion-view>
+

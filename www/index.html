@@ -4,30 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
-    <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet"> -->
     <link href="css/ionic.app.css" ver='0.1.0' rel="stylesheet">
-
     <link href="css/style.css" ver='0.1.0' rel="stylesheet">
-
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
-
-    <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-
-    <!-- your app's js -->
     <script src="js/index/app.js"></script>
-    <!-- your app's js 
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>-->
-    
+
   </head>
   <body>
-    <div id="mainview" ng-class="viewanimate" ui-view ng-controller="mainviewCtrl"></div>
+
+    <ion-nav-bar class="bar-energized i" ng-hide="navbarhide">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-button></ion-button>
+    </ion-nav-bar>
+    <ion-nav-view></ion-nav-view>
+
+    <!-- <div id="mainview" ng-class="viewanimate" ui-view ng-controller="mainviewCtrl"></div> -->
   </body>
 </html>

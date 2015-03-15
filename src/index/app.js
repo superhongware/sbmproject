@@ -18,7 +18,12 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
     }
   });
 }])
-.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
+.config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider) {
+	// $ionicConfigProvider.backButton.text("返回");
+	$ionicConfigProvider.views.maxCache(1);
+	$ionicConfigProvider.views.forwardCache(false);
+	$ionicConfigProvider.templates.maxPrefetch(0);
+
 	$stateProvider
 	.state('login',{
 		url:'/login',
@@ -30,46 +35,61 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 		templateUrl: "templates/index/sign_up.html",
 		controller:'sign_upCtrl'
 	})
-	.state('sbmview', {
-		url: "/sbmview",
-		abstract: true,
-		templateUrl: "templates/sbmview/sbmview.html"
-	})
-	.state('sbmview.index', {
-		url: "/index",
-		templateUrl: "templates/sbmview/sbm-index.html",
+	.state('home', {
+		url: "/home",
+		templateUrl: "templates/index/home.html",
 		controller:'indexCtrl'
 	})
-	.state('sbmview.shops', {
+	.state('shops', {
 		url: "/shops",
-		templateUrl: "templates/sbmview/sbm-shops.html"
+		templateUrl: "templates/index/shops.html"
 	})
-	.state('sbmview.details', {
+	.state('details', {
 		url: "/details",
-		templateUrl: "templates/sbmview/sbm-details.html"
+		templateUrl: "templates/index/details.html"
 	})
-	.state('sbmview.orders', {
+	.state('orders', {
 		url: "/orders",
-		templateUrl: "templates/sbmview/sbm-orders.html"
+		templateUrl: "templates/index/orders.html",
+		controller:"ordersCtrl"
 	})
-	.state('sbmview.products', {
+	.state('products', {
 		url: "/products",
-		templateUrl: "templates/sbmview/sbm-products.html",
+		templateUrl: "templates/index/products.html",
 		controller:'productsCtrl'
 	})
-	.state('sbmview.setting', {
+	.state('setting', {
 		url: "/setting",
-		templateUrl: "templates/sbmview/sbm-setting.html"
+		templateUrl: "templates/index/setting.html"
 	})
-	.state('sbmview.checkproduct', {
+	.state('set-shopmanage', {
+		url: "/set-shopmanage",
+		templateUrl: "templates/index/setting/set-shopmanage.html"
+	})
+	.state('set-remind', {
+		url: "/set-remind",
+		templateUrl: "templates/index/setting/set-remind.html"
+	})
+	.state('set-feedback', {
+		url: "/set-feedback",
+		templateUrl: "templates/index/setting/set-feedback.html"
+	})
+	.state('set-aboutus', {
+		url: "/set-aboutus",
+		templateUrl: "templates/index/setting/set-aboutus.html"
+	})
+	//sidebar测试  正式上线删除
+	.state('sidebartest',{
+		url:"/sidebartest",
+		templateUrl:"templates/index/sidebartest.html"
+	})
+	.state('checkproduct', {
 		url: "/checkproduct",
-		templateUrl: "templates/sbmview/creatdetails/checkproduct.html",
+		templateUrl: "templates/index/creatdetails/checkproduct.html",
 		controller:'productsCtrl'
 	});
 
-
-	$urlRouterProvider.otherwise('/sbmview/authorization');
-	$urlRouterProvider.otherwise('/sbmview/index');
+	$urlRouterProvider.otherwise('/home');
 	// $urlRouterProvider.otherwise('/login');
 //http://codepen.io/ahsx/pen/mDcEd
 }]);
