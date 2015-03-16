@@ -114,8 +114,6 @@
     }
   }
 
-
-
   .home_bottom{
     width:100%;
     position:fixed;
@@ -162,7 +160,6 @@
     }
   }//.home_bottom
 
-
 }
 
 
@@ -181,3 +178,30 @@
 }
 
 
+.checktemplate{
+  .template{
+    width: 50%;
+    float: left;
+    padding-right: 5px;
+    padding-left: 10px;
+    &:nth-child(2n){
+      padding-left: 5px;
+      padding-right: 10px;
+    }
+    .image{
+      width: 100%;
+      min-height: 180px;
+      display: block;
+      border: 1px solid #ccc;
+    }
+    .text{
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      height: 40px;
+      line-height: 40px;
+      color: #333;
+    }
+  }
+  
+}

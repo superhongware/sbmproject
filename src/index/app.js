@@ -58,6 +58,8 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 		templateUrl: "templates/index/products.html",
 		controller:'productsCtrl'
 	})
+
+	//设置
 	.state('setting', {
 		url: "/setting",
 		templateUrl: "templates/index/setting.html"
@@ -78,15 +80,28 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 		url: "/set-aboutus",
 		templateUrl: "templates/index/setting/set-aboutus.html"
 	})
-	//sidebar测试  正式上线删除
-	.state('sidebartest',{
-		url:"/sidebartest",
-		templateUrl:"templates/index/sidebartest.html"
-	})
+
+	//新建宝贝
 	.state('checkproduct', {
 		url: "/checkproduct",
 		templateUrl: "templates/index/creatdetails/checkproduct.html",
 		controller:'productsCtrl'
+	})
+	.state('checktemplate', {
+		url: "/checktemplate",
+		templateUrl: "templates/index/creatdetails/checktemplate.html",
+		controller:'productsCtrl'
+	})
+	.state('editpages', {
+		url: "/editpages",
+		templateUrl: "templates/index/creatdetails/editpages.html",
+		controller:'editpagesCtrl'
+	})
+	
+	//sidebar测试  正式上线删除
+	.state('sidebartest',{
+		url:"/sidebartest",
+		templateUrl:"templates/index/sidebartest.html"
 	});
 
 	$urlRouterProvider.otherwise('/home');

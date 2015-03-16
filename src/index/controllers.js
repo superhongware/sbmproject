@@ -55,7 +55,6 @@ angular.module('starter.controllers', [])
 
 
   $scope.openPopover = function($event) {
-  	console.log("aa")
     $scope.popover.show($event);
   };
   $scope.closePopover = function() {
@@ -90,7 +89,7 @@ angular.module('starter.controllers', [])
 			$ionicBackdrop.release();
 		}, 1000);
 	};
-	$scope.products=[1,2,3];
+	$scope.products=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33];
 
 	$scope.show= function(){
 		$ionicLoading.show({
@@ -122,7 +121,14 @@ angular.module('starter.controllers', [])
 	$scope.toggleLeft();
 }])
 
-
+.controller('editpagesCtrl',['$scope','$ionicLoading',function($scope,$ionicLoading){
+	$scope.show= function(){
+		$ionicLoading.show({
+			template:"正在保存...",
+			duration:2000
+		});
+	};
+}])
 //登录页
 .controller('LoginCtrl', ['$scope','$rootScope','$state','myCookie',function($scope,$rootScope,$state,myCookie){
 	// $rootScope.viewanimate="gogogo";
