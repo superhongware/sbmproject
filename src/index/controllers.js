@@ -130,19 +130,20 @@ angular.module('starter.controllers', [])
 	};
 }])
 //登录页
-.controller('LoginCtrl', ['$scope','$rootScope','$state','myCookie',function($scope,$rootScope,$state,myCookie){
+.controller('LoginCtrl', ['$scope','$state','loginSubmit','myCookie',function($scope,$state,loginSubmit,myCookie){
 	// $rootScope.viewanimate="gogogo";
-	$scope.login=function(){
-		myCookie.add('shopname','shopname',0);
-		$state.go("home");
-	console.log(1);
-	};
+	// $scope.urldata=loginSubmit();
+	loginSubmit();
+
+	// var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin"
+
+
 
 }])
 
 
 //注册页
-.controller('sign_upCtrl', ['$scope','$rootScope','$state',"$http",'$ionicPopup',function($scope,$rootScope,$state,$http,$ionicPopup){
+.controller('sign_upCtrl', ['$scope','$rootScope','$state','$ionicPopup',function($scope,$rootScope,$state,$ionicPopup){
 	// $rootScope.viewanimate="goback";
 	$scope.sign_up=function(){
 		$ionicPopup.show({

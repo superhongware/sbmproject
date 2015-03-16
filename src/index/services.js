@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ["service.encryption"])
 .factory('myCookie',function(){
 	return {
 		add:function(name,value,expiresHours){
@@ -33,18 +33,85 @@ angular.module('starter.services', [])
 		}
 	};
 }])
+
 .factory('hrefGo', function(){
 	return function (href){
 		location.href=href;
 	};
 })
 
-.factory('systemdata', function(){
-	var result={
-		nick:"softbanana",
-		name:"softbanana",
-		method:method
-	};
+.factory('loginSubmit', ['$http','jsonpURL','spelldata','systemdata', function($http,jsonpURL,spelldata,systemdata){
 
-	return result;
-});
+	return function loginSubmit(){
+		var urldata={
+			orgName:'softbanana',
+			userName:'admin',
+			password:'admin',
+		};
+
+		urldata=systemdata(urldata);
+		console.log(urldata);
+		var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin";
+		var lasturl=jsonpURL(url,urldata);
+
+		// console.log(spelldata(urldata));
+
+		// $http.post(url,spelldata(urldata))
+
+		// .success(function(data){
+		// 	console.log("success");
+		// 	console.log(data);
+		// })
+		// .error(function(error,status,headers){
+		// 	console.log("error");
+		// 	console.log(error);
+		// 	console.log(status);
+		// 	console.log(headers);
+		// });
+
+	};
+}])
+
+.factory('jsonpURL', function(){
+	return function jsonpURL(url,obj){
+		url+="?";
+		for (var i in obj) {
+			// console.log(i+":"+obj[i]);
+			url+=i+"="+obj[i]+"&";
+		}
+		return url+"callBack=JSON_CALLBACK";
+	};
+})
+
+.factory('spelldata', function(){
+	return function spelldata(obj){
+		var data='';
+		for (var i in obj) {
+			data+=i+"="+obj[i]+"&";
+		}
+		return data.substr(0,data.length-1);
+	};
+})
+
+.factory('systemdata', ['hex_md5','base64', function(hex_md5,base64){
+	return function(obj){
+		obj= (typeof obj === "object")?obj:{};
+		var time=new Date();
+		var urldata={
+			nick : 'softbanana',
+			name : 'softbanana',
+			method : 'softbanana.app.user.login',
+			timestamp : parseInt(time.getTime()/1000).toString(),
+			format : 'json',
+		};
+		var tempStr = base64.encode(urldata.nick)+ base64.encode(urldata.method) + base64.encode(urldata.timestamp) + base64.encode(urldata.name) + base64.encode(urldata.format);
+		urldata.sign=hex_md5(tempStr);
+		return $.extend(urldata,obj);
+	};
+}]);
+
+
+
+
+
+
