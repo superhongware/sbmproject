@@ -5,7 +5,7 @@ angular.module('starter.services', ["service.encryption"])
 			var cookieString=name+"="+escape(value); 
 			if(expiresHours>0){ 
 				var date=new Date(); 
-				date.setTime(date.getTime+expiresHours*3600*1000); 
+				date.setTime(date.getTime()+expiresHours*3600*1000); 
 				cookieString=cookieString+"; expires="+date.toGMTString(); 
 			} 
 			document.cookie=cookieString; 
@@ -15,7 +15,7 @@ angular.module('starter.services', ["service.encryption"])
 			var arrCookie=strCookie.split("; "); 
 			for(var i=0;i<arrCookie.length;i++){ 
 				var arr=arrCookie[i].split("="); 
-				if(arr[0]==name)return arr[1]; 
+				if(arr[0]==name)return unescape(arr[1]); 
 			} 
 			return ""; 
 		},
@@ -40,7 +40,7 @@ angular.module('starter.services', ["service.encryption"])
 	};
 })
 
-.factory('loginSubmit', ['$http','jsonpURL','spelldata','systemdata', function($http,jsonpURL,spelldata,systemdata){
+.factory('loginSubmit', ['$http','$state','jsonpURL','spelldata','systemdata', 'myCookie',function($http,$state,jsonpURL,spelldata,systemdata,myCookie){
 
 	return function loginSubmit(){
 		var urldata={
@@ -48,12 +48,13 @@ angular.module('starter.services', ["service.encryption"])
 			userName:'admin',
 			password:'admin',
 		};
-
 		urldata=systemdata(urldata);
 		console.log(urldata);
 		var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin";
 		var lasturl=jsonpURL(url,urldata);
-
+		console.log(lasturl);
+		myCookie.add("shopname","shopname",72);
+		$state.go("home");
 		// console.log(spelldata(urldata));
 
 		// $http.post(url,spelldata(urldata))

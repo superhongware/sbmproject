@@ -1,11 +1,11 @@
 angular.module('starter.controllers', [])
-.controller('mainviewCtrl', ['$scope','$state','myCookie','hrefGo', '$ionicLoading',function($scope,$state,myCookie,hrefGo,$ionicLoading){
+.controller('mainviewCtrl', ['$scope','$ionicLoading','myCookie','loginCheck',function($scope,$ionicLoading,myCookie,loginCheck){
 
 	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
 	// 	// console.log(toState.controller);
 	// 	$scope.navbarhide=toState.controller!=="indexCtrl"?false:true;
 	// });
-	$scope.hrefGo=hrefGo;
+	loginCheck();
 	//首页隐藏top-nav-bar
 	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
 	// 	// console.log(toState.controller);
@@ -37,7 +37,7 @@ angular.module('starter.controllers', [])
 
 }])
 //我的订单
-.controller('ordersCtrl', ['$scope','$ionicPopover','loginCheck',function($scope,$ionicPopover,loginCheck){
+.controller('ordersCtrl', ['$scope','$ionicPopover',function($scope,$ionicPopover){
 
 
 	var template = '<ion-popover-view><ion-content><ion-list><ion-item>未付款</ion-item><ion-item>已打印</ion-item><ion-item>未已发货</ion-item></ion-list> </ion-content></ion-popover-view>';
@@ -130,10 +130,10 @@ angular.module('starter.controllers', [])
 	};
 }])
 //登录页
-.controller('LoginCtrl', ['$scope','$state','loginSubmit','myCookie',function($scope,$state,loginSubmit,myCookie){
+.controller('LoginCtrl', ['$scope','$state','loginSubmit',function($scope,$state,loginSubmit){
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
-	loginSubmit();
+	$scope.loginSubmit=loginSubmit;
 
 	// var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin"
 
