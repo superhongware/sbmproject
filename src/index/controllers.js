@@ -128,6 +128,23 @@ angular.module('starter.controllers', [])
 			duration:2000
 		});
 	};
+	$scope.showdata={
+		page:1
+	};
+
+
+}])
+.controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
+	console.log($state);
+	console.log("pagetemp1");
+	// console.log("editerCtrl");
+
+}])
+.controller('pagetemp2Ctrl',['$scope','$state',function($scope,$state){
+	// console.log($state);
+	console.log("pagetemp2");
+	// console.log("editerCtrl");
+
 }])
 //登录页
 .controller('LoginCtrl', ['$scope','$state','loginSubmit',function($scope,$state,loginSubmit){
@@ -136,8 +153,6 @@ angular.module('starter.controllers', [])
 	$scope.loginSubmit=loginSubmit;
 
 	// var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin"
-
-
 
 }])
 
@@ -163,3 +178,9 @@ angular.module('starter.controllers', [])
 		
 	};
 }]);
+
+
+
+
+
+

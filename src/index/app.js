@@ -3,7 +3,7 @@
 *
 * Description
 */
-angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','starter.controllers', 'starter.services','starter.directives'])
 .run(['$ionicPlatform','$rootScope', function($ionicPlatform,$rootScope){
 	$rootScope.viewanimate="gogogo";
   $ionicPlatform.ready(function() {
@@ -20,7 +20,7 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 }])
 .config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider) {
 	// $ionicConfigProvider.backButton.text("返回");
-	$ionicConfigProvider.views.maxCache(1);
+	$ionicConfigProvider.views.maxCache(0);
 	$ionicConfigProvider.views.forwardCache(false);
 	$ionicConfigProvider.templates.maxPrefetch(0);
 
@@ -97,7 +97,15 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services'])
 		templateUrl: "templates/index/creatdetails/editpages.html",
 		controller:'editpagesCtrl'
 	})
-	
+
+	.state('editpages.editer', {
+		url: "/editer/:pageId/:pageTemp",
+		templateUrl:function(params){
+			return "templates/index/pages/page"+params.pageTemp+".html";
+		}
+	})
+
+
 	//sidebar测试  正式上线删除
 	.state('sidebartest',{
 		url:"/sidebartest",
