@@ -1,5 +1,5 @@
-angular.module('starter.controllers', [])
-.controller('mainviewCtrl', ['$scope','$ionicLoading','myCookie','loginCheck',function($scope,$ionicLoading,myCookie,loginCheck){
+var starterctrl = angular.module('starter.controllers', []);
+starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', 'loginCheck', function ($scope, $ionicLoading, myCookie, loginCheck) {
 
 	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
 	// 	// console.log(toState.controller);
