@@ -1,4 +1,5 @@
 angular.module('starter.services', ["service.encryption"])
+
 .factory('myCookie',function(){
 	return {
 		add:function(name,value,expiresHours){
@@ -26,6 +27,8 @@ angular.module('starter.services', ["service.encryption"])
 		}
 	};
 })
+
+
 .factory('loginCheck',['$state','myCookie',function($state,myCookie){
 	return function(){
 		if(!myCookie.get("shopname")){
@@ -33,6 +36,7 @@ angular.module('starter.services', ["service.encryption"])
 		}
 	};
 }])
+
 
 .factory('hrefGo', function(){
 	return function (href){
@@ -43,19 +47,40 @@ angular.module('starter.services', ["service.encryption"])
 .factory('loginSubmit', ['$http','$state','jsonpURL','spelldata','systemdata', 'myCookie',function($http,$state,jsonpURL,spelldata,systemdata,myCookie){
 
 	return function loginSubmit(){
-		var urldata={
+
+		//拼接上system数据
+		var urldata=systemdata({
 			orgName:'softbanana',
 			userName:'admin',
 			password:'admin',
-		};
-		urldata=systemdata(urldata);
+		});
+
 		console.log(urldata);
+
+		//post数据拼接
+		console.log(spelldata(urldata));
+
+// http://api.softbanana.com/openApi/dyncSoftBanana/app/loginUser
 		var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin";
 		var lasturl=jsonpURL(url,urldata);
-		console.log(lasturl);
-		myCookie.add("shopname","shopname",72);
-		$state.go("home");
-		// console.log(spelldata(urldata));
+
+		console.log("1:"+lasturl);
+
+
+		$http.jsonp(lasturl)
+		.success(function(data){
+			console.log("success");
+			console.log(data);
+		})
+		.error(function(error,status,headers){
+			console.log("error");
+			console.log(error);
+			console.log(status);
+			console.log(headers);
+		});
+
+		// myCookie.add("shopname","shopname",72);
+		// $state.go("home");
 
 		// $http.post(url,spelldata(urldata))
 
