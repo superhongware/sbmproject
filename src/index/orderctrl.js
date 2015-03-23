@@ -1,46 +1,57 @@
 
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover','$http', function ($scope, $ionicPopover,$http) {
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover','$http','$ionicLoading', function ($scope, $ionicPopover,$http,$ionicLoading) {
 
+    $scope.shopList = [
+        {
+            name:'上海百货'
+        },
+        {
+            name:'南宁百货'
+        }
+    ];
 
-    console.log($http);
+    $scope.show = function(){
 
-    var template = '<ion-popover-view><ion-content><ion-list><ion-item>ddd</ion-item><ion-item>顶顶顶</ion-item><ion-item>顶顶顶</ion-item></ion-list> </ion-content></ion-popover-view>';
+        $ionicLoading.show({
+            template:"正在加载..."
+        });
 
-    $scope.popover = $ionicPopover.fromTemplate(template, {
-        scope: $scope
-    });
+        console.log(tesat);
 
-    // .fromTemplateUrl() method
-    $ionicPopover.fromTemplateUrl('my-popover.html', {
-        scope: $scope
-    }).then(function (popover) {
-        $scope.popover = popover;
-    });
+        setTimeout(function(){
+            $ionicLoading.hide();
+        },2000);
 
-
-    $scope.openPopover = function ($event) {
-        $scope.popover.show($event);
     };
-    $scope.closePopover = function () {
-        $scope.popover.hide();
-    };
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function () {
-        console.log("$destroy");
-        $scope.popover.remove();
-    });
-    // Execute action on hide popover
-    $scope.$on('popover.hidden', function () {
-        console.log("popover.hidden");
 
-        // Execute action
-    });
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function () {
-        console.log("popover.removed");
+    // $scope.doRefresh = function () {
+    //     console.log(123123);
+    //     return true;
+    // };
 
-        // Execute action
-    });
+    // $scope.openPopover = function ($event) {
+    //     $scope.popover.show($event);
+    // };
+    // $scope.closePopover = function () {
+    //     $scope.popover.hide();
+    // };
+    // //Cleanup the popover when we're done with it!
+    // $scope.$on('$destroy', function () {
+    //     console.log("$destroy");
+    //     $scope.popover.remove();
+    // });
+    // // Execute action on hide popover
+    // $scope.$on('popover.hidden', function () {
+    //     console.log("popover.hidden");
+
+    //     // Execute action
+    // });
+    // // Execute action on remove popover
+    // $scope.$on('popover.removed', function () {
+    //     console.log("popover.removed");
+
+    //     // Execute action
+    // });
 
 
 }]);

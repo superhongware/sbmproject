@@ -37,8 +37,8 @@
     <ion-side-menu side="left"  class="paddingtop44" width="100">
       <ion-content>
         <ion-list>
-          <ion-item>
-            我的店铺
+          <ion-item menu-close ng-repeat="item in shopList">
+            {{item.name}}
           </ion-item>
         </ion-list>
       </ion-content>
