@@ -44,10 +44,10 @@
     </ion-side-menu-content>
 
     <!-- Left menu -->
-    <ion-side-menu side="left"  class="paddingtop44" width="100">
+    <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="100">
       <ion-content>
         <ion-list>
-          <ion-item menu-close ng-repeat="item in shopList" ng-click="loadDataByShop(item)">
+          <ion-item menu-close ng-repeat="item in shopList" ng-class="{{pageFunc.getShopListSelectClass(it)}}" ng-click="loadDataByShop(item)">
             {{item.name}}
           </ion-item>
         </ion-list>

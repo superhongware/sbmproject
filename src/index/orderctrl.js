@@ -6,10 +6,13 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     $scope.shopList = [{
         name: '上海百货',
-        value: '123'
+        value: '上海百货'
     }, {
         name: '南宁百货',
-        value: '456'
+        value: '南宁百货'
+    }, {
+        name: '世贸商城',
+        value: '世贸商城'
     }];
 
     $scope.orderList = [{
@@ -52,6 +55,21 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         return arr;
     };
 
+    $scope.pageData = {
+        currShop:$scope.shopList[0]
+        
+    };
+
+    $scope.pageFunc = {
+        getShopListSelectClass:function(item){
+            var result = '';
+            if (item.name == $scope.pageData.currShop.name) {
+                result = 'selectItem';
+            }
+            return result;
+        }
+    };
+
     $scope.currOrderStatusName = $scope.orderStatusList[0].name;
 
     /**
@@ -91,7 +109,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                 plat: '天猫' //平台类型
             });
         }
-        
+
 
         setTimeout(function() {
             $scope.$broadcast('scroll.refreshComplete');
@@ -138,6 +156,8 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         });
 
         console.log(item.value);
+
+        $scope.pageData.currShop = item;
 
         setTimeout(function() {
             $ionicLoading.hide();
