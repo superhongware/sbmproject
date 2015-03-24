@@ -36,7 +36,50 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 
 
 }])
+//我的订单
+.controller('ordersCtrl', ['$scope','$ionicPopover',function($scope,$ionicPopover){
 
+
+	var template = '<ion-popover-view><ion-content><ion-list><ion-item>未付款</ion-item><ion-item>已打印</ion-item><ion-item>未已发货</ion-item></ion-list> </ion-content></ion-popover-view>';
+
+  $scope.popover = $ionicPopover.fromTemplate(template, {
+    scope: $scope
+  });
+
+  // .fromTemplateUrl() method
+  $ionicPopover.fromTemplateUrl('my-popover.html', {
+    scope: $scope
+  }).then(function(popover) {
+    $scope.popover = popover;
+  });
+
+
+  $scope.openPopover = function($event) {
+    $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
+  //Cleanup the popover when we're done with it!
+  $scope.$on('$destroy', function() {
+  	console.log("$destroy");
+    $scope.popover.remove();
+  });
+  // Execute action on hide popover
+  $scope.$on('popover.hidden', function() {
+  	console.log("popover.hidden");
+
+    // Execute action
+  });
+  // Execute action on remove popover
+  $scope.$on('popover.removed', function() {
+  	console.log("popover.removed");
+
+    // Execute action
+  });
+
+
+}])
 //我的宝贝
 .controller('productsCtrl', ['$scope','$ionicBackdrop', '$timeout','$http','$ionicLoading',function($scope,$ionicBackdrop,$timeout,$http,$ionicLoading){
 	
@@ -108,7 +151,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.loginSubmit=loginSubmit;
-console.log(0);
+
 	// var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin"
 
 }])
