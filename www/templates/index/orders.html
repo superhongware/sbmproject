@@ -1,6 +1,6 @@
 <ion-view view-title="我的订单">
   <ion-nav-buttons side="right">
-    <button class="button" ng-click="show()">
+    <button class="button" ng-click="refreshServer()">
     同步
     </button>
   </ion-nav-buttons>
@@ -11,13 +11,13 @@
 
       <div class="bar bar-subheader">
         <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-        <button class="button button-icon" menu-toggle="right" ng-click="openPopover($event)">已付款</button>
+        <button class="button button-icon" menu-toggle="right" ng-click="openPopover(orderFilterShowEvent())">已付款</button>
 
       </div>
       <ion-content class="paddingtop44">
         <ion-refresher
         pulling-text="下拉更新..."
-        on-refresh="doRefresh()">
+        on-refresh="refreshOrderList()">
         </ion-refresher>
 
         <ion-list>
@@ -48,5 +48,4 @@
   </ion-side-menus>
 
 </ion-view>
-
 
