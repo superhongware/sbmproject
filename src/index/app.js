@@ -27,12 +27,12 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','st
 	$stateProvider
 	.state('login',{
 		url:'/login',
-		templateUrl:'templates/index/login.html',
+		templateUrl:'templates/index/login/login.html',
 		controller:'LoginCtrl'
 	})
 	.state('sign_up', {
 		url: "/sign_up",
-		templateUrl: "templates/index/sign_up.html",
+		templateUrl: "templates/index/login/sign_up.html",
 		controller:'sign_upCtrl'
 	})
 	.state('home', {
@@ -48,15 +48,22 @@ angular.module('starter', ['ionic','starter.controllers', 'starter.services','st
 		url: "/details",
 		templateUrl: "templates/index/details.html"
 	})
-	.state('orders', {
-		url: "/orders",
-		templateUrl: "templates/index/orders.html",
-		controller:"ordersCtrl"
-	})
+	//我的宝贝
 	.state('products', {
 		url: "/products",
 		templateUrl: "templates/index/products.html",
 		controller:'productsCtrl'
+	})
+	//我的订单
+	.state('orders', {
+		url: "/orders",
+		templateUrl: "templates/index/orders/orders.html",
+		controller:"ordersCtrl"
+	})
+	.state('orderdetail', {
+		url: "/orderdetail",
+		templateUrl: "templates/index/orders/orderdetail.html",
+		controller:"orderdetailCtrl"
 	})
 
 	//设置

@@ -20,9 +20,9 @@
         on-refresh="refreshOrderList()">
         </ion-refresher>
 
-        <ion-list class="warpOrderList">
+        <ion-list class="warpOrderList" ng-repeat="item in orderList">
           <ion-item
-          class="item-avatar item-icon-right orderItem" ng-repeat="item in orderList">
+          class="item-avatar item-icon-right orderItem" >
             <img ng-src="{{item.picUrl}}">
             <h2>{{item.title}}</h2>
             <p><span class="mRight100">￥{{item.totalAmount}}</span><span>{{item.orderCount}}件</span></p>
@@ -46,8 +46,8 @@
     <!-- Left menu -->
     <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="100">
       <ion-content>
-        <ion-list>
-          <ion-item menu-close ng-repeat="item in shopList" ng-class="{{pageFunc.getShopListSelectClass(it)}}" ng-click="loadDataByShop(item)">
+        <ion-list ng-repeat="item in shopList">
+          <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="loadDataByShop(item)">
             {{item.name}}
           </ion-item>
         </ion-list>

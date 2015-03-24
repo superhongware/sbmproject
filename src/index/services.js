@@ -55,7 +55,6 @@ angular.module('starter.services', ["service.encryption"])
 		});
 
 		console.log(jsonpapi);
-		console.log(postapi);
 
 		
 		$http.jsonp(jsonpapi.url)

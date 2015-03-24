@@ -5,14 +5,19 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     };
 
     $scope.shopList = [{
-        name: '上海百货',
-        value: '上海百货'
+		name: '上海百货',
+        value: '上海百货',
+        checked:1,
     }, {
         name: '南宁百货',
-        value: '南宁百货'
+        value: '南宁百货',
+        checked:0,
+
     }, {
         name: '世贸商城',
-        value: '世贸商城'
+        value: '世贸商城',
+        checked:0,
+
     }];
 
     $scope.orderList = [{
@@ -57,18 +62,17 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     $scope.pageData = {
         currShop:$scope.shopList[0]
-        
     };
 
-    $scope.pageFunc = {
-        getShopListSelectClass:function(item){
-            var result = '';
-            if (item.name == $scope.pageData.currShop.name) {
-                result = 'selectItem';
-            }
-            return result;
-        }
-    };
+    // $scope.pageFunc = {
+    //     getShopListSelectClass:function(item){
+    //         var result = '';
+    //         if (item.name == $scope.pageData.currShop.name) {
+    //             result = 'selectItem';
+    //         }
+    //         return result;
+    //     }
+    // };
 
     $scope.currOrderStatusName = $scope.orderStatusList[0].name;
 
@@ -156,6 +160,11 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         });
 
         console.log(item.value);
+        //控制样式变化
+        for (var i in $scope.shopList) {
+        	var checked = $scope.shopList[i].value===item.value;
+        	$scope.shopList[i].checked=checked;
+        }
 
         $scope.pageData.currShop = item;
 
@@ -164,7 +173,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         }, 1000);
     };
 
-    $ionicPopover.fromTemplateUrl('/templates/index/order/orderStatusfilterPopover.html', {
+    $ionicPopover.fromTemplateUrl('/templates/index/orders/orderStatusfilterPopover.html', {
         scope: $scope,
     }).then(function(popover) {
         $scope.popover = popover;
