@@ -7,3 +7,5 @@ plugins/
 www/lib/
 
 npm-debug.log
+
+*.orig
