@@ -10,7 +10,8 @@ var gulp = require('gulp'),
   jshint = require('gulp-jshint'),
   uglify = require('gulp-uglify'),
   livereload = require('gulp-livereload'),
-  browserSync = require('browser-sync');
+  browserSync = require('browser-sync'),
+  sourcemaps = require('gulp-sourcemaps');
 
 
 var paths = {
@@ -52,10 +53,12 @@ gulp.task('less', function () {
 gulp.task('js', function() {
   for (var i = 0; i < paths.js.length; i++) {
     gulp.src(paths.jssrc+paths.js[i]+'/**/*.js')
+      .pipe(sourcemaps.init())
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
       .pipe(uglify())
       .pipe(concat('app.js'))
+      .pipe(sourcemaps.write())
       .pipe(gulp.dest('www/js'+paths.js[i]))
       .pipe(livereload());
   };
