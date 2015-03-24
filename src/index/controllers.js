@@ -11,9 +11,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	// 	// console.log(toState.controller);
 	// 	$scope.navbarhide=toState.controller!=="indexCtrl"?false:true;
 	// 	$scope.sncybtnhide=toState.controller==="productsCtrl"?false:true;
-
 	// });
-
 	$scope.show= function(){
 		$ionicLoading.show({
 			template:"loading...",
@@ -33,7 +31,6 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	//$ionicHistory  清全部数据
   // .fromTemplate() method
 	loginCheck();
-
 
 }])
 
@@ -102,38 +99,6 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	console.log("pagetemp2");
 	// console.log("editerCtrl");
 
-}])
-//登录页
-.controller('LoginCtrl', ['$scope','$state','loginSubmit',function($scope,$state,loginSubmit){
-	// $rootScope.viewanimate="gogogo";
-	// $scope.urldata=loginSubmit();
-	$scope.loginSubmit=loginSubmit;
-console.log(0);
-	// var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin"
-
-}])
-
-
-//注册页
-.controller('sign_upCtrl', ['$scope','$rootScope','$state','$ionicPopup',function($scope,$rootScope,$state,$ionicPopup){
-	// $rootScope.viewanimate="goback";
-	$scope.sign_up=function(){
-		$ionicPopup.show({
-			title:"注册成功",
-			template:"注册消息已发送到邮箱，请妥善保管！",
-			buttons:[{
-				text:"我知道了",
-				type:"button-energized",
-				onTap:function(e){
-					$state.go("shops");
-				}
-			}]
-		});
-	};
-
-	$scope.sign_upForm={
-		
-	};
 }]);
 
 

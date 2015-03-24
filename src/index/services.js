@@ -44,30 +44,21 @@ angular.module('starter.services', ["service.encryption"])
 	};
 })
 
-.factory('loginSubmit', ['$http','$state','jsonpURL','spelldata','systemdata', 'myCookie',function($http,$state,jsonpURL,spelldata,systemdata,myCookie){
+.factory('loginSubmit', ['$http','$state','SBMJSONP','SBMPOST','myCookie',function($http,$state,SBMJSONP,SBMPOST,myCookie){
 
 	return function loginSubmit(){
 
-		//拼接上system数据
-		var urldata=systemdata({
+		var jsonpapi=SBMJSONP("userLogin",{
 			orgName:'softbanana',
 			userName:'admin',
-			password:'admin',
+			password:'admin'
 		});
 
-		console.log(urldata);
+		console.log(jsonpapi);
+		console.log(postapi);
 
-		//post数据拼接
-		console.log(spelldata(urldata));
-
-// http://api.softbanana.com/openApi/dyncSoftBanana/app/loginUser
-		var url="http://192.168.51.173:8089/openApi/dyncSoftBanana/app/userLogin";
-		var lasturl=jsonpURL(url,urldata);
-
-		console.log("1:"+lasturl);
-
-
-		$http.jsonp(lasturl)
+		
+		$http.jsonp(jsonpapi.url)
 		.success(function(data){
 			console.log("success");
 			console.log(data);
@@ -79,25 +70,66 @@ angular.module('starter.services', ["service.encryption"])
 			console.log(headers);
 		});
 
-		// myCookie.add("shopname","shopname",72);
-		// $state.go("home");
-
-		// $http.post(url,spelldata(urldata))
-
-		// .success(function(data){
-		// 	console.log("success");
-		// 	console.log(data);
-		// })
-		// .error(function(error,status,headers){
-		// 	console.log("error");
-		// 	console.log(error);
-		// 	console.log(status);
-		// 	console.log(headers);
-		// });
 
 	};
 }])
 
+/** 
+	JSONP接口通用方法
+	SBMJSONP使用方法如下
+	var api=jsonpURL("userLogin",{
+		orgName:'softbanana',
+		userName:'admin',
+		password:'admin'
+	});
+
+	$http.jsonp(api.url,api.data)
+	.success(function(data){
+		...
+	})
+	.error(function(status,response){
+		...
+	});
+*/
+.factory('SBMJSONP', ['jsonpURL','systemdata',function(jsonpURL,systemdata){
+	return function SBMAPI(action,data){
+		var urldata=systemdata(data);
+		var url="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+action;
+		return {url:jsonpURL(url,urldata)};
+	};
+}])
+
+/** 
+	POST接口通用方法
+	SBMPOST使用方法如下
+	var api=SBMPOST("userLogin",{
+		orgName:'softbanana',
+		userName:'admin',
+		password:'admin'
+	});
+
+	$http.post(api.url,api.data)
+	.success(function(data){
+		...
+	})
+	.error(function(status,response){
+		...
+	});
+*/
+.factory('SBMPOST', ['postURL','systemdata',function(postURL,systemdata){
+	return function SBMAPI(action,data){
+		var urldata=systemdata(data);
+			//服务器端不接收json格式的数据，必须拼接成类似a=1&b=2&c=3格式
+			urldata=postURL(urldata);
+		var url="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+action;
+		return {url:url,data:urldata};
+	};
+}])
+
+/** 
+	接口方法
+	拼接jsonp的url
+*/
 .factory('jsonpURL', function(){
 	return function jsonpURL(url,obj){
 		url+="?";
@@ -109,8 +141,12 @@ angular.module('starter.services', ["service.encryption"])
 	};
 })
 
-.factory('spelldata', function(){
-	return function spelldata(obj){
+/** 
+	接口方法
+	拼接post的data
+*/
+.factory('postURL', function(){
+	return function postURL(obj){
 		var data='';
 		for (var i in obj) {
 			data+=i+"="+obj[i]+"&";
@@ -119,6 +155,11 @@ angular.module('starter.services', ["service.encryption"])
 	};
 })
 
+/** 
+	接口方法
+	生成 系统级数据
+	再跟 提交数据 拼接起来
+*/
 .factory('systemdata', ['hex_md5','base64', function(hex_md5,base64){
 	return function(obj){
 		obj= (typeof obj === "object")?obj:{};
