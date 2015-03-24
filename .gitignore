@@ -5,5 +5,9 @@ node_modules/
 platforms/
 plugins/
 www/lib/
+www/css/style.css
+www/js/index/app.js
 
 npm-debug.log
+
+*.orig

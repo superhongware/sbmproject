@@ -1,0 +1,9 @@
+  <ion-popover-view class="warpOrderStatusList">
+      <ion-content>
+        <div>
+          <a class="item" ng-repeat="item in showOrderStatusList()" ng-click="loadDataByStatusFilter(item)">
+            {{item.name}}
+          </a>
+        </div>
+      </ion-content>
+</ion-popover-view>
