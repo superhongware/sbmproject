@@ -12,7 +12,6 @@
       <div class="bar bar-subheader">
         <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
         <button class="button button-icon font14 mRight5" menu-toggle="right" ng-click="popover.show($event)">{{currOrderStatusName}}<i class="iconfont icon-xiangxia font14 mLeft2"></i></button>
-        
       </div>
       <ion-content class="paddingtop44">
         <ion-refresher
@@ -20,14 +19,19 @@
         on-refresh="refreshOrderList()">
         </ion-refresher>
 
-        <ion-list class="warpOrderList" ng-repeat="item in orderList">
+        <ion-list class="warpOrderList">
           <ion-item
-          class="item-avatar item-icon-right orderItem" >
-            <img ng-src="{{item.picUrl}}">
+            class="item-avatar item-icon-right orderItem" 
+            ng-repeat="item in orderList"
+            ng-click="showOrderDetail(item)"
+            ng-href="#/orderdetail"
+          >
+            <img ng-src="{{item.picUrl}}" class="avatar">
+            <p class="orderIdAndStatus">已付款E123131212313123</p>
             <h2>{{item.title}}</h2>
             <p><span class="mRight100">￥{{item.totalAmount}}</span><span>{{item.orderCount}}件</span></p>
+        
           </ion-item>
-
         </ion-list>
 
       <ion-infinite-scroll
@@ -52,9 +56,19 @@
           </ion-item>
         </ion-list>
       </ion-content>
-
     </ion-side-menu>
-
   </ion-side-menus>
 
 </ion-view>
+
+<script id="pageTplorderStatusfilterPopover" type="text/ng-template">
+  <ion-popover-view class="warpOrderStatusList">
+      <ion-content>
+        <div>
+          <a class="item" ng-repeat="item in showOrderStatusList()" ng-click="loadDataByStatusFilter(item)">
+            {{item.name}}
+          </a>
+        </div>
+      </ion-content>
+  </ion-popover-view>
+</script>

@@ -1,24 +1,19 @@
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', function($scope, $ionicPopover, $http, $ionicLoading) {
-
-    $scope.moduleOption = {
-
-    };
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading','$location', function($scope, $ionicPopover, $http, $ionicLoading,$location) {
 
     $scope.shopList = [{
-		name: '上海百货',
+        name: '上海百货',
         value: '上海百货',
-        checked:1,
+        checked: 1
     }, {
         name: '南宁百货',
         value: '南宁百货',
-        checked:0,
-
+        checked: 0
     }, {
         name: '世贸商城',
         value: '世贸商城',
-        checked:0,
-
+        checked: 0
     }];
+
 
     $scope.orderList = [{
         picUrl: 'http://zhaoyanblog.com/wp-content/uploads/2014/03/20140319215736751.png',
@@ -50,6 +45,13 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         status: 'COMPLETED'
     }];
 
+    $scope.pageData = {
+        currShop: $scope.shopList[0],
+        pageIndex:0,
+        pageSize:10
+    };
+
+
     $scope.showOrderStatusList = function() {
         var arr = [];
         for (var i = 0; i < $scope.orderStatusList.length; i++) {
@@ -60,9 +62,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         return arr;
     };
 
-    $scope.pageData = {
-        currShop:$scope.shopList[0]
-    };
 
     // $scope.pageFunc = {
     //     getShopListSelectClass:function(item){
@@ -100,7 +99,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     $scope.refreshOrderList = function() {
 
         console.log('Refreshing!');
-
 
         for (var i = 0; i < 5; i++) {
             $scope.orderList.push({
@@ -160,10 +158,9 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         });
 
         console.log(item.value);
-        //控制样式变化
+        
         for (var i in $scope.shopList) {
-        	var checked = $scope.shopList[i].value===item.value;
-        	$scope.shopList[i].checked=checked;
+            $scope.shopList[i].checked = $scope.shopList[i].value === item.value;
         }
 
         $scope.pageData.currShop = item;
@@ -173,16 +170,22 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         }, 1000);
     };
 
-    $ionicPopover.fromTemplateUrl('/templates/index/orders/orderStatusfilterPopover.html', {
+    $scope.showOrderDetail = function(item) {
+        //console.log(item.title);
+        // $location.path('#/orderdetail');
+        
+    };
+
+    $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {
         scope: $scope,
     }).then(function(popover) {
         $scope.popover = popover;
     });
 
-
     $scope.$on('$stateChangeSuccess', function() {
         $scope.loadMoreData();
     });
+
 
 
     // $scope.openPopover = function($event) {

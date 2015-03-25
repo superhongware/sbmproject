@@ -19,8 +19,8 @@
 	}
 }
 .opacityBlackBg(@opacity) {
-	background-color: #5C5C5C;
-	opacity: @opacity;
+	background-color: #5C5C5C !important;
+	opacity: @opacity !important;
 	// background: rgba(24, 23, 23, 0.81);
 }
 .warpOrderStatusList {
@@ -38,7 +38,7 @@
 		text-align: center;
 		font-size: 14px;
 		.opacityBlackBg(1);
-		color: #fff;
+		color: #fff !important;
 		border: 0px;
 		margin: 0px 15px;
 		padding-left: 0px;
@@ -49,16 +49,36 @@
 		// line-height: 50px;
 	}
 }
-
-.warpShopMenu{
+.warpShopMenu {
 	.opacityBlackBg(1);
-	.item{
+
+	.item {
 		.opacityBlackBg(1);
 		color: #fff;
 		font-size: 14px;
 		border: 0px;
 	}
-	.selectItem{
-		  background-color: #2D2D2D;
+	.selectItem {
+		background-color: #2D2D2D !important;
+	}
+}
+
+/*订单列表*/
+.warpOrderList {
+	.orderItem {
+		a.item-content {
+			padding-bottom: 10px;
+			padding-top: 28px;
+		}
+		.orderIdAndStatus {
+			position: absolute;
+			top: 6px;
+			left: 19px;
+			font-size: 12px;
+		}
+		img.avatar {
+			top: 22px;
+			left: 18px;
+		}
 	}
 }
