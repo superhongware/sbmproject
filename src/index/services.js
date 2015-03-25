@@ -29,10 +29,13 @@
 })
 
 
-.factory('loginCheck',['$state','myCookie',function($state,myCookie){
+.factory('loginCheck',['$state','myCookie','base64',function($state,myCookie,base64){
 	return function(){
-		if(!myCookie.get("shopname")){
+		if(!myCookie.get("orgName")){
 			$state.go("login");
+			return;
+		}else{
+			return base64.decode(myCookie.get("orgName"));
 		}
 	};
 }])

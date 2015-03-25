@@ -22,19 +22,8 @@
 					<input type="password" placeholder="密码" ng-model="logindata.password">
 				</label>
 			</div>
-<!-- <form>
-  <input type="hidden" ng-model='urldata.orgName' name="orgName">
-  <input type="hidden" ng-model='urldata.userName' name="userName">
-  <input type="hidden" ng-model='urldata.password' name="password">
-  <input type="hidden" ng-model='urldata.nick' name="nick">
-  <input type="hidden" ng-model='urldata.name' name="name">
-  <input type="hidden" ng-model='urldata.method' name="method">
-  <input type="hidden" ng-model='urldata.timestamp' name="timestamp">
-  <input type="hidden" ng-model='urldata.format' name="format">
-  <input type="hidden" ng-model='urldata.sign' name="sign">
-</form> -->
 			<div class="padding">
-				<a class="button button-block button-energized" ng-click="loginSubmit()">登录</a>
+				<a class="button button-block button-energized" ng-click="loginSubmit(logindata)">登录</a>
 				<a class="button button-block button-nocolor" ui-sref="sign_up">返回注册<i class="iconfont icon-justgo"></i></a>
 			</div>
 		</ion-list>
