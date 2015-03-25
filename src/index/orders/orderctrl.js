@@ -1,4 +1,4 @@
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading','$location', function($scope, $ionicPopover, $http, $ionicLoading,$location) {
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP) {
 
     $scope.shopList = [{
         name: '上海百货',
@@ -47,8 +47,8 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     $scope.pageData = {
         currShop: $scope.shopList[0],
-        pageIndex:0,
-        pageSize:10
+        pageIndex: 0,
+        pageSize: 10
     };
 
 
@@ -158,7 +158,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         });
 
         console.log(item.value);
-        
+
         for (var i in $scope.shopList) {
             $scope.shopList[i].checked = $scope.shopList[i].value === item.value;
         }
@@ -170,10 +170,26 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         }, 1000);
     };
 
+    $scope.loadData = function() {
+        var postData = {
+            method:'softbanana.app.trade.search'
+
+        };
+
+        var api = SBMJSONP("searchTrade", postData);
+        $http.post(api.url, api.data)
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function(status, response) {
+                console.log('数据查询连接失败');
+            });
+    };
+
     $scope.showOrderDetail = function(item) {
         //console.log(item.title);
         // $location.path('#/orderdetail');
-        
+
     };
 
     $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {

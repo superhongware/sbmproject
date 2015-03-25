@@ -2,5 +2,5 @@ starterctrl.controller('orderdetailCtrl', ['$scope', '$ionicPopover', '$http', '
 	$scope.obj = '';
 
 
-	
+
 }]);

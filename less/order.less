@@ -1,3 +1,19 @@
+
+
+.floatL{
+	float: left;
+}
+.floatR{
+	float: right;
+}
+.Clear{
+	clear: both;
+}
+
+.colorGrey_9{
+	color: #999;
+}
+
 /*Margin And Padding Start*/
 .mLeft2 {
 	margin-left: 2px !important;
@@ -5,8 +21,14 @@
 .mRight5 {
 	margin-right: 5px !important;
 }
+.mRight30 {
+	margin-right: 30px !important;
+}
 .mRight100 {
 	margin-right: 100px !important;
+}
+.pBottom6{
+	padding-bottom: 6px !important;
 }
 
 /*Margin And Padding end*/
@@ -75,10 +97,44 @@
 			top: 6px;
 			left: 19px;
 			font-size: 12px;
+			color: #999;
 		}
 		img.avatar {
 			top: 22px;
 			left: 18px;
 		}
 	}
+}
+
+/*订单详情*/
+.warpOrderDetail{
+	color: #4D4D4D;
+	div{
+		padding: 2px 14px;
+  		font-size: 12px;
+	}
+	div.orders{
+		padding:0;
+		.item{
+			padding: 11px 14px 0px;
+			li{
+				float: left;
+				img{
+					.size(50px,50px);
+				}
+			}
+			li:nth-child(3){
+				float: right;
+			}
+		}
+	}
+	.subTitle{
+		font-size: 14px;
+  		background-color: #F0F0F0;
+	}
+	div.orderNumber{
+		padding-top: 10px;
+		font-size: 14px;
+	}
+	
 }
