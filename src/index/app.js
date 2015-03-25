@@ -5,13 +5,14 @@
 */
 angular.module('starter', 
 	['ionic',
-	'starter.controllers', 
 	'loginmodule',
+	'productsmodule',
+	'starter.controllers', 
 	'starter.services',
 	'starter.directives'])
-.run(['$ionicPlatform','$rootScope', function($ionicPlatform,$rootScope){
+.run(['$ionicPlatform','$rootScope','loginCheck', function($ionicPlatform,$rootScope,loginCheck){
 	$rootScope.viewanimate="gogogo";
-  $ionicPlatform.ready(function() {
+  	$ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -53,12 +54,19 @@ angular.module('starter',
 		url: "/details",
 		templateUrl: "templates/index/details.html"
 	})
+
+
 	//我的宝贝
 	.state('products', {
 		url: "/products",
-		templateUrl: "templates/index/products.html",
+		templateUrl: "templates/index/products/products.html",
 		controller:'productsCtrl'
 	})
+
+
+
+
+
 	//我的订单
 	.state('orders', {
 		url: "/orders",
@@ -93,7 +101,7 @@ angular.module('starter',
 		templateUrl: "templates/index/setting/set-aboutus.html"
 	})
 
-	//新建宝贝
+	//新建宝贝详情
 	.state('checkproduct', {
 		url: "/checkproduct",
 		templateUrl: "templates/index/creatdetails/checkproduct.html",

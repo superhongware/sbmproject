@@ -4,36 +4,20 @@
 * 登录注册功能
 */
 var loginmodule=angular.module('loginmodule', ['ionic','starter.services','starter.directives']);
-loginmodule.controller('LoginCtrl', ['$scope', '$state', '$http', 'SBMJSONP', 'loginSubmit', function($scope, $state, $http, SBMJSONP, loginSubmit) {
+loginmodule.controller('LoginCtrl', ['$scope','loginSubmit', function($scope,loginSubmit) {
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
-
 	$scope.logindata = {
-		orgName: "softbanana",
+		orgName: "work",
 		userName: "admin",
 		password: "admin",
 	};
-
-	$scope.loginSubmit = function() {
-		$scope.logindata.method = "softbanana.app.user.login";
-		var api = SBMJSONP("userLogin",$scope.logindata);
-		// console.dir(api);
-		$http.jsonp(api.url)
-			.success(function(data) {
-				console.log("连接成功");
-				console.log(data);
-			})
-			.error(function(status, response) {
-				console.log("连接失败");
-				console.log(status);
-				console.log(response);
-			});
-	};
+	$scope.loginSubmit = loginSubmit;
 
 }])
 
 //注册页
-.controller('sign_upCtrl', ['$scope', '$rootScope', '$state', '$ionicPopup', function($scope, $rootScope, $state, $ionicPopup) {
+.controller('sign_upCtrl', ['$scope', '$state', '$ionicPopup', function($scope, $state, $ionicPopup) {
 	// $rootScope.viewanimate="goback";
 	$scope.sign_up = function() {
 		$ionicPopup.show({
