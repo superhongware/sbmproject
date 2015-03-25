@@ -11,7 +11,7 @@
 
       <div class="bar bar-subheader">
         <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-        <button class="button button-icon font14 mRight5" menu-toggle="right" ng-click="popover.show($event)">{{currOrderStatusName}}<i class="iconfont icon-xiangxia font14 mLeft2"></i></button>
+        <button class="button button-icon font14 mRight5" menu-toggle="right" ng-click="popover.show($event)">{{pageData.currOrderStatus.name}}<i class="iconfont icon-xiangxia font14 mLeft2"></i></button>
       </div>
       <ion-content class="paddingtop44">
         <ion-refresher
@@ -22,7 +22,7 @@
         <ion-list class="warpOrderList">
           <ion-item
             class="item-avatar item-icon-right orderItem" 
-            ng-repeat="item in orderList"
+            ng-repeat="item in pageData.orderList"
             ng-click="showOrderDetail(item)"
             ng-href="#/orderdetail"
           >
@@ -50,9 +50,9 @@
     <!-- Left menu -->
     <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="100">
       <ion-content>
-        <ion-list ng-repeat="item in shopList">
+        <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="loadDataByShop(item)">
-            {{item.name}}
+            {{item.shopName}}
           </ion-item>
         </ion-list>
       </ion-content>

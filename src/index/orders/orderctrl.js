@@ -1,67 +1,112 @@
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP) {
-
-    $scope.shopList = [{
-        name: '上海百货',
-        value: '上海百货',
-        checked: 1
-    }, {
-        name: '南宁百货',
-        value: '南宁百货',
-        checked: 0
-    }, {
-        name: '世贸商城',
-        value: '世贸商城',
-        checked: 0
-    }];
-
-
-    $scope.orderList = [{
-        picUrl: 'http://zhaoyanblog.com/wp-content/uploads/2014/03/20140319215736751.png',
-        title: '小西装',
-        status: 'PAID',
-        totalAmount: '233',
-        orderCount: '100',
-        shopName: '上海百货',
-        plat: '天猫' //平台类型
-    }];
-
-    $scope.orderStatusList = [{
-        name: '未付款',
-        status: 'NON_PAYMENT'
-    }, {
-        name: '已付款',
-        status: 'PAID'
-    }, {
-        name: '已打印',
-        status: 'PRINTED'
-    }, {
-        name: '已发货',
-        status: 'DELIVERED'
-    }, {
-        name: '已取消',
-        status: 'CANCELED'
-    }, {
-        name: '已完成',
-        status: 'COMPLETED'
-    }];
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state) {
 
     $scope.pageData = {
-        currShop: $scope.shopList[0],
-        pageIndex: 0,
-        pageSize: 10
+        lastId: 1,
+        pageSize: 10,
+        direction: 'next', //up next
+        orgName: $rootScope.orgName,
+        orderStatusList: [{
+            name: '已付款',
+            status: 'PAID'
+        }, {
+            name: '未付款',
+            status: 'NON_PAYMENT'
+        }, {
+            name: '已打印',
+            status: 'PRINTED'
+        }, {
+            name: '已发货',
+            status: 'DELIVERED'
+        }, {
+            name: '已取消',
+            status: 'CANCELED'
+        }, {
+            name: '已完成',
+            status: 'COMPLETED'
+        }],
+        orderList: [], //订单数据
+        shopList: [], //店铺数据
+        currOrderStatus: {
+            name: '已付款',
+            status: 'PAID'
+        },
+        currShop: null
+
     };
 
+    console.log('orgName:' + $scope.pageData.orgName);
+
+    /**
+     * [loadShopList 加载店铺数据]
+     * @return {[type]} [description]
+     */
+    $scope.loadShopList = function() {
+
+        $ionicLoading.show({
+            template: "正在加载..."
+        });
+
+        var api = SBMJSONP("searchShop", {
+            method: 'softbanana.app.shop.search',
+            orgName: 'work',
+            pageNo: 1,
+            pageSize: 50,
+            action: 'next'
+        });
+
+
+        $http.jsonp(api.url)
+            .success(function(data) {
+                $ionicLoading.hide();
+                if (data.isSuccess && data.shops && data.shops.length > 0) {
+                    $scope.pageData.shopList = [];
+
+                    for (var i = 0; i < data.shops.length; i++) {
+                        if (data.shops[i].isInvalid) {
+                            $scope.pageData.shopList.push(data.shops[i]);
+                        }
+                    }
+
+                    $scope.pageData.shopList[0].checked = true;
+                    $scope.pageData.currShop = $scope.pageData.shopList[0];
+                    $scope.loadData();
+                }
+            })
+            .error(function(status, response, a) {
+                $ionicLoading.hide();
+                console.log('数据查询连接失败');
+            });
+    };
+
+    $scope.loadData = function() {
+        var api = SBMJSONP("searchTrade", {
+            method: 'softbanana.app.trade.search'
+            orgName: $scope.pageData.orgName,
+            shopName: $scope.pageData.currShop.shopName,
+            status:$scope.pageData.currOrderStatus.status,
+            action:$scope.pageData.direction,
+            pageNo:$scope.pageData.lastId,
+            pageSize:$scope.pageData.pageSize,
+            plat:$scope.pageData.currShop.plat
+        });
+        $http.post(api.url, api.data)
+            .success(function(data) {
+                console.log(data);
+            })
+            .error(function(status, response) {
+                console.log('数据查询连接失败');
+            });
+    };
 
     $scope.showOrderStatusList = function() {
         var arr = [];
-        for (var i = 0; i < $scope.orderStatusList.length; i++) {
-            if ($scope.currOrderStatusName != $scope.orderStatusList[i].name) {
-                arr.push($scope.orderStatusList[i]);
+        for (var i = 0; i < $scope.pageData.orderStatusList.length; i++) {
+            if ($scope.pageData.currOrderStatusName != $scope.pageData.orderStatusList[i].name) {
+                arr.push($scope.pageData.orderStatusList[i]);
             }
         }
         return arr;
     };
-
 
     // $scope.pageFunc = {
     //     getShopListSelectClass:function(item){
@@ -73,7 +118,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     //     }
     // };
 
-    $scope.currOrderStatusName = $scope.orderStatusList[0].name;
 
     /**
      * [refreshServer 刷新远程数据]
@@ -89,6 +133,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             $ionicLoading.hide();
         }, 2000);
 
+
     };
 
 
@@ -100,10 +145,10 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
         console.log('Refreshing!');
 
-        for (var i = 0; i < 5; i++) {
-            $scope.orderList.push({
+        for (var i = 0; i < 3; i++) {
+            $scope.pageData.orderList.unshift({
                 picUrl: 'http://zhaoyanblog.com/wp-content/uploads/2014/03/20140319215736751.png',
-                title: '小西装',
+                title: '小西装' + i,
                 status: 'PAID',
                 totalAmount: '233',
                 orderCount: '100',
@@ -123,10 +168,10 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     $scope.loadMoreData = function() {
         console.log('loadMoreData');
 
-        for (var i = 0; i < 5; i++) {
-            $scope.orderList.push({
+        for (var i = 0; i < 3; i++) {
+            $scope.pageData.orderList.push({
                 picUrl: 'http://zhaoyanblog.com/wp-content/uploads/2014/03/20140319215736751.png',
-                title: '小西装',
+                title: '小西装' + i,
                 status: 'PAID',
                 totalAmount: '233',
                 orderCount: '100',
@@ -140,7 +185,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     };
 
     $scope.loadDataByStatusFilter = function(item) {
-        $scope.currOrderStatusName = item.name;
+        $scope.pageData.currOrderStatusName = item.name;
         $scope.popover.hide();
 
         $ionicLoading.show({
@@ -157,39 +202,15 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             template: "正在加载..."
         });
 
-        console.log(item.value);
-
-        for (var i in $scope.shopList) {
-            $scope.shopList[i].checked = $scope.shopList[i].value === item.value;
-        }
-
         $scope.pageData.currShop = item;
+
+        for (var i in $scope.pageData.shopList) {
+            $scope.pageData.shopList[i].checked = $scope.pageData.shopList[i].id === item.id;
+        }
 
         setTimeout(function() {
             $ionicLoading.hide();
         }, 1000);
-    };
-
-    $scope.loadData = function() {
-        var postData = {
-            method:'softbanana.app.trade.search'
-
-        };
-
-        var api = SBMJSONP("searchTrade", postData);
-        $http.post(api.url, api.data)
-            .success(function(data) {
-                console.log(data);
-            })
-            .error(function(status, response) {
-                console.log('数据查询连接失败');
-            });
-    };
-
-    $scope.showOrderDetail = function(item) {
-        //console.log(item.title);
-        // $location.path('#/orderdetail');
-
     };
 
     $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {
@@ -202,6 +223,16 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         $scope.loadMoreData();
     });
 
+
+    var init = function() {
+        if ($scope.pageData.orgName && typeof($scope.pageData.orgName) != 'undefined') {
+            $scope.loadShopList();
+        } else {
+            $state.go("login");
+        }
+    };
+
+    init();
 
 
     // $scope.openPopover = function($event) {
