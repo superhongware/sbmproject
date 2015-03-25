@@ -21,7 +21,6 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	$scope.hide=function(){
 		$ionicLoading.hide();
 	};
-
 }])
 
 //首页
@@ -29,7 +28,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	// userName
 	// console.log(myCookie.get("userId"));
 	//$ionicHistory  清全部数据
-  // .fromTemplate() method
+	// .fromTemplate() method
 	loginCheck();
 
 }])
