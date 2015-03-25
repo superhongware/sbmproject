@@ -3,7 +3,12 @@
 *
 * Description
 */
-angular.module('starter', ['ionic','starter.controllers', 'starter.services','starter.directives'])
+angular.module('starter', 
+	['ionic',
+	'starter.controllers', 
+	'loginmodule',
+	'starter.services',
+	'starter.directives'])
 .run(['$ionicPlatform','$rootScope', function($ionicPlatform,$rootScope){
 	$rootScope.viewanimate="gogogo";
   $ionicPlatform.ready(function() {

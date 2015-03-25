@@ -1,4 +1,4 @@
-angular.module('starter.services', ["service.encryption"])
+﻿angular.module('starter.services', ["service.encryption"])
 
 .factory('myCookie',function(){
 	return {
@@ -44,84 +44,61 @@ angular.module('starter.services', ["service.encryption"])
 	};
 })
 
-.factory('loginSubmit', ['$http','$state','SBMJSONP','SBMPOST','myCookie',function($http,$state,SBMJSONP,SBMPOST,myCookie){
-
-	return function loginSubmit(){
-
-		var jsonpapi=SBMJSONP("userLogin",{
-			orgName:'softbanana',
-			userName:'admin',
-			password:'admin'
-		});
-
-		console.log(jsonpapi);
-
-		
-		$http.jsonp(jsonpapi.url)
-		.success(function(data){
-			console.log("success");
-			console.log(data);
-		})
-		.error(function(error,status,headers){
-			console.log("error");
-			console.log(error);
-			console.log(status);
-			console.log(headers);
-		});
-
-
-	};
-}])
-
 /** 
 	JSONP接口通用方法
 	SBMJSONP使用方法如下
-	var api=jsonpURL("userLogin",{
-		orgName:'softbanana',
-		userName:'admin',
-		password:'admin'
-	});
-
-	$http.jsonp(api.url,api.data)
-	.success(function(data){
-		...
-	})
-	.error(function(status,response){
-		...
-	});
+	$scope.yourdata = {
+		orgName: "softbanana",
+		userName: "admin",
+		password: "admin",
+	};
+	$scope.yourdata.method = "softbanana.app.user.login";
+	var api = SBMJSONP("userLogin",$scope.yourdata);
+	$http.jsonp(api.url)
+		.success(function(data) {
+			alert("连接成功");
+			...
+		})
+		.error(function(status, response) {
+			alert("连接失败");
+			...
+		});
 */
 .factory('SBMJSONP', ['jsonpURL','systemdata',function(jsonpURL,systemdata){
-	return function SBMAPI(action,data){
-		var urldata=systemdata(data);
-		var url="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+action;
-		return {url:jsonpURL(url,urldata)};
+	return function SBMJSONP(url,data){
+		var lastdata=systemdata(data);
+		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		return {url:jsonpURL(lasturl,lastdata)};
 	};
 }])
 
 /** 
 	POST接口通用方法
 	SBMPOST使用方法如下
-	var api=SBMPOST("userLogin",{
-		orgName:'softbanana',
-		userName:'admin',
-		password:'admin'
-	});
-
+	$scope.yourdata = {
+		orgName: "softbanana",
+		userName: "admin",
+		password: "admin",
+	};
+	$scope.yourdata.method = "softbanana.app.user.login";
+	var api = SBMJSONP("userLogin",$scope.yourdata);
 	$http.post(api.url,api.data)
-	.success(function(data){
-		...
-	})
-	.error(function(status,response){
-		...
-	});
+		.success(function(data) {
+			alert("连接成功");
+			...
+		})
+		.error(function(status, response) {
+			alert("连接失败");
+			...
+		});
 */
 .factory('SBMPOST', ['postURL','systemdata',function(postURL,systemdata){
-	return function SBMAPI(action,data){
-		var urldata=systemdata(data);
+	return function SBMPOST(url,data){
+		var lastdata=systemdata(data);
 			//服务器端不接收json格式的数据，必须拼接成类似a=1&b=2&c=3格式
-			urldata=postURL(urldata);
-		var url="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+action;
-		return {url:url,data:urldata};
+			lastdata=postURL(lastdata);
+		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		return {url:lasturl,data:lastdata};
 	};
 }])
 
@@ -133,7 +110,6 @@ angular.module('starter.services', ["service.encryption"])
 	return function jsonpURL(url,obj){
 		url+="?";
 		for (var i in obj) {
-			// console.log(i+":"+obj[i]);
 			url+=i+"="+obj[i]+"&";
 		}
 		return url+"callBack=JSON_CALLBACK";
@@ -161,16 +137,18 @@ angular.module('starter.services', ["service.encryption"])
 */
 .factory('systemdata', ['hex_md5','base64', function(hex_md5,base64){
 	return function(obj){
+		if(typeof obj.method === "undefined"){
+			throw "SBMJSONP或SBMPOST的data参数里没有method,赶紧查下接口文档";
+		}
 		obj= (typeof obj === "object")?obj:{};
 		var time=new Date();
 		var urldata={
 			nick : 'softbanana',
 			name : 'softbanana',
-			method : 'softbanana.app.user.login',
 			timestamp : parseInt(time.getTime()/1000).toString(),
 			format : 'json',
 		};
-		var tempStr = base64.encode(urldata.nick)+ base64.encode(urldata.method) + base64.encode(urldata.timestamp) + base64.encode(urldata.name) + base64.encode(urldata.format);
+		var tempStr = base64.encode(urldata.nick)+ base64.encode(obj.method) + base64.encode(urldata.timestamp) + base64.encode(urldata.name) + base64.encode(urldata.format);
 		urldata.sign=hex_md5(tempStr);
 		return $.extend(urldata,obj);
 	};
