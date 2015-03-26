@@ -27,15 +27,18 @@
             ng-href="#/orderdetail"
           >
             <img ng-src="{{item.picUrl}}" class="avatar">
-            <p class="orderIdAndStatus">已付款E123131212313123</p>
-            <h2>{{item.title}}</h2>
-            <p><span class="mRight100">￥{{item.totalAmount}}</span><span>{{item.orderCount}}件</span></p>
-        
+            <p class="orderIdAndStatus">{{ item.statusName + '&nbsp;&nbsp;' + item.orderNumber}}</p>
+            <h2 class="lbTitle">{{item.title}}</h2>
+            <p>
+              <span class="">￥{{item.totalAmount}}</span><span class="lbOrderCount">{{item.orderCount}}件</span>
+              <div class="Clear"></div>
+            </p>
           </ion-item>
+          <div class="warpNoData" ng-if="pageData.orderList.length == 0"><i class="iconfont icon-logo"></i>暂无订单</div>
         </ion-list>
 
       <ion-infinite-scroll
-        ng-if="true"
+        ng-if="pageData.isHaveMoreData"
         icon="ion-loading-c"
         on-infinite="loadMoreData()"
         distance="20%"
