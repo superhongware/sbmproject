@@ -30,7 +30,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	//$ionicHistory  清全部数据
 	// .fromTemplate() method
 	$rootScope.orgName=loginCheck();
-	console.log($rootScope.orgName);
+	// console.log($rootScope.orgName);
 
 }])
 

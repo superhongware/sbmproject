@@ -26,14 +26,9 @@ loginmodule.controller('LoginCtrl', ['$scope','loginSubmit', function($scope,log
 			buttons: [{
 				text: "我知道了",
 				type: "button-energized",
-				onTap: function(e) {
-					$state.go("shops");
-				}
 			}]
 		});
 	};
 
-	$scope.sign_upForm = {
 
-	};
 }]);

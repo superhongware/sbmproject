@@ -7,7 +7,8 @@ angular.module('starter',
 	['ionic',
 	'loginmodule',
 	'productsmodule',
-	'starter.controllers', 
+	'settingmodule',
+	'starter.controllers',
 	'starter.services',
 	'starter.directives'])
 .run(['$ionicPlatform','$rootScope','loginCheck', function($ionicPlatform,$rootScope,loginCheck){
@@ -64,9 +65,6 @@ angular.module('starter',
 	})
 
 
-
-
-
 	//我的订单
 	.state('orders', {
 		url: "/orders",
@@ -82,7 +80,8 @@ angular.module('starter',
 	//设置
 	.state('setting', {
 		url: "/setting",
-		templateUrl: "templates/index/setting.html"
+		templateUrl: "templates/index/setting/setting.html",
+		controller:"settingCtrl"
 	})
 	.state('set-shopmanage', {
 		url: "/set-shopmanage",
