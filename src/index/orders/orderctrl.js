@@ -86,6 +86,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                 console.log('数据查询连接失败');
             });
     };
+    
 
     $scope.loadData = function() {
         var api = SBMJSONP("searchTrade", {
