@@ -86,7 +86,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                 console.log('数据查询连接失败');
             });
     };
-    
+
 
     $scope.loadData = function() {
         var api = SBMJSONP("searchTrade", {
@@ -208,19 +208,16 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     };
 
     $scope.loadDataByShop = function(item) {
-        $ionicLoading.show({
-            template: "正在加载..."
-        });
-
+        
         $scope.pageData.currShop = item;
 
         for (var i in $scope.pageData.shopList) {
             $scope.pageData.shopList[i].checked = $scope.pageData.shopList[i].id === item.id;
         }
 
-        setTimeout(function() {
-            $ionicLoading.hide();
-        }, 1000);
+        $scope.loadData();
+
+        
     };
 
     $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {
