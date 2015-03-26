@@ -7,8 +7,9 @@ loginmodule.factory('loginSubmit', ['$http','$state','$ionicPopup','SBMJSONP','m
 		// console.dir(api);
 		$http.jsonp(api.url)
 
+
 			.success(function(data) {
-				// console.log(data);
+				console.log(data);
 				if(data.isSuccess){
 					myCookie.add("orgName",base64.encode(logindata.orgName),720);
 					$state.go("home");
@@ -33,8 +34,8 @@ loginmodule.factory('loginSubmit', ['$http','$state','$ionicPopup','SBMJSONP','m
 
 			.error(function(status, response) {
 				// console.log("连接失败");
-				// console.log(status);
-				// console.log(response);
+				console.log(status);
+				console.log(response);
 				var mypopup=$ionicPopup.show({
 					title: "登录出错",
 					template: "可能您的网络出问题了",

@@ -34,6 +34,16 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     };
 
+    $scope.pageFunc = {
+        getShopListSelectClass:function(item){
+            var result = '';
+            if (item.name == $scope.pageData.currShop.name) {
+                result = 'selectItem';
+            }
+            return result;
+        }
+    };
+
     console.log('orgName:' + $scope.pageData.orgName);
 
     /**
@@ -53,7 +63,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             pageSize: 50,
             action: 'next'
         });
-
 
         $http.jsonp(api.url)
             .success(function(data) {
@@ -80,7 +89,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     $scope.loadData = function() {
         var api = SBMJSONP("searchTrade", {
-            method: 'softbanana.app.trade.search'
+            method: 'softbanana.app.trade.search',
             orgName: $scope.pageData.orgName,
             shopName: $scope.pageData.currShop.shopName,
             status:$scope.pageData.currOrderStatus.status,
@@ -89,9 +98,20 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             pageSize:$scope.pageData.pageSize,
             plat:$scope.pageData.currShop.plat
         });
-        $http.post(api.url, api.data)
+        $http.jsonp(api.url)
             .success(function(data) {
                 console.log(data);
+
+                if (data.isSuccess && parseInt(data.totalCount) > 0) {
+
+                    if ($scope.pageData.direction == 'up') {
+                        
+                    }else{
+
+                    }
+
+                }
+
             })
             .error(function(status, response) {
                 console.log('数据查询连接失败');
@@ -107,17 +127,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         }
         return arr;
     };
-
-    // $scope.pageFunc = {
-    //     getShopListSelectClass:function(item){
-    //         var result = '';
-    //         if (item.name == $scope.pageData.currShop.name) {
-    //             result = 'selectItem';
-    //         }
-    //         return result;
-    //     }
-    // };
-
 
     /**
      * [refreshServer 刷新远程数据]
