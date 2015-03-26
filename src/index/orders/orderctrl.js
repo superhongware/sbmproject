@@ -1,5 +1,9 @@
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state) {
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', 'dateFormat', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state, dateFormat) {
 
+    /**
+     * [pageData 模块数据]
+     * @type {Object}
+     */
     $scope.pageData = {
         lastId: 1,
         pageSize: 10,
@@ -23,7 +27,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         }, {
             name: '已完成',
             status: 'COMPLETED'
-        },{
+        }, {
             name: '全部',
             status: ''
         }], //状态筛选列表
@@ -103,7 +107,11 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             });
     };
 
-
+    /**
+     * [loadData 加载订单数据]
+     * @param  {Boolean} isClearCurrData [是否清除当前视图数据]
+     * @return {[type]}                  [description]
+     */
     $scope.loadData = function(isClearCurrData) {
 
         if ($scope.pageData.direction != 'up') {
@@ -126,7 +134,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         var api = SBMJSONP("searchTrade", reqData);
         $http.jsonp(api.url)
             .success(function(data) {
-               
+
                 $scope.pageFunc.loadDataComplete();
 
                 if (isClearCurrData) {
@@ -139,7 +147,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                     data.trades.sort(function(a, b) {
                         return parseInt(a.id) > parseInt(b.id) ? -1 : 1;
                     });
-                   
+
                     if ($scope.pageData.direction === 'up') { //moredata
                         $scope.pageData.isHaveMoreData = true;
                         for (var i = 0; i < data.trades.length; i++) {
@@ -193,9 +201,36 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             template: "正在同步..."
         });
 
-        setTimeout(function() {
-            $ionicLoading.hide();
-        }, 2000);
+        var date = new Date();
+
+        var reqData = {
+            method: 'softbanana.app.trade.list',
+            orgName: $scope.pageData.orgName,
+            shopName: $scope.pageData.currShop.shopName,
+            plat: $scope.pageData.currShop.plat,
+            startDate: dateFormat(date,'yyyy-MM-dd hh:mm:ss'),
+        };
+
+        date.setMonth(date.getMonth()-1);
+        reqData.endDate = dateFormat(date,'yyyy-MM-dd hh:mm:ss');
+
+        console.log(reqData);
+
+        var api = SBMJSONP("listTrade", reqData);
+        $http.jsonp(api.url)
+            .success(function(data) {
+                console.log(data);
+                setTimeout(function() {
+                    $scope.pageFunc.loadDataComplete();
+                }, 3000);
+            })
+            .error(function(status, response) {
+                $scope.pageFunc.loadDataComplete();
+                console.log('数据查询连接失败');
+            });
+
+
+
     };
 
 
@@ -227,19 +262,28 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     };
 
+    /**
+     * [loadDataByStatusFilter 状态切换加载订单数据]
+     * @param  {[type]} item [当前选择的状态对象]
+     * @return {[type]}      [description]
+     */
     $scope.loadDataByStatusFilter = function(item) {
         console.log('loadDataByStatusFilter');
         $scope.pageData.currOrderStatus = item;
         $scope.popover.hide();
 
-        $scope.pageData.orderList = [];
         $scope.pageData.lastId = 1;
         $scope.pageData.direction = '';
 
-        $scope.loadData();
+        $scope.loadData(true);
 
     };
 
+    /**
+     * [loadDataByShop 店铺切换加载数据]
+     * @param  {[type]} item [当前选择的店铺对象]
+     * @return {[type]}      [description]
+     */
     $scope.loadDataByShop = function(item) {
         console.log('loadDataByShop');
         $scope.pageData.currShop = item;
@@ -255,6 +299,10 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     };
 
+    /**
+     * 订单状态切换下拉模板
+     *
+     */
     $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {
         scope: $scope,
     }).then(function(popover) {
@@ -271,25 +319,5 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     };
 
     init();
-
-
-    // $scope.openPopover = function($event) {
-    //     $scope.popover.show($event);
-    // };
-    // $scope.closePopover = function() {
-    //     $scope.popover.hide();
-    // };
-    // //Cleanup the popover when we're done with it!
-    // $scope.$on('$destroy', function() {
-    //     $scope.popover.remove();
-    // });
-    // // Execute action on hide popover
-    // $scope.$on('popover.hidden', function() {
-    //     console.log('popover.hidden');
-    // });
-    // // Execute action on remove popover
-    // $scope.$on('popover.removed', function() {
-    //     console.log('popover.removed');
-    // });
 
 }]);
