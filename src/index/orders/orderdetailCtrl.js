@@ -1,20 +1,5 @@
 starterctrl.controller('orderdetailCtrl', ['$scope', '$http', '$state', 'SBMJSONP', '$ionicLoading', 'orderComm', function($scope, $http, $state, SBMJSONP, $ionicLoading, orderComm) {
-
-	//测试数据
-	var test = {
-		orgName: '123',
-		shopName: '789',
-		tid: '10111',
-		plat: '121212',
-		getShop: function() {
-			return this.orgName + this.shopName;
-		}
-	};
-	console.log(test.getShop());
-	test.orgName = 'sss';
-	console.log(test.getShop());
-	localStorage.setItem('currSelectOrder', JSON.stringify(test));
-
+	
 	var pageFunc = {},
 		pageData = {};
 
@@ -58,7 +43,7 @@ starterctrl.controller('orderdetailCtrl', ['$scope', '$http', '$state', 'SBMJSON
 				if (data.isSuccess) {
 					pageData.orderDetail = data.trade;
 					pageData.orderDetail.statusName = orderComm.func.getStatusName(pageData.orderDetail.status);
-					
+
 					if (!pageData.orderDetail.buyerMessage) 
 						pageData.orderDetail.buyerMessage = '无';
 					
