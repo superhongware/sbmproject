@@ -1,56 +1,40 @@
-<ion-view view-title="已付款订单">
+<ion-view view-title="{{pageData.orderDetail.statusName}}订单">
 	<ion-content>
 		<div class="warpOrderDetail">
 			<div class="orderNumber">
-				订单号：E20000000000000000000
+				订单号：{{pageData.orderDetail.orderNumber}}
 			</div>
 			<div class="orderDate">
-				<span class="mRight30 colorGrey_9">2015-03-10</span><span class="colorGrey_9">10:53:19</span>
+				<span class="mRight30 colorGrey_9">{{pageData.orderDetail.orderDate | date:"yyyy-MM-dd"}}</span><span class="colorGrey_9">{{pageData.orderDetail.orderDate | date:"hh:mm:ss"}}</span>
 			</div>
 			<div class="paymentType colorGrey_9 pBottom6">
-				货到付款
+				{{pageData.orderDetail.paymentType}}
 			</div>
 			<div class="subTitle">
 				商品明细
 			</div>
 			<div class="orders">
-				<div class="item">
+				<div class="item" ng-repeat="item in dataset">
 					<ul>
 						<li>
-							<img src="http://img.taobaocdn.com/bao/uploaded/TB19KUKGVXXXXb7aXXXSutbFXXX.jpg_320x320.jpg">
+							<img src="{{item.picUrl}}">
 						</li>
 						<li>
-							<div class="overflow_ellipsis title">宝贝标题</div>
-							<div class="colorGrey_9">规格名称</div>
+							<div class="overflow_ellipsis title">{{item.picUrl}}</div>
+							<div class="colorGrey_9">{{item.skuName}}</div>
 						</li>
 						<li>
-							<div>￥99.00</div>
-							<div class="colorGrey_9 txtRight">X1</div>
-						</li>
-					</ul>
-					<div class="Clear"></div>
-				</div>
-				<div class="item">
-					<ul>
-						<li>
-							<img src="http://img.taobaocdn.com/bao/uploaded/TB19KUKGVXXXXb7aXXXSutbFXXX.jpg_320x320.jpg">
-						</li>
-						<li class="overflow_ellipsis">
-							<div>宝贝标题</div>
-							<div class="colorGrey_9">规格名称</div>
-						</li>
-						<li>
-							<div>￥99.00</div>
-							<div class="colorGrey_9 txtRight">X1</div>
+							<div>￥{{item.price}}</div>
+							<div class="colorGrey_9 txtRight">X{{item.orderCount}}</div>
 						</li>
 					</ul>
 					<div class="Clear"></div>
 				</div>
 			</div>
-			<div class="buyerMessage colorGrey_9">卖家留言：无</div>
+			<div class="buyerMessage colorGrey_9">卖家留言：{{pageData.orderDetail.buyerMessage}}</div>
 			<div>
 				<span>商品总价</span>
-				<span class="floatR colorYellow">￥198.00</span>
+				<span class="floatR colorYellow">￥{{pageData.orderDetail.totalAmount}}</span>
 				<div class="Clear"></div>
 			</div>
 			<div class="subTitle">
@@ -58,20 +42,20 @@
 			</div>
 			<div class="recerveInfo">
 				<div>
-					王尼玛，13701511111
+					{{pageData.orderDetail.consignee}}，{{pageData.orderDetail.mobilePhone}}
 				</div>
 				<div>
-					上海市 徐汇区 桂平路
+					{{pageData.orderDetail.address}}
 				</div>
 				<div class="colorYellow">
-					运费：￥11.00
+					运费：￥{{pageData.orderDetail.postFee}}
 				</div>
 			</div>
 			<div class="txtCenter">
-				￥198.00+￥11.00运费
+				￥{{pageData.orderDetail.totalAmount}}+￥{{pageData.orderDetail.postFee}}运费
 			</div>
 			<div class="colorYellow txtCenter font18 mBottom40">
-				实付：￥209.00
+				实付：￥{{pageData.orderDetail.totalAmount + pageData.orderDetail.postFee}}
 			</div>
 		</div>
 	</ion-content>

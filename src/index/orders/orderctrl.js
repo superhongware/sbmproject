@@ -1,36 +1,19 @@
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', 'dateFormat', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state, dateFormat) {
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', 'dateFormat', 'orderComm', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state, dateFormat, orderComm) {
+
+
+    var pageData = {},
+        pageFunc = {};
 
     /**
      * [pageData 模块数据]
      * @type {Object}
      */
-    $scope.pageData = {
+    pageData = {
         lastId: 1,
         pageSize: 10,
         direction: '', //up next
         orgName: $rootScope.orgName,
-        orderStatusList: [{
-            name: '已付款',
-            status: 'PAID'
-        }, {
-            name: '未付款',
-            status: 'NON_PAYMENT'
-        }, {
-            name: '已打印',
-            status: 'PRINTED'
-        }, {
-            name: '已发货',
-            status: 'DELIVERED'
-        }, {
-            name: '已取消',
-            status: 'CANCELED'
-        }, {
-            name: '已完成',
-            status: 'COMPLETED'
-        }, {
-            name: '全部',
-            status: ''
-        }], //状态筛选列表
+        orderStatusList: orderComm.commData.orderStatusList, //状态筛选列表
         orderList: [], //订单数据
         shopList: [], //店铺数据
         currOrderStatus: {
@@ -39,42 +22,28 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         },
         currShop: null,
         isHaveMoreData: false
-
     };
 
-    $scope.pageFunc = {
-        getStatusName: function(status) {
-            var result = '';
-
-            for (var i = 0; i < $scope.pageData.orderStatusList.length; i++) {
-                if (status == $scope.pageData.orderStatusList[i].status) {
-                    result = $scope.pageData.orderStatusList[i].name;
-                    break;
-                }
-            }
-
-            return result;
-        },
-        loadDataComplete: function() {
-            $ionicLoading.hide();
-            $scope.$broadcast('scroll.refreshComplete');
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-            $scope.pageData.isPostBack = true;
+    pageFunc.init = function() {
+        if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
+            pageFunc.loadShopList();
+        } else {
+            $state.go("login");
         }
     };
 
-    console.log('orgName:' + $scope.pageData.orgName);
+    pageFunc.loadDataComplete = function() {
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        pageData.isPostBack = true;
+    };
 
     /**
      * [loadShopList 加载店铺数据]
      * @return {[type]} [description]
      */
-    $scope.loadShopList = function() {
-
-        $ionicLoading.show({
-            template: "正在加载..."
-        });
-
+    pageFunc.loadShopList = function() {
 
         var api = SBMJSONP("searchShop", {
             method: 'softbanana.app.shop.search',
@@ -86,19 +55,18 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
         $http.jsonp(api.url)
             .success(function(data) {
-                $ionicLoading.hide();
                 if (data.isSuccess && data.shops && data.shops.length > 0) {
-                    $scope.pageData.shopList = [];
+                    pageData.shopList = [];
 
                     for (var i = 0; i < data.shops.length; i++) {
                         if (data.shops[i].isInvalid) {
-                            $scope.pageData.shopList.push(data.shops[i]);
+                            pageData.shopList.push(data.shops[i]);
                         }
                     }
 
-                    $scope.pageData.shopList[0].checked = true;
-                    $scope.pageData.currShop = $scope.pageData.shopList[0];
-                    $scope.loadData();
+                    pageData.shopList[0].checked = true;
+                    pageData.currShop = pageData.shopList[0];
+                    pageFunc.loadData();
                 }
             })
             .error(function(status, response, a) {
@@ -112,9 +80,9 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @param  {Boolean} isClearCurrData [是否清除当前视图数据]
      * @return {[type]}                  [description]
      */
-    $scope.loadData = function(isClearCurrData) {
+    pageFunc.loadData = function(isClearCurrData) {
 
-        if ($scope.pageData.direction != 'up') {
+        if (pageData.direction != 'up') {
             $ionicLoading.show({
                 template: "正在加载..."
             });
@@ -122,23 +90,25 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
         var reqData = {
             method: 'softbanana.app.trade.search',
-            orgName: $scope.pageData.orgName,
-            shopName: $scope.pageData.currShop.shopName,
-            status: $scope.pageData.currOrderStatus.status,
-            action: $scope.pageData.direction,
-            pageNo: $scope.pageData.lastId,
-            pageSize: $scope.pageData.pageSize,
-            plat: $scope.pageData.currShop.plat
+            orgName: pageData.orgName,
+            shopName: pageData.currShop.shopName,
+            status: pageData.currOrderStatus.status,
+            action: pageData.direction,
+            pageNo: pageData.lastId,
+            pageSize: pageData.pageSize,
+            plat: pageData.currShop.plat
         };
-
+        console.log('reqData');
+        console.log(reqData);
         var api = SBMJSONP("searchTrade", reqData);
         $http.jsonp(api.url)
             .success(function(data) {
-
-                $scope.pageFunc.loadDataComplete();
+                console.log('loadData');
+                console.log(data);
+                pageFunc.loadDataComplete();
 
                 if (isClearCurrData) {
-                    $scope.pageData.orderList = [];
+                    pageData.orderList = [];
                 }
 
                 if (data.isSuccess && parseInt(data.totalCount) > 0 && data.trades && data.trades.length > 0) {
@@ -148,31 +118,31 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                         return parseInt(a.id) > parseInt(b.id) ? -1 : 1;
                     });
 
-                    if ($scope.pageData.direction === 'up') { //moredata
-                        $scope.pageData.isHaveMoreData = true;
+                    if (pageData.direction === 'up') { //moredata
+                        pageData.isHaveMoreData = true;
                         for (var i = 0; i < data.trades.length; i++) {
-                            data.trades[i].statusName = $scope.pageFunc.getStatusName(data.trades[i].status);
-                            $scope.pageData.orderList.push(data.trades[i]);
+                            data.trades[i].statusName = orderComm.func.getStatusName(data.trades[i].status);
+                            pageData.orderList.push(data.trades[i]);
                         }
                     } else {
-                        if ($scope.pageData.direction === '') {
-                            $scope.pageData.isHaveMoreData = true;
+                        if (pageData.direction === '') {
+                            pageData.isHaveMoreData = true;
                         }
                         for (var i = data.trades.length - 1; i >= 0; i--) {
-                            data.trades[i].statusName = $scope.pageFunc.getStatusName(data.trades[i].status);
-                            $scope.pageData.orderList.unshift(data.trades[i]);
+                            data.trades[i].statusName = orderComm.func.getStatusName(data.trades[i].status);
+                            pageData.orderList.unshift(data.trades[i]);
                         }
                     }
 
                 } else {
-                    if ($scope.pageData.direction === 'up') {
-                        $scope.pageData.isHaveMoreData = false;
+                    if (pageData.direction === 'up') {
+                        pageData.isHaveMoreData = false;
                     }
                 }
 
             })
             .error(function(status, response) {
-                $scope.pageFunc.loadDataComplete();
+                pageFunc.loadDataComplete();
                 console.log('数据查询连接失败');
             });
     };
@@ -181,11 +151,11 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * [showOrderStatusList 显示订单状态筛选列表]
      * @return {[type]} [description]
      */
-    $scope.showOrderStatusList = function() {
+    pageFunc.showOrderStatusList = function() {
         var arr = [];
-        for (var i = 0; i < $scope.pageData.orderStatusList.length; i++) {
-            if ($scope.pageData.currOrderStatus.name != $scope.pageData.orderStatusList[i].name) {
-                arr.push($scope.pageData.orderStatusList[i]);
+        for (var i = 0; i < pageData.orderStatusList.length; i++) {
+            if (pageData.currOrderStatus.name != pageData.orderStatusList[i].name) {
+                arr.push(pageData.orderStatusList[i]);
             }
         }
         return arr;
@@ -195,7 +165,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * [refreshServer 刷新远程数据]
      * @return {[type]}
      */
-    $scope.refreshServer = function() {
+    pageFunc.refreshServer = function() {
         console.log('refreshServer');
         $ionicLoading.show({
             template: "正在同步..."
@@ -205,32 +175,31 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
         var reqData = {
             method: 'softbanana.app.trade.list',
-            orgName: $scope.pageData.orgName,
-            shopName: $scope.pageData.currShop.shopName,
-            plat: $scope.pageData.currShop.plat,
-            startDate: dateFormat(date,'yyyy-MM-dd hh:mm:ss'),
+            orgName: pageData.orgName,
+            shopName: pageData.currShop.shopName,
+            plat: pageData.currShop.plat,
+            startDate: dateFormat(date, 'yyyy-MM-dd hh:mm:ss'),
         };
 
-        date.setMonth(date.getMonth()-1);
-        reqData.endDate = dateFormat(date,'yyyy-MM-dd hh:mm:ss');
+        date.setMonth(date.getMonth() - 1);
+        reqData.endDate = dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
 
+        console.log('refreshServer reqData');
         console.log(reqData);
 
         var api = SBMJSONP("listTrade", reqData);
         $http.jsonp(api.url)
             .success(function(data) {
+                console.log('refreshServer');
                 console.log(data);
                 setTimeout(function() {
-                    $scope.pageFunc.loadDataComplete();
+                    pageFunc.loadDataComplete();
                 }, 3000);
             })
             .error(function(status, response) {
-                $scope.pageFunc.loadDataComplete();
+                pageFunc.loadDataComplete();
                 console.log('数据查询连接失败');
             });
-
-
-
     };
 
 
@@ -238,27 +207,27 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * [refreshOrderList 下拉刷新最新数据]
      * @return {[type]}
      */
-    $scope.refreshOrderList = function() {
+    pageFunc.refreshOrderList = function() {
         console.log('refreshOrderList');
-        $scope.pageData.direction = 'next';
-        if ($scope.pageData.orderList.length > 0) {
-            $scope.pageData.lastId = $scope.pageData.orderList[0].id;
+        pageData.direction = 'next';
+        if (pageData.orderList.length > 0) {
+            pageData.lastId = pageData.orderList[0].id;
         }
-        $scope.loadData();
+        pageFunc.loadData();
     };
 
     /**
      * [loadMoreData 上拉加载更多历史数据]
      * @return {[type]} [description]
      */
-    $scope.loadMoreData = function() {
+    pageFunc.loadMoreData = function() {
 
         console.log('loadMoreData');
-        $scope.pageData.direction = 'up';
-        if ($scope.pageData.orderList.length > 0) {
-            $scope.pageData.lastId = $scope.pageData.orderList[$scope.pageData.orderList.length - 1].id;
+        pageData.direction = 'up';
+        if (pageData.orderList.length > 0) {
+            pageData.lastId = pageData.orderList[pageData.orderList.length - 1].id;
         }
-        $scope.loadData();
+        pageFunc.loadData();
 
     };
 
@@ -267,15 +236,15 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @param  {[type]} item [当前选择的状态对象]
      * @return {[type]}      [description]
      */
-    $scope.loadDataByStatusFilter = function(item) {
+    pageFunc.loadDataByStatusFilter = function(item) {
         console.log('loadDataByStatusFilter');
-        $scope.pageData.currOrderStatus = item;
+        pageData.currOrderStatus = item;
         $scope.popover.hide();
 
-        $scope.pageData.lastId = 1;
-        $scope.pageData.direction = '';
+        pageData.lastId = 1;
+        pageData.direction = '';
 
-        $scope.loadData(true);
+        pageFunc.loadData(true);
 
     };
 
@@ -284,19 +253,35 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @param  {[type]} item [当前选择的店铺对象]
      * @return {[type]}      [description]
      */
-    $scope.loadDataByShop = function(item) {
+    pageFunc.loadDataByShop = function(item) {
         console.log('loadDataByShop');
-        $scope.pageData.currShop = item;
+        pageData.currShop = item;
 
-        for (var i in $scope.pageData.shopList) {
-            $scope.pageData.shopList[i].checked = $scope.pageData.shopList[i].id === item.id;
+        for (var i in pageData.shopList) {
+            pageData.shopList[i].checked = pageData.shopList[i].id === item.id;
         }
 
-        $scope.pageData.lastId = 1;
-        $scope.pageData.direction = '';
+        pageData.lastId = 1;
+        pageData.direction = '';
 
-        $scope.loadData(true);
+        pageFunc.loadData(true);
 
+    };
+
+    /**
+     * [showOrderDetail 展现订单详情]
+     * @param  {[type]} item [description]
+     * @return {[type]}      [description]
+     */
+    pageFunc.showOrderDetail = function(item){
+        var currSelectOrder = {
+            orgName: pageData.orgName,
+            shopName: item.shopName,
+            tid: item.orderNumber,
+            plat: item.plat
+        };
+        localStorage.setItem('currSelectOrder',JSON.stringify(currSelectOrder));
+        $state.go("orderdetail");
     };
 
     /**
@@ -309,15 +294,9 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         $scope.popover = popover;
     });
 
+    $scope.pageData = pageData;
+    $scope.pageFunc = pageFunc;
 
-    var init = function() {
-        if ($scope.pageData.orgName && typeof($scope.pageData.orgName) != 'undefined') {
-            $scope.loadShopList();
-        } else {
-            $state.go("login");
-        }
-    };
-
-    init();
+    pageFunc.init();
 
 }]);

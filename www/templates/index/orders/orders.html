@@ -1,6 +1,6 @@
 <ion-view view-title="我的订单">
   <ion-nav-buttons side="right">
-    <button class="button" ng-click="refreshServer()">
+    <button class="button" ng-click="pageFunc.refreshServer()">
     同步
     </button>
   </ion-nav-buttons>
@@ -23,8 +23,8 @@
           <ion-item
             class="item-avatar item-icon-right orderItem" 
             ng-repeat="item in pageData.orderList"
-            ng-click="showOrderDetail(item)"
-            ng-href="#/orderdetail"
+            ng-click="pageFunc.showOrderDetail(item)"
+            ng-href="javascripe:;"
           >
             <img ng-src="{{item.picUrl}}" class="avatar">
             <p class="orderIdAndStatus">{{ item.statusName + '&nbsp;&nbsp;' + item.orderNumber}}</p>
