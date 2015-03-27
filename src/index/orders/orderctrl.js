@@ -130,11 +130,13 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             pageSize: $scope.pageData.pageSize,
             plat: $scope.pageData.currShop.plat
         };
-
+        console.log('reqData');
+        console.log(reqData);
         var api = SBMJSONP("searchTrade", reqData);
         $http.jsonp(api.url)
             .success(function(data) {
-
+                console.log('loadData');
+                console.log(data);
                 $scope.pageFunc.loadDataComplete();
 
                 if (isClearCurrData) {
@@ -214,11 +216,13 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         date.setMonth(date.getMonth()-1);
         reqData.endDate = dateFormat(date,'yyyy-MM-dd hh:mm:ss');
 
+        console.log('refreshServer reqData');
         console.log(reqData);
 
         var api = SBMJSONP("listTrade", reqData);
         $http.jsonp(api.url)
             .success(function(data) {
+                console.log('refreshServer');
                 console.log(data);
                 setTimeout(function() {
                     $scope.pageFunc.loadDataComplete();
