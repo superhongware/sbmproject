@@ -44,7 +44,8 @@
 			"s+": date.getSeconds(), //second 
 			"q+": Math.floor((date.getMonth() + 3) / 3), //quarter 
 			"S": date.getMilliseconds() //millisecond 
-		}
+		};
+		
 		if (/(y+)/.test(format)) {
 			format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
 		}
@@ -74,6 +75,52 @@
 .factory('hrefGo', function(){
 	return function (href){
 		location.href=href;
+	};
+})
+
+/**
+ * [订单通用模块]
+ */
+.factory('orderComm', function() {
+	return {
+		commData: {
+			orderStatusList: [{
+				name: '已付款',
+				status: 'PAID'
+			}, {
+				name: '未付款',
+				status: 'NON_PAYMENT'
+			}, {
+				name: '已打印',
+				status: 'PRINTED'
+			}, {
+				name: '已发货',
+				status: 'DELIVERED'
+			}, {
+				name: '已取消',
+				status: 'CANCELED'
+			}, {
+				name: '已完成',
+				status: 'COMPLETED'
+			}, {
+				name: '全部',
+				status: ''
+			}]
+		},
+		func:{
+			getStatusName:function(status){
+				var result = '';
+
+            for (var i = 0; i < this.commData.orderStatusList.length; i++) {
+                if (status == this.commData.orderStatusList[i].status) {
+                    result = this.commData.orderStatusList[i].name;
+                    break;
+                }
+            }
+
+            return result;
+			}
+		}
 	};
 })
 

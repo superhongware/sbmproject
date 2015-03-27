@@ -1,4 +1,4 @@
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', 'dateFormat', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state, dateFormat) {
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', 'dateFormat','orderComm', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state, dateFormat,orderComm) {
 
     /**
      * [pageData 模块数据]
@@ -9,28 +9,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         pageSize: 10,
         direction: '', //up next
         orgName: $rootScope.orgName,
-        orderStatusList: [{
-            name: '已付款',
-            status: 'PAID'
-        }, {
-            name: '未付款',
-            status: 'NON_PAYMENT'
-        }, {
-            name: '已打印',
-            status: 'PRINTED'
-        }, {
-            name: '已发货',
-            status: 'DELIVERED'
-        }, {
-            name: '已取消',
-            status: 'CANCELED'
-        }, {
-            name: '已完成',
-            status: 'COMPLETED'
-        }, {
-            name: '全部',
-            status: ''
-        }], //状态筛选列表
+        orderStatusList: orderComm.commData.orderStatusList, //状态筛选列表
         orderList: [], //订单数据
         shopList: [], //店铺数据
         currOrderStatus: {
@@ -43,18 +22,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
     };
 
     $scope.pageFunc = {
-        getStatusName: function(status) {
-            var result = '';
-
-            for (var i = 0; i < $scope.pageData.orderStatusList.length; i++) {
-                if (status == $scope.pageData.orderStatusList[i].status) {
-                    result = $scope.pageData.orderStatusList[i].name;
-                    break;
-                }
-            }
-
-            return result;
-        },
         loadDataComplete: function() {
             $ionicLoading.hide();
             $scope.$broadcast('scroll.refreshComplete');
@@ -71,11 +38,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      */
     $scope.loadShopList = function() {
 
-        $ionicLoading.show({
-            template: "正在加载..."
-        });
-
-
         var api = SBMJSONP("searchShop", {
             method: 'softbanana.app.shop.search',
             orgName: 'work',
@@ -86,7 +48,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
         $http.jsonp(api.url)
             .success(function(data) {
-                $ionicLoading.hide();
                 if (data.isSuccess && data.shops && data.shops.length > 0) {
                     $scope.pageData.shopList = [];
 
@@ -153,7 +114,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                     if ($scope.pageData.direction === 'up') { //moredata
                         $scope.pageData.isHaveMoreData = true;
                         for (var i = 0; i < data.trades.length; i++) {
-                            data.trades[i].statusName = $scope.pageFunc.getStatusName(data.trades[i].status);
+                            data.trades[i].statusName = orderComm.func.getStatusName(data.trades[i].status);
                             $scope.pageData.orderList.push(data.trades[i]);
                         }
                     } else {
@@ -161,7 +122,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                             $scope.pageData.isHaveMoreData = true;
                         }
                         for (var i = data.trades.length - 1; i >= 0; i--) {
-                            data.trades[i].statusName = $scope.pageFunc.getStatusName(data.trades[i].status);
+                            data.trades[i].statusName = orderComm.func.getStatusName(data.trades[i].status);
                             $scope.pageData.orderList.unshift(data.trades[i]);
                         }
                     }
@@ -232,9 +193,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                 $scope.pageFunc.loadDataComplete();
                 console.log('数据查询连接失败');
             });
-
-
-
     };
 
 
