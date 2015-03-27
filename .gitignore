@@ -7,7 +7,7 @@ plugins/
 www/lib/
 www/css/style.css
 www/js/index/app.js
-
+build
 npm-debug.log
 
 *.orig

@@ -12,8 +12,9 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   livereload = require('gulp-livereload'),
   browserSync = require('browser-sync'),
+  usemin  = require('gulp-usemin'),
+  rev = require('gulp-rev'),
   sourcemaps = require('gulp-sourcemaps');
-
 
 var paths = {
   sass: ['./scss/**/*.scss'],
@@ -44,7 +45,7 @@ gulp.task('sass', function(done) {
 
 // less 解析
 gulp.task('less', function () {
-  return gulp.src('./less/style.less')
+  return gulp.src(['./less/style.less','./less/ps.less'])
     .pipe(less())
     .pipe(minifyCss())
     .pipe(gulp.dest('./www/css'));
@@ -60,10 +61,26 @@ gulp.task('js', function() {
       .pipe(uglify())
       .pipe(concat('app.js'))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest('www/js'+paths.js[i]))
-      .pipe(livereload());
+      .pipe(gulp.dest('www/js'+paths.js[i]));
   };
 });
+
+
+
+
+
+//合并html里的js文件
+gulp.task('usemin', function () {
+  return gulp.src('www/ps.html')
+      .pipe(usemin({
+        // css: [less(),minifyCss()],
+        // html: [minifyHtml({empty: true})],
+        libjs:[uglify(),rev()],
+        psjs:[uglify(),rev()]
+      }))
+      .pipe(gulp.dest('build/'));
+});
+
 
 
 //开发调试

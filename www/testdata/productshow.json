@@ -8,10 +8,10 @@
 		"tmp": 1,
 		"imgs": [
 			"images/pic1.png",
-			"images/pic1.png",
-			"images/pic1.png"
+			"images/pic2.png",
+			"images/pic3.png"
 		],
-		"content": [
+		"contents": [
 			"用心做好宝贝手机详情",
 			"用心做好宝贝手机详情"
 		]
@@ -22,7 +22,7 @@
 			"images/pic1.png",
 			"images/pic1.png"
 		],
-		"content": [
+		"contents": [
 			"用心做好宝贝手机详情",
 			"用心做好宝贝手机详情"
 		]
@@ -33,7 +33,7 @@
 			"images/pic1.png",
 			"images/pic1.png"
 		],
-		"content": [
+		"contents": [
 			"用心做好宝贝手机详情",
 			"用心做好宝贝手机详情"
 		]
