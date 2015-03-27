@@ -23,6 +23,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	};
 }])
 
+
 //首页
 .controller('indexCtrl', ['$scope','$rootScope','loginCheck','myCookie',function($scope,$rootScope,loginCheck,myCookie){
 	// userName
@@ -31,9 +32,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	// .fromTemplate() method
 	$rootScope.orgName=loginCheck();
 	// console.log($rootScope.orgName);
-
 }])
-
 
 
 .controller('contentCtrl',['$scope','$ionicSideMenuDelegate',function($scope,$ionicSideMenuDelegate){
@@ -42,6 +41,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	};
 	$scope.toggleLeft();
 }])
+
 
 .controller('editpagesCtrl',['$scope','$ionicLoading',function($scope,$ionicLoading){
 	$scope.show= function(){
@@ -53,15 +53,17 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', '
 	$scope.showdata={
 		page:1
 	};
-
-
 }])
+
+
 .controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
 	console.log($state);
 	console.log("pagetemp1");
 	// console.log("editerCtrl");
 
 }])
+
+
 .controller('pagetemp2Ctrl',['$scope','$state',function($scope,$state){
 	// console.log($state);
 	console.log("pagetemp2");

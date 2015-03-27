@@ -51,9 +51,9 @@ angular.module('starter',
 		url: "/shops",
 		templateUrl: "templates/index/shops.html"
 	})
-	.state('details', {
-		url: "/details",
-		templateUrl: "templates/index/details.html"
+	.state('shows', {
+		url: "/shows",
+		templateUrl: "templates/index/shows/shows.html"
 	})
 
 
@@ -103,24 +103,24 @@ angular.module('starter',
 	//新建宝贝详情
 	.state('checkproduct', {
 		url: "/checkproduct",
-		templateUrl: "templates/index/creatdetails/checkproduct.html",
+		templateUrl: "templates/index/creatshows/checkproduct.html",
 		controller:'productsCtrl'
 	})
 	.state('checktemplate', {
 		url: "/checktemplate",
-		templateUrl: "templates/index/creatdetails/checktemplate.html",
+		templateUrl: "templates/index/creatshows/checktemplate.html",
 		controller:'productsCtrl'
 	})
 	.state('editpages', {
 		url: "/editpages",
-		templateUrl: "templates/index/creatdetails/editpages.html",
+		templateUrl: "templates/index/creatshows/editpages.html",
 		controller:'editpagesCtrl'
 	})
 
 	.state('editpages.editer', {
 		url: "/editer/:pageId/:pageTemp",
 		templateUrl:function(params){
-			return "templates/index/pages/page"+params.pageTemp+".html";
+			return "templates/index/creatshows/pages/page"+params.pageTemp+".html";
 		}
 	})
 
