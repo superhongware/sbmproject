@@ -16,7 +16,7 @@
       <ion-content class="paddingtop44">
         <ion-refresher
         pulling-text="下拉更新..."
-        on-refresh="refreshOrderList()">
+        on-refresh="pageFunc.refreshOrderList()">
         </ion-refresher>
 
         <ion-list class="warpOrderList">
@@ -40,7 +40,7 @@
       <ion-infinite-scroll
         ng-if="pageData.isHaveMoreData"
         icon="ion-loading-c"
-        on-infinite="loadMoreData()"
+        on-infinite="pageFunc.loadMoreData()"
         distance="20%"
         spinner="ios"
         >
@@ -54,7 +54,7 @@
     <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="100">
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
-          <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="loadDataByShop(item)">
+          <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
             {{item.shopName}}
           </ion-item>
         </ion-list>
@@ -68,7 +68,7 @@
   <ion-popover-view class="warpOrderStatusList">
       <ion-content>
         <div>
-          <a class="item" ng-repeat="item in showOrderStatusList()" ng-click="loadDataByStatusFilter(item)">
+          <a class="item" ng-repeat="item in pageFunc.showOrderStatusList()" ng-click="pageFunc.loadDataByStatusFilter(item)">
             {{item.name}}
           </a>
         </div>

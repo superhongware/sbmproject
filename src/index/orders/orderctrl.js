@@ -9,7 +9,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @type {Object}
      */
     pageData = {
-        lastId: 1,
+        lastId: '',
         pageSize: 10,
         direction: '', //up next
         orgName: $rootScope.orgName,
@@ -178,11 +178,11 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             orgName: pageData.orgName,
             shopName: pageData.currShop.shopName,
             plat: pageData.currShop.plat,
-            startDate: dateFormat(date, 'yyyy-MM-dd hh:mm:ss'),
+            endDate: dateFormat(date, 'yyyy-MM-dd hh:mm:ss'),
         };
 
         date.setMonth(date.getMonth() - 1);
-        reqData.endDate = dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
+        reqData.startDate = dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
 
         console.log('refreshServer reqData');
         console.log(reqData);
@@ -253,7 +253,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @param  {[type]} item [当前选择的店铺对象]
      * @return {[type]}      [description]
      */
-    pageFunc.loadDataByShop = function(item) {
+    pageFunc.loadDataByShop = function(item,$index) {
         console.log('loadDataByShop');
         pageData.currShop = item;
 

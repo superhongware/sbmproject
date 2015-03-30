@@ -14,13 +14,13 @@
 				商品明细
 			</div>
 			<div class="orders">
-				<div class="item" ng-repeat="item in dataset">
+				<div class="item" ng-repeat="item in pageData.orderDetail.orders">
 					<ul>
 						<li>
-							<img src="{{item.picUrl}}">
+							<img ng-src="{{item.picUrl}}">
 						</li>
 						<li>
-							<div class="overflow_ellipsis title">{{item.picUrl}}</div>
+							<div class="overflow_ellipsis title">{{item.title}}</div>
 							<div class="colorGrey_9">{{item.skuName}}</div>
 						</li>
 						<li>
