@@ -82,46 +82,86 @@
  * [订单通用模块]
  */
 .factory('orderComm', function() {
-	return {
+
+	var orderStatusList = [{
+		name: '已付款',
+		status: 'PAID'
+	}, {
+		name: '未付款',
+		status: 'NON_PAYMENT'
+	}, {
+		name: '已打印',
+		status: 'PRINTED'
+	}, {
+		name: '已发货',
+		status: 'DELIVERED'
+	}, {
+		name: '已取消',
+		status: 'CANCELED'
+	}, {
+		name: '已完成',
+		status: 'COMPLETED'
+	}, {
+		name: '全部',
+		status: ''
+	}];
+
+	var orderComm = {
 		commData: {
-			orderStatusList: [{
-				name: '已付款',
-				status: 'PAID'
-			}, {
-				name: '未付款',
-				status: 'NON_PAYMENT'
-			}, {
-				name: '已打印',
-				status: 'PRINTED'
-			}, {
-				name: '已发货',
-				status: 'DELIVERED'
-			}, {
-				name: '已取消',
-				status: 'CANCELED'
-			}, {
-				name: '已完成',
-				status: 'COMPLETED'
-			}, {
-				name: '全部',
-				status: ''
-			}]
+			orderStatusList: orderStatusList
 		},
-		func:{
-			getStatusName:function(status){
+		func: {
+			getStatusName: function(status) {
 				var result = '';
+				for (var i = 0; i < orderStatusList.length; i++) {
+					if (status == orderStatusList[i].status) {
+						result = orderStatusList[i].name;
+						break;
+					}
+				}
 
-            for (var i = 0; i < this.commData.orderStatusList.length; i++) {
-                if (status == this.commData.orderStatusList[i].status) {
-                    result = this.commData.orderStatusList[i].name;
-                    break;
-                }
-            }
-
-            return result;
+				return result;
 			}
 		}
 	};
+
+	return orderComm;
+})
+
+/**
+ * [产品通用模块]
+ */
+.factory('productComm', function() {
+
+	var statusList = [{
+			name: '上架中',
+			status: 'onsale'
+		}, {
+			name: '已下架',
+			status: 'instock'
+		},
+	];
+
+	var productComm = {
+		commData: {
+			statusList: statusList
+		},
+		func: {
+			getStatusName: function(status) {
+				var result = '';
+				for (var i = 0; i < statusList.length; i++) {
+					if (status == statusList[i].status) {
+						result = statusList[i].name;
+						break;
+					}
+				}
+
+				return result;
+			}
+		}
+	};
+
+	return productComm;
 })
 
 /** 
