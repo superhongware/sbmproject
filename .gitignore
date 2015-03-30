@@ -6,7 +6,7 @@ platforms/
 plugins/
 www/lib/
 www/css/style.css
-www/js/index/app.js
+www/js/
 build
 npm-debug.log
 
