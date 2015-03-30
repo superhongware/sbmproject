@@ -2,36 +2,36 @@
 	"id": "123",
 	"title": "宝贝秀标题",
 	"des": "宝贝秀描述",
-	"img": "images/pic1.png",
+	"img": "img/pic1.png",
 	"buyurl": "http://www.taobao.com",
 	"pages": [{
 		"tmp": 1,
 		"imgs": [
-			"images/pic1.png",
-			"images/pic2.png",
-			"images/pic3.png"
+			"img/pic1.png",
+			"img/pic2.png",
+			"img/pic1.jpg"
 		],
 		"contents": [
 			"用心做好宝贝手机详情",
 			"用心做好宝贝手机详情"
 		]
 	},{
-		"tmp": 2,
+		"tmp": 1,
 		"imgs": [
-			"images/pic1.png",
-			"images/pic1.png",
-			"images/pic1.png"
+			"img/pic1.png",
+			"img/pic2.png",
+			"img/pic1.jpg"
 		],
 		"contents": [
 			"用心做好宝贝手机详情",
 			"用心做好宝贝手机详情"
 		]
 	}, {
-		"tmp": 3,
+		"tmp": 1,
 		"imgs": [
-			"images/pic1.png",
-			"images/pic1.png",
-			"images/pic1.png"
+			"img/pic1.png",
+			"img/pic2.png",
+			"img/pic1.jpg"
 		],
 		"contents": [
 			"用心做好宝贝手机详情",

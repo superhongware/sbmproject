@@ -11,27 +11,18 @@
     <link href="css/ps.css" ver='0.1.0' rel="stylesheet">
 
     <!--<script src="cordova.js"></script>-->
-
-    <!-- build:libjs js/lib.js -->
     <script src="lib/zepto/zepto.min.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-    <!-- endbuild -->
 
-    <!-- build:psjs js/ps.js -->
-    <script src="../src//ps/pscontroller.js"></script>
-    <script src="../src/index/service.encryption.js"></script>
-    <script src="../src/index/services.js"></script>
-    <!-- endbuild -->
-
+    <script src="js/ps/app.js"></script>
 
   </head>
   <body ng-controller="spCtrl">
   <!-- {{show.pages}} -->
-  <p ng-repeat="page in show.pages">{{page}}
-        <b ng-repeat="img in page.imgs track by $index">{{img}}</b>
-  </p>
-    <!-- <show-page ng-repeat="page in show.pages"></show-page> -->
+
+  <!-- <input type="text" ng-model="show.current" class="verytop"> -->
+    <show-box></show-box>
   </body>
 </html>
