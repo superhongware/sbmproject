@@ -21,7 +21,7 @@ var paths = {
   less: ['./less/**/*.less'],
   jssrc:['./src'],
   js: ['/index','/index2'],
-
+  psjs:['./src/ps/**/*.js','./src/index/service.encryption.js','./src/index/services.js']
 };
 
 
@@ -66,6 +66,19 @@ gulp.task('js', function() {
 });
 
 
+gulp.task('psjs', function() {
+    gulp.src(paths.psjs)
+      .pipe(sourcemaps.init())
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(uglify())
+      .pipe(concat('app.js'))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('www/js/ps'));
+});
+
+
+
 
 
 
@@ -89,7 +102,7 @@ gulp.task('browser-sync', function () {
     'www/**/*.html',
     'www/css/**/*.css',
     'www/imgs/**/*.png',
-    'www/js/**/*.js'
+    'www/js/**/*.js',
   ];
 
   browserSync.init(files, {
@@ -107,6 +120,7 @@ gulp.task('watch', function() {
   for (var i = 0; i < paths.js.length; i++) {
     gulp.watch(paths.jssrc+paths.js[i]+'/**/*.js', ['js']);
   };
+    gulp.watch(paths.psjs, ['psjs']);
 });
 
 

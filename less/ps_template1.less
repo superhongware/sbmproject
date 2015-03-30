@@ -1,0 +1,26 @@
+//模板1
+.tmp1{
+	.img0{
+		&:extend(.backgroundpic);
+		z-index: 1;
+	}
+	.img1{
+		&:extend(.centerpic);
+		.square(100px);
+		top: -40%;
+		z-index: 2;
+	}
+	.img2{
+		&:extend(.backgroundpic);
+		z-index: 0;
+	}
+	.text1{
+		&:extend(.centerpic);
+		.size(100%,20px);
+		text-align: center;
+		font-size: 20px;
+		color:#fff;
+		text-shadow: 0 0 5px rgba(255, 255, 200, 0.8);
+		z-index: 2;
+	}
+}
