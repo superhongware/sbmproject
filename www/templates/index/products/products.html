@@ -21,15 +21,18 @@
       <ion-content class="paddingtop44">
         <ion-refresher
         pulling-text="下拉更新..."
-        on-refresh="pageFunc.refreshproductList">
+        on-refresh="pageFunc.refreshproductList()">
         </ion-refresher>
 
         <ion-list>
           <ion-item
           class="item-remove-animate item-avatar item-icon-right"  
           type="item-text-wrap"
-          collection-repeat="item in pageData.productList">
-            <img ng-src="{{chat.face}}">
+          collection-repeat="item in pageData.productList"
+          ng-href="javascripe:;"
+
+          >
+            <img ng-src="{{item.picUrl}}">
             <h2>{{item.title}}</h2>
             <p>￥{{item.price}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.num}}件</p>
             <i class="icon ion-chevron-right icon-accessory"></i>
@@ -38,8 +41,9 @@
               制作详情
             </ion-option-button>
           </ion-item>
+          <div class="warpNoData" ng-if="pageData.productList.length == 0"><i class="iconfont icon-logo"></i>暂无订单</div>
         </ion-list>
-        
+
       <ion-infinite-scroll
         ng-if="pageData.isHaveMoreData"
         icon="ion-loading-c"
