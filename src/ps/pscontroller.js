@@ -8,11 +8,14 @@ var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services']);
 
 SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope, $http, SBMJSONP,p_s) {
 
+
+
 			$http.get("testdata/productshow.json")
 				.success(function(data) {
 					p_s.CreatDomtree(data);
-					p_s.init_animation();
+					// $scope.show = data;
 
+					p_s.init_animation();
 				});
 
 	// $scope.test= function(){
@@ -22,12 +25,12 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 	// }
 }])
 
-.factory('p_s', function() {
+.factory('p_s',['p_s_temp', function(p_s_temp) {
 	function p_s() {
 		this.startX = 0;
 		this.startY = 0;
 		this.startT = 0;
-		this.currentpage = 0;
+		this.currpage = 0;
 		//翻页样式
 		this.pagemovetype = 1;
 		this.spwidth = $(window).width();
@@ -43,49 +46,49 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 		for (var i = 0; i < data.pages.length; i++) { //正排序
 			// for (var i =data.pages.length-1; i >=0 ; i--) {//反排序
 
-			//创建p_s_page
+			//创建ps_page
 			var pagedata = data.pages[i];
 
-			var pageclass = "template" + pagedata.tmp;
+			var pageclass = "tmp" + pagedata.tmp;
 
-			var p_s_page = $("<div></div>")
-				.addClass("beforestart p_s_page " + pageclass);
+			var ps_page = $("<div></div>")
+				.addClass("beforestart ps_page " + pageclass);
 
-			$("body").append(p_s_page);
+			$("body").append(ps_page);
 
-			//创建p_s_img
+			//创建ps_img
 			if (pagedata.imgs.length > 0) {
 
 				for (var m = 0; m < pagedata.imgs.length; m++) {
 
-					var imgdata = pagedata.imgs[m];
+					var imgurl = pagedata.imgs[m];
 
-					var imgclass = "p_s_img" + (m + 1);
+					var imgclass = "ps_img" + (m + 1);
 
-					var p_s_img = $("<div></div>")
-						.addClass("p_s_img " + imgclass)
+					var ps_img = $("<div></div>")
+						.addClass("ps_img " + imgclass)
 						.css({
-							"background-image": "url(" + imgdata.img + ")",
+							"background-image": "url(" + imgurl + ")",
 							// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
 						});
 
-					$(p_s_page).append(p_s_img);
+					$(ps_page).append(ps_img);
 
 				}
 			}
 
-			//创建p_s_text
-			if (pagedata.content.length > 0) {
+			//创建ps_text
+			if (pagedata.texts.length > 0) {
 
-				for (var t = 0; t < pagedata.content.length; t++) {
+				for (var t = 0; t < pagedata.texts.length; t++) {
 
-					var contentdata = pagedata.content[t];
+					var contentdata = pagedata.texts[t];
 
-					var p_s_text = $("<div></div>")
-						.addClass("p_s_text p_s_text" + (t + 1))
+					var ps_text = $("<div></div>")
+						.addClass("ps_text ps_text" + (t + 1))
 						.text(contentdata);
 
-					$(p_s_page).append(p_s_text);
+					$(ps_page).append(ps_text);
 
 				}
 			}
@@ -95,7 +98,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 	};
 
 	p_s.prototype.init_animation = function() {
-
+		
 		//位置初始化
 		this.pagemovemode("pageinit");
 
@@ -161,7 +164,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 		//全屏图片自适应
 		var _ = this;
 		if ((_.spwidth / _.spheight) > 0.635) {
-			$(".p_s_page").addClass("rotation");
+			$(".ps_page").addClass("rotation");
 		}
 		$(".beforestart").removeClass("beforestart");
 
@@ -185,18 +188,21 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 					unit: _.spheight,
 					d: _.moveY - _.startY,
 					animatemode: function(index, movenum, time, z) {
-						$(".p_s_page").eq(index).css({
+						$(".ps_page").eq(index).css({
 							"-webkit-transform": "translateY(" + movenum + "px)",
 							"-webkit-transition": time + "s",
 							"z-index": z
 						});
 					},
 					animateclearing: function() {
-						if (_.endY - _.startY > 40 && _.currentpage > 0) {
-							_.currentpage--;
+						if (_.endY - _.startY > 40 && _.currpage > 0) {
+							_.pageIndexRefresh(_.currpage-1);
+							// _.currpage--;
+
 							action = "pagechange";
-						} else if (_.endY - _.startY < -40 && _.currentpage < _.pagesize) {
-							_.currentpage++;
+						} else if (_.endY - _.startY < -40 && _.currpage < _.pagesize) {
+							_.pageIndexRefresh(_.currpage+1);
+							// _.currpage++;
 							action = "pagechange";
 						} else {
 							action = "pagenochange";
@@ -211,18 +217,18 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 					unit: _.spwidth,
 					d: _.moveX - _.startX,
 					animatemode: function(index, movenum, time, z) {
-						$(".p_s_page").eq(index).css({
+						$(".ps_page").eq(index).css({
 							"-webkit-transform": "translateX(" + movenum + "px)",
 							"-webkit-transition": time + "s",
 							"z-index": z
 						});
 					},
 					animateclearing: function() {
-						if (_.endX - _.startX > 40 && _.currentpage > 0) {
-							_.currentpage--;
+						if (_.endX - _.startX > 40 && _.currpage > 0) {
+							_.pageIndexRefresh(_.currpage-1);
 							action = "pagechange";
-						} else if (_.endX - _.startX < -40 && _.currentpage < _.pagesize) {
-							_.currentpage++;
+						} else if (_.endX - _.startX < -40 && _.currpage < _.pagesize) {
+							_.pageIndexRefresh(_.currpage+1);
 							action = "pagechange";
 						} else {
 							action = "pagenochange";
@@ -239,12 +245,38 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 		return animatemode;
 	};
 
+	p_s.prototype.pageIndexRefresh = function(currentindex) {
+		this.currpage = currentindex;
+		this.prevpage = currentindex - 1;
+		this.nextpage = currentindex + 1;
+	};
+
+	// p_s.prototype.pagemove={
+	// 	var _ = this,
+	// 		animatemode = _.animatemodeclass(),
+	// 		d = animatemode.d,
+	// 		unit = animatemode.unit;
+	// 		animatemode = animatemode.animatemode;
+
+	// 	if(_.currpage !== 0){
+	// 		animatemode(prev, d - unit, 0, 1);
+	// 	}
+
+	// 	animatemode(curr, 0, 0, 0);
+
+	// 	//最后一页 禁止向下翻 
+	// 	if(curr !== _.pagesize){
+	// 		animatemode(next, d + unit, 0, 1);
+	// 	}
+	// }
+
+
 	p_s.prototype.pagemovemode = function(action) {
 		var _ = this,
 			animatemode = _.animatemodeclass(),
-			curr = _.currentpage,
-			prev = _.currentpage - 1,
-			next = _.currentpage + 1,
+			curr = _.currpage,
+			prev = _.currpage - 1,
+			next = _.currpage + 1,
 			d = animatemode.d,
 			unit = animatemode.unit;
 		animatemode = animatemode.animatemode;
@@ -269,7 +301,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 			case "pageinit":
 				//页面初始化
 
-				$(".p_s_page").each(function(index) {
+				$(".ps_page").each(function(index) {
 					if (index < curr) {
 
 						animatemode(index, -unit, 0, 1);
@@ -299,8 +331,8 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 				_.pagemoving = 0;
 				break;
 			case "pagechange":
-				$(".p_s_page").eq(curr).on("webkitTransitionEnd", function() {
-					$(".p_s_page").eq(curr).off("webkitTransitionEnd");
+				$(".ps_page").eq(curr).on("webkitTransitionEnd", function() {
+					$(".ps_page").eq(curr).off("webkitTransitionEnd");
 					//若pagemoving=0,动画进行中touchmove的话动画结束后touchmove&touchend会继续
 					_.pagemoving = 2;
 					_.pageinneract();
@@ -315,32 +347,59 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 
 	p_s.prototype.pageinneract = function(page) {
 		var _=this;
-		page=$(".p_s_page").eq(_.currentpage);
+		page=$(".ps_page").eq(_.currpage);
 
-		page.children(".p_s_img3").addClass("picanimate2");
-
-		page.children(".p_s_img3").on("webkitAnimationEnd",function(){
-
-			$(this).off("webkitAnimationEnd");
-
-			page.children(".p_s_img2").addClass("picanimate15");
-
-			page.children(".p_s_img2").on("webkitAnimationEnd",function(){
-				$(this).off("webkitAnimationEnd");
-			});
-
-			page.children(".p_s_text1").addClass("picanimate2");
-
-			page.children(".p_s_text1").on("webkitAnimationEnd",function(){
-				$(this).off("webkitAnimationEnd");
-			});
-		});
+		p_s_temp(page);
 
 		// console.log(page)
 	};
 
 	return new p_s();
+}])
+
+
+.factory('p_s_temp', function(){
+	var p_s_temp=function(page){
+		var temp=page[0].className.match(/tmp\w*\s?/)[0].replace(/tmp/,"");
+		console.log(temp);
+
+		switch(temp){
+			case "ht1":
+				console.log(0);
+				page.children(".ps_img3").addClass("picanimate2");
+
+				page.children(".ps_img3").on("webkitAnimationEnd",function(){
+
+					$(this).off("webkitAnimationEnd");
+
+					page.children(".ps_img2").addClass("picanimate15");
+
+					page.children(".ps_img2").on("webkitAnimationEnd",function(){
+						$(this).off("webkitAnimationEnd");
+					});
+
+					page.children(".ps_text1").addClass("picanimate2");
+
+					page.children(".ps_text1").on("webkitAnimationEnd",function(){
+						$(this).off("webkitAnimationEnd");
+					});
+				});
+
+			break;
+			case "ht2":
+
+
+			break;
+			default:
+				console.log("1"+temp);
+
+			break;
+		}
+
+	};
+	return p_s_temp;
 })
+
 
 .directive('showBox', ['$http','p_s', function($http,p_s) {
 	// Runs during compile
