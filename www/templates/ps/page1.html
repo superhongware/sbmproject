@@ -1,0 +1,24 @@
+<!-- <div class="ps_page1">
+        <span class="img{{$index}}" ng-repeat="img in page.imgs track by $index" style="background-image:url({{img}})"></span>
+        <span class="text{{$index}}" ng-repeat="text in page.contents track by $index">{{text}}</span>
+  </div> -->
+
+  <div 
+  class="ps_page 
+  page{{$index}} 
+  tmp{{page.tmp}}" 
+  ng-class="{
+  current: $index==show.current, 
+  next: $index==show.current+1, 
+  prev: $index==show.current-1}" 
+  ng-repeat="page in show.pages">
+        <span 
+        class="img{{$index}}"
+        ng-click="test()"
+        ng-repeat="img in page.imgs track by $index" 
+        style="background-image:url({{img}})"></span>
+
+        <span 
+        class="text{{$index}}" 
+        ng-repeat="text in page.contents track by $index">{{text}}</span>
+  </div>  

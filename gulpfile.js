@@ -12,15 +12,16 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   livereload = require('gulp-livereload'),
   browserSync = require('browser-sync'),
+  usemin  = require('gulp-usemin'),
+  rev = require('gulp-rev'),
   sourcemaps = require('gulp-sourcemaps');
-
 
 var paths = {
   sass: ['./scss/**/*.scss'],
   less: ['./less/**/*.less'],
   jssrc:['./src'],
   js: ['/index','/index2'],
-
+  psjs:['./src/ps/**/*.js','./src/index/service.encryption.js','./src/index/services.js']
 };
 
 
@@ -44,7 +45,7 @@ gulp.task('sass', function(done) {
 
 // less 解析
 gulp.task('less', function () {
-  return gulp.src('./less/style.less')
+  return gulp.src(['./less/style.less','./less/ps.less'])
     .pipe(less())
     .pipe(minifyCss())
     .pipe(gulp.dest('./www/css'));
@@ -60,10 +61,39 @@ gulp.task('js', function() {
       .pipe(uglify())
       .pipe(concat('app.js'))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest('www/js'+paths.js[i]))
-      .pipe(livereload());
+      .pipe(gulp.dest('www/js'+paths.js[i]));
   };
 });
+
+
+gulp.task('psjs', function() {
+    gulp.src(paths.psjs)
+      .pipe(sourcemaps.init())
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(uglify())
+      .pipe(concat('app.js'))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('www/js/ps'));
+});
+
+
+
+
+
+
+//合并html里的js文件
+gulp.task('usemin', function () {
+  return gulp.src('www/ps.html')
+      .pipe(usemin({
+        // css: [less(),minifyCss()],
+        // html: [minifyHtml({empty: true})],
+        libjs:[uglify(),rev()],
+        psjs:[uglify(),rev()]
+      }))
+      .pipe(gulp.dest('build/'));
+});
+
 
 
 //开发调试
@@ -72,7 +102,7 @@ gulp.task('browser-sync', function () {
     'www/**/*.html',
     'www/css/**/*.css',
     'www/imgs/**/*.png',
-    'www/js/**/*.js'
+    'www/js/**/*.js',
   ];
 
   browserSync.init(files, {
@@ -90,6 +120,7 @@ gulp.task('watch', function() {
   for (var i = 0; i < paths.js.length; i++) {
     gulp.watch(paths.jssrc+paths.js[i]+'/**/*.js', ['js']);
   };
+    gulp.watch(paths.psjs, ['psjs']);
 });
 
 

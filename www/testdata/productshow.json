@@ -1,0 +1,73 @@
+{
+	"template": 1,
+	"pagecount": 5,
+	"pages": [{
+		"tmp": 1,
+		"imgs": [{
+			"img": "img/pic1.png"
+		}, {
+			"img": "img/pic2.png"
+		}, {
+			"img": "img/pic1.jpg"
+		}],
+		"content": [
+			"用心做好宝贝手机详情"
+		]
+	},{
+		"tmp": 1,
+		"imgs": [{
+			"img": "img/pic1.png"
+		}, {
+			"img": "img/pic2.png"
+		}, {
+			"img": "img/pic1.jpg"
+		}],
+		"content": [
+			"用心做好宝贝手机详情"
+		]
+	}, {
+		"tmp": 3,
+		"imgs": [{
+			"img": "img/pic1.jpg"
+		}, {
+			"img": "img/pic1.jpg"
+		}],
+		"content": [
+			"内容内容内容内容内容内容",
+			"内容内容内容内容内容内容"
+		]
+	}, {
+		"tmp": 3,
+		"imgs": [{
+			"img": "img/pic1.jpg"
+		}, {
+			"img": "img/pic1.jpg"
+		}],
+		"content": [
+			"内容内容内容内容内容内容",
+			"内容内容内容内容内容内容"
+		]
+	}, {
+		"tmp": 3,
+		"imgs": [{
+			"img": "img/pic1.jpg"
+		}, {
+			"img": "img/pic1.jpg"
+		}],
+		"content": [
+			"内容内容内容内容内容内容",
+			"内容内容内容内容内容内容"
+		]
+	}, {
+		"tmp": 3,
+		"imgs": [{
+			"img": "img/pic1.jpg"
+		}, {
+			"img": "img/pic1.jpg"
+		}],
+		"content": [
+			"内容内容内容内容内容内容",
+			"内容内容内容内容内容内容"
+		]
+	}]
+}

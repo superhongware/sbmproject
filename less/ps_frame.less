@@ -1,0 +1,51 @@
+body{
+	position: absolute;
+	top:0px;
+	left: 0px;
+	.square(100%);
+	background-color: #ccc;
+	overflow: hidden;
+	font-size: 8px;
+}
+//通用样式
+.backgroundpic{
+	.square(100%);
+	position: absolute;
+	background-size:auto 100%;
+	background-position: center;
+	z-index: -1;
+}
+//居中
+.centerpic{
+	.square(100px);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin:auto;
+	background-size:100%;
+}
+
+
+.p_s_page{
+	.square(100%);
+	overflow: hidden;
+	position: absolute;
+}
+
+
+
+//iPhone4兼容
+.rotation{
+	.p_s_img{
+		background-size:100% auto;
+	}
+}
+
+//未开始不显示
+.beforestart{
+	opacity: 0;
+}
+
+
