@@ -1,4 +1,4 @@
-<ion-view view-title="我的宝贝" class="sbm_products">
+<ion-view view-title="我的宝贝" class="sbm_products warpProductList">
   <ion-nav-buttons side="right">
     <button class="button" ng-click="show()">
     同步
@@ -13,8 +13,8 @@
         <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
         <div class="checkbtn">
           <div class="button-bar">
-            <a class="button button-energized" >上架中</a>
-            <a class="button" ng-click="action()">已下架</a>
+            <a class="button" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
+            <a class="button" ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
           </div>
         </div>
       </div>
@@ -33,15 +33,25 @@
 
           >
             <img ng-src="{{item.picUrl}}">
-            <h2>{{item.title}}</h2>
-            <p>￥{{item.price}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.num}}件</p>
+            <ul class="productInfo">
+              <li class="floatL">
+                <h2>{{item.title}}</h2>
+                <p>￥{{item.price}}</p>
+              </li>
+              <li class="floatL">
+                <p><img ng-src="{{item.picUrl}}" class="imgPlat"></p>
+                <p>{{item.num}}件</p>
+              </li>
+            </ul>
+            <div class="Clear"></div>
+            
             <i class="icon ion-chevron-right icon-accessory"></i>
 
             <ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
               制作详情
             </ion-option-button>
           </ion-item>
-          <div class="warpNoData" ng-if="pageData.productList.length == 0"><i class="iconfont icon-logo"></i>暂无订单</div>
+          <div class="warpNoData" ng-if="pageData.productList.length == 0"><i class="iconfont icon-logo"></i>该店铺没有上架的宝贝</div>
         </ion-list>
 
       <ion-infinite-scroll

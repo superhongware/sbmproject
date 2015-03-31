@@ -4,7 +4,7 @@
  * 我的宝贝功能模块
  */
 var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
-productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout', '$http', '$ionicLoading', '$rootScope', 'SBMJSONP', '$state', 'productComm', function($scope, $ionicBackdrop, $timeout, $http, $ionicLoading, $rootScope, SBMJSONP, $state, productComm) {
+productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope,  $state, productComm, getDataComm) {
 
 
 	var pageData = {},
@@ -23,7 +23,7 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout
 		orgName: $rootScope.orgName,
 		productList: [],
 		shopList: [], //店铺数据
-		currOrderStatus: productComm.commData.statusList[0],
+		currStatus: 'onsale',
 		currShop: null,
 		isHaveMoreData: false
 	};
@@ -31,7 +31,17 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout
 
 	pageFunc.init = function() {
 		if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
-			pageFunc.loadShopList();
+			getDataComm.loadShopList(function(data) {
+				if (data && data.length > 0) {
+					pageData.shopList = data;
+					pageData.currShop = pageData.shopList[0];
+					pageFunc.loadData();
+				} else {
+					//alert('');
+				}
+			}, function() {
+				console.log('数据查询连接失败');
+			});
 		} else {
 			$state.go("login");
 		}
@@ -42,42 +52,6 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout
 		$scope.$broadcast('scroll.refreshComplete');
 		$scope.$broadcast('scroll.infiniteScrollComplete');
 		pageData.isPostBack = true;
-	};
-
-	/**
-	 * [loadShopList 加载店铺数据]
-	 * @return {[type]} [description]
-	 */
-	pageFunc.loadShopList = function() {
-
-		var api = SBMJSONP("searchShop", {
-			method: 'softbanana.app.shop.search',
-			orgName: 'work',
-			pageNo: 1,
-			pageSize: 50,
-			action: ''
-		});
-
-		$http.jsonp(api.url)
-			.success(function(data) {
-				if (data.isSuccess && data.shops && data.shops.length > 0) {
-					pageData.shopList = [];
-
-					for (var i = 0; i < data.shops.length; i++) {
-						if (data.shops[i].isInvalid) {
-							pageData.shopList.push(data.shops[i]);
-						}
-					}
-
-					pageData.shopList[0].checked = true;
-					pageData.currShop = pageData.shopList[0];
-					pageFunc.loadData();
-				}
-			})
-			.error(function(status, response, a) {
-				$ionicLoading.hide();
-				console.log('数据查询连接失败');
-			});
 	};
 
 
@@ -94,7 +68,7 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout
 			pageData.shopList[i].checked = pageData.shopList[i].id === item.id;
 		}
 
-		pageData.lastId = 1;
+		pageData.lastId = '';
 		pageData.direction = '';
 
 		pageFunc.loadData(true);
@@ -112,35 +86,20 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout
 			template: "正在同步..."
 		});
 
-		var date = new Date();
-
-		var reqData = {
-			method: 'softbanana.app.item.list',
-			orgName: pageData.orgName,
+		productComm.refreshServer({
 			shopName: pageData.currShop.shopName,
 			plat: pageData.currShop.plat,
-			endDate: dateFormat(date, 'yyyy-MM-dd hh:mm:ss'),
-		};
-
-		date.setMonth(date.getMonth() - 1);
-		reqData.startDate = dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
-
-		console.log('refreshServer reqData');
-		console.log(reqData);
-
-		var api = SBMJSONP("listItem", reqData);
-		$http.jsonp(api.url)
-			.success(function(data) {
-				console.log('refreshServer');
-				console.log(data);
-				setTimeout(function() {
-					pageFunc.loadDataComplete();
-				}, 3000);
-			})
-			.error(function(status, response) {
+		}, function(data) {
+			console.log('refreshServer');
+			console.log(data);
+			setTimeout(function() {
 				pageFunc.loadDataComplete();
-				console.log('数据查询连接失败');
-			});
+			}, 3000);
+		}, function(data) {
+			pageFunc.loadDataComplete();
+			console.log('数据查询连接失败');
+		});
+
 	};
 
 
@@ -172,7 +131,18 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout
 
 	};
 
+	/**
+	 * [loadDataByStatus 根据状态筛选产品]
+	 * @param  {[type]} status [状态：onsale、instock]
+	 * @return {[type]}        [description]
+	 */
+	pageFunc.loadDataByStatus = function(status){
+		pageData.lastId = '';
+		pageData.direction = '';
+		pageData.currStatus = status;
 
+		pageFunc.loadData(true);
+	}
 
 	/**
 	 * [loadData 加载产品数据]
@@ -187,100 +157,63 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicBackdrop', '$timeout
 			});
 		}
 
-		var reqData = {
-			method: 'softbanana.app.item.search',
-			orgName: pageData.orgName,
+		var option = {
 			shopName: pageData.currShop.shopName,
-			status: pageData.currOrderStatus.status,
+			status: pageData.currStatus,
 			action: pageData.direction,
 			pageNo: pageData.lastId,
 			pageSize: pageData.pageSize,
 			plat: pageData.currShop.plat
 		};
-		console.log('reqData');
-		console.log(reqData);
-		var api = SBMJSONP("searchItem", reqData);
+		console.log('pageFunc.loadData option');
+		console.log(option);
 
-		$http.jsonp(api.url)
-			.success(function(data) {
-				console.log('loadData');
-				console.log(data);
-				pageFunc.loadDataComplete();
+		productComm.loadProductData(option, function(data) {
 
-				if (isClearCurrData) {
-					pageData.productList = [];
+			pageFunc.loadDataComplete();
+
+			if (data.length == 0 && pageData.direction === 'up') {
+				pageData.isHaveMoreData = false;
+				return;
+			}
+
+			if (isClearCurrData) {
+				pageData.productList = [];
+			}
+			if (pageData.direction === 'up') { //moredata
+				pageData.isHaveMoreData = true;
+				pageData.productList = pageData.productList.concat(data);
+			} else {
+				if (pageData.direction === '') {
+					pageData.isHaveMoreData = true;
 				}
+				pageData.productList = data.concat(pageData.productList);
+			}
+			console.log('pageData.productList');
+			console.log(pageData.productList);
 
-				if (data.isSuccess && parseInt(data.totalCount) > 0 && data.items && data.items.length > 0) {
+		}, function(status, response, msg) {
+			pageFunc.loadDataComplete();
+			console.log('数据查询连接失败');
+		});
 
-					//按id顺序排列
-					data.items.sort(function(a, b) {
-						return parseInt(a.id) > parseInt(b.id) ? -1 : 1;
-					});
-
-					if (pageData.direction === 'up') { //moredata
-						pageData.isHaveMoreData = true;
-						for (var i = 0; i < data.items.length; i++) {
-							pageData.productList.push(data.items[i]);
-						}
-					} else {
-						if (pageData.direction === '') {
-							pageData.isHaveMoreData = true;
-						}
-						for (var i = data.items.length - 1; i >= 0; i--) {
-							pageData.productList.unshift(data.items[i]);
-						}
-					}
-
-				} else {
-					if (pageData.direction === 'up') {
-						pageData.isHaveMoreData = false;
-					}
-				}
-
-			})
-			.error(function(status, response) {
-				pageFunc.loadDataComplete();
-				console.log('数据查询连接失败');
-			});
 	};
 
+	pageFunc.showDetail = function(item){
+		var currSelectProduct = {
+            orgName: pageData.orgName,
+            numIid: item.numIid,
+            plat: item.plat
+        };
+        localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
+        $state.go("productDetail");
+	};
 
 	$scope.pageData = pageData;
 	$scope.pageFunc = pageFunc;
 
 	pageFunc.init();
 
-
-	$scope.action = function() {
-		$ionicBackdrop.retain();
-		$timeout(function() {
-			$ionicBackdrop.release();
-		}, 1000);
-	};
-	$scope.products = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33];
-
-	$scope.show = function() {
-		$ionicLoading.show({
-			template: "loading...",
-			duration: 2000
-		});
-	};
-	$scope.doRefresh = function() {
-
-		$http.get('/testdata/products.json')
-
-		.success(function(newItems) {
-			console.log(newItems);
-			$scope.products = newItems;
-		})
-
-		.finally(function() {
-			// Stop the ion-refresher from spinning
-			$scope.$broadcast('scroll.refreshComplete');
-		});
-	};
-	// console.log(0);
 }]);
 
 
@@ -292,9 +225,11 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SB
 		pageData = {};
 
 	pageData = {
-		currSelectOrder: JSON.parse(localStorage.getItem('currSelectOrder')),
+		currSelectOrder: JSON.parse(localStorage.getItem('currSelectProduct')),
 		orderDetail: {}
 	};
+
+	console.log(pageData);
 
 	/**
 	 * [init 模块入口]
@@ -338,13 +273,13 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SB
 					pageData.orderDetail = data.trade;
 					pageData.orderDetail.statusName = orderComm.func.getStatusName(pageData.orderDetail.status);
 
-					if (!pageData.orderDetail.buyerMessage) 
+					if (!pageData.orderDetail.buyerMessage)
 						pageData.orderDetail.buyerMessage = '无';
-					
+
 					pageData.orderDetail.totalAmount = parseFloat(pageData.orderDetail.totalAmount);
 					pageData.orderDetail.postFee = parseFloat(pageData.orderDetail.postFee);
 
-					if (pageData.orderDetail.paymentType == 'ONLINE_PAYMENT') {//ONLINE_PAYMENT
+					if (pageData.orderDetail.paymentType == 'ONLINE_PAYMENT') { //ONLINE_PAYMENT
 						pageData.orderDetail.paymentType = '在线支付';
 					}
 					if (pageData.orderDetail.paymentType == 'COD') {
@@ -362,7 +297,7 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SB
 	};
 
 	$scope.pageData = pageData;
-	pageFunc.init();
+	//pageFunc.init();
 
 
 }]);

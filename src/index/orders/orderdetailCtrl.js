@@ -48,7 +48,7 @@ starterctrl.controller('orderdetailCtrl', ['$scope', '$http', '$state', 'SBMJSON
 				$ionicLoading.hide();
 				if (data.isSuccess) {
 					pageData.orderDetail = data.trade;
-					pageData.orderDetail.statusName = orderComm.func.getStatusName(pageData.orderDetail.status);
+					pageData.orderDetail.statusName = orderComm.getStatusName(pageData.orderDetail.status);
 
 					if (!pageData.orderDetail.buyerMessage) 
 						pageData.orderDetail.buyerMessage = '无';
