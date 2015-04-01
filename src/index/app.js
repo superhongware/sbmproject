@@ -64,7 +64,7 @@ angular.module('starter',
 		controller:'productsCtrl'
 	})
 	.state('productDetail', {
-		url: "/products",
+		url: "/productDetail",
 		templateUrl: "templates/index/products/productDetail.html",
 		controller:'productDetailCtrl'
 	})

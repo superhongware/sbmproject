@@ -202,39 +202,39 @@
 	 */
 	getDataComm.platObj = {
 		YHD: {
-			imgSrc: '/www/img/plat/yhd.png',
+			imgSrc: '/img/plat/yhd.png',
 			name: '一号店'
 		},
 		DANGDANG: {
-			imgSrc: '/www/img/plat/dd.png',
+			imgSrc: '/img/plat/dd.png',
 			name: '当当'
 		},
 		JINGD: {
-			imgSrc: '/www/img/plat/jd.png',
+			imgSrc: '/img/plat/jd.png',
 			name: '京东'
 		},
 		PAIPAI: {
-			imgSrc: '/www/img/plat/pp.png',
+			imgSrc: '/img/plat/pp.png',
 			name: '拍拍'
 		},
 		TAOBAO: {
-			imgSrc: '/www/img/plat/tb.png',
+			imgSrc: '/img/plat/tb.png',
 			name: '淘宝'
 		},
 		TMALL: {
-			imgSrc: '/www/img/plat/tmall.png',
+			imgSrc: '/img/plat/tmall.png',
 			name: '天猫'
 		},
 		WD: {
-			imgSrc: '/www/img/plat/wd.png',
+			imgSrc: '/img/plat/wd.png',
 			name: '微店'
 		},
 		AMAZON: {
-			imgSrc: '/www/img/plat/amz.png',
+			imgSrc: '/img/plat/amz.png',
 			name: '亚马逊'
 		},
 		KDT: {
-			imgSrc: '/www/img/plat/youzan.png',
+			imgSrc: '/img/plat/youzan.png',
 			name: '有赞'
 		},
 	};
@@ -331,7 +331,7 @@
 /**
  * [产品通用模块]
  */
-.factory('productComm', ['$http', 'SBMJSONP', '$rootScope', function($http, SBMJSONP, $rootScope) {
+.factory('productComm', ['$http', 'SBMJSONP', '$rootScope','getDataComm', function($http, SBMJSONP, $rootScope,getDataComm) {
 
 	var productComm = {};
 
@@ -385,11 +385,14 @@
 		};
 		console.log('productComm.loadProductData reqData');
 		console.log(reqData);
+		
 		var api = SBMJSONP("searchItem", reqData);
 
 		$http.jsonp(api.url)
 			.success(function(data) {
-				
+				console.log('productComm.loadProductData');
+				console.log(data);
+
 				var callBackData = [];
 
 				if (data.isSuccess && parseInt(data.totalCount) > 0 && data.items && data.items.length > 0) {
@@ -407,6 +410,11 @@
 							callBackData.unshift(data.items[i]);
 						}
 					}
+				}
+
+				//数据处理
+				for (var i = 0; i < callBackData.length; i++) {
+					callBackData[i].picPlatUrl = getDataComm.platObj[callBackData[i].plat].imgSrc;
 				}
 
 				callBack(callBackData);

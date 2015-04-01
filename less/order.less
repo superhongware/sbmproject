@@ -11,7 +11,7 @@
 	color: #999;
 }
 .colorYellow {
-	color: #E08700;
+	color: #E08700!important;
 }
 .txtLeft {
 	text-align: left;
@@ -45,9 +45,21 @@
 .mRight100 {
 	margin-right: 100px !important;
 }
+
 .mBottom40 {
 	margin-bottom: 40px !important;
 }
+.mBottom9 {
+	margin-bottom: 9px !important;
+}
+
+.mTop6{
+	margin-top: 6px !important;
+}
+
+
+
+
 .pBottom6 {
 	padding-bottom: 6px !important;
 }
@@ -189,22 +201,59 @@
 		font-size: 18px;
 	}
 }
+
+/*产品列表*/
 .warpProductList {
 	ul.productInfo {
 		li:nth-child(1) {
-			width: 135px;
-
-			.h2 {
-				height: 27px;
-			}
+			width: 130px;
 		}
 		li:nth-child(2) {
-			text-align: left;
-			margin-left: 10px;
+			text-align: center;
+ 		 	width: 60px;
 		}
 		.imgPlat {
-			.size(22px, 22px);
-			margin-left: 5px;
+			.size(28px, 28px);
+			// margin-left: 5px;
+			border-radius: 2px;
 		}
 	}
+	.item{
+		.icon-points{
+			position: absolute;
+			right: 15px;
+			top: 14px;
+			font-size: 28px;
+		}
+		.xiang{
+		   	position: absolute;
+			right: 19px;
+			top: 36px;
+			font-size: 10px;
+			display: block;
+			padding: 0 4px 0 5px;
+			color: #fff;
+			background-color: #FE9900;
+			border-radius: 3px;
+		}
+		.imgProduct{
+			border-radius: 3px!important;
+			max-width: 56px!important;
+			max-height: 56px!important;
+			left: 9px!important;
+		}
+		
+	}
+}
+
+/*产品详情*/
+.warpProductDetail{
+	.detailList{
+		.item{
+			img{
+				.size(50px,50px);
+			}
+		}
+	}
+
 }
