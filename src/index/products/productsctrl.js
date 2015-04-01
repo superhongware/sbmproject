@@ -4,7 +4,7 @@
  * 我的宝贝功能模块
  */
 var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
-productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope,  $state, productComm, getDataComm) {
+productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm) {
 
 
 	var pageData = {},
@@ -24,19 +24,38 @@ productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope
 		productList: [],
 		shopList: [], //店铺数据
 		currStatus: 'onsale',
-		isOnsaleStatus:true,
+		isOnsaleStatus: true,
 		currShop: null,
 		isHaveMoreData: false,
-		isPostBack:false
+		isPostBack: false,
+		pageViewState: JSON.parse(localStorage.getItem('productListPageViewState')) //{currShop,currStatus}
 	};
 
 
 	pageFunc.init = function() {
 		if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
+			console.log('pageData.pageViewState');
+			console.log(pageData.pageViewState);
+			if (pageData.pageViewState) {
+				pageData.currShop = pageData.pageViewState.currShop;
+				pageData.currStatus = pageData.pageViewState.currStatus;
+
+				pageData.isOnsaleStatus = pageData.currStatus == 'onsale';
+			} else {
+				pageData.pageViewState = {
+					currShop: {},
+					currStatus: 'onsale'
+				};
+			}
+
 			getDataComm.loadShopList(function(data) {
 				if (data && data.length > 0) {
 					pageData.shopList = data;
-					pageData.currShop = pageData.shopList[0];
+					if (pageData.currShop == null) {
+						pageData.currShop = pageData.shopList[0];
+					}else{
+						pageFunc.setSelectShop(pageData.currShop);
+					}
 					pageFunc.loadData();
 				} else {
 					//alert('');
@@ -48,6 +67,12 @@ productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope
 			$state.go("login");
 		}
 	};
+
+	pageFunc.setCurrPageViewState = function(currShop, currStatus) {
+		pageData.pageViewState.currShop = currShop;
+		pageData.pageViewState.currStatus = currStatus;
+		localStorage.setItem('productListPageViewState', JSON.stringify(pageData.pageViewState));
+	}
 
 	pageFunc.loadDataComplete = function() {
 		$ionicLoading.hide();
@@ -64,17 +89,25 @@ productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope
 	 */
 	pageFunc.loadDataByShop = function(item) {
 		console.log('loadDataByShop');
-		pageData.currShop = item;
 
-		for (var i in pageData.shopList) {
-			pageData.shopList[i].checked = pageData.shopList[i].id === item.id;
-		}
+		pageFunc.setSelectShop(item);
 
 		pageData.lastId = '';
 		pageData.direction = '';
 
 		pageFunc.loadData(true);
 
+	};
+
+	pageFunc.setSelectShop = function(item){
+		for (var i in pageData.shopList) {
+			pageData.shopList[i].checked = pageData.shopList[i].id === item.id;
+		}
+		pageData.currShop = item;
+		pageFunc.setCurrPageViewState(
+			pageData.currShop,
+			pageData.pageViewState.currStatus == null ? 'onsale' : pageData.pageViewState.currStatus
+		);
 	};
 
 
@@ -138,11 +171,15 @@ productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope
 	 * @param  {[type]} status [状态：onsale、instock]
 	 * @return {[type]}        [description]
 	 */
-	pageFunc.loadDataByStatus = function(status){
+	pageFunc.loadDataByStatus = function(status) {
 		pageData.lastId = '';
 		pageData.direction = '';
 		pageData.currStatus = status;
 		pageData.isOnsaleStatus = status == 'onsale';
+		pageFunc.setCurrPageViewState(
+			pageData.pageViewState.currShop == null ? pageData.shopList[0] : pageData.pageViewState.currShop,
+			pageData.currStatus
+		);
 		pageFunc.loadData(true);
 	}
 
@@ -188,10 +225,7 @@ productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope
 				pageData.productList = data.concat(pageData.productList);
 			}
 
-			if (pageData.isPostBack 
-				&& (pageData.direction === 'up' || pageData.direction === '')
-				&& data.length > 0
-				) {
+			if (pageData.isPostBack && (pageData.direction === 'up' || pageData.direction === '') && data.length > 0) {
 				pageData.isHaveMoreData = true;
 			}
 
@@ -207,14 +241,14 @@ productsmodule.controller('productsCtrl', ['$scope','$ionicLoading', '$rootScope
 
 	};
 
-	pageFunc.showDetail = function(item){
+	pageFunc.showDetail = function(item) {
 		var currSelectProduct = {
-            orgName: pageData.orgName,
-            numIid: item.numIid,
-            plat: item.plat
-        };
-        localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
-        $state.go("productDetail");
+			orgName: pageData.orgName,
+			numIid: item.numIid,
+			plat: item.plat
+		};
+		localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
+		$state.go("productDetail");
 	};
 
 	$scope.pageData = pageData;
@@ -307,7 +341,7 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SB
 	 * @param  {[type]} $index [description]
 	 * @return {[type]}        [description]
 	 */
-	pageFunc.slideHasChanged = function($index){
+	pageFunc.slideHasChanged = function($index) {
 		console.log("$index: " + $index);
 	};
 
