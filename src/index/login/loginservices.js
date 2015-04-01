@@ -15,20 +15,39 @@ loginmodule.factory('loginSubmit', ['$http','$state','$ionicPopup','SBMJSONP','m
 					$state.go("home");
 				}else{
 
-					var mypopup=$ionicPopup.show({
-						title: "登录失败",
-						template: data.map.errorMsg,
-						buttons: [{
-							text: "卧槽,又出错!",
-							type: "button-energized",
-							// onTap: function(e) {
-							// 	e.preventDefault();
-							// }
-						}]
-					});
+					// var mypopup=$ionicPopup.show({
+					// 	title: "登录失败",
+					// 	template: data.map.errorMsg,//对应的商家不存在  用户名不存在 密码错误
+					// 	buttons: [{
+					// 		text: "卧槽,又出错!",
+					// 		type: "button-energized",
+					// 		// onTap: function(e) {
+					// 		// 	e.preventDefault();
+					// 		// }
+					// 	}]
+					// });
 					// mypopup.then(function(res){
 					// 	console.log(res);
 					// })
+					if(data.map.errorMsg == "对应的商家不存在"){
+						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(0).show();
+					}else if(data.map.errorMsg == "商家名称不允许为空"){
+						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(0).show();
+					}else if(data.map.errorMsg == "用户名不允许为空"){
+						$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(1).show();
+					}else if(data.map.errorMsg == "用户名不存在"){
+						$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(1).show();
+					}else if(data.map.errorMsg == "密码不允许为空"){
+						$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(2).show();
+					}else if(data.map.errorMsg == "密码错误"){
+						$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(2).show();
+					}
 				}
 			})
 

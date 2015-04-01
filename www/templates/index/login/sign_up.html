@@ -5,40 +5,60 @@
 				<h3>软香蕉宝贝秀</h3>
 			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-store2 placeholder-icon"></i><span class="v-bar"></span>
-					<input type="text" placeholder="商家名称" ng-model="yourdata.orgName">
+					<input type="text" placeholder="商家名称" ng-model="yourdata.orgName" ng-focus="hidetip()">
 				</label>
 			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect"></div>
+			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-yonghuming placeholder-icon"></i><span class="v-bar"></span>
-					<input type="text" placeholder="用户名" ng-model="yourdata.userName">
+					<input type="text" placeholder="用户名" ng-model="yourdata.userName" ng-focus="hidetip()">
 				</label>
 			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect"></div>
+			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-mima placeholder-icon"></i><span class="v-bar"></span>
-					<input type="password" placeholder="密码" ng-model="yourdata.password">
+					<input type="password" placeholder="密码" ng-model="yourdata.password" ng-focus="hidetip()">
 				</label>
 			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-mima placeholder-icon"></i><span class="v-bar"></span>
-					<input type="password" placeholder="确认密码" ng-model="yourdata.password1">
+					<input type="password" placeholder="确认密码" ng-model="yourdata.password1" ng-focus="hidetip()" />
 				</label>
 			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect">两次输入的密码不一致</div>
+			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-phone placeholder-icon"></i><span class="v-bar"></span>
-					<input type="text" placeholder="手机号码" ng-model="yourdata.phone">
+					<input type="text" placeholder="手机号码" ng-model="yourdata.phone" ng-focus="hidetip()">
 				</label>
 			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect">手机号输入错误</div>
+			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-youxiang placeholder-icon"></i><span class="v-bar"></span>
-					<input type="text" placeholder="邮箱" ng-model="yourdata.email">
+					<input type="text" placeholder="邮箱" ng-model="yourdata.email" ng-focus="hidetip()">
 				</label>
+			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect">邮箱输入错误</div>
 			</div>
 			<div class="padding">
 				<a class="button button-block button-energized" ng-click="sign_up()" >立即注册</a>

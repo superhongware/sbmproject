@@ -78,6 +78,52 @@
 	};
 })
 
+/**
+ * [订单通用模块]
+ */
+.factory('orderComm', function() {
+	return {
+		commData: {
+			orderStatusList: [{
+				name: '已付款',
+				status: 'PAID'
+			}, {
+				name: '未付款',
+				status: 'NON_PAYMENT'
+			}, {
+				name: '已打印',
+				status: 'PRINTED'
+			}, {
+				name: '已发货',
+				status: 'DELIVERED'
+			}, {
+				name: '已取消',
+				status: 'CANCELED'
+			}, {
+				name: '已完成',
+				status: 'COMPLETED'
+			}, {
+				name: '全部',
+				status: ''
+			}]
+		},
+		func:{
+			getStatusName:function(status){
+				var result = '';
+
+            for (var i = 0; i < this.commData.orderStatusList.length; i++) {
+                if (status == this.commData.orderStatusList[i].status) {
+                    result = this.commData.orderStatusList[i].name;
+                    break;
+                }
+            }
+
+            return result;
+			}
+		}
+	};
+})
+
 /** 
 	JSONP接口通用方法
 	SBMJSONP使用方法如下
@@ -186,282 +232,7 @@
 		urldata.sign=hex_md5(tempStr);
 		return $.extend(urldata,obj);
 	};
-}])
-
-
-/**
- * [通用数据获取逻辑方法]
- * 
- */
-.factory('getDataComm', ['$http', 'SBMJSONP', '$rootScope', function($http, SBMJSONP, $rootScope) {
-	var getDataComm = {};
-
-	/**
-	 * [platObj 平台数据对象]
-	 * @type {Object}
-	 */
-	getDataComm.platObj = {
-		YHD: {
-			imgSrc: '/www/img/plat/yhd.png',
-			name: '一号店'
-		},
-		DANGDANG: {
-			imgSrc: '/www/img/plat/dd.png',
-			name: '当当'
-		},
-		JINGD: {
-			imgSrc: '/www/img/plat/jd.png',
-			name: '京东'
-		},
-		PAIPAI: {
-			imgSrc: '/www/img/plat/pp.png',
-			name: '拍拍'
-		},
-		TAOBAO: {
-			imgSrc: '/www/img/plat/tb.png',
-			name: '淘宝'
-		},
-		TMALL: {
-			imgSrc: '/www/img/plat/tmall.png',
-			name: '天猫'
-		},
-		WD: {
-			imgSrc: '/www/img/plat/wd.png',
-			name: '微店'
-		},
-		AMAZON: {
-			imgSrc: '/www/img/plat/amz.png',
-			name: '亚马逊'
-		},
-		KDT: {
-			imgSrc: '/www/img/plat/youzan.png',
-			name: '有赞'
-		},
-	};
-
-	/**
-	 * [loadShopList 加载店铺列表]
-	 * @param  {[type]} callBack      [成功返回]
-	 * @param  {[type]} errorCallBack [失败返回]
-	 * @return {[type]}               [description]
-	 */
-	getDataComm.loadShopList = function(callBack, errorCallBack) {
-		console.log('getDataComm.loadShopList');
-
-		var api = SBMJSONP("searchShop", {
-			method: 'softbanana.app.shop.search',
-			orgName: $rootScope.orgName,
-			pageNo: 1,
-			pageSize: 50,
-			action: ''
-		});
-
-		$http.jsonp(api.url)
-			.success(function(data) {
-				if (data.isSuccess && data.shops && data.shops.length > 0) {
-					var shopList = [];
-					for (var i = 0; i < data.shops.length; i++) {
-						if (data.shops[i].isInvalid) {
-							shopList.push(data.shops[i]);
-						}
-					}
-					shopList[0].checked = true;
-					callBack(shopList);
-				}
-			})
-			.error(function(status, response) {
-				errorCallBack(status, response, '数据查询失败');
-			});
-	};
-
-	return getDataComm;
-}])
-
-/**
- * [订单通用模块]
- */
-.factory('orderComm', ['$http', 'SBMJSONP', '$rootScope', function($http, SBMJSONP, $rootScope) {
-
-	var orderComm = {};
-
-	/**
-	 * [orderStatusList 订单状态]
-	 * @type {Array}
-	 */
-	orderComm.orderStatusList = [{
-		name: '已付款',
-		status: 'PAID'
-	}, {
-		name: '未付款',
-		status: 'NON_PAYMENT'
-	}, {
-		name: '已打印',
-		status: 'PRINTED'
-	}, {
-		name: '已发货',
-		status: 'DELIVERED'
-	}, {
-		name: '已取消',
-		status: 'CANCELED'
-	}, {
-		name: '已完成',
-		status: 'COMPLETED'
-	}, {
-		name: '全部',
-		status: ''
-	}];
-
-
-	orderComm.getStatusName = function(status) {
-		var result = '';
-		for (var i = 0; i < orderComm.orderStatusList.length; i++) {
-			if (status == orderComm.orderStatusList[i].status) {
-				result = orderComm.orderStatusList[i].name;
-				break;
-			}
-		}
-
-		return result;
-	};
-
-
-	return orderComm;
-}])
-
-/**
- * [产品通用模块]
- */
-.factory('productComm', ['$http', 'SBMJSONP', '$rootScope', function($http, SBMJSONP, $rootScope) {
-
-	var productComm = {};
-
-	/**
-	 * [statusList 产品状态]
-	 * @type {Array}
-	 */
-	productComm.statusList = [{
-		name: '上架中',
-		status: 'onsale'
-	}, {
-		name: '已下架',
-		status: 'instock'
-	}, ];
-
-	/**
-	 * [getStatusName 获取产品状态名称]
-	 * @param  {[type]} status [状态]
-	 * @return {[type]}        [description]
-	 */
-	productComm.getStatusName = function(status) {
-		var result = '';
-		for (var i = 0; i < statusList.length; i++) {
-			if (status == statusList[i].status) {
-				result = statusList[i].name;
-				break;
-			}
-		}
-		return result;
-	};
-
-	/**
-	 * [loadProductData 加载产品数据]
-	 * @param  {[type]} option        [参数选项]
-	 * @param  {[type]} callBack      [成功返回]
-	 * @param  {[type]} errorCallBack [失败返回]
-	 * @return {[type]}               [description]
-	 */
-	productComm.loadProductData = function(option, callBack, errorCallBack) {
-
-		var reqData = {
-			method: 'softbanana.app.item.search',
-			orgName: $rootScope.orgName,
-
-			shopName: option.shopName,
-			status: option.status,
-			action: option.action,
-			pageNo: option.pageNo,
-			pageSize: option.pageSize,
-			plat: option.plat
-		};
-		console.log('productComm.loadProductData reqData');
-		console.log(reqData);
-		var api = SBMJSONP("searchItem", reqData);
-
-		$http.jsonp(api.url)
-			.success(function(data) {
-				
-				var callBackData = [];
-
-				if (data.isSuccess && parseInt(data.totalCount) > 0 && data.items && data.items.length > 0) {
-					//按id顺序排列
-					data.items.sort(function(a, b) {
-						return parseInt(a.id) > parseInt(b.id) ? -1 : 1;
-					});
-
-					if (option.action === 'up') { //moredata
-						for (var i = 0; i < data.items.length; i++) {
-							callBackData.push(data.items[i]);
-						}
-					} else {
-						for (var i = data.items.length - 1; i >= 0; i--) {
-							callBackData.unshift(data.items[i]);
-						}
-					}
-				}
-
-				callBack(callBackData);
-
-			})
-			.error(function(status, response) {
-				console.log('数据查询连接失败');
-				errorCallBack(status, response, '数据查询失败');
-			});
-	};
-
-	/**
-	 * [refreshServer 刷新远程数据]
-	 * @param  {[type]} option        [参数选项{shopName、plat}]
-	 * @param  {[type]} callBack      [成功返回]
-	 * @param  {[type]} errorCallBack [成功返回]
-	 * @return {[type]}               [description]
-	 */
-	productComm.refreshServer = function(option, callBack, errorCallBack) {
-		console.log('refreshServer');
-		
-		var date = new Date();
-
-		var reqData = {
-			method: 'softbanana.app.item.list',
-			orgName: $rootScope.orgName,
-
-			shopName: option.shopName,//店铺名称
-			plat: option.plat,//平台名称
-
-			endDate: dateFormat(date, 'yyyy-MM-dd hh:mm:ss'),
-		};
-
-		date.setMonth(date.getMonth() - 1);
-		reqData.startDate = dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
-
-		console.log('refreshServer reqData');
-		console.log(reqData);
-
-		var api = SBMJSONP("listItem", reqData);
-		$http.jsonp(api.url)
-			.success(function(data) {
-				callBack(data);
-			})
-			.error(function(status, response) {
-				errorCallBack(status, response, '数据查询连接失败');
-			});
-	};
-
-	return productComm;
-}])
-
-
-
-;
+}]);
 
 
 

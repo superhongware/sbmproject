@@ -1,11 +1,13 @@
 .sign_up{
-	background-color:#222;
+	background:#222 url(../../../img/login.jpg) no-repeat;
+	background-size:100% auto;
 	padding: 0 4%;
 	.list{
 		.list-inset{
 			margin: 5px 10px;
 			background-color: rgba(255, 255, 255, 0.1);
 			.item{
+				// position: relative;
 				background-color: rgba(255, 255, 255, 0.1);
 				.placeholder-icon{
 					color:#fff;
@@ -26,6 +28,28 @@
 			}
 		}
 	}
+	.error-tip{
+		position: relative;
+		z-index: 999;
+		margin:-15px 11px -24px 11px;
+		display: none;
+		.triangle{
+			width: 10px;
+			height: 10px;
+			background: #fe9900;
+			-webkit-transform:rotate(45deg);
+			margin-left:36px;
+		}
+		.rect{
+			margin-top: -5px;
+			background: #fe9900;
+			height: 30px;
+			line-height: 30px;
+			color: #fff;
+			font-size: 15px;
+			text-indent: 17px;
+		}
+	}
 	.logintitle{
 		padding-top: 30px;
 		padding-bottom:5px;
@@ -41,12 +65,4 @@
 			color:#fff;
 		}
 	}
-	// .padding{
-	// 	.goto-reg{
-	// 		margin-top: 50%;
-	// 	}
-	// 	.goto-reg2{
-	// 		margin-top: 10%;
-	// 	}
-	// }
 }

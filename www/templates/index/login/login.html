@@ -5,22 +5,34 @@
 				<h3>软香蕉宝贝秀</h3>
 			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-store2 placeholder-icon"></i><span class="v-bar"></span>
-					<input type="text" placeholder="商家名称" ng-model="logindata.orgName">
+					<input type="text"  placeholder="商家名称" ng-model="logindata.orgName" ng-focus="hidetip()">
 				</label>
 			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect"></div>
+			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-yonghuming placeholder-icon"></i><span class="v-bar"></span>
-					<input type="text" placeholder="用户名" ng-model="logindata.userName">
+					<input type="text" tiphide placeholder="用户名" ng-model="logindata.userName" ng-focus="hidetip()">
 				</label>
 			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect"></div>
+			</div>
 			<div class="list list-inset">
-				<label class="item item-input" style="border-color:rgba(255,255,255,0.3);">
+				<label class="item item-input" style="border-color:rgba(255,255,255,0.4);">
 					<i class="iconfont icon-mima placeholder-icon" ></i><span class="v-bar"></span>
-					<input type="password" placeholder="密码" ng-model="logindata.password">
+					<input type="password" placeholder="密码" ng-model="logindata.password" ng-focus="hidetip()">
 				</label>
+			</div>
+			<div class="error-tip">
+				<div class="triangle"></div>
+				<div class="rect"></div>
 			</div>
 			<div class="forget-password">
 				<a href="#">忘记密码？</a>
