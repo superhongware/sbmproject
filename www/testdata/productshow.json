@@ -1,73 +1,66 @@
 {
 	"template": 1,
 	"pagecount": 5,
-	"pages": [{
-		"tmp": 1,
-		"imgs": [{
-			"img": "img/pic1.png"
-		}, {
-			"img": "img/pic2.png"
-		}, {
-			"img": "img/pic1.jpg"
-		}],
-		"content": [
-			"用心做好宝贝手机详情"
-		]
-	},{
-		"tmp": 1,
-		"imgs": [{
-			"img": "img/pic1.png"
-		}, {
-			"img": "img/pic2.png"
-		}, {
-			"img": "img/pic1.jpg"
-		}],
-		"content": [
-			"用心做好宝贝手机详情"
-		]
-	}, {
-		"tmp": 3,
-		"imgs": [{
-			"img": "img/pic1.jpg"
-		}, {
-			"img": "img/pic1.jpg"
-		}],
-		"content": [
-			"内容内容内容内容内容内容",
-			"内容内容内容内容内容内容"
-		]
-	}, {
-		"tmp": 3,
-		"imgs": [{
-			"img": "img/pic1.jpg"
-		}, {
-			"img": "img/pic1.jpg"
-		}],
-		"content": [
-			"内容内容内容内容内容内容",
-			"内容内容内容内容内容内容"
-		]
-	}, {
-		"tmp": 3,
-		"imgs": [{
-			"img": "img/pic1.jpg"
-		}, {
-			"img": "img/pic1.jpg"
-		}],
-		"content": [
-			"内容内容内容内容内容内容",
-			"内容内容内容内容内容内容"
-		]
-	}, {
-		"tmp": 3,
-		"imgs": [{
-			"img": "img/pic1.jpg"
-		}, {
-			"img": "img/pic1.jpg"
-		}],
-		"content": [
-			"内容内容内容内容内容内容",
-			"内容内容内容内容内容内容"
-		]
-	}]
+	"pages": [
+	{
+		"tmp": "ht1",
+		"imgs": [
+			"img/pic1.png", 
+			"img/pic2.png", 
+			"img/pic1.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht2",
+		"imgs": [
+			"img/pic2.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht3",
+		"imgs": [
+			"img/pic3.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht4",
+		"imgs": [
+			"img/pic4.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht5",
+		"imgs": [
+			"img/pic5_1.jpg",
+			"img/pic5_2.jpg",
+			"img/pic5_3.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht6",
+		"imgs": [
+			"img/pic6.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht7",
+		"imgs": [
+			"img/pic7.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht8",
+		"imgs": [
+			"img/pic8.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	}
+	]
 }
