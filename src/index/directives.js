@@ -11,4 +11,5 @@ angular.module('starter.directives',[])
 			return 'templates/index/pages/page'+attr.pagenum+'.html';
 		}
 	};
-});
+})
+;

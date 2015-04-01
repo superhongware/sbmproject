@@ -1,4 +1,4 @@
-starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', 'dateFormat', 'orderComm', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state, dateFormat, orderComm) {
+starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ionicLoading', 'SBMJSONP', '$rootScope', '$state', 'dateFormat', 'orderComm', 'getDataComm', function($scope, $ionicPopover, $http, $ionicLoading, SBMJSONP, $rootScope, $state, dateFormat, orderComm, getDataComm) {
 
 
     var pageData = {},
@@ -9,11 +9,11 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @type {Object}
      */
     pageData = {
-        lastId: 1,
+        lastId: '',
         pageSize: 10,
         direction: '', //up next
         orgName: $rootScope.orgName,
-        orderStatusList: orderComm.commData.orderStatusList, //状态筛选列表
+        orderStatusList: orderComm.orderStatusList, //状态筛选列表
         orderList: [], //订单数据
         shopList: [], //店铺数据
         currOrderStatus: {
@@ -26,7 +26,17 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
 
     pageFunc.init = function() {
         if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
-            pageFunc.loadShopList();
+            getDataComm.loadShopList(function(data) {
+                if (data && data.length > 0) {
+                    pageData.shopList = data;
+                    pageData.currShop = pageData.shopList[0];
+                    pageFunc.loadData();
+                } else {
+                    //alert('');
+                }
+            }, function() {
+                console.log('数据查询连接失败');
+            });
         } else {
             $state.go("login");
         }
@@ -37,42 +47,6 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
         pageData.isPostBack = true;
-    };
-
-    /**
-     * [loadShopList 加载店铺数据]
-     * @return {[type]} [description]
-     */
-    pageFunc.loadShopList = function() {
-
-        var api = SBMJSONP("searchShop", {
-            method: 'softbanana.app.shop.search',
-            orgName: 'work',
-            pageNo: 1,
-            pageSize: 50,
-            action: ''
-        });
-
-        $http.jsonp(api.url)
-            .success(function(data) {
-                if (data.isSuccess && data.shops && data.shops.length > 0) {
-                    pageData.shopList = [];
-
-                    for (var i = 0; i < data.shops.length; i++) {
-                        if (data.shops[i].isInvalid) {
-                            pageData.shopList.push(data.shops[i]);
-                        }
-                    }
-
-                    pageData.shopList[0].checked = true;
-                    pageData.currShop = pageData.shopList[0];
-                    pageFunc.loadData();
-                }
-            })
-            .error(function(status, response, a) {
-                $ionicLoading.hide();
-                console.log('数据查询连接失败');
-            });
     };
 
     /**
@@ -121,7 +95,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                     if (pageData.direction === 'up') { //moredata
                         pageData.isHaveMoreData = true;
                         for (var i = 0; i < data.trades.length; i++) {
-                            data.trades[i].statusName = orderComm.func.getStatusName(data.trades[i].status);
+                            data.trades[i].statusName = orderComm.getStatusName(data.trades[i].status);
                             pageData.orderList.push(data.trades[i]);
                         }
                     } else {
@@ -129,7 +103,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                             pageData.isHaveMoreData = true;
                         }
                         for (var i = data.trades.length - 1; i >= 0; i--) {
-                            data.trades[i].statusName = orderComm.func.getStatusName(data.trades[i].status);
+                            data.trades[i].statusName = orderComm.getStatusName(data.trades[i].status);
                             pageData.orderList.unshift(data.trades[i]);
                         }
                     }
@@ -178,11 +152,11 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             orgName: pageData.orgName,
             shopName: pageData.currShop.shopName,
             plat: pageData.currShop.plat,
-            startDate: dateFormat(date, 'yyyy-MM-dd hh:mm:ss'),
+            endDate: dateFormat(date, 'yyyy-MM-dd hh:mm:ss'),
         };
 
         date.setMonth(date.getMonth() - 1);
-        reqData.endDate = dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
+        reqData.startDate = dateFormat(date, 'yyyy-MM-dd hh:mm:ss');
 
         console.log('refreshServer reqData');
         console.log(reqData);
@@ -253,7 +227,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @param  {[type]} item [当前选择的店铺对象]
      * @return {[type]}      [description]
      */
-    pageFunc.loadDataByShop = function(item) {
+    pageFunc.loadDataByShop = function(item, $index) {
         console.log('loadDataByShop');
         pageData.currShop = item;
 
@@ -273,14 +247,14 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
      * @param  {[type]} item [description]
      * @return {[type]}      [description]
      */
-    pageFunc.showOrderDetail = function(item){
+    pageFunc.showOrderDetail = function(item) {
         var currSelectOrder = {
             orgName: pageData.orgName,
             shopName: item.shopName,
             tid: item.orderNumber,
             plat: item.plat
         };
-        localStorage.setItem('currSelectOrder',JSON.stringify(currSelectOrder));
+        localStorage.setItem('currSelectOrder', JSON.stringify(currSelectOrder));
         $state.go("orderdetail");
     };
 

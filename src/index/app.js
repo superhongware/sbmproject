@@ -63,6 +63,11 @@ angular.module('starter',
 		templateUrl: "templates/index/products/products.html",
 		controller:'productsCtrl'
 	})
+	.state('productDetail', {
+		url: "/products",
+		templateUrl: "templates/index/products/productDetail.html",
+		controller:'productDetailCtrl'
+	})
 
 
 	//我的订单
