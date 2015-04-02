@@ -92,6 +92,7 @@ angular.module('starter',
 	.state('set-shopmanage', {
 		url: "/set-shopmanage",
 		templateUrl: "templates/index/setting/set-shopmanage.html"
+		// controller:"shopManage"
 	})
 	.state('set-remind', {
 		url: "/set-remind",
