@@ -1,11 +1,13 @@
 /**
- * products Module
+ * creatshowmodule Module
  *
- * 我的宝贝功能模块
+ * 创建宝贝秀功能
  */
-var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
-productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm) {
+var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.services', 'starter.directives']);
 
+creatshowmodule.controller('checkproductCtrl', ['$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm) {
+
+		$rootScope.orgName="work";
 
 	var pageData = {},
 		pageFunc = {};
@@ -256,97 +258,60 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 
 	pageFunc.init();
 
-}]);
+
+}])
+.controller('checktemplateCtrl', ['$scope','$stateParams', function($scope,$stateParams){
+	
 
 
+	//宝贝ID
+	$scope.productId=$stateParams.productId;
+	$scope.templateId=1;
 
-productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SBMJSONP', '$ionicLoading', 'orderComm', function($scope, $http, $state, SBMJSONP, $ionicLoading, orderComm) {
+	//根据模板创建宝贝秀
+	$scope.creatShow=function(templateId){
+		$http.get("testdata/template.json")
+		.success(function(){
 
-
-	var pageFunc = {},
-		pageData = {};
-
-	pageData = {
-		currSelectOrder: JSON.parse(localStorage.getItem('currSelectProduct')),
-		orderDetail: {}
+		})
+		.error(function(){
+			alert("获取数据失败");
+		})
 	};
 
-	console.log(pageData);
 
-	/**
-	 * [init 模块入口]
-	 * @return {[type]} [description]
-	 */
-	pageFunc.init = function() {
-		if (pageData.currSelectOrder) {
-			pageFunc.loadProductDetail();
-		} else {
-			$state.go('orders');
-		}
-	};
+}])
 
-	/**
-	 * [loadProductDetail 加载产品详情]
-	 * @return {[type]} [description]
-	 */
-	pageFunc.loadProductDetail = function() {
-		$ionicLoading.show({
-			template: "正在加载..."
-		});
-
-		var reqData = {
-			method: 'softbanana.app.item.detail.search',
-			orgName: pageData.currSelectOrder.orgName,
-			numIid: pageData.currSelectOrder.numIid,
-			plat: pageData.currSelectOrder.plat
+.factory('creatShow', ['$rootScope','$http','SBMJSONP',function($rootScope,$http,SBMJSONP){
+	return function creatShow(templateId,callback,errorcallback){
+		var showdata = {
+			orgName: $rootScope.orgName,
+			action:"",//向上（up）或者向下（next）查询
+			pageNo:"",//自增长ID
+			pageSize:10,//条数
+			method:"softbanana.app.template.list"
 		};
+	};
+}])
 
-		var api = SBMJSONP("searchItemDetail", reqData);
-		console.log('loadProductDetail req');
-		console.log(reqData);
+.factory('getTemplate', ['$rootScope','$http','SBMJSONP',function($rootScope,$http,SBMJSONP){
+	return function creatShow(callback,errorcallback){
+		//获取模板列表
+		var templatesdata = {
+			orgName: $rootScope.orgName,
+			action:"",//向上（up）或者向下（next）查询
+			pageNo:"",//自增长ID
+			pageSize:10,//条数
+			method:"softbanana.app.template.list"
+		};
+		var api = SBMJSONP("listTemplate",templatesdata);
 		$http.jsonp(api.url)
 			.success(function(data) {
-				console.log('loadProductDetail');
-				console.log(data);
-				$ionicLoading.hide();
-				if (data.isSuccess) {
-					// pageData.orderDetail = data.trade;
-					// pageData.orderDetail.statusName = orderComm.func.getStatusName(pageData.orderDetail.status);
-
-					// if (!pageData.orderDetail.buyerMessage)
-					// 	pageData.orderDetail.buyerMessage = '无';
-
-					// pageData.orderDetail.totalAmount = parseFloat(pageData.orderDetail.totalAmount);
-					// pageData.orderDetail.postFee = parseFloat(pageData.orderDetail.postFee);
-
-					// if (pageData.orderDetail.paymentType == 'ONLINE_PAYMENT') { //ONLINE_PAYMENT
-					// 	pageData.orderDetail.paymentType = '在线支付';
-					// }
-					// if (pageData.orderDetail.paymentType == 'COD') {
-					// 	pageData.orderDetail.paymentType = '货到付款';
-					// }
-
-					// pageData.orderDetail.orderDate = new Date(pageData.orderDetail.orderDate).getTime();
-
-				}
+				callback(data)
 			})
 			.error(function(status, response) {
-				$ionicLoading.hide();
-				console.log('数据查询连接失败');
+				errorcallback(status, response);
 			});
 	};
-
-	/**
-	 * [slideHasChanged description]
-	 * @param  {[type]} $index [description]
-	 * @return {[type]}        [description]
-	 */
-	pageFunc.slideHasChanged = function($index) {
-		console.log("$index: " + $index);
-	};
-
-	$scope.pageData = pageData;
-	//pageFunc.init();
-
-
-}]);
+}])
+;
