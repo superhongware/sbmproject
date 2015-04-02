@@ -26,58 +26,94 @@
 			</ion-slide-box>
 		</div>
 		<div class="productInfo">
-			<div class="title">宝贝名称宝贝名称宝贝名称</div>
+			<div class="title">宝贝名称宝贝名称宝贝名称宝贝名称宝贝名称宝贝名称宝</div>
 			<div class="price">￥2333</div>
 			<div>
-				<span>颜色：</span><span>黄色、蓝色</span>
+				<span class="colorGrey_9">颜色：</span><span>黄色、蓝色</span>
 			</div>
 			<div>
-				<sapn>尺码：</sapn><span>XS、XL</span>
+				<sapn class="colorGrey_9">尺码：</sapn><span>XS、XL</span>
 			</div>
 			<div>
-				<sapn>库存：</sapn><span>XS、XL</span>
+				<sapn class="colorGrey_9">库存：</sapn><span>99件</span>
 			</div>
 			<div>
-				<sapn>运费：</sapn><span>XS、XL</span>
+				<sapn class="colorGrey_9">运费：</sapn><span>￥998</span>
 			</div>
 		</div>
 		<div class="detailList">
-			<div>
+			<div class="subTitle">
 				宝贝秀
 			</div>
-			
-			<div class="item">
-				<ul>
-					<li>
-						<img src="/img/test.png">
-					</li>
-					<li>
-						<div>
-							<h3>标题标题</h3>
-							<span>2015-1-1</span>
-						</div>
-						<div>
-							<span>
-								<i class="iconfont icon-wodexiangqingyanjing"></i>
-								12
-							</span>
-							<span>
-								<i class="iconfont icon-wodexiangqingfenxianghei"></i>
-								5
-							</span>
-							<span>
-								<i class="iconfont icon-store1"></i>
-								0
-							</span>
-						</div>
-					</li>
-					
-				</ul>
-				<div class="Clear"></div>
-			</div>
+			<ion-list can-swipe="true">
+			 	<ion-item>
+					<ul>
+						<li>
+							<img src="/img/test.png">
+						</li>
+						<li>
+							<div>
+								<span>标题标题</span>
+								<span class="floatR colorGrey_9">2015-1-1</span>
+							</div>
+							<div>
+								<span class="colorGrey_9">
+									<i class="iconfont icon-wodexiangqingyanjing"></i>
+									12
+								</span>
+								<span class="colorGrey_9">
+									<i class="iconfont icon-wodexiangqingfenxianghei"></i>
+									5
+								</span>
+								<span  class="colorGrey_9">
+									<i class="iconfont icon-store1"></i>
+									0
+								</span>
+							</div>
+						</li>
+					</ul>
+					<div class="Clear"></div>
+					<ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
+		              制作详情
+		            </ion-option-button>
+		            <i class="iconfont icon-points"></i>
+				</ion-item>
+				<ion-item>
+					<ul>
+						<li>
+							<img src="/img/test.png">
+						</li>
+						<li>
+							<div>
+								<span>标题标题</span>
+								<span class="floatR colorGrey_9">2015-1-1</span>
+							</div>
+							<div>
+								<span class="colorGrey_9">
+									<i class="iconfont icon-wodexiangqingyanjing"></i>
+									12
+								</span>
+								<span class="colorGrey_9">
+									<i class="iconfont icon-wodexiangqingfenxianghei"></i>
+									5
+								</span>
+								<span  class="colorGrey_9">
+									<i class="iconfont icon-store1"></i>
+									0
+								</span>
+							</div>
+						</li>
+					</ul>
+					<div class="Clear"></div>
+					<ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
+		              制作详情
+		            </ion-option-button>
+		            <i class="iconfont icon-points"></i>
+				</ion-item>
+			</ion-list>
 			<div class="detailListEmpty">
-				尚未制作宝贝秀
-				<button class="button button-energized">
+				<span>尚未制作宝贝秀</span>				
+				<button class="button button-energized button-small">
 				  立即制作
 				</button>
 			</div>
