@@ -3,15 +3,6 @@
 	"pagecount": 5,
 	"pages": [
 	{
-		"tmp": "ht2",
-		"imgs": [
-			"img/pic2.jpg"],
-		"texts": [
-			"SOFTBANANA",
-			"手机详情制作助手",
-			"开启手机详情新时代"]
-	},
-	{
 		"tmp": "ht1",
 		"imgs": [
 			"img/pic1.png", 
@@ -19,6 +10,15 @@
 			"img/pic1.jpg"],
 		"texts": [
 			"用心做好宝贝手机详情"]
+	},
+	{
+		"tmp": "ht2",
+		"imgs": [
+			"img/pic2.jpg"],
+		"texts": [
+			"SOFTBANANA",
+			"手机详情制作助手",
+			"开启手机详情新时代"]
 	},
 	{
 		"tmp": "ht3",

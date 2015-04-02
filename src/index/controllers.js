@@ -1,17 +1,12 @@
 var starterctrl = angular.module('starter.controllers', []);
-starterctrl.controller('mainviewCtrl', ['$scope', '$ionicLoading', 'myCookie', 'loginCheck', function ($scope, $ionicLoading, myCookie, loginCheck) {
+starterctrl.controller('mainviewCtrl', ['$scope', '$rootScope','$ionicLoading', 'myCookie', 'loginCheck', function ($scope,$rootScope, $ionicLoading, myCookie, loginCheck) {
 
-	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
-	// 	// console.log(toState.controller);
-	// 	$scope.navbarhide=toState.controller!=="indexCtrl"?false:true;
-	// });
-	
-	//首页隐藏top-nav-bar
-	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
-	// 	// console.log(toState.controller);
-	// 	$scope.navbarhide=toState.controller!=="indexCtrl"?false:true;
-	// 	$scope.sncybtnhide=toState.controller==="productsCtrl"?false:true;
-	// });
+
+	$rootScope.orgName=loginCheck();
+
+
+
+
 	$scope.show= function(){
 		$ionicLoading.show({
 			template:"loading...",

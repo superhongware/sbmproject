@@ -1,11 +1,13 @@
 /**
- * products Module
+ * creatshowmodule Module
  *
- * 我的宝贝功能模块
+ * 创建宝贝秀功能
  */
-var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
-productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm) {
+var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.services', 'starter.directives']);
 
+creatshowmodule.controller('checkproductCtrl', ['$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm) {
+
+		$rootScope.orgName="work";
 
 	var pageData = {},
 		pageFunc = {};
@@ -256,79 +258,60 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 
 	pageFunc.init();
 
-}]);
+
+}])
+.controller('checktemplateCtrl', ['$scope','$stateParams', function($scope,$stateParams){
+	
 
 
+	//宝贝ID
+	$scope.productId=$stateParams.productId;
+	$scope.templateId=1;
 
-productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate', function($scope, $http, $state, $ionicLoading, productComm,$ionicSlideBoxDelegate) {
+	//根据模板创建宝贝秀
+	$scope.creatShow=function(templateId){
+		$http.get("testdata/template.json")
+		.success(function(){
 
-	var pageFunc = {},
-		pageData = {};
-
-	pageData = {
-		currSelectOrder: JSON.parse(localStorage.getItem('currSelectProduct')),
-		orderDetail: {},
-		isPageShow:false
+		})
+		.error(function(){
+			alert("获取数据失败");
+		})
 	};
 
-	console.log(pageData);
 
-	/**
-	 * [init 模块入口]
-	 * @return {[type]} [description]
-	 */
-	pageFunc.init = function() {
-		if (pageData.currSelectOrder) {
-			pageFunc.loadProductDetail();
-		} else {
-			$state.go('orders');
-		}
+}])
+
+.factory('creatShow', ['$rootScope','$http','SBMJSONP',function($rootScope,$http,SBMJSONP){
+	return function creatShow(templateId,callback,errorcallback){
+		var showdata = {
+			orgName: $rootScope.orgName,
+			action:"",//向上（up）或者向下（next）查询
+			pageNo:"",//自增长ID
+			pageSize:10,//条数
+			method:"softbanana.app.template.list"
+		};
 	};
+}])
 
-	/**
-	 * [loadProductDetail 加载产品详情]
-	 * @return {[type]} [description]
-	 */
-	pageFunc.loadProductDetail = function() {
-		$ionicLoading.show({
-			template: "正在加载..."
-		});
-
-		productComm.loadProductDetail({
-			orgName: pageData.currSelectOrder.orgName,
-			numIid: pageData.currSelectOrder.numIid,//'36042861282'
-			plat: pageData.currSelectOrder.plat
-		},function(data){
-			$ionicLoading.hide();
-			
-			//页面视图数据展现处理
-			pageData.orderDetail = data;
-
-			pageData.orderDetail.picArr = pageData.orderDetail.picUrl.split(',');
-
-			$ionicSlideBoxDelegate.$getByHandle('productImgBox').update();
-
-			pageData.isPageShow = true;
-
-			
-		},function(msg){
-			$ionicLoading.hide();
-			console.log(msg);
-		});
-
+.factory('getTemplate', ['$rootScope','$http','SBMJSONP',function($rootScope,$http,SBMJSONP){
+	return function creatShow(callback,errorcallback){
+		//获取模板列表
+		var templatesdata = {
+			orgName: $rootScope.orgName,
+			action:"",//向上（up）或者向下（next）查询
+			pageNo:"",//自增长ID
+			pageSize:10,//条数
+			method:"softbanana.app.template.list"
+		};
+		var api = SBMJSONP("listTemplate",templatesdata);
+		$http.jsonp(api.url)
+			.success(function(data) {
+				callback(data)
+			})
+			.error(function(status, response) {
+				errorcallback(status, response);
+			});
 	};
-
-	/**
-	 * [slideHasChanged description]
-	 * @param  {[type]} $index [description]
-	 * @return {[type]}        [description]
-	 */
-	pageFunc.slideHasChanged = function($index) {
-		console.log("$index: " + $index);
-	};
-
-	$scope.pageData = pageData;
-	pageFunc.init();
-
-
-}]);
+}])
+;
