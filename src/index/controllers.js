@@ -49,17 +49,6 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope', '$ionicLoading', 
 }])
 
 
-.controller('editpagesCtrl',['$scope','$ionicLoading',function($scope,$ionicLoading){
-	$scope.show= function(){
-		$ionicLoading.show({
-			template:"正在保存...",
-			duration:2000
-		});
-	};
-	$scope.showdata={
-		page:1
-	};
-}])
 
 
 .controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){

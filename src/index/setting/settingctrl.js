@@ -31,11 +31,11 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 		userName:"2222",
 		oldPassword:"",
 		newPassword:""
-	}
+	};
 	$scope.setPw = function(){
-		alert(123)
+		alert(123);
 
-	}
+	};
 
 
-}])
+}]);

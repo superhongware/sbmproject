@@ -1,67 +1,83 @@
 {
-	"template": 1,
-	"pagecount": 5,
+	"templateId": 1,
+	"detailTitle":"标题",
+	"detailDesc": "描述",
+	"detailImage":"详情图片",
+	"templateId": "模板ID",
+	"shopName":"店铺名称",
+	"numIid": "宝贝ID",
+	"detailUrl": "购买链接",
+	"plat": "平台",
+	"pagecount": 2,
 	"pages": [
 	{
-		"tmp": "ht1",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht1",
+		"detailPageImage": [
 			"img/pic1.png", 
 			"img/pic2.png", 
 			"img/pic1.jpg"],
-		"texts": [
+		"detailPageText": [
 			"用心做好宝贝手机详情"]
 	},
 	{
-		"tmp": "ht2",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht2",
+		"detailPageImage": [
 			"img/pic2.jpg"],
-		"texts": [
+		"detailPageText": [
 			"SOFTBANANA",
 			"手机详情制作助手",
 			"开启手机详情新时代"]
 	},
 	{
-		"tmp": "ht3",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht3",
+		"detailPageImage": [
 			"img/pic3.jpg"],
-		"texts": [
+		"detailPageText": [
 			"用心做好宝贝手机详情"]
 	},
 	{
-		"tmp": "ht4",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht4",
+		"detailPageImage": [
 			"img/pic4.jpg"],
-		"texts": [
+		"detailPageText": [
 			"用心做好宝贝手机详情"]
 	},
 	{
-		"tmp": "ht5",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht5",
+		"detailPageImage": [
 			"img/pic5_1.jpg",
 			"img/pic5_2.jpg",
 			"img/pic5_3.jpg"],
-		"texts": [
+		"detailPageText": [
 			"用心做好宝贝手机详情"]
 	},
 	{
-		"tmp": "ht6",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht6",
+		"detailPageImage": [
 			"img/pic6.jpg"],
-		"texts": [
+		"detailPageText": [
 			"用心做好宝贝手机详情"]
 	},
 	{
-		"tmp": "ht7",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht7",
+		"detailPageImage": [
 			"img/pic7.jpg"],
-		"texts": [
+		"detailPageText": [
 			"用心做好宝贝手机详情"]
 	},
 	{
-		"tmp": "ht8",
-		"imgs": [
+		"detailPageIndex":"1",
+		"templatePageId": "ht8",
+		"detailPageImage": [
 			"img/pic8.jpg"],
-		"texts": [
+		"detailPageText": [
 			"用心做好宝贝手机详情"]
 	}
 	]

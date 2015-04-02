@@ -116,7 +116,7 @@ angular.module('starter',
 	.state('checkproduct', {
 		url: "/checkproduct",
 		templateUrl: "templates/index/creatshows/checkproduct.html",
-		controller:'checkproductCtrl'
+		controller:'productsCtrl'
 	})
 	.state('checktemplate', {
 		url: "/checktemplate/:productId",
@@ -130,7 +130,7 @@ angular.module('starter',
 	})
 
 	.state('editpages.editer', {
-		url: "/editer/:pageId/:pageTemp",
+		url: "/editer/:showId/:pageId/:pageTemp",
 		templateUrl:function(params){
 			return "templates/index/creatshows/pages/page"+params.pageTemp+".html";
 		}
