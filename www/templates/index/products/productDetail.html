@@ -1,4 +1,87 @@
 <ion-view view-title="宝贝详情">
-	<ion-content>
+	<ion-content class="warpProductDetail">
+		<div class="productImgBox">
+			<ion-slide-box on-slide-changed="pageFunc.slideHasChanged($index)">
+				<ion-slide>
+					<div class="box blue">
+						
+						<img class="full-image" src="/img/test.png">
+
+					</div>
+				</ion-slide>
+				<ion-slide>
+					<div class="box yellow">
+						
+						<img class="full-image" src="/img/test.png">					
+
+					</div>
+				</ion-slide>
+				<ion-slide>
+					<div class="box pink">
+
+						<img class="full-image" src="/img/test.png">
+
+					</div>
+				</ion-slide>
+			</ion-slide-box>
+		</div>
+		<div class="productInfo">
+			<div class="title">宝贝名称宝贝名称宝贝名称</div>
+			<div class="price">￥2333</div>
+			<div>
+				<span>颜色：</span><span>黄色、蓝色</span>
+			</div>
+			<div>
+				<sapn>尺码：</sapn><span>XS、XL</span>
+			</div>
+			<div>
+				<sapn>库存：</sapn><span>XS、XL</span>
+			</div>
+			<div>
+				<sapn>运费：</sapn><span>XS、XL</span>
+			</div>
+		</div>
+		<div class="detailList">
+			<div>
+				宝贝秀
+			</div>
+			
+			<div class="item">
+				<ul>
+					<li>
+						<img src="/img/test.png">
+					</li>
+					<li>
+						<div>
+							<h3>标题标题</h3>
+							<span>2015-1-1</span>
+						</div>
+						<div>
+							<span>
+								<i class="iconfont icon-wodexiangqingyanjing"></i>
+								12
+							</span>
+							<span>
+								<i class="iconfont icon-wodexiangqingfenxianghei"></i>
+								5
+							</span>
+							<span>
+								<i class="iconfont icon-store1"></i>
+								0
+							</span>
+						</div>
+					</li>
+					
+				</ul>
+				<div class="Clear"></div>
+			</div>
+			<div class="detailListEmpty">
+				尚未制作宝贝秀
+				<button class="button button-energized">
+				  立即制作
+				</button>
+			</div>
+		</div>
+		
 	</ion-content>
 </ion-view>

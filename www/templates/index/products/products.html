@@ -13,8 +13,8 @@
         <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
         <div class="checkbtn">
           <div class="button-bar">
-            <a class="button" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
-            <a class="button" ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
+            <a class="button" ng-class="{'button-energized': pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
+            <a class="button" ng-class="{'button-energized': !pageData.isOnsaleStatus}"  ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
           </div>
         </div>
       </div>
@@ -26,26 +26,27 @@
 
         <ion-list>
           <ion-item
-          class="item-remove-animate item-avatar item-icon-right"  
+          class="item-remove-animate item-avatar item-icon-right animate-repeat"  
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
           ng-href="javascripe:;"
-
+          ng-click="pageFunc.showDetail(item)"
           >
-            <img ng-src="{{item.picUrl}}">
+            <img ng-src="{{item.picUrl}}" class="imgProduct">
             <ul class="productInfo">
               <li class="floatL">
-                <h2>{{item.title}}</h2>
-                <p>￥{{item.price}}</p>
+                <h2 class="mTop6 mBottom9">{{item.title}}</h2>
+                <p class="colorYellow">￥{{item.price}}</p>
               </li>
               <li class="floatL">
-                <p><img ng-src="{{item.picUrl}}" class="imgPlat"></p>
+                <p><img ng-src="{{item.picPlatUrl}}" class="imgPlat"></p>
                 <p>{{item.num}}件</p>
               </li>
             </ul>
             <div class="Clear"></div>
             
-            <i class="icon ion-chevron-right icon-accessory"></i>
+            <i class="iconfont icon-points"></i>
+            <span class="xiang">祥</span>
 
             <ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
               制作详情

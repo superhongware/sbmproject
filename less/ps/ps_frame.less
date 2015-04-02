@@ -26,12 +26,36 @@ body{
 	margin:auto;
 	background-size:100%;
 }
-
+.centertext{
+	.size(100%,20px);
+	position: absolute;
+	text-align: center;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin:auto;
+	background-size:100%;
+	font-weight: normal;
+	color: #fff;
+	z-index: 1;
+}
 
 .ps_page{
 	.square(100%);
 	overflow: hidden;
 	position: absolute;
+
+	.ps_img{
+		opacity: 0;
+	}
+
+
+	.ps_text{
+		opacity: 0;
+		&:extend(.centertext);
+	}
+
 }
 
 
