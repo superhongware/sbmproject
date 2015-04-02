@@ -4,12 +4,21 @@
 	</ion-nav-buttons>
 	<div class="paddingtop44"></div>
 	
-	<a class="button" href="#/editpages/editer/1/1">1</a>
+	<button
+	nav-transition="none"
+	class="button" 
+	ui-sref="editpages.editer({showId:showId,pageId:prevpage,pageTemp:pageTemp})"
+	>上一页{{prevpage}}</button>
 
-	<a class="button" href="#/editpages/editer/1/2">2</a>
+	<button
+	nav-transition="none"
+	class="button"
+	ng-click="pageTemp=2"
+	ui-sref="editpages.editer({showId:showId,pageId:nextpage,pageTemp:pageTemp})"
+	>下一页{{nextpage}}</button>
 
 
-	<ion-nav-view></ion-nav-view>
+	<ui-view></ui-view>
 <!-- 	<sbm-page ng-attr-pagenum="{{showdata.page}}">
 
 	</sbm-page> -->

@@ -7,8 +7,6 @@ var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.servi
 
 creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($scope,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
 	
-
-
 	//宝贝ID
 	$scope.productId=$stateParams.productId;
 	$scope.templateId=1;
@@ -35,17 +33,42 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 
 }])
 
-.controller('editpagesCtrl',['$scope','$ionicLoading',function($scope,$ionicLoading){
+.controller('editpagesCtrl',['$scope','$ionicLoading','$stateParams',function($scope,$ionicLoading,$stateParams){
 	$scope.show= function(){
 		$ionicLoading.show({
 			template:"正在保存...",
 			duration:2000
 		});
 	};
+	// console.log($scope.prevpage);
+	$scope.showId=parseInt($stateParams.showId);
+	$scope.prevpage=parseInt($stateParams.pageId)-1;
+	$scope.nextpage=parseInt($stateParams.pageId)+1;
+	$scope.pageTemp=1;
+
 	$scope.showdata={
 		page:1
 	};
 }])
+.controller('editerCtrl', ['$scope','$ionicLoading','$stateParams',function($scope,$ionicLoading,$stateParams){
+
+	
+}])
+
+.controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
+	console.log($state);
+	console.log("pagetemp1");
+	// console.log("editerCtrl");
+
+}])
+
+
+.controller('pagetemp2Ctrl',['$scope','$state',function($scope,$state){
+	// console.log($state);
+	console.log("pagetemp2");
+	// console.log("editerCtrl");
+}])
+
 
 .factory('creatShow', ['$rootScope','$http','SBMJSONP',function($rootScope,$http,SBMJSONP){
 	return function creatShow(templateId,callback,errorcallback){

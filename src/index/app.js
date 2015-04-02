@@ -125,16 +125,17 @@ angular.module('starter',
 		controller:'checktemplateCtrl'
 	})
 	.state('editpages', {
-		url: "/editpages",
+		url: "/editpages/:showId/:pageId",
 		templateUrl: "templates/index/creatshows/editpages.html",
 		controller:'editpagesCtrl'
 	})
 
 	.state('editpages.editer', {
-		url: "/editer/:showId/:pageId/:pageTemp",
+		url: "/editer/:pageTemp",
 		templateUrl:function(params){
 			return "templates/index/creatshows/pages/page"+params.pageTemp+".html";
-		}
+		},
+		controller:'editerCtrl'
 	})
 
 

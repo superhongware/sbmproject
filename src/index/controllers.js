@@ -14,9 +14,12 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope', '$ionicLoading', 
 	// 	$scope.sncybtnhide=toState.controller==="productsCtrl"?false:true;
 	// });
 	var logininfo=loginCheck();
-	$rootScope.orgName=logininfo.orgName;
-	$rootScope.userName=logininfo.userName;
-
+	if(typeof logininfo !== "object"){
+		return;
+	}else{
+		$rootScope.orgName=logininfo.orgName;
+		$rootScope.userName=logininfo.userName;
+	}
 
 	$scope.show= function(){
 		$ionicLoading.show({
@@ -51,19 +54,7 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope', '$ionicLoading', 
 
 
 
-.controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
-	console.log($state);
-	console.log("pagetemp1");
-	// console.log("editerCtrl");
 
-}])
-
-
-.controller('pagetemp2Ctrl',['$scope','$state',function($scope,$state){
-	// console.log($state);
-	console.log("pagetemp2");
-	// console.log("editerCtrl");
-}]);
 
 
 
