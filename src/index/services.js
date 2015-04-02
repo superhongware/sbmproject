@@ -66,7 +66,7 @@
 			$state.go("login");
 			return;
 		}else{
-			return base64.decode(myCookie.get("orgName"));
+			return {orgName:base64.decode(myCookie.get("orgName")),userName:base64.decode(myCookie.get("userName"))};
 		}
 	};
 }])

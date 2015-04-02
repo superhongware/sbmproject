@@ -23,4 +23,19 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 		});
 	};
 
-}]);
+}])
+//设置密码
+.controller('setPassword', ['$scope', '$state', '$http', 'SBMJSONP',function($scope, $state, $http, SBMJSONP){
+	$scope.setdata = {
+		orgName:"11111",
+		userName:"2222",
+		oldPassword:"",
+		newPassword:""
+	}
+	$scope.setPw = function(){
+		alert(123)
+
+	}
+
+
+}])

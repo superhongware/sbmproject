@@ -12,6 +12,7 @@ loginmodule.factory('loginSubmit', ['$http','$state','$ionicPopup','SBMJSONP','m
 				console.log(data);
 				if(data.isSuccess){
 					myCookie.add("orgName",base64.encode(logindata.orgName),720);
+					myCookie.add("userName",base64.encode(logindata.userName),720);
 					$state.go("home");
 				}else{
 

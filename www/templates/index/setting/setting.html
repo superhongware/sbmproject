@@ -1,35 +1,31 @@
 <ion-view view-title="设置">
-  <ion-content>
+  <ion-content class="set-list">
     <ion-list>
-      
+      <div class="list-divider"></div>
+      <ion-item class="item-icon-right" ui-sref="set-password">
+        修改密码
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <div class="list-divider"></div>
       <ion-item class="item-icon-right" ui-sref="set-shopmanage">
         店铺管理
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
-
-      <ion-item class="item-divider">
+      <div class="list-divider"></div>
+      <ion-item class="item-icon-right">
+        宝贝同步
+        <i class="icon icon-accessory">5分钟/次&nbsp;&nbsp;</i>
       </ion-item>
-
-
-      <ion-toggle toggle-class="toggle-energized" ng-model="settings.bbb">
-            宝贝同步
-      </ion-toggle>
-
-      <ion-toggle toggle-class="toggle-energized" ng-model="settings.aaa">
-            订单同步
-      </ion-toggle>
-
-      <ion-item class="item-divider">
+      <ion-item class="item-icon-right">
+        订单同步
+        <i class="icon icon-accessory">5分钟/次&nbsp;&nbsp;</i>
       </ion-item>
-
+      <div class="list-divider"></div>
       <ion-item class="item-icon-right" ui-sref="set-remind">
         提醒设置
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
-
-      <ion-item class="item-divider">
-      </ion-item>
-
+      <div class="list-divider"></div>
       <ion-item class="item-icon-right" ui-sref="set-feedback">
         意见反馈
         <i class="icon ion-chevron-right icon-accessory"></i>
@@ -39,10 +35,10 @@
         关于我们
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
+      <div class="padding">
+        <a class="button button-block button-energized" ng-click="logout()">退出登录</a>
+      </div>
 
-      <ion-item class="button button-full button-positive" ng-click="logout()">
-        退出登录
-      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

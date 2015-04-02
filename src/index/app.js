@@ -104,6 +104,12 @@ angular.module('starter',
 		url: "/set-aboutus",
 		templateUrl: "templates/index/setting/set-aboutus.html"
 	})
+	.state('set-password', {
+		url: "/set-password",
+		templateUrl: "templates/index/setting/set-password.html",
+		controller:"setPassword"
+	})
+
 
 	//新建宝贝详情
 	.state('checkproduct', {
