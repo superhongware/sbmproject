@@ -78,51 +78,6 @@
 	};
 })
 
-/**
- * [订单通用模块]
- */
-.factory('orderComm', function() {
-	return {
-		commData: {
-			orderStatusList: [{
-				name: '已付款',
-				status: 'PAID'
-			}, {
-				name: '未付款',
-				status: 'NON_PAYMENT'
-			}, {
-				name: '已打印',
-				status: 'PRINTED'
-			}, {
-				name: '已发货',
-				status: 'DELIVERED'
-			}, {
-				name: '已取消',
-				status: 'CANCELED'
-			}, {
-				name: '已完成',
-				status: 'COMPLETED'
-			}, {
-				name: '全部',
-				status: ''
-			}]
-		},
-		func:{
-			getStatusName:function(status){
-				var result = '';
-
-            for (var i = 0; i < this.commData.orderStatusList.length; i++) {
-                if (status == this.commData.orderStatusList[i].status) {
-                    result = this.commData.orderStatusList[i].name;
-                    break;
-                }
-            }
-
-            return result;
-			}
-		}
-	};
-})
 
 /** 
 	JSONP接口通用方法
@@ -474,10 +429,44 @@
 	};
 
 	/**
+	 * [loadProductDetail 加载产品详情]
+	 * @param  {[type]} option        [参数选项{orgName、numIid、plat}]
+	 * @param  {[type]} callBack      [成功返回]
+	 * @param  {[type]} errorCallBack [失败返回]
+	 * @return {[type]}               [description]
+	 */
+	productComm.loadProductDetail = function(option, callBack, errorCallBack){
+		var reqData = {
+			method: 'softbanana.app.item.detail.search',
+			
+			orgName: option.orgName,
+			numIid: option.numIid,
+			plat: option.plat
+		};
+
+		var api = SBMJSONP("searchItemDetail", reqData);
+		console.log('productComm.loadProductDetail req');
+		console.log(reqData);
+		$http.jsonp(api.url)
+			.success(function(data) {
+				console.log('productComm.loadProductDetail');
+				console.log(data);
+				if (data.isSuccess) {
+					callBack(data.item)
+				}else{
+					errorCallBack('数据查询失败');
+				}
+			})
+			.error(function(status, response) {
+				errorCallBack('数据查询失败',status, response);
+			});
+	};
+
+	/**
 	 * [refreshServer 刷新远程数据]
 	 * @param  {[type]} option        [参数选项{shopName、plat}]
 	 * @param  {[type]} callBack      [成功返回]
-	 * @param  {[type]} errorCallBack [成功返回]
+	 * @param  {[type]} errorCallBack [失败返回]
 	 * @return {[type]}               [description]
 	 */
 	productComm.refreshServer = function(option, callBack, errorCallBack) {

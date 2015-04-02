@@ -260,15 +260,15 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 
 
 
-productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SBMJSONP', '$ionicLoading', 'orderComm', function($scope, $http, $state, SBMJSONP, $ionicLoading, orderComm) {
-
+productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate', function($scope, $http, $state, $ionicLoading, productComm,$ionicSlideBoxDelegate) {
 
 	var pageFunc = {},
 		pageData = {};
 
 	pageData = {
 		currSelectOrder: JSON.parse(localStorage.getItem('currSelectProduct')),
-		orderDetail: {}
+		orderDetail: {},
+		isPageShow:false
 	};
 
 	console.log(pageData);
@@ -294,46 +294,28 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SB
 			template: "正在加载..."
 		});
 
-		var reqData = {
-			method: 'softbanana.app.item.detail.search',
+		productComm.loadProductDetail({
 			orgName: pageData.currSelectOrder.orgName,
-			numIid: pageData.currSelectOrder.numIid,
+			numIid: pageData.currSelectOrder.numIid,//'36042861282'
 			plat: pageData.currSelectOrder.plat
-		};
+		},function(data){
+			$ionicLoading.hide();
+			
+			//页面视图数据展现处理
+			pageData.orderDetail = data;
 
-		var api = SBMJSONP("searchItemDetail", reqData);
-		console.log('loadProductDetail req');
-		console.log(reqData);
-		$http.jsonp(api.url)
-			.success(function(data) {
-				console.log('loadProductDetail');
-				console.log(data);
-				$ionicLoading.hide();
-				if (data.isSuccess) {
-					// pageData.orderDetail = data.trade;
-					// pageData.orderDetail.statusName = orderComm.func.getStatusName(pageData.orderDetail.status);
+			pageData.orderDetail.picArr = pageData.orderDetail.picUrl.split(',');
 
-					// if (!pageData.orderDetail.buyerMessage)
-					// 	pageData.orderDetail.buyerMessage = '无';
+			$ionicSlideBoxDelegate.$getByHandle('productImgBox').update();
 
-					// pageData.orderDetail.totalAmount = parseFloat(pageData.orderDetail.totalAmount);
-					// pageData.orderDetail.postFee = parseFloat(pageData.orderDetail.postFee);
+			pageData.isPageShow = true;
 
-					// if (pageData.orderDetail.paymentType == 'ONLINE_PAYMENT') { //ONLINE_PAYMENT
-					// 	pageData.orderDetail.paymentType = '在线支付';
-					// }
-					// if (pageData.orderDetail.paymentType == 'COD') {
-					// 	pageData.orderDetail.paymentType = '货到付款';
-					// }
+			
+		},function(msg){
+			$ionicLoading.hide();
+			console.log(msg);
+		});
 
-					// pageData.orderDetail.orderDate = new Date(pageData.orderDetail.orderDate).getTime();
-
-				}
-			})
-			.error(function(status, response) {
-				$ionicLoading.hide();
-				console.log('数据查询连接失败');
-			});
 	};
 
 	/**
@@ -346,7 +328,7 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', 'SB
 	};
 
 	$scope.pageData = pageData;
-	//pageFunc.init();
+	pageFunc.init();
 
 
 }]);
