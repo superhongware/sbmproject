@@ -1,5 +1,5 @@
 <ion-view view-title="宝贝详情">
-	<ion-content class="warpProductDetail">
+	<ion-content class="warpProductDetail"  ng-show="pageData.isPageShow">
 		<div class="productImgBox">
 
 			<ion-slide-box delegate-handle="productImgBox">
@@ -13,7 +13,7 @@
 			</ion-slide-box>
 
 		</div>
-		<div class="productInfo" ng-show="pageData.isPageShow">
+		<div class="productInfo">
 			<div class="title">{{pageData.orderDetail.title}}</div>
 			<div class="price">￥{{pageData.orderDetail.price}}</div>
 			<div ng-repeat="(key,val) in pageData.orderDetail.salesProperty">
@@ -26,7 +26,7 @@
 				<sapn class="colorGrey_9">运费：</sapn><span>￥{{pageData.orderDetail.postFee}}</span>
 			</div>
 		</div>
-		<div class="detailList" ng-show="pageData.isPageShow">
+		<div class="detailList">
 			<div class="subTitle">
 				宝贝秀
 			</div>
