@@ -5,7 +5,8 @@ starterctrl.controller('orderdetailCtrl', ['$scope', '$http', '$state', 'SBMJSON
 
 	pageData = {
 		currSelectOrder: JSON.parse(localStorage.getItem('currSelectOrder')),
-		orderDetail: {}
+		orderDetail: {},
+		isPageShow:false
 	};
 
 	/**
@@ -65,6 +66,7 @@ starterctrl.controller('orderdetailCtrl', ['$scope', '$http', '$state', 'SBMJSON
 
 					pageData.orderDetail.orderDate = new Date(pageData.orderDetail.orderDate).getTime();
 
+					pageData.isPageShow = true;
 				}
 			})
 			.error(function(status, response) {

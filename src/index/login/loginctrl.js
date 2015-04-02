@@ -15,7 +15,7 @@ loginmodule.controller('LoginCtrl', ['$scope', 'loginSubmit', function($scope, l
 	$scope.loginSubmit = loginSubmit;
 	$scope.hidetip = function(){
 		$(".error-tip").hide();
-	}
+	};
 
 }])
 
@@ -55,7 +55,7 @@ loginmodule.controller('LoginCtrl', ['$scope', 'loginSubmit', function($scope, l
 						}]
 					});
 				}else{
-					console.log(data.map.errorMsg)
+					console.log(data.map.errorMsg);
 					if(data.map.errorMsg == "商家名称不允许为空"){
 						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(0).show();
@@ -81,6 +81,6 @@ loginmodule.controller('LoginCtrl', ['$scope', 'loginSubmit', function($scope, l
 
 	$scope.hidetip = function(){
 		$(".error-tip").hide();
-	}
+	};
 
 }]);

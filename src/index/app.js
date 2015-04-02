@@ -6,6 +6,7 @@
 angular.module('starter', 
 	['ionic',
 	'loginmodule',
+	"creatshowmodule",
 	'productsmodule',
 	'settingmodule',
 	'starter.controllers',
@@ -111,16 +112,16 @@ angular.module('starter',
 	})
 
 
-	//新建宝贝详情
+	//新建宝贝秀
 	.state('checkproduct', {
 		url: "/checkproduct",
 		templateUrl: "templates/index/creatshows/checkproduct.html",
-		controller:'productsCtrl'
+		controller:'checkproductCtrl'
 	})
 	.state('checktemplate', {
-		url: "/checktemplate",
+		url: "/checktemplate/:productId",
 		templateUrl: "templates/index/creatshows/checktemplate.html",
-		controller:'productsCtrl'
+		controller:'checktemplateCtrl'
 	})
 	.state('editpages', {
 		url: "/editpages",

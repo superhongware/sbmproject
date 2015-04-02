@@ -1,83 +1,72 @@
 <ion-view view-title="宝贝详情">
-	<ion-content class="warpProductDetail">
+	<ion-content class="warpProductDetail"  ng-show="pageData.isPageShow">
 		<div class="productImgBox">
-			<ion-slide-box on-slide-changed="pageFunc.slideHasChanged($index)">
-				<ion-slide>
-					<div class="box blue">
-						
-						<img class="full-image" src="/img/test.png">
 
+			<ion-slide-box delegate-handle="productImgBox">
+
+				<ion-slide ng-repeat="item in pageData.orderDetail.picArr">
+					<div class="box">
+						<img class="full-image" ng-src="{{item}}">
 					</div>
 				</ion-slide>
-				<ion-slide>
-					<div class="box yellow">
-						
-						<img class="full-image" src="/img/test.png">					
 
-					</div>
-				</ion-slide>
-				<ion-slide>
-					<div class="box pink">
-
-						<img class="full-image" src="/img/test.png">
-
-					</div>
-				</ion-slide>
 			</ion-slide-box>
+
 		</div>
 		<div class="productInfo">
-			<div class="title">宝贝名称宝贝名称宝贝名称</div>
-			<div class="price">￥2333</div>
-			<div>
-				<span>颜色：</span><span>黄色、蓝色</span>
+			<div class="title">{{pageData.orderDetail.title}}</div>
+			<div class="price">￥{{pageData.orderDetail.price}}</div>
+			<div ng-repeat="(key,val) in pageData.orderDetail.salesProperty">
+				<span class="colorGrey_9">{{key}}：</span><span>{{val.join('、')}}</span>
 			</div>
 			<div>
-				<sapn>尺码：</sapn><span>XS、XL</span>
+				<sapn class="colorGrey_9">库存：</sapn><span>99件</span>
 			</div>
 			<div>
-				<sapn>库存：</sapn><span>XS、XL</span>
-			</div>
-			<div>
-				<sapn>运费：</sapn><span>XS、XL</span>
+				<sapn class="colorGrey_9">运费：</sapn><span>￥{{pageData.orderDetail.postFee}}</span>
 			</div>
 		</div>
 		<div class="detailList">
-			<div>
+			<div class="subTitle">
 				宝贝秀
 			</div>
-			
-			<div class="item">
-				<ul>
-					<li>
-						<img src="/img/test.png">
-					</li>
-					<li>
-						<div>
-							<h3>标题标题</h3>
-							<span>2015-1-1</span>
-						</div>
-						<div>
-							<span>
-								<i class="iconfont icon-wodexiangqingyanjing"></i>
-								12
-							</span>
-							<span>
-								<i class="iconfont icon-wodexiangqingfenxianghei"></i>
-								5
-							</span>
-							<span>
-								<i class="iconfont icon-store1"></i>
-								0
-							</span>
-						</div>
-					</li>
-					
-				</ul>
-				<div class="Clear"></div>
-			</div>
-			<div class="detailListEmpty">
-				尚未制作宝贝秀
-				<button class="button button-energized">
+			<ion-list can-swipe="true">
+			 	<ion-item ng-repeat="item in pageData.orderDetail.appDetailCounts">
+					<ul>
+						<li>
+							<img src="/img/test.png">
+						</li>
+						<li>
+							<div>
+								<span>{{item.detailName}}</span>
+								<span class="floatR colorGrey_9">2015-1-1</span>
+							</div>
+							<div>
+								<span class="colorGrey_9">
+									<i class="iconfont icon-wodexiangqingyanjing"></i>
+									{{item.browse}}
+								</span>
+								<span class="colorGrey_9">
+									<i class="iconfont icon-wodexiangqingfenxianghei"></i>
+									{{item.share}}
+								</span>
+								<span  class="colorGrey_9">
+									<i class="iconfont icon-store1"></i>
+									{{item.dd}}
+								</span>
+							</div>
+						</li>
+					</ul>
+					<div class="Clear"></div>
+					<ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
+		              制作详情
+		            </ion-option-button>
+		            <i class="iconfont icon-points"></i>
+				</ion-item>
+			</ion-list>
+			<div ng-if="pageData.orderDetail.appDetailCounts.length == 0" class="detailListEmpty">
+				<span>尚未制作宝贝秀</span>				
+				<button class="button button-energized button-small">
 				  立即制作
 				</button>
 			</div>
