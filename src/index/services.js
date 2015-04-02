@@ -78,6 +78,52 @@
 	};
 })
 
+/**
+ * [订单通用模块]
+ */
+.factory('orderComm', function() {
+	return {
+		commData: {
+			orderStatusList: [{
+				name: '已付款',
+				status: 'PAID'
+			}, {
+				name: '未付款',
+				status: 'NON_PAYMENT'
+			}, {
+				name: '已打印',
+				status: 'PRINTED'
+			}, {
+				name: '已发货',
+				status: 'DELIVERED'
+			}, {
+				name: '已取消',
+				status: 'CANCELED'
+			}, {
+				name: '已完成',
+				status: 'COMPLETED'
+			}, {
+				name: '全部',
+				status: ''
+			}]
+		},
+		func:{
+			getStatusName:function(status){
+				var result = '';
+
+            for (var i = 0; i < this.commData.orderStatusList.length; i++) {
+                if (status == this.commData.orderStatusList[i].status) {
+                    result = this.commData.orderStatusList[i].name;
+                    break;
+                }
+            }
+
+            return result;
+			}
+		}
+	};
+})
+
 /** 
 	JSONP接口通用方法
 	SBMJSONP使用方法如下
@@ -186,6 +232,7 @@
 		urldata.sign=hex_md5(tempStr);
 		return $.extend(urldata,obj);
 	};
+
 }])
 
 
