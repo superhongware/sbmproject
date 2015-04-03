@@ -18,6 +18,8 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 	}
 
 	p_s.prototype.CreatDomtree = function(data) {
+		console.log('p_s.prototype.CreatDomtree');
+		console.log(data);
 		//设置页面数量
 		this.pagesize = data.pages.length - 1;
 		for (var i = 0; i < data.pages.length; i++) { //正排序
@@ -26,7 +28,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			//创建ps_page
 			var pagedata = data.pages[i];
 
-			var pageclass = "tmp" + pagedata.templatePageId;
+			var pageclass = "tmp" + pagedata.tmp;
 
 			var ps_page = $("<div></div>")
 				.addClass("beforestart ps_page " + pageclass);
@@ -34,36 +36,48 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			$("body").append(ps_page);
 
 			//创建ps_img
-			if (pagedata.detailPageImage.length > 0) {
+			if (pagedata.imgs.length > 0) {
 
-				for (var m = 0; m < pagedata.detailPageImage.length; m++) {
+				for (var m = 0; m < pagedata.imgs.length; m++) {
 
-					var imgurl = pagedata.detailPageImage[m];
+					var imgurl = pagedata.imgs[m];
 
-					var imgclass = "ps_img" + (m + 1);
+					if (imgurl instanceof Array) {
+						var divImgWarp = $("<div></div>").addClass("divImgWarp divImgWarp" + m);
+						for (var k = 0; k < imgurl.length; k++) {
+							var img = $('<div></div>')
+							.addClass("ps_img_s ps_img_s" + k)
+							.css({
+								"background-image": "url(" + imgurl[k] + ")"
+							});
+							divImgWarp.append(img);
+						}
+						$(ps_page).append(divImgWarp);
 
-					var ps_img = $("<div></div>")
-						.addClass("ps_img " + imgclass)
-						.css({
-							"background-image": "url(" + imgurl + ")",
-							// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
-						});
-
-					$(ps_page).append(ps_img);
+					} else {
+						var imgclass = "ps_img" + (m + 1);
+						var ps_img = $("<div></div>")
+							.addClass("ps_img " + imgclass)
+							.css({
+								"background-image": "url(" + imgurl + ")",
+								// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
+							});
+						$(ps_page).append(ps_img);
+					}
 
 				}
 			}
 
 			//创建ps_text
-			if (pagedata.detailPageText.length > 0) {
+			if (pagedata.texts.length > 0) {
 
-				for (var t = 0; t < pagedata.detailPageText.length; t++) {
+				for (var t = 0; t < pagedata.texts.length; t++) {
 
-					var contentdata = pagedata.detailPageText[t];
+					var contentdata = pagedata.texts[t];
 
 					var ps_text = $("<div></div>")
 						.addClass("ps_text ps_text" + (t + 1))
-						.text(contentdata);
+						.html(contentdata);
 
 					$(ps_page).append(ps_text);
 
