@@ -66,7 +66,7 @@
 			$state.go("login");
 			return;
 		}else{
-			return base64.decode(myCookie.get("orgName"));
+			return {orgName:base64.decode(myCookie.get("orgName")),userName:base64.decode(myCookie.get("userName"))};
 		}
 	};
 }])
@@ -452,7 +452,7 @@
 				console.log('productComm.loadProductDetail');
 				console.log(data);
 				if (data.isSuccess) {
-					callBack(data.item)
+					callBack(data.item);
 				}else{
 					errorCallBack('数据查询失败');
 				}

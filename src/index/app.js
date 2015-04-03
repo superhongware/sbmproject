@@ -92,6 +92,7 @@ angular.module('starter',
 	.state('set-shopmanage', {
 		url: "/set-shopmanage",
 		templateUrl: "templates/index/setting/set-shopmanage.html"
+		// controller:"shopManage"
 	})
 	.state('set-remind', {
 		url: "/set-remind",
@@ -105,12 +106,18 @@ angular.module('starter',
 		url: "/set-aboutus",
 		templateUrl: "templates/index/setting/set-aboutus.html"
 	})
+	.state('set-password', {
+		url: "/set-password",
+		templateUrl: "templates/index/setting/set-password.html",
+		controller:"setPassword"
+	})
+
 
 	//新建宝贝秀
 	.state('checkproduct', {
 		url: "/checkproduct",
 		templateUrl: "templates/index/creatshows/checkproduct.html",
-		controller:'checkproductCtrl'
+		controller:'productsCtrl'
 	})
 	.state('checktemplate', {
 		url: "/checktemplate/:productId",
@@ -118,16 +125,17 @@ angular.module('starter',
 		controller:'checktemplateCtrl'
 	})
 	.state('editpages', {
-		url: "/editpages",
+		url: "/editpages/:showId/:pageId",
 		templateUrl: "templates/index/creatshows/editpages.html",
 		controller:'editpagesCtrl'
 	})
 
 	.state('editpages.editer', {
-		url: "/editer/:pageId/:pageTemp",
+		url: "/editer/:pageTemp",
 		templateUrl:function(params){
 			return "templates/index/creatshows/pages/page"+params.pageTemp+".html";
-		}
+		},
+		controller:'editerCtrl'
 	})
 
 

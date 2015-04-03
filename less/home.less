@@ -19,18 +19,18 @@
     }
   }
 
+    @-webkit-keyframes upup
+    {
+    0% {-webkit-transform:translateY(100%);opacity: 0.2;}
+    100% {-webkit-transform:translateY(0%);opacity: 1;}
+    }
   .home_bottom{
     width:100%;
     position:fixed;
     bottom: 0px;
     left: 0px;
     padding:@bottompadding;
-    @-webkit-keyframes upup
-    {
-    from {bottom: -120px;opacity: 0.2;}
-    to {bottom: 0px;opacity: 1;}
-    }
-    -webkit-animation: upup 0.5s;  /* Safari 和 Chrome */
+    -webkit-animation: upup 1s; 
     .startbutton{
       font-size: 24px;
       height: 65px;

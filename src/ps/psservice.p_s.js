@@ -26,7 +26,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			//创建ps_page
 			var pagedata = data.pages[i];
 
-			var pageclass = "tmp" + pagedata.tmp;
+			var pageclass = "tmp" + pagedata.templatePageId;
 
 			var ps_page = $("<div></div>")
 				.addClass("beforestart ps_page " + pageclass);
@@ -34,11 +34,11 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			$("body").append(ps_page);
 
 			//创建ps_img
-			if (pagedata.imgs.length > 0) {
+			if (pagedata.detailPageImage.length > 0) {
 
-				for (var m = 0; m < pagedata.imgs.length; m++) {
+				for (var m = 0; m < pagedata.detailPageImage.length; m++) {
 
-					var imgurl = pagedata.imgs[m];
+					var imgurl = pagedata.detailPageImage[m];
 
 
 					var createImgDom = function(){
@@ -61,11 +61,11 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			}
 
 			//创建ps_text
-			if (pagedata.texts.length > 0) {
+			if (pagedata.detailPageText.length > 0) {
 
-				for (var t = 0; t < pagedata.texts.length; t++) {
+				for (var t = 0; t < pagedata.detailPageText.length; t++) {
 
-					var contentdata = pagedata.texts[t];
+					var contentdata = pagedata.detailPageText[t];
 
 					var ps_text = $("<div></div>")
 						.addClass("ps_text ps_text" + (t + 1))

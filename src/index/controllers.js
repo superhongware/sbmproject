@@ -1,11 +1,25 @@
 var starterctrl = angular.module('starter.controllers', []);
-starterctrl.controller('mainviewCtrl', ['$scope', '$rootScope','$ionicLoading', 'myCookie', 'loginCheck', function ($scope,$rootScope, $ionicLoading, myCookie, loginCheck) {
 
+starterctrl.controller('mainviewCtrl', ['$scope','$rootScope', '$ionicLoading', 'myCookie', 'loginCheck', function ($scope, $rootScope,$ionicLoading, myCookie, loginCheck) {
 
-	$rootScope.orgName=loginCheck();
-
-
-
+	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
+	// 	// console.log(toState.controller);
+	// 	$scope.navbarhide=toState.controller!=="indexCtrl"?false:true;
+	// });
+	
+	//首页隐藏top-nav-bar
+	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
+	// 	// console.log(toState.controller);
+	// 	$scope.navbarhide=toState.controller!=="indexCtrl"?false:true;
+	// 	$scope.sncybtnhide=toState.controller==="productsCtrl"?false:true;
+	// });
+	var logininfo=loginCheck();
+	if(typeof logininfo !== "object"){
+		return;
+	}else{
+		$rootScope.orgName=logininfo.orgName;
+		$rootScope.userName=logininfo.userName;
+	}
 
 	$scope.show= function(){
 		$ionicLoading.show({
@@ -25,7 +39,7 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$rootScope','$ionicLoading', 
 	// console.log(myCookie.get("userId"));
 	//$ionicHistory  清全部数据
 	// .fromTemplate() method
-	$rootScope.orgName=loginCheck();
+	console.log($rootScope.orgName);
 	// console.log($rootScope.orgName);
 }])
 
@@ -38,32 +52,9 @@ starterctrl.controller('mainviewCtrl', ['$scope', '$rootScope','$ionicLoading', 
 }])
 
 
-.controller('editpagesCtrl',['$scope','$ionicLoading',function($scope,$ionicLoading){
-	$scope.show= function(){
-		$ionicLoading.show({
-			template:"正在保存...",
-			duration:2000
-		});
-	};
-	$scope.showdata={
-		page:1
-	};
-}])
 
 
-.controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
-	console.log($state);
-	console.log("pagetemp1");
-	// console.log("editerCtrl");
 
-}])
-
-
-.controller('pagetemp2Ctrl',['$scope','$state',function($scope,$state){
-	// console.log($state);
-	console.log("pagetemp2");
-	// console.log("editerCtrl");
-}]);
 
 
 
