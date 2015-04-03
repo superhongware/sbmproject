@@ -2,21 +2,26 @@
 	"template": 1,
 	"pagecount": 5,
 	"pages": [{
-		"tmp": "ht5",
-		"imgs": [
-			"img/pic5_1.jpg",
-			"img/pic5_2.jpg",
-			"img/pic5_3.jpg"],
-		"texts": [
-			"用心做好宝贝手机详情"]
-	},{
 		"tmp": "ht6",
 		"imgs": [
 			"img/pic6.jpg"],
 		"texts": [
 			"参数",
-			"规格",
+			"<span>规格</span>",
 			"购买"
+			]
+	},{
+		"tmp": "ht5",
+		"imgs": [
+					["img/pic5_1.jpg"],
+					[
+						"img/pic5_2.jpg",
+						"img/pic5_3.jpg"
+					]
+			],
+		"texts": [
+				"多图结合",
+				"添加多张图片拼接展示更多亮点"
 			]
 	},
 	{
