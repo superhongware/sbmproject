@@ -91,8 +91,8 @@ angular.module('starter',
 	})
 	.state('set-shopmanage', {
 		url: "/set-shopmanage",
-		templateUrl: "templates/index/setting/set-shopmanage.html"
-		// controller:"shopManage"
+		templateUrl: "templates/index/setting/set-shopmanage.html",
+		controller:"shopManage"
 	})
 	.state('set-remind', {
 		url: "/set-remind",
@@ -100,7 +100,8 @@ angular.module('starter',
 	})
 	.state('set-feedback', {
 		url: "/set-feedback",
-		templateUrl: "templates/index/setting/set-feedback.html"
+		templateUrl: "templates/index/setting/set-feedback.html",
+		controller:"feedBack"
 	})
 	.state('set-aboutus', {
 		url: "/set-aboutus",
@@ -110,6 +111,11 @@ angular.module('starter',
 		url: "/set-password",
 		templateUrl: "templates/index/setting/set-password.html",
 		controller:"setPassword"
+	})
+	.state('set-expired', {
+		url: "/set-expired",
+		templateUrl: "templates/index/setting/set-expired.html",
+		controller:"shopManage"
 	})
 
 

@@ -29,16 +29,17 @@ loginmodule.controller('LoginCtrl', ['$scope', 'loginSubmit', function($scope, l
 		email: ""
 	};
 	$scope.sign_up = function() {
-		if($scope.yourdata.password!=$scope.yourdata.password1){
-			$(".error-tip").eq(2).show();
-		}
-		var reg0 =  /^1\d{10}$/;
-		if(!reg0.test($scope.yourdata.phone)){
+		if(($scope.yourdata.password!="")&&($scope.yourdata.password!=$scope.yourdata.password1)){
 			$(".error-tip").eq(3).show();
 		}
-		var  reg= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-		if(!reg.test($scope.yourdata.email)){
+		var reg0 =  /^1\d{10}$/;
+	
+		if(!reg0.test($scope.yourdata.phone)&&($scope.yourdata.phone!="")){
 			$(".error-tip").eq(4).show();
+		}
+		var  reg= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!="")){
+			$(".error-tip").eq(5).show();
 		}
 		$scope.yourdata.method = "softbanana.app.user.regist";
 		var api = SBMJSONP("registUser", $scope.yourdata);
@@ -68,6 +69,15 @@ loginmodule.controller('LoginCtrl', ['$scope', 'loginSubmit', function($scope, l
 					}else if(data.map.errorMsg == "该商家名称下已注册该用户名"){
 						$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(1).show();
+					}else if(data.map.errorMsg == "密码不允许为空"){
+						$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(2).show();
+					}else if(data.map.errorMsg == "手机号不允许为空"){
+						$(".error-tip").eq(4).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(4).show();
+					}else if(data.map.errorMsg == "Email不允许为空"){
+						$(".error-tip").eq(5).children(".rect").text(data.map.errorMsg);
+						$(".error-tip").eq(5).show();
 					}
 				}
 				
