@@ -34,7 +34,7 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 	};
 	$scope.setPw = function(){
 
-		if(($scope.setdata.newPassword!=$scope.setdata.newPassword1)&&($scope.setdata.newPassword!="")){
+		if(($scope.setdata.newPassword!=$scope.setdata.newPassword1)&&($scope.setdata.newPassword!=="")){
 			$(".error-tip").eq(2).show();
 			return;
 		}
@@ -45,16 +45,16 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 				if(data.isSuccess){
 				}else{
 					console.log(data.map.errorMsg);
-					if(data.map.errorMsg == "旧密码不允许为空"){
+					if(data.map.errorMsg === "旧密码不允许为空"){
 						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(0).show();
-					}else if(data.map.errorMsg == "密码错误"){
+					}else if(data.map.errorMsg === "密码错误"){
 						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(0).show();
-					}else if(data.map.errorMsg == "密码修改失败"){
+					}else if(data.map.errorMsg === "密码修改失败"){
 						$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(2).show();
-					}else if(data.map.errorMsg == "新密码不允许为空"){
+					}else if(data.map.errorMsg === "新密码不允许为空"){
 						$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(1).show();
 					}
@@ -109,7 +109,7 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 						}
 					}]
 				});
-			}
+			};
 
 			$scope.goon = function(shopplat,shopname){
 				if(shopplat=="TAOBAO"){
@@ -119,13 +119,13 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 				}else if(shopplat=="PAIPAI"){
 					location.href = "http://fuwu.paipai.com/appstore/ui/my/app/appdetail.xhtml?appId=331404&PTAG=40012.5.1&LOGINTAG=1";
 				}
-			}
+			};
 			$scope.delshop = function(shopplat,shopname){
 				$scope.delshopinfo = {
 					orgName:$rootScope.orgName,
 					plat:shopplat,
 					shopName:shopname
-				}
+				};
 				$scope.delshopinfo.method = "softbanana.app.shop.delete";
 				var api = SBMJSONP("deleteShop",$scope.delshopinfo);
 				$http.jsonp(api.url)
@@ -134,7 +134,7 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 					.error(function(status,response){
 						console.log("连接失败");
 					});
-			}
+			};
 }])
 
 //用户反馈
@@ -160,5 +160,5 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 				.error(function(status,response){
 					console.log("连接失败");
 				});
-			}
+			};
 }]);

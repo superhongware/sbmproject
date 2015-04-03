@@ -92,9 +92,10 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                         return parseInt(a.id) > parseInt(b.id) ? -1 : 1;
                     });
 
+                    var i=0;
                     if (pageData.direction === 'up') { //moredata
                         pageData.isHaveMoreData = true;
-                        for (var i = 0; i < data.trades.length; i++) {
+                        for ( i = 0; i < data.trades.length; i++) {
                             data.trades[i].statusName = orderComm.getStatusName(data.trades[i].status);
                             pageData.orderList.push(data.trades[i]);
                         }
@@ -102,7 +103,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                         if (pageData.direction === '') {
                             pageData.isHaveMoreData = true;
                         }
-                        for (var i = data.trades.length - 1; i >= 0; i--) {
+                        for ( i = data.trades.length - 1; i >= 0; i--) {
                             data.trades[i].statusName = orderComm.getStatusName(data.trades[i].status);
                             pageData.orderList.unshift(data.trades[i]);
                         }

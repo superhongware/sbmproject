@@ -403,7 +403,8 @@
 				console.log('productComm.loadProductData');
 				console.log(data);
 
-				var callBackData = [];
+				var callBackData = [],
+					i=0;
 
 				if (data.isSuccess && parseInt(data.totalCount) > 0 && data.items && data.items.length > 0) {
 					//按id顺序排列
@@ -412,18 +413,18 @@
 					});
 
 					if (option.action === 'up') { //moredata
-						for (var i = 0; i < data.items.length; i++) {
+						for ( i = 0; i < data.items.length; i++) {
 							callBackData.push(data.items[i]);
 						}
 					} else {
-						for (var i = data.items.length - 1; i >= 0; i--) {
+						for ( i = data.items.length - 1; i >= 0; i--) {
 							callBackData.unshift(data.items[i]);
 						}
 					}
 				}
 
 				//数据处理
-				for (var i = 0; i < callBackData.length; i++) {
+				for ( i = 0; i < callBackData.length; i++) {
 					callBackData[i].picPlatUrl = getDataComm.platObj[callBackData[i].plat].imgSrc;
 				}
 

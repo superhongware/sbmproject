@@ -49,51 +49,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 
 }])
 
-.controller('editpagesCtrl',['$scope','$rootScope','$state','$http','$ionicLoading','$stateParams',function($scope,$rootScope,$state,$http,$ionicLoading,$stateParams){
 
-	// $ionicLoading.show({
-	// 	template:"正在初始化...",
-	// });
-
-	// $http.get("testdata/template.json")
-
-	// console.log($scope.prevpage);
-
-
-	// $scope.showId = parseInt($stateParams.showId);
-
-	// var prevpage = (parseInt($stateParams.pageId) - 1);
-	// $scope.prevpage = prevpage < 0 ? 0 : prevpage;
-
-	// var nextpage = (parseInt($stateParams.pageId) + 1);
-	// $scope.nextpage = nextpage > 8 ? 8 : nextpage;
-	
-	$rootScope.editShowData={
-		currentpage:0
-	};
-	$scope.goprev = function() {
-		console.log($rootScope.editShowData.currentpage);
-	};
-
-	$scope.gonext = function() {
-
-		console.log($rootScope.editShowData.currentpage);
-
-		var params={
-			showId:1,
-			pageId:$rootScope.editShowData.currentpage+1,
-			pageTemp:1
-		};
-		$state.go("editpages.editer",params);
-	};
-
-	$scope.pageTemp=1;
-
-	console.log("editpagesCtrl");
-
-
-
-}])
 
 
 /**
@@ -137,7 +93,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 					tempdata.numIid = productdata.numIid;
 					tempdata.detailUrl = productdata.detailUrl;
 					tempdata.plat = creatshowdata.productPlat;
-
+					
 					//第三步 保存宝贝秀
 					saveShow(tempdata,function(data){
 						data.firstPageTemp=tempdata.pages[0].templatePageId;
@@ -191,12 +147,12 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 			callback({showId:"123456"});
 			console.log("这里要完善保存宝贝秀的代码");
 			return;
-			$http.post(api.url,postdata)
-			.success(function(data){
-				console.log(["保存宝贝秀-保存后数据",data]);
-			})
-			.error(function(status, response){
-			});
+			// $http.post(api.url,postdata)
+			// .success(function(data){
+			// 	console.log(["保存宝贝秀-保存后数据",data]);
+			// })
+			// .error(function(status, response){
+			// });
 
 	};
 }])
