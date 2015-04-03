@@ -112,7 +112,6 @@ angular.module('starter',
 		controller:"setPassword"
 	})
 
-
 	//新建宝贝秀
 	.state('checkproduct', {
 		url: "/checkproduct",
@@ -120,18 +119,20 @@ angular.module('starter',
 		controller:'productsCtrl'
 	})
 	.state('checktemplate', {
-		url: "/checktemplate/:productId",
+		url: "/checktemplate/:productId/:productPlat",
 		templateUrl: "templates/index/creatshows/checktemplate.html",
 		controller:'checktemplateCtrl'
 	})
 	.state('editpages', {
-		url: "/editpages/:showId/:pageId",
+		url: "/editpages",
 		templateUrl: "templates/index/creatshows/editpages.html",
-		controller:'editpagesCtrl'
+		controller:'editpagesCtrl',
+    	// abstract: true
 	})
 
 	.state('editpages.editer', {
-		url: "/editer/:pageTemp",
+		url: "/editer/:showId/:pageId/:pageTemp",
+		// templateUrl: "templates/index/creatshows/pages/page1.html",
 		templateUrl:function(params){
 			return "templates/index/creatshows/pages/page"+params.pageTemp+".html";
 		},

@@ -53,16 +53,16 @@ gulp.task('less', function () {
 
 //js 打包
 gulp.task('js', function() {
-  for (var i = 0; i < paths.js.length; i++) {
-    gulp.src(paths.jssrc+paths.js[i]+'/**/*.js')
+  // for (var i = 0; i < paths.js.length; i++) {
+    gulp.src(paths.jssrc+paths.js[0]+'/**/*.js')
       .pipe(sourcemaps.init())
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
       .pipe(uglify())
       .pipe(concat('app.js'))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest('www/js'+paths.js[i]));
-  };
+      .pipe(gulp.dest('www/js'+paths.js[0]));
+  // };
 });
 
 
@@ -117,9 +117,9 @@ gulp.task('watch', function() {
   // livereload.listen();
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.less, ['less']);
-  for (var i = 0; i < paths.js.length; i++) {
-    gulp.watch(paths.jssrc+paths.js[i]+'/**/*.js', ['js']);
-  };
+  // for (var i = 0; i < paths.js.length; i++) {
+    gulp.watch(paths.jssrc+paths.js[0]+'/**/*.js', ['js']);
+  // };
     gulp.watch(paths.psjs, ['psjs']);
 });
 

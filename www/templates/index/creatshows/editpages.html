@@ -1,21 +1,23 @@
-<ion-view view-title="{{showdata.page}}第三步:调整模板">
+<ion-view view-title="第三步:调整模板">
 	<ion-nav-buttons side="right">
 		<button class="button" ng-click="show()">保存</button>
 	</ion-nav-buttons>
 	<div class="paddingtop44"></div>
+	<!-- ui-sref="editpages.editer({showId:showId,pageId:prevpage,pageTemp:pageTemp})" -->
 	
+	<!-- nav-transition="none" -->
 	<button
-	nav-transition="none"
 	class="button" 
-	ui-sref="editpages.editer({showId:showId,pageId:prevpage,pageTemp:pageTemp})"
+	ng-click="goprev()"
 	>上一页{{prevpage}}</button>
 
+	<!-- ui-sref="editpages.editer({showId:showId,pageId:nextpage,pageTemp:pageTemp})" -->
+	<!-- nav-transition="none" -->
 	<button
-	nav-transition="none"
 	class="button"
-	ng-click="pageTemp=2"
-	ui-sref="editpages.editer({showId:showId,pageId:nextpage,pageTemp:pageTemp})"
+	ng-click="gonext()"
 	>下一页{{nextpage}}</button>
+
 
 
 	<ui-view></ui-view>

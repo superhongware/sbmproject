@@ -38,7 +38,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 
 				for (var m = 0; m < pagedata.detailPageImage.length; m++) {
 
-					var imgurl = pagedata.detailPageImage[m];
+					var imgurl = pagedata.detailPageImage[m].img;
 
 					var imgclass = "ps_img" + (m + 1);
 
@@ -59,7 +59,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 
 				for (var t = 0; t < pagedata.detailPageText.length; t++) {
 
-					var contentdata = pagedata.detailPageText[t];
+					var contentdata = pagedata.detailPageText[t].txt;
 
 					var ps_text = $("<div></div>")
 						.addClass("ps_text ps_text" + (t + 1))

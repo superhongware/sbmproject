@@ -137,6 +137,14 @@
 	};
 }])
 
+.factory('SBMPOST2', ['postURL','systemdata',function(postURL,systemdata){
+	return function SBMPOST(url,data){
+		var lastdata=systemdata(data);
+		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		return {url:lasturl,data:lastdata};
+	};
+}])
+
 /** 
 	接口方法
 	拼接jsonp的url

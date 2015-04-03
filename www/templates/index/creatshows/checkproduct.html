@@ -30,7 +30,7 @@
           class="item-remove-animate item-avatar item-icon-right animate-repeat"  
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
-          ui-sref="checktemplate({productId:item.id})"
+          ui-sref="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})"
           >
             <img ng-src="{{item.picUrl}}" class="imgProduct">
             <ul class="productInfo">

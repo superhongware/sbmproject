@@ -49,7 +49,7 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope', '$ionicLoading', 
 		$ionicSideMenuDelegate.toggleLeft();
 	};
 	$scope.toggleLeft();
-}])
+}]);
 
 
 

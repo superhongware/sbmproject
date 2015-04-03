@@ -14,71 +14,87 @@
 		"detailPageIndex":"1",
 		"templatePageId": "ht1",
 		"detailPageImage": [
-			"img/pic1.png", 
-			"img/pic2.png", 
-			"img/pic1.jpg"],
+			{"img":"img/pic1.png"}, 
+			{"img":"img/pic2.png"}, 
+			{"img":"img/pic1.jpg"}
+		],
 		"detailPageText": [
-			"用心做好宝贝手机详情"]
+			{"txt":"用心做好宝贝手机详情"}
+		]
 	},
 	{
 		"detailPageIndex":"1",
 		"templatePageId": "ht2",
 		"detailPageImage": [
-			"img/pic2.jpg"],
+			{"img":"img/pic2.jpg"}
+		],
 		"detailPageText": [
-			"SOFTBANANA",
-			"手机详情制作助手",
-			"开启手机详情新时代"]
+			{"txt":"SOFTBANANA"},
+			{"txt":"手机详情制作助手"},
+			{"txt":"开启手机详情新时代"}
+		]
 	},
 	{
 		"detailPageIndex":"1",
 		"templatePageId": "ht3",
 		"detailPageImage": [
-			"img/pic3.jpg"],
+			{"img":"img/pic3.jpg"}
+		],
 		"detailPageText": [
-			"用心做好宝贝手机详情"]
+			{"txt":"用心做好宝贝手机详情"}
+		]
 	},
 	{
 		"detailPageIndex":"1",
 		"templatePageId": "ht4",
 		"detailPageImage": [
-			"img/pic4.jpg"],
+			{"img":"img/pic4.jpg"}
+		],
 		"detailPageText": [
-			"用心做好宝贝手机详情"]
+			{"txt":"用心做好宝贝手机详情"}
+		]
 	},
 	{
 		"detailPageIndex":"1",
 		"templatePageId": "ht5",
 		"detailPageImage": [
-			"img/pic5_1.jpg",
-			"img/pic5_2.jpg",
-			"img/pic5_3.jpg"],
+			{"img":"img/pic5_1.jpg"},
+			{"img":"img/pic5_2.jpg"},
+			{"img":"img/pic5_3.jpg"}
+		],
 		"detailPageText": [
-			"用心做好宝贝手机详情"]
+			{"txt":"用心做好宝贝手机详情"}
+		]
 	},
 	{
 		"detailPageIndex":"1",
 		"templatePageId": "ht6",
 		"detailPageImage": [
-			"img/pic6.jpg"],
+			{"img":"img/pic6.jpg"}
+		],
 		"detailPageText": [
-			"用心做好宝贝手机详情"]
+			{"txt":"用心做好宝贝手机详情"}
+		]
 	},
 	{
 		"detailPageIndex":"1",
 		"templatePageId": "ht7",
 		"detailPageImage": [
-			"img/pic7.jpg"],
+			{"img":"img/pic7.jpg"}
+		],
 		"detailPageText": [
-			"用心做好宝贝手机详情"]
+			{"txt":"用心做好宝贝手机详情"}
+		]
 	},
 	{
 		"detailPageIndex":"1",
 		"templatePageId": "ht8",
 		"detailPageImage": [
-			"img/pic8.jpg"],
+			{"img":"img/pic8.jpg"}
+		],
 		"detailPageText": [
-			"用心做好宝贝手机详情"]
+			{"txt":"用心做好宝贝手机详情"}
+		]
 	}
 	]
 }
