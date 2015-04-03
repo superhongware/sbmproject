@@ -18,6 +18,8 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 	}
 
 	p_s.prototype.CreatDomtree = function(data) {
+		console.log('p_s.prototype.CreatDomtree');
+		console.log(data);
 		//设置页面数量
 		this.pagesize = data.pages.length - 1;
 		for (var i = 0; i < data.pages.length; i++) { //正排序
@@ -40,16 +42,29 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 
 					var imgurl = pagedata.detailPageImage[m].img;
 
-					var imgclass = "ps_img" + (m + 1);
 
-					var ps_img = $("<div></div>")
-						.addClass("ps_img " + imgclass)
-						.css({
-							"background-image": "url(" + imgurl + ")",
-							// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
-						});
+					if (imgurl instanceof Array) {
+						var divImgWarp = $("<div></div>").addClass("divImgWarp divImgWarp" + m);
+						for (var k = 0; k < imgurl.length; k++) {
+							var img = $('<div></div>')
+							.addClass("ps_img_s ps_img_s" + k)
+							.css({
+								"background-image": "url(" + imgurl[k] + ")"
+							});
+							divImgWarp.append(img);
+						}
+						$(ps_page).append(divImgWarp);
 
-					$(ps_page).append(ps_img);
+					} else {
+						var imgclass = "ps_img" + (m + 1);
+						var ps_img = $("<div></div>")
+							.addClass("ps_img " + imgclass)
+							.css({
+								"background-image": "url(" + imgurl + ")",
+								// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
+							});
+						$(ps_page).append(ps_img);
+					}
 
 				}
 			}
@@ -61,9 +76,10 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 
 					var contentdata = pagedata.detailPageText[t].txt;
 
+
 					var ps_text = $("<div></div>")
 						.addClass("ps_text ps_text" + (t + 1))
-						.text(contentdata);
+						.html(contentdata);
 
 					$(ps_page).append(ps_text);
 

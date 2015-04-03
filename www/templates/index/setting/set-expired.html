@@ -1,22 +1,19 @@
-<ion-view view-title="店铺管理">
+<ion-view view-title="以下店铺授权过期">
+  <ion-nav-buttons side="right">
+    <button class="topbtn">跳过</button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>     
       <ion-item 
       class="item-remove-animate item-avatar item-icon-right lineHeight40" 
       type="item-text-wrap" 
-      ng-repeat="shop in shopList.shops">
+      ng-repeat="shop in shopList.shops" ng-if="shop.isInvalid==0">
           <img ng-src="{{shop.imgsrc}}">
           <span class="shopname">{{shop.shopName}}</span>
           <span class="rightwrap">
             <span class="expired">授权过期</span>
-            <span class="more">...</span>
+            <span class="xuding" ng-click="goon(shop.plat,shop.shopName)">续订</span>
           </span>
-        <ion-option-button class="button-dark" ng-click="del(shop.plat,shop.shopName)">
-          删除
-        </ion-option-button>
-        <ion-option-button class="button-dark" ng-click="goon(shop.plat,shop.shopName)">
-          续订
-        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>
