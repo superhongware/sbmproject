@@ -1,7 +1,42 @@
 {
 	"template": 1,
 	"pagecount": 5,
-	"pages": [
+	"pages": [{
+		"tmp": "ht5",
+		"imgs": [
+			"img/pic5_1.jpg",
+			"img/pic5_2.jpg",
+			"img/pic5_3.jpg"],
+		"texts": [
+			"用心做好宝贝手机详情"]
+	},{
+		"tmp": "ht6",
+		"imgs": [
+			"img/pic6.jpg"],
+		"texts": [
+			"参数",
+			"规格",
+			"购买"
+			]
+	},
+	{
+		"tmp": "ht4",
+		"imgs": [
+			"img/pic4.jpg"],
+		"texts": [
+			"细节展示，无微不至",
+			"专为宝贝细节展示设计，支撑添加多张细节图片，突显宝贝质地，让买家了解更多"
+			]
+	},
+	{
+		"tmp": "ht3",
+		"imgs": [
+			"img/pic3.jpg"],
+		"texts": [
+			"高清大图",
+			"全屏设计，充分展示宝贝，引人入胜"
+			]
+	},
 	{
 		"tmp": "ht1",
 		"imgs": [
@@ -20,36 +55,9 @@
 			"手机详情制作助手",
 			"开启手机详情新时代"]
 	},
-	{
-		"tmp": "ht3",
-		"imgs": [
-			"img/pic3.jpg"],
-		"texts": [
-			"用心做好宝贝手机详情"]
-	},
-	{
-		"tmp": "ht4",
-		"imgs": [
-			"img/pic4.jpg"],
-		"texts": [
-			"用心做好宝贝手机详情"]
-	},
-	{
-		"tmp": "ht5",
-		"imgs": [
-			"img/pic5_1.jpg",
-			"img/pic5_2.jpg",
-			"img/pic5_3.jpg"],
-		"texts": [
-			"用心做好宝贝手机详情"]
-	},
-	{
-		"tmp": "ht6",
-		"imgs": [
-			"img/pic6.jpg"],
-		"texts": [
-			"用心做好宝贝手机详情"]
-	},
+	
+	
+	
 	{
 		"tmp": "ht7",
 		"imgs": [

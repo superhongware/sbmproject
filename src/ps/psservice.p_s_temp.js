@@ -17,6 +17,17 @@ SBMPS.factory('p_s_temp',['p_s_anination', function(p_s_anination){
 					p_s_anination(page,".ps_text3","psanimate2");
 				});
 			break;
+			case "ht3":
+				p_s_anination(page,".ps_text1","psanimate8_1",function(){
+					p_s_anination(page,".ps_text2","psanimate8_1");
+				});
+			break;
+			case "ht4":
+				p_s_anination(page,".ps_text1","psanimateFadeInDown",function(){
+					p_s_anination(page,".ps_text2","psanimateFadeInDown");
+				});
+			break;
+
 			default:
 				// console.log("1"+temp);
 

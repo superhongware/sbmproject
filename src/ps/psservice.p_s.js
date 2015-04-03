@@ -40,16 +40,22 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 
 					var imgurl = pagedata.imgs[m];
 
-					var imgclass = "ps_img" + (m + 1);
 
-					var ps_img = $("<div></div>")
-						.addClass("ps_img " + imgclass)
-						.css({
-							"background-image": "url(" + imgurl + ")",
-							// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
-						});
+					var createImgDom = function(){
+						var imgclass = "ps_img" + (m + 1);
 
-					$(ps_page).append(ps_img);
+						var ps_img = $("<div></div>")
+							.addClass("ps_img " + imgclass)
+							.css({
+								"background-image": "url(" + imgurl + ")",
+								// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
+							});
+
+						$(ps_page).append(ps_img);
+					}
+
+					
+					
 
 				}
 			}
