@@ -1,0 +1,15 @@
+<div>
+<div 
+ng-repeat="img in editShowData.mainData.pages[editShowData.currentpage].detailPageImage"
+style="background-image:url({{img.img}});"
+class="ps_img ps_img{{$index+1}}"
+></div>
+
+<div 
+ng-repeat="text in editShowData.mainData.pages[editShowData.currentpage].detailPageText"
+class="ps_text ps_text{{$index+1}}"
+>
+<input type="text" ng-model="text.txt">
+</div>
+
+</div>

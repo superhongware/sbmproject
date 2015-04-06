@@ -1,31 +1,46 @@
-<ion-view view-title="第三步:调整模板">
+<ion-view view-title="第三步:调整模板" class="editbox">
 	<ion-nav-buttons side="right">
 		<button class="button" ng-click="show()">保存</button>
 	</ion-nav-buttons>
-	<div class="paddingtop44"></div>
 	<!-- ui-sref="editpages.editer({showId:showId,pageId:prevpage,pageTemp:pageTemp})" -->
 	
+
+
+	<ui-view class="editplace"></ui-view>
+
+
+
+
+
 	<!-- nav-transition="none" -->
 	<button
-	class="button" 
+	class="editpagebutton editpageleft" 
 	ng-click="goprev()"
-	>上一页{{prevpage}}</button>
+	>
+	<span class="iconfont icon-editleft"></span>
+	</button>
 
 	<!-- ui-sref="editpages.editer({showId:showId,pageId:nextpage,pageTemp:pageTemp})" -->
 	<!-- nav-transition="none" -->
 	<button
-	class="button"
+	class="editpagebutton editpageright"
 	ng-click="gonext()"
-	>下一页{{nextpage}}</button>
+	>
+	<span class="iconfont icon-editright"></span>
+	</button>
 
 
 
-	<ui-view></ui-view>
-
-	<div class="pagelist">
-		
+	<div class="pagelistbox">
+		<div class="pagelist">
+			<div class="pageitem" 
+			ng-class="{current:editShowData.currentpage===$index}"
+			ng-repeat="page in editShowData.mainData.pages"
+			style="background-image:url({{page.detailPageImage[0].img}})"
+			ui-sref="editpages.editer({showId:editShowData.showId,pageId:$index,pageTemp:page.templatePageId})"
+			></div>
+		</div>
 	</div>
-
 
 <!-- 	<sbm-page ng-attr-pagenum="{{showdata.page}}">
 

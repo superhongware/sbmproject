@@ -3,7 +3,6 @@
 	"detailTitle":"标题",
 	"detailDesc": "描述",
 	"detailImage":"详情图片",
-	"templateId": "模板ID",
 	"shopName":"店铺名称",
 	"numIid": "宝贝ID",
 	"detailUrl": "购买链接",
@@ -14,9 +13,9 @@
 		"detailPageIndex":"1",
 		"templatePageId": "ht1",
 		"detailPageImage": [
-			{"img":"img/pic1.png"}, 
+			{"img":"img/pic1.jpg"},
 			{"img":"img/pic2.png"}, 
-			{"img":"img/pic1.jpg"}
+			{"img":"img/pic1.png"} 
 		],
 		"detailPageText": [
 			{"txt":"用心做好宝贝手机详情"}

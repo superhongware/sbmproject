@@ -144,7 +144,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 					detailData:saveshowdata
 				};
 			
-			callback({showId:"123456"});
+			callback({showId:"3456"});
 			console.log("这里要完善保存宝贝秀的代码");
 			return;
 			// $http.post(api.url,postdata)

@@ -1,0 +1,84 @@
+.editbox{
+	background-color: #343434;
+	position: absolute;
+	.size(100%,100%);
+	top: 0px;
+	left: 0px;
+
+	.editpagebutton{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		background-color: transparent;
+		border: none;
+		// background-color: rgba(0, 255, 255, 0.1);
+		.iconfont{
+			color: #fff;
+			font-size: 30px;
+		}
+	}
+	.editpageleft{
+		left: 0;
+	}
+	.editpageright{
+		right: 0;
+	}
+
+	.pagelistbox{
+		.size(100%,110px);
+		position: absolute;
+		bottom:0px;
+		left: 0px;
+		overflow-y: hidden;
+		overflow-x: auto;
+		background-color: #000;		
+		.pagelist{
+			position: absolute;
+			.size(600%,110px);
+			.pageitem{
+				.size(63px,100px);
+				float: left;
+				border:2px solid rgba(254, 153, 0, 0);
+				margin: 5px;
+				background-size:auto 100%;
+			}
+			.current{
+				border-color:rgba(254, 153, 0, 1);;
+			}
+		}
+	}
+
+	.editplace{
+		position: absolute;
+		top: 44px;
+		right: 0;
+		// bottom: 0;
+		left: 0;
+		margin: auto;
+		border: 2px dashed @mainyellow;
+		background-color: transparent;
+	}
+}
+
+
+.ps_page{
+	.ps_img,.ps_text{
+		opacity: 1;
+	}
+	.ps_text{
+		input{
+			width: 100%;
+			background-color: transparent;
+			color: #fff;
+			border: 1px dashed @mainyellow;
+		}
+	}
+}
+
+
+
+
+
+
+
