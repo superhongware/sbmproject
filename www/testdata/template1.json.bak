@@ -1,0 +1,55 @@
+{
+	"templateId": 1,
+	"detailTitle":"",
+	"detailDesc": "",
+	"detailImage":"",
+	"shopName":"",
+	"numIid": "",
+	"detailUrl": "",
+	"plat": "",
+	"pagecount":7,
+	"pages": [
+	{
+		"templatePageId": 1,
+		"detailPageIndex": 1,
+		"detailPageText":[],
+		"detailPageImage": []
+	},
+	{
+		"templatePageId": 2,
+		"detailPageIndex": 1,
+		"detailPageText":[],
+		"detailPageImage": []
+	},
+	{
+		"templatePageId": 3,
+		"detailPageIndex": 1,
+		"detailPageText":[],
+		"detailPageImage": []
+	},
+	{
+		"templatePageId": 3,
+		"detailPageIndex": 1,
+		"detailPageText":[],
+		"detailPageImage": []
+	},
+	{
+		"templatePageId": 5,
+		"detailPageIndex": 1,
+		"detailPageText":[],
+		"detailPageImage": []
+	},
+	{
+		"templatePageId": 6,
+		"detailPageIndex": 1,
+		"detailPageText":[],
+		"detailPageImage": []
+	},
+	{
+		"templatePageId": 7,
+		"detailPageIndex": 1,
+		"detailPageText":[],
+		"detailPageImage": []
+	}
+	]
+}

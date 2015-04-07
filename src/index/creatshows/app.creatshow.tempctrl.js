@@ -1,23 +1,23 @@
 creatshowmodule
-.controller('editpagesCtrl',['$scope','$rootScope','$state','$http','$ionicLoading','$stateParams',function($scope,$rootScope,$state,$http,$ionicLoading,$stateParams){
-
-	// $ionicLoading.show({
-	// 	template:"正在初始化...",
-	// });
-
-	// $http.get("testdata/template.json")
-
-	// console.log($scope.prevpage);
+.controller('editpagesCtrl',['$scope','$rootScope','$state','$http','$ionicLoading','$stateParams','SBMJSONP','saveShow',function($scope,$rootScope,$state,$http,$ionicLoading,$stateParams,SBMJSONP,saveShow){
 
 
-	// $scope.showId = parseInt($stateParams.showId);
-
-	// var prevpage = (parseInt($stateParams.pageId) - 1);
-	// $scope.prevpage = prevpage < 0 ? 0 : prevpage;
-
-	// var nextpage = (parseInt($stateParams.pageId) + 1);
-	// $scope.nextpage = nextpage > 8 ? 8 : nextpage;
 	console.log("editpagesCtrl");
+
+	$scope.saveShow=function(){
+		$ionicLoading.show({
+			template:"正在保存,请稍等...",
+		});
+		saveShow($rootScope.editShowData.mainData,
+			function(data){
+				$ionicLoading.hide();
+				console.log("保存成功");
+			},
+			function(data){
+				$ionicLoading.hide();
+				alert(data);
+			});
+	};
 
 	//初始化editShowData
 	if(!$rootScope.editShowData){
@@ -59,21 +59,31 @@ creatshowmodule
 
 	// console.log(["aa",$rootScope.editShowData]);
 
-	
+	//获取宝贝秀数据
 	$rootScope.$watch("editShowData",function() {
 		// body...
+			console.log($rootScope.editShowData);
 		if(!$rootScope.editShowData.mainData&&$rootScope.editShowData.showId!==$rootScope.editShowData.mainData.showId){
-			$rootScope.editShowData.showId=$stateParams.showId;
-			console.log("更新宝贝秀数据");
-			
+
+
+			console.log("开始更新宝贝秀数据");
+			var getshowdata = {
+				orgName:$rootScope.orgName,
+				detailId:$rootScope.editShowData.showId,
+				method :"softbanana.app.detail.search"
+			};
+
+			console.log(getshowdata);
+
+			var api = SBMJSONP("searchDetail",getshowdata);
 			//获取宝贝秀数据
-			$http.get("testdata/productshow.json")
+			$http.jsonp(api.url)
 			.success(function(data){
-				console.log(data);
+				console.log(["更新宝贝秀数据结束",data]);
 				$rootScope.editShowData.mainData=data;
 			})
 			.error(function(){
-				alert("获取失败");
+				alert("更新宝贝秀数据失败");
 			});
 		}
 	});
@@ -97,7 +107,6 @@ creatshowmodule
 	// console.log(["cc",$rootScope.editShowData]);
 	// console.log($rootScope.editShowData.currentpage);
 
-
 }])
 .directive('normalEditPage', function(){
 	// Runs during compile
@@ -120,12 +129,67 @@ creatshowmodule
 	};
 })
 
-.controller('pagetempht1Ctrl',['$scope','$state',function($scope,$state){
+.controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http","SBMJSONP",function($scope,$rootScope,$state,$http,SBMJSONP){
 	// console.log($state.current);
 	console.log("pagetempht1Ctrl");
 	// console.log("editerCtrl");
 
+	$scope.checkimg=function(){
+		document.getElementById('fileImg').click();
+	};
+
+	document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
+
+	function handleFileSelect (evt) {
+		var file = evt.target.files[0];
+		if (!file.type.match('image.*')) {
+			return;
+		}
+
+		var reader = new FileReader();
+
+		reader.readAsDataURL(file);
+
+		reader.onload=function(e){
+			console.log(e.target.result);
+			var img=new Image();
+			img.src=e.target.result;
+
+			console.log(compress(img,50));
+
+			var api=SBMJSONP("uploadImage/uploadFile",{
+				orgName:$rootScope.orgName,
+				method:"softbanana.app.image.upload",
+				imageData:compress(img,50)
+			});
+
+			$http.jsonp(api.url)
+			.success(function(data){
+				console.log(["图片上传成功",data]);
+			})
+			.error(function(data){
+				console.log(["图片上传失败",data]);
+			});
+		};
+
+	};
+
+	function compress(source_img_obj,quality,output_format){
+		var mime_type = "image/jpeg";
+		if(output_format!==undefined && output_format=="png"){
+			mime_type = "image/png";
+		}
+		var cvs = document.createElement('canvas');
+		cvs.width = source_img_obj.naturalWidth;
+		cvs.height = source_img_obj.naturalHeight;
+		var ctx = cvs.getContext("2d").drawImage(source_img_obj, 0, 0);
+		var newImageData = cvs.toDataURL(mime_type, quality/100);
+		return newImageData;
+	}
+
 }])
+
+
 
 .controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
 	// console.log($state.current);
