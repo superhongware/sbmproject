@@ -103,6 +103,8 @@
 	return function SBMJSONP(url,data){
 		var lastdata=systemdata(data);
 		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		// var lasturl="http://192.168.51.228:8018/openApi/dyncSoftBanana/app/"+url;
+
 		return {url:jsonpURL(lasturl,lastdata)};
 	};
 }])
@@ -187,7 +189,9 @@
 		var time=new Date();
 		var urldata={
 			nick : 'softbanana',
+			// nick : 'chang',
 			name : 'softbanana',
+			// name : 'chang',
 			timestamp : parseInt(time.getTime()/1000).toString(),
 			format : 'json',
 		};

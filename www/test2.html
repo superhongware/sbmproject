@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <script src="lib/angular/angular.js"></script>
+    <title></title>
+
+    
+  </head>
+
+
+  <body ng-controller="test">
+      {{greeting}}
+  
+
+<input type="file" style="position:relative;z-index:99;">
+      
+
+
+  </body>
+</html>
+
+<script type="text/javascript">
+
+var myApp = angular.module('myApp',[]);
+
+myApp.controller('test', ['$scope', "$http",function($scope,$http) {
+  $scope.greeting = "Hola";
+  var datab={a:'Hola!',b:"bbbb"}
+  $scope.dataa = "dasdad="+JSON.stringify(datab);
+  // $http.post("url",$scope.dataa)
+  // .success(function(data){
+  //    console.log(data)
+  // })
+  // .error(function(a,b){
+
+  //   console.log("连接失败");
+  //   console.log(a);
+  //   console.log(b);
+  // })
+
+}]);
+
+</script>

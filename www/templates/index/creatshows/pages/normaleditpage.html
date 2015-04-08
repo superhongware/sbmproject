@@ -3,7 +3,10 @@
 ng-repeat="img in editShowData.mainData.pages[editShowData.currentpage].detailPageImage"
 style="background-image:url({{img.img}});"
 class="ps_img ps_img{{$index+1}}"
-></div>
+><input type="hidden"  ng-model="img.img"></div>
+
+<input type="file" id="fileImg" style="position:relative;z-index:99;">
+<!-- <div class="button" ng-click="checkimg()">dddd</div> -->
 
 <div 
 ng-repeat="text in editShowData.mainData.pages[editShowData.currentpage].detailPageText"

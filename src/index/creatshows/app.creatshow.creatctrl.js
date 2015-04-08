@@ -28,21 +28,16 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 			//隐藏“创建中,请稍等...”
 			$ionicLoading.hide();
 
-			if(data){
-				//创建成功跳转到编辑页
-				$state.go("editpages.editer",{
-					showId:data.showId,
-					pageId:0,
-					pageTemp:data.firstPageTemp
-				});
-			}else{
-				//创建失败出提示
-				alert("创建失败，再试一次");
-			}
+			//创建成功跳转到编辑页
+			$state.go("editpages.editer",{
+				showId:data.detailId,
+				pageId:0,
+				pageTemp:data.firstPageTemp
+			});
 
-		},function(){
+		},function(msg){
 
-			alert("连接服务器失败，查看网络问题");
+			alert(msg);
 
 		});
 	};
@@ -68,15 +63,6 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 			plat:creatshowdata.productPlat
 		},function(productdata){
 
-			// numIid: "44494150855"
-			// picUrl: "http://img04.taobaocdn.com/bao/uploaded/i4/TB1Y1OHHpXXXXbKapXXXXXXXXXX_!!0-item_pic.jpg"
-			// postFee: "0.00"
-			// price: "199.00"
-			// salesProperty: null
-			// shopName: "宏巍软件"
-			// status: "onsale"
-			// title: "订单测试"
-
 			//创建宝贝秀-获取宝贝信息
 			console.log(["创建宝贝秀-获取宝贝信息",productdata]);
 
@@ -91,17 +77,18 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 					tempdata.detailImage = productdata.picUrl;
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
+					//&符号传输过程中会出错
 					tempdata.detailUrl = productdata.detailUrl;
 					tempdata.plat = creatshowdata.productPlat;
-					
+					tempdata.detailId="";
 					//第三步 保存宝贝秀
 					saveShow(tempdata,function(data){
 						data.firstPageTemp=tempdata.pages[0].templatePageId;
 						callback(data);
 
-					},function(status, response){
+					},function(errmesg){
 
-						errorcallback(status, response);
+						errorcallback(errmesg);
 
 					});
 
@@ -127,32 +114,34 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
  * @param  {[fun]} errorCallBack [失败返回]
  * @return {[obj]}               [description]
  */
-.factory('saveShow', ['$rootScope','$http','SBMPOST','productComm',function($rootScope,$http,SBMPOST,productComm){
+.factory('saveShow', ['$rootScope','$http','SBMJSONP','productComm',function($rootScope,$http,SBMJSONP,productComm){
 	return function saveShow(saveshowdata,callback,errorcallback){
-
+			saveshowdata.detailUrl=saveshowdata.detailUrl.replace(/&/g,"%26");
 			var showdata={
 				orgName:$rootScope.orgName,
-				detailId:"",
+				detailId:saveshowdata.detailId,
 				method:"softbanana.app.detail.saveOrUpdate"
 			};
 
+			var api=SBMJSONP("saveOrUpdateDetail",showdata);
 
-			var api=SBMPOST("saveOrUpdateDetail",showdata);
+			api.url+=("&detailData="+JSON.stringify(saveshowdata));
+			// callback({showId:"3456"});
+			// console.log("这里要完善保存宝贝秀的代码");
+			// return;
+			$http.jsonp(api.url)
+			.success(function(data){
+				console.log(["保存宝贝秀-保存后数据",data]);
+				if(data.isSuccess){
+					callback(data);
+				}else{
+					errorcallback(data.map.errorMsg);
+				}
+			})
+			.error(function(status, response){
 
-			var postdata={
-					system:api.data,
-					detailData:saveshowdata
-				};
-			
-			callback({showId:"3456"});
-			console.log("这里要完善保存宝贝秀的代码");
-			return;
-			// $http.post(api.url,postdata)
-			// .success(function(data){
-			// 	console.log(["保存宝贝秀-保存后数据",data]);
-			// })
-			// .error(function(status, response){
-			// });
+				alert("保存宝贝秀失败-网络链接有问题~");
+			});
 
 	};
 }])
