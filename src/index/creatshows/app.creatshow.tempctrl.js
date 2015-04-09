@@ -172,7 +172,7 @@ creatshowmodule
 			});
 		};
 
-	};
+	}
 
 	function compress(source_img_obj,quality,output_format){
 		var mime_type = "image/jpeg";

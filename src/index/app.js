@@ -52,10 +52,7 @@ angular.module('starter',
 		url: "/shops",
 		templateUrl: "templates/index/shops.html"
 	})
-	.state('shows', {
-		url: "/shows",
-		templateUrl: "templates/index/shows/shows.html"
-	})
+	
 
 
 	//我的宝贝
@@ -69,7 +66,15 @@ angular.module('starter',
 		templateUrl: "templates/index/products/productDetail.html",
 		controller:'productDetailCtrl'
 	})
-
+	.state('shows', {
+		url: "/shows",
+		templateUrl: "templates/index/shows/shows.html",
+		controller:'productDetailCtrl'
+	})
+	.state('liuliang', {
+		url: "/liuliang",
+		templateUrl: "templates/index/shows/liuliang.html"
+	})
 
 	//我的订单
 	.state('orders', {

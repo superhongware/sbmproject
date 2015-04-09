@@ -161,4 +161,10 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 					console.log("连接失败");
 				});
 			};
+}])
+
+.controller('showCtrl', ['$scope','$state', '$ionicPopup', 'myCookie', 'loginCheck',function($scope, $state, $ionicPopup, myCookie, loginCheck) {
+
+	alert(1234);
+
 }]);

@@ -264,7 +264,7 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$i
 
 	var pageFunc = {},
 		pageData = {};
-
+	// alert(localStorage.getItem('currSelectProduct'))
 	pageData = {
 		currSelectOrder: JSON.parse(localStorage.getItem('currSelectProduct')),
 		orderDetail: {},
@@ -329,6 +329,10 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$i
 
 	$scope.pageData = pageData;
 	pageFunc.init();
+
+	$scope.liuliang = function(){
+		$state.go('liuliang');
+	}
 
 
 }]);
