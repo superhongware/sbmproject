@@ -15,6 +15,13 @@ body{
 	background-position: center;
 	z-index: -1;
 }
+.shareimg{
+	.square(0px);
+	position: absolute;
+	z-index: -99;
+	top:-1px;
+	left: -1px;
+}
 //居中
 .centerpic{
 	.square(100px);
@@ -41,6 +48,62 @@ body{
 	z-index: 1;
 }
 
+//参数showpagema  规格showstanda
+.showpagema,.showstanda{
+	.size(100%,40%);
+	position: absolute;
+	top:0px;
+	left: 0px;
+	background-color: rgba(255, 255, 255, 0.9);
+	z-index: 2;
+	color: #333;
+	box-sizing: border-box;
+	-webkit-transition:0.5s ease-out;
+	-webkit-transform:translate3d(0,-100%,0);
+	opacity: 0;
+}
+.showstanda{
+	font-size: 16px;
+	line-height: 5vh;
+	padding-left: 20px;
+}
+.showpagema{
+	padding: 10px;
+	.topbar{
+		display: block;
+		float: left;
+		width: 50%;
+		height: 30px;
+		font-size: 20px;
+		text-align: center;
+		color: #ccc;
+		border-bottom: 1px solid #ccc;
+		.text{
+			width: 50%;
+			display: block;
+			margin: 0 auto;
+			line-height: 29px;
+		}
+	}
+	.currenttopbar{
+		color:rgba(254, 153, 0, 1);
+		.text{
+			border-bottom:2px solid rgba(254, 153, 0, 1);
+		}
+	}
+}
+.showstandashow{
+	opacity: 1;
+	-webkit-transform:translate3d(0,0,0);
+}
+.showpagemashow{
+	opacity: 1;
+	-webkit-transform:translate3d(0,0,0);
+}
+
+
+
+
 .ps_page{
 	.square(100%);
 	overflow: hidden;
@@ -57,6 +120,90 @@ body{
 
 }
 
+.tapuptip{
+	.size(100%,5vh);
+	color:#fff;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	bottom: 1%;
+	background-image: url(../img/tapuptip.png);
+	z-index: 3;
+	background-size:auto 90%;
+	background-position: center;
+	background-repeat: no-repeat;
+	opacity: 0;
+}
+
+//购买提示
+.screenforbiden{
+	.square(100%);
+	position: absolute;
+	top:0px;
+	left: 0px;
+	background-color:rgba(0, 0, 0, 0.5);
+	display: none;
+	z-index: 999;
+	background-image: url(../img/azgobuy.png);
+	background-position: right 2%;
+	background-size: 90%;
+	background-repeat: no-repeat;
+}
+
+//中间那几个小圈圈
+.pagemainbtn{
+	&:extend(.centerpic);
+	z-index: 1;
+	width:100%;
+	height:100px;
+	bottom:-70%;
+	opacity: 0;
+	// background-color: rgba(255, 255, 255, 0.1);
+	.centerround{
+		.square(20vw);
+		&:extend(.centerpic);
+		line-height: 20vw;
+		text-align: center;
+		font-size: 20px;
+		&:first-child{
+			right:55%;
+		}
+		&:last-child{
+			left: 55%;
+		}
+		span{
+			border-radius: 20vw;
+			position: absolute;
+			left: 0px;
+			top:0px;
+			height: 100%;
+			width: 100%;	
+			background-color: rgba(255, 255, 255, 0.3);
+			border: 1px solid rgba(255, 255, 255, 0.9);
+			color:#fff;
+		}
+		.buybtn{
+			background-color: rgba(254, 153, 0, 0.3);
+			border-color: rgba(254, 153, 0, 0.9);
+			color:rgba(254, 153, 0, 0.9)
+		}
+	}
+	.current{
+		.parmabtn,.standabtn{
+			background-color: rgba(255, 255, 255, 0.9);
+			border-color: rgba(255, 255, 255, 1);
+			color:#666;
+		}
+		.buybtn{
+			background-color: rgba(254, 153, 0, 0.9);
+			border-color: rgba(254, 153, 0, 1);
+			color:#fff;
+		}
+	}
+}
+.psanimatepagemainbtn{-webkit-animation: psanimate15 0.5s ease-in 0s;}
+.psanimatepagemainbtnend{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
 
 
 //iPhone4兼容

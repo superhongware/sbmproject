@@ -20,6 +20,8 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 	p_s.prototype.CreatDomtree = function(data) {
 		console.log('p_s.prototype.CreatDomtree');
 		console.log(data);
+		$("title")[0].innerText=data.detailTitle;
+		$(".pagemainbtn").before("<img class='shareimg' src="+data.detailImage+">");
 		//设置页面数量
 		this.pagesize = data.pages.length - 1;
 		for (var i = 0; i < data.pages.length; i++) { //正排序
@@ -86,6 +88,8 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 				}
 			}
 
+			$(ps_page).append("<psan class='tapuptip'></span>");
+
 		}
 
 	};
@@ -119,6 +123,9 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			_.startX = e.targetTouches[0].clientX;
 			_.startY = e.targetTouches[0].clientY;
 			_.startT = e.timeStamp;
+
+			//.pagemainbtn z-index 特殊处理
+			$(".pagemainbtn").css({"z-index":"1"});
 
 		}).on("touchmove", function(e) {
 			e.preventDefault();
@@ -331,7 +338,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 					_.pagemoving = 2;
 
 					//翻页动画完成 终止上一页动画并清除 动画结束后样式
-					if (_.direction) {
+					if (_.direction===1) {
 						_.clearAnimateClass(_.prevpage);
 					}else{
 						_.clearAnimateClass(_.nextpage);
@@ -354,11 +361,18 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 				$(this).removeClass(classnames[i]);
 			}
 		});
+		//清除.pagemainbtn的动画
+		var classnames = $(".pagemainbtn")[0].className.match(/psanimate\w*/g);
+		for (var i in classnames) {
+			$(".pagemainbtn").removeClass(classnames[i]);
+		}
 	};
 
 
 
 	p_s.prototype.pageinneract = function() {
+		//.pagemainbtn z-index 特殊处理
+		$(".pagemainbtn").css({"z-index":"2"});
 		var _=this,
 		currpage=$(".ps_page").eq(_.currpage);
 		p_s_temp(currpage);

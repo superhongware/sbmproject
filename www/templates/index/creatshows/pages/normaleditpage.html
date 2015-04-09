@@ -3,10 +3,18 @@
 ng-repeat="img in editShowData.mainData.pages[editShowData.currentpage].detailPageImage"
 style="background-image:url({{img.img}});"
 class="ps_img ps_img{{$index+1}}"
+ng-click="setimg($index)"
 ><input type="hidden"  ng-model="img.img"></div>
 
-<input type="file" id="fileImg" style="position:relative;z-index:99;">
+
 <!-- <div class="button" ng-click="checkimg()">dddd</div> -->
+<div class="checkimgbox">
+	<canvas id="maincanvas"></canvas>
+	<input type="file" id="fileImg" style="vissible">
+	<div class="button leftbtn">取消</div>
+	<div class="button rightbtn">确定</div>
+</div>
+<!-- <div class="button checkimgbtn" ng-click="setimg()">dddd{{ccc}}</div> -->
 
 <div 
 ng-repeat="text in editShowData.mainData.pages[editShowData.currentpage].detailPageText"

@@ -1,7 +1,9 @@
 //home.html
 .sbm_home{
   background-color: #4D1731;
-  @bottompadding:5px;
+  background-image:url(../img/pic1_1.jpg);
+  background-position: center;
+  background-size:auto 100%;
 
   .home_top{
     width:100%;
@@ -25,17 +27,18 @@
     100% {-webkit-transform:translateY(0%);opacity: 1;}
     }
   .home_bottom{
+    @bottompadding:5px;
     width:100%;
     position:fixed;
     bottom: 0px;
     left: 0px;
-    padding:@bottompadding;
+    padding:@bottompadding @bottompadding 0 @bottompadding;
     -webkit-animation: upup 1s; 
     .startbutton{
       font-size: 24px;
-      height: 65px;
-      line-height: 65px;
-      margin: 5px 0;
+      height: 75px;
+      line-height: 75px;
+      margin: 5px 0 0 0;
       span.text{
         margin-right: 10px;
       }
@@ -52,16 +55,16 @@
     .row{
       padding: 0;
       .col-33{
-        padding-left:@bottompadding;
+        padding-right:0px;
         &:first-child{
-          padding-left: 5px;
+          padding-left: 0px;
         }
         .button-full{
           margin: 0px;
           border: none;
           color:#fff;
           .whitebg(0.3);
-          padding: 0 5px;
+          padding: 6px 5px;
           .text{
             font-size: 14px;
           }

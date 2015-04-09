@@ -10,30 +10,18 @@
 	"pages": [
 	{
 		"detailPageIndex":"1",
-		"templatePageId": 1,
-		"detailPageImage": [
-			{"img":"img/pic1.jpg"},
-			{"img":"img/pic2.png"}, 
-			{"img":"img/pic1.png"} 
-		],
-		"detailPageText": [
-			{"txt":"用心做好宝贝手机详情"}
-		]
-	},
-	{
-		"detailPageIndex":"1",
 		"templatePageId": 2,
 		"detailPageImage": [
 			{"img":"img/pic2.jpg"}
 		],
 		"detailPageText": [
 			{"txt":"SOFTBANANA"},
-			{"txt":"手机详情制作助手"},
+			{"txt":"宝贝秀制作助手"},
 			{"txt":"开启手机详情新时代"}
 		]
 	},
 	{
-		"detailPageIndex":"1",
+		"detailPageIndex":"2",
 		"templatePageId": 3,
 		"detailPageImage": [
 			{"img":"img/pic3.jpg"}
@@ -44,7 +32,7 @@
 		]
 	},
 	{
-		"detailPageIndex":"1",
+		"detailPageIndex":"3",
 		"templatePageId": 4,
 		"detailPageImage": [
 			{"img":"img/pic4.jpg"}
@@ -56,7 +44,7 @@
 		]
 	},
 	{
-		"detailPageIndex":"1",
+		"detailPageIndex":"4",
 		"templatePageId": 5,
 		"detailPageImage": [
 			{"img":"img/pic5_1.jpg"},
@@ -69,8 +57,8 @@
 		]
 	},
 	{
-		"detailPageIndex":"1",
-		"templatePageId": 6,
+		"detailPageIndex":"5",
+		"templatePageId": 3,
 		"detailPageImage": [
 			{"img":"img/pic6.jpg"}
 		],
@@ -80,23 +68,25 @@
 		]
 	},
 	{
-		"detailPageIndex":"1",
-		"templatePageId": 7,
+		"detailPageIndex":"6",
+		"templatePageId": 6,
 		"detailPageImage": [
 			{"img":"img/pic7.jpg"}
 		],
 		"detailPageText": [
-			{"txt":"用心做好宝贝手机详情"}
+			{"txt":"流量入口,一建到店成交"},
+			{"txt":"买家只需点击宝贝秀中的购买即可立即打开宝贝页面，即看即买！"}
 		]
 	},
 	{
-		"detailPageIndex":"1",
-		"templatePageId": 8,
+		"detailPageIndex":"7",
+		"templatePageId": 4,
 		"detailPageImage": [
 			{"img":"img/pic8.jpg"}
 		],
 		"detailPageText": [
-			{"txt":"用心做好宝贝手机详情"}
+			{"txt":"一建分享"},
+			{"txt":"支持各大社交平台分享手机详情,让流量爆棚"}
 		]
 	}
 	]

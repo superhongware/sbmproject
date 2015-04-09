@@ -6,22 +6,104 @@
 
 var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services']);
 
-SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope, $http, SBMJSONP,p_s) {
+SBMPS.controller('spCtrl', ['$scope', '$http','getRequest','SBMJSONP','p_s', function($scope, $http,getRequest,SBMJSONP,p_s) {
+
+	//购买按钮提示 区分安卓苹果
+	if(navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+		$(".screenforbiden").css({"background-image":"url(/img/applegobuy.png)"});
+	}else if(navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1){
+		$(".screenforbiden").css({"background-image":"url(/img/azgobuy.png)"});
+	}
+
+	var getdata={
+		orgName:getRequest("orgname"),
+		detailId:getRequest("detailid"),
+		method:"softbanana.app.detail.search"
+	};
+	var api= SBMJSONP("searchDetail",getdata);
+	$http.jsonp(api.url)
+		.success(function(data) {
+
+			var getdata={
+				orgName:getRequest("orgname"),
+				detailId:getRequest("detailid"),
+				plat:data.plat,
+				method:"softbanana.app.detailProperty.search"
+			};
+			var api= SBMJSONP("searchDetaiProperty",getdata);
+			$http.jsonp(api.url)
+			.success(function(data){
+				var i=0;
+				var showpagema="";
+				for(standa in data.desc.noSalesProperty){
+					if(i<8&&data.desc.noSalesProperty[standa].length>0){
+						i++;
+						showpagema+=standa+":"+data.desc.noSalesProperty[standa][0]+"<br/>";
+					}
+				}
+				$(".showstanda").html(showpagema);
 
 
+				console.log(data);
+			})
+			.error(function(data){
+				console.log(data);
+			});
 
-			$http.get("testdata/productshow.json")
-				.success(function(data) {
-					p_s.CreatDomtree(data);
-					// $scope.show = data;
-					p_s.init_animation();
-				});
 
-	// $scope.test= function(){
-	// 		$scope.show.current = 1;
-	// 		console.log($scope.show.current);
+			$("#buybtn").on("touchend",function(){
+				if(navigator.userAgent.match("MicroMessenger")&&data.detailUrl.match("taobao.com")){
+					$(".screenforbiden").show();
+				}else{
+					location.href=data.detailUrl;
+				}
+			})
+			$(".screenforbiden").on("touchstart",function(){
+				$(this).hide();
+			});
 
-	// }
+
+			$("#standabtn").on("touchend",function(){
+				if($(this).hasClass("current")){
+					$(this).removeClass("current");
+					$(".showstanda").removeClass("showstandashow");
+				}else{
+					$(this).addClass("current");
+					$(".showstanda").addClass("showstandashow");
+					$("#parmabtn").removeClass("current");
+					$(".showpagema").removeClass("showpagemashow");
+				}
+			});
+
+			$("#parmabtn").on("touchend",function(){
+				if($(this).hasClass("current")){
+					$(this).removeClass("current");
+					$(".showpagema").removeClass("showpagemashow");
+				}else{
+					$(this).addClass("current");
+					$(".showpagema").addClass("showpagemashow");
+					$("#standabtn").removeClass("current");
+					$(".showstanda").removeClass("showstandashow");
+				}
+			});
+
+
+			$(".topbar").on("touchend",function(){
+				$(".currenttopbar").removeClass("currenttopbar");
+				$(this).addClass("currenttopbar");
+			});
+
+			p_s.CreatDomtree(data);
+			p_s.init_animation();
+		});
+
+	// $http.get("testdata/template1.json")
+	// .success(function(data) {
+	// 	p_s.CreatDomtree(data);
+	// 	// $scope.show = data;
+	// 	p_s.init_animation();
+	// });
+
 }])
 
 .directive('showBox', ['$http','p_s', function($http,p_s) {
@@ -49,8 +131,6 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'SBMJSONP','p_s', function($scope
 					p_s.init_animation();
 
 				});
-
-
 
 		}
 	};
