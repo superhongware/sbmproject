@@ -1,4 +1,4 @@
-loginmodule.factory('loginSubmit', ['$http','$state','$ionicPopup','SBMJSONP','myCookie','base64',function($http,$state,$ionicPopup,SBMJSONP,myCookie,base64){
+loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup','SBMJSONP','myCookie','base64',function($rootScope,$http,$state,$ionicPopup,SBMJSONP,myCookie,base64){
 
 	return function loginSubmit(logindata){
 
@@ -13,6 +13,7 @@ loginmodule.factory('loginSubmit', ['$http','$state','$ionicPopup','SBMJSONP','m
 				if(data.isSuccess){
 					myCookie.add("orgName",base64.encode(logindata.orgName),720);
 					myCookie.add("userName",base64.encode(logindata.userName),720);
+					$rootScope.orgName=logindata.orgName;
 					$state.go("home");
 				}else{
 

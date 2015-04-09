@@ -4,8 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <script src="lib/angular/angular.js"></script>
-    <title></title>
+    <script src="lib/zepto/zepto.js"></script>
 
+    <title></title>
+<style>
+  body{
+    position: absolute;
+    top:0px;
+    left: 0px;
+    overflow: hidden;
+    width:100%;
+    font-size: 8px;
+    height: 100%;
+  }
+</style>
     
   </head>
 
@@ -41,5 +53,17 @@ myApp.controller('test', ['$scope', "$http",function($scope,$http) {
   // })
 
 }]);
+console.log($("body"));
+  $("body").on("touchmove",function(e){
+    e.preventDefault();
+    console.log(e);
+    var eventdata=e;
+    var htmldata="";
+      for(a in eventdata){
+        htmldata+=(a+":"+eventdata[a]+"<br/>");
+      }
+      document.body.innerHTML=htmldata;
+  })
+
 
 </script>

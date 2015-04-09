@@ -48,7 +48,7 @@ creatshowmodule
 	$scope.gonext = function() {
 		console.log(showdata.mainData);
 		var pageid=showdata.currentpage+1;
-			pageid=pageid<showdata.mainData.pages.length?pageid:showdata.mainData.pages.length;
+			pageid=pageid<(showdata.mainData.pages.length-1)?pageid:(showdata.mainData.pages.length-1);
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
@@ -62,8 +62,10 @@ creatshowmodule
 	//获取宝贝秀数据
 	$rootScope.$watch("editShowData",function() {
 		// body...
-			console.log($rootScope.editShowData);
-		if(!$rootScope.editShowData.mainData&&$rootScope.editShowData.showId!==$rootScope.editShowData.mainData.showId){
+			console.log(["$watch-editShowData",$rootScope.editShowData]);
+			// console.log(["$watch-editShowData",$rootScope.editShowData.showId,$rootScope.editShowData.mainData.detailId]);
+
+		if(!$rootScope.editShowData.mainData||$rootScope.editShowData.showId!==$rootScope.editShowData.mainData.detailId){
 
 
 			console.log("开始更新宝贝秀数据");
@@ -89,9 +91,12 @@ creatshowmodule
 	});
 
 
-
-
 }])
+
+
+
+
+
 .controller('editerCtrl', ['$scope','$rootScope','$http','$ionicLoading','$stateParams','changepagesize',function($scope,$rootScope,$http,$ionicLoading,$stateParams,changepagesize){
 
 	changepagesize();
@@ -108,6 +113,10 @@ creatshowmodule
 	// console.log($rootScope.editShowData.currentpage);
 
 }])
+
+
+
+
 .directive('normalEditPage', function(){
 	// Runs during compile
 	return {
@@ -129,10 +138,12 @@ creatshowmodule
 	};
 })
 
-.controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http","SBMJSONP",function($scope,$rootScope,$state,$http,SBMJSONP){
+
+.controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http","setShowImg",function($scope,$rootScope,$state,$http,setShowImg){
 	// console.log($state.current);
 	console.log("pagetempht1Ctrl");
 	// console.log("editerCtrl");
+<<<<<<< HEAD
 
 	$scope.checkimg=function(){
 		document.getElementById('fileImg').click();
@@ -173,19 +184,18 @@ creatshowmodule
 		};
 
 	}
-
-	function compress(source_img_obj,quality,output_format){
-		var mime_type = "image/jpeg";
-		if(output_format!==undefined && output_format=="png"){
-			mime_type = "image/png";
-		}
-		var cvs = document.createElement('canvas');
-		cvs.width = source_img_obj.naturalWidth;
-		cvs.height = source_img_obj.naturalHeight;
-		var ctx = cvs.getContext("2d").drawImage(source_img_obj, 0, 0);
-		var newImageData = cvs.toDataURL(mime_type, quality/100);
-		return newImageData;
-	}
+=======
+	$scope.ccc="ccc";
+	var editShowData=$rootScope.editShowData;
+	$scope.setimg=function(index){
+		console.log(index);
+		setShowImg([320,504],function(imgurl){
+			// model=imgurl;
+			console.log(imgurl);
+			editShowData.mainData.pages[editShowData.currentpage].detailPageImage[index].img=imgurl;
+		});
+	};
+>>>>>>> 25feade052a15670bd5f82eff52dbe7c705258c9
 
 }])
 

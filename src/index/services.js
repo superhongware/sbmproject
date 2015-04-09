@@ -103,8 +103,9 @@
 	return function SBMJSONP(url,data){
 		var lastdata=systemdata(data);
 		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		// var lasturl="http://192.168.51.228:8018/openApi/dyncSoftBanana/app/"+url;
-
+		if(location.host!=="jira.hongware.cn:8084"){
+			lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		}
 		return {url:jsonpURL(lasturl,lastdata)};
 	};
 }])
@@ -135,14 +136,9 @@
 			//服务器端不接收json格式的数据，必须拼接成类似a=1&b=2&c=3格式
 			lastdata=postURL(lastdata);
 		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		return {url:lasturl,data:lastdata};
-	};
-}])
-
-.factory('SBMPOST2', ['postURL','systemdata',function(postURL,systemdata){
-	return function SBMPOST(url,data){
-		var lastdata=systemdata(data);
-		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		if(location.host!=="jira.hongware.cn:8084"){
+			lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		}
 		return {url:lasturl,data:lastdata};
 	};
 }])
@@ -216,39 +212,39 @@
 	 */
 	getDataComm.platObj = {
 		YHD: {
-			imgSrc: '/img/plat/yhd.png',
+			imgSrc: 'img/plat/yhd.png',
 			name: '一号店'
 		},
 		DANGDANG: {
-			imgSrc: '/img/plat/dd.png',
+			imgSrc: 'img/plat/dd.png',
 			name: '当当'
 		},
 		JINGD: {
-			imgSrc: '/img/plat/jd.png',
+			imgSrc: 'img/plat/jd.png',
 			name: '京东'
 		},
 		PAIPAI: {
-			imgSrc: '/img/plat/pp.png',
+			imgSrc: 'img/plat/pp.png',
 			name: '拍拍'
 		},
 		TAOBAO: {
-			imgSrc: '/img/plat/tb.png',
+			imgSrc: 'img/plat/tb.png',
 			name: '淘宝'
 		},
 		TMALL: {
-			imgSrc: '/img/plat/tmall.png',
+			imgSrc: 'img/plat/tmall.png',
 			name: '天猫'
 		},
 		WD: {
-			imgSrc: '/img/plat/wd.png',
+			imgSrc: 'img/plat/wd.png',
 			name: '微店'
 		},
 		AMAZON: {
-			imgSrc: '/img/plat/amz.png',
+			imgSrc: 'img/plat/amz.png',
 			name: '亚马逊'
 		},
 		KDT: {
-			imgSrc: '/img/plat/youzan.png',
+			imgSrc: 'img/plat/youzan.png',
 			name: '有赞'
 		},
 	};
@@ -516,7 +512,13 @@
 	return productComm;
 }])
 
-
+.factory('getRequest', function(){
+	return function GetRequest(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r !== null) return unescape(r[2]); return null;
+	};
+})
 
 ;
 
