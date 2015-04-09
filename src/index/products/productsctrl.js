@@ -244,6 +244,7 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 	pageFunc.showDetail = function(item) {
 		var currSelectProduct = {
 			orgName: pageData.orgName,
+			detailid: item.id,
 			numIid: item.numIid,
 			plat: item.plat
 		};
@@ -260,7 +261,7 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 
 
 
-productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate', function($scope, $http, $state, $ionicLoading, productComm,$ionicSlideBoxDelegate) {
+productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
 
 	var pageFunc = {},
 		pageData = {};
@@ -306,7 +307,7 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$i
 
 			pageData.orderDetail.picArr = pageData.orderDetail.picUrl.split(',');
 
-			$ionicSlideBoxDelegate.$getByHandle('productImgBox').update();
+			// $ionicSlideBoxDelegate.$getByHandle('productImgBox').update();
 
 			pageData.isPageShow = true;
 
@@ -317,7 +318,6 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$i
 		});
 
 	};
-
 	/**
 	 * [slideHasChanged description]
 	 * @param  {[type]} $index [description]
@@ -332,7 +332,66 @@ productsmodule.controller('productDetailCtrl', ['$scope', '$http', '$state', '$i
 
 	$scope.liuliang = function(){
 		$state.go('liuliang');
-	}
+	};
 
+
+	//假设取到的模板信息
+	$scope.templateId=1;
+
+	// getTemplate(function(data){
+	// 	console.log(data);
+	// })
+
+	//根据模板创建宝贝秀
+	$scope.creatShow=function(templateId){
+
+		$ionicLoading.show({
+			template:"创建中,请稍等...",
+		});
+		var creatdata={
+			templateId:templateId,
+			productId:pageData.currSelectOrder.numIid,//宝贝ID
+			productPlat: pageData.currSelectOrder.plat//所属平台
+		};
+
+		creatShow(creatdata,function(data){
+
+			//隐藏“创建中,请稍等...”
+			$ionicLoading.hide();
+
+			//创建成功跳转到编辑页
+			$state.go("editpages.editer",{
+				showId:data.detailId,
+				pageId:0,
+				pageTemp:data.firstPageTemp
+			});
+
+		},function(msg){
+
+			alert(msg);
+
+		});
+	};
+
+	$scope.dele = function(){
+		$scope.deldata = {
+			orgName:$rootScope.orgName,
+			detailId:pageData.currSelectOrder.detailid
+		};
+		$scope.deldata.method = "softbanana.app.detail.delete";
+		var api = SBMJSONP("deleteDetail",$scope.deldata);
+		$http.jsonp(api.url)
+			.success(function(data){
+				if(data.isSuccess){
+					console.log(data);
+				}else{
+					console.log(data.map.errorMsg);
+				}
+			})
+			.error(function(status,response){
+				console.log("连接失败");
+			});
+
+	};
 
 }]);

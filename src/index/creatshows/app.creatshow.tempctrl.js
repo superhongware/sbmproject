@@ -143,48 +143,48 @@ creatshowmodule
 	// console.log($state.current);
 	console.log("pagetempht1Ctrl");
 	// console.log("editerCtrl");
-<<<<<<< HEAD
 
-	$scope.checkimg=function(){
-		document.getElementById('fileImg').click();
-	};
 
-	document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
+	// $scope.checkimg=function(){
+	// 	document.getElementById('fileImg').click();
+	// };
 
-	function handleFileSelect (evt) {
-		var file = evt.target.files[0];
-		if (!file.type.match('image.*')) {
-			return;
-		}
+	// document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
 
-		var reader = new FileReader();
+	// function handleFileSelect (evt) {
+	// 	var file = evt.target.files[0];
+	// 	if (!file.type.match('image.*')) {
+	// 		return;
+	// 	}
 
-		reader.readAsDataURL(file);
+	// 	var reader = new FileReader();
 
-		reader.onload=function(e){
-			console.log(e.target.result);
-			var img=new Image();
-			img.src=e.target.result;
+	// 	reader.readAsDataURL(file);
 
-			console.log(compress(img,50));
+	// 	reader.onload=function(e){
+	// 		console.log(e.target.result);
+	// 		var img=new Image();
+	// 		img.src=e.target.result;
 
-			var api=SBMJSONP("uploadImage/uploadFile",{
-				orgName:$rootScope.orgName,
-				method:"softbanana.app.image.upload",
-				imageData:compress(img,50)
-			});
+	// 		console.log(compress(img,50));
 
-			$http.jsonp(api.url)
-			.success(function(data){
-				console.log(["图片上传成功",data]);
-			})
-			.error(function(data){
-				console.log(["图片上传失败",data]);
-			});
-		};
+	// 		var api=SBMJSONP("uploadImage/uploadFile",{
+	// 			orgName:$rootScope.orgName,
+	// 			method:"softbanana.app.image.upload",
+	// 			imageData:compress(img,50)
+	// 		});
 
-	}
-=======
+	// 		$http.jsonp(api.url)
+	// 		.success(function(data){
+	// 			console.log(["图片上传成功",data]);
+	// 		})
+	// 		.error(function(data){
+	// 			console.log(["图片上传失败",data]);
+	// 		});
+	// 	};
+
+	// }
+
 	$scope.ccc="ccc";
 	var editShowData=$rootScope.editShowData;
 	$scope.setimg=function(index){
@@ -195,7 +195,7 @@ creatshowmodule
 			editShowData.mainData.pages[editShowData.currentpage].detailPageImage[index].img=imgurl;
 		});
 	};
->>>>>>> 25feade052a15670bd5f82eff52dbe7c705258c9
+
 
 }])
 
