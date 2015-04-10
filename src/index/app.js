@@ -69,11 +69,12 @@ angular.module('starter',
 	.state('shows', {
 		url: "/shows",
 		templateUrl: "templates/index/shows/shows.html",
-		controller:'productDetailCtrl'
+		controller:'showsCtrl'
 	})
 	.state('liuliang', {
-		url: "/liuliang",
-		templateUrl: "templates/index/shows/liuliang.html"
+		url: "/liuliang/:showId",
+		templateUrl: "templates/index/shows/liuliang.html",
+		controller:'liuliangCtrl'
 	})
 
 	//我的订单

@@ -1,11 +1,41 @@
 <ion-view view-title="流量">
-  <ion-content  class="warpProductDetail"  ng-show="pageData.isPageShow">
-    <div class="detailList">
-      <ion-list can-swipe="true">
-          <ion-item>
-           
-          </ion-item>
-      </ion-list>
+  <ion-content>
+    <div class="liuliang">
+        <ul>
+            <li>
+              <img src="{{goodsInfoData.reportDetail.detailUrl}}">
+            </li>
+            <li>
+              <div>
+                <span>{{goodsInfoData.reportDetail.detailTitle}}</span>
+              </div>
+              <div>
+                <div class="colorGrey_9">
+                  <i class="iconfont icon-wodexiangqingyanjing"></i>&nbsp;&nbsp;总浏览：
+                  {{goodsInfoData.reportDetail.llCount}}次
+                </div>
+                <div class="colorGrey_9">
+                  <i class="iconfont icon-wodexiangqingfenxianghei"></i>&nbsp;&nbsp;总到店：
+                  {{goodsInfoData.reportDetail.ddCount}}人
+                </div>
+                <div  class="colorGrey_9">
+                  <i class="iconfont icon-store1"></i>&nbsp;&nbsp;被转发：
+                  {{goodsInfoData.reportDetail.zfCount}}次
+                </div>
+              </div>
+            </li>
+        </ul>
+        <div  class="secondTitle">平台流量</div>
+
+       <!--  <div class="bar bar-subheader">
+            <div class="checkbtn">
+                <div class="button-bar">
+                  <a class="button" ng-class="{'button-energized': pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
+                  <a class="button" ng-class="{'button-energized': !pageData.isOnsaleStatus}"  ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
+                </div>
+            </div>
+        </div> -->
+        
     </div>
   </ion-content>
 </ion-view>

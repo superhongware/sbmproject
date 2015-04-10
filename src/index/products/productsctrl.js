@@ -244,7 +244,6 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 	pageFunc.showDetail = function(item) {
 		var currSelectProduct = {
 			orgName: pageData.orgName,
-			detailid: item.id,
 			numIid: item.numIid,
 			plat: item.plat
 		};
@@ -330,53 +329,47 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 	$scope.pageData = pageData;
 	pageFunc.init();
 
-	$scope.liuliang = function(){
-		$state.go('liuliang');
-	};
 
+}]);
 
-	//假设取到的模板信息
-	$scope.templateId=1;
+productsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
 
-	// getTemplate(function(data){
-	// 	console.log(data);
-	// })
-
-	//根据模板创建宝贝秀
-	$scope.creatShow=function(templateId){
-
-		$ionicLoading.show({
-			template:"创建中,请稍等...",
-		});
-		var creatdata={
-			templateId:templateId,
-			productId:pageData.currSelectOrder.numIid,//宝贝ID
-			productPlat: pageData.currSelectOrder.plat//所属平台
+//获取宝贝秀列表
+	$scope.goodsList = {
+			orgName: $rootScope.orgName,
+			pageNo: 1,
+			pageSize: 50
 		};
-
-		creatShow(creatdata,function(data){
-
-			//隐藏“创建中,请稍等...”
-			$ionicLoading.hide();
-
-			//创建成功跳转到编辑页
-			$state.go("editpages.editer",{
-				showId:data.detailId,
-				pageId:0,
-				pageTemp:data.firstPageTemp
-			});
-
-		},function(msg){
-
-			alert(msg);
-
+	$scope.goodsList.method = "softbanana.app.detail.list";
+	var api = SBMJSONP("listDetail",$scope.goodsList);
+	// $scope.datacomm = getDataComm;
+	$http.jsonp(api.url)
+		.success(function(data){
+			console.log(0);
+			console.log(data);
+			for(var i in data.details){
+				if(data.details[i].llCount === ""){
+					data.details[i].llCount = 0;
+				}
+				if(data.details[i].ddCount === ""){
+					data.details[i].ddCount = 0;
+				}
+				if(data.details[i].zfCount === ""){
+					data.details[i].zfCount = 0;
+				}
+				data.details[i].postDate = data.details[i].postDate.substr(0,10);
+			}
+			$scope.goodsListData = data.details;
+		})
+		.error(function(status,response){
+			console.log("连接失败");
 		});
-	};
 
-	$scope.dele = function(){
+	//删除
+	$scope.dele = function(detailid){
 		$scope.deldata = {
 			orgName:$rootScope.orgName,
-			detailId:pageData.currSelectOrder.detailid
+			detailId:detailid
 		};
 		$scope.deldata.method = "softbanana.app.detail.delete";
 		var api = SBMJSONP("deleteDetail",$scope.deldata);
@@ -393,5 +386,28 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 			});
 
 	};
+
+}]);
+
+
+
+productsmodule.controller('liuliangCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
+
+    $scope.goodsInfo = {
+    	orgName:$rootScope.orgName,
+		detailId:$stateParams.showId
+	};
+	$scope.goodsInfo.method = "softbanana.app.report.search";
+	var api = SBMJSONP("searchReport",$scope.goodsInfo);
+	// $scope.datacomm = getDataComm;
+	$http.jsonp(api.url)
+		.success(function(data){
+			console.log(data);
+			$scope.goodsInfoData = data;
+		})
+		.error(function(status,response){
+			console.log("连接失败");
+		});
+
 
 }]);

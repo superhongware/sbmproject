@@ -1,74 +1,45 @@
 <ion-view view-title="我的宝贝秀">
-  <ion-content  class="warpProductDetail"  ng-show="pageData.isPageShow">
-   <!--  <ion-list> -->
-      
-   <!--    <ion-item class="item-remove-animate item-avatar item-icon-right"  type="item-text-wrap" >
-        <img ng-src="{{chat.face}}">
-        <h2>详情名称         2015-01-23</h2>
-        <p>浏览34   转发2    店铺0</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-        <ion-option-button class="button-dark" ng-click="remove(chat)"> -->
-          <!-- <i class="iconfont icon-delete"></i><br/> -->
-        <!--   <span class="text">编辑</span>
-        </ion-option-button>
-        <ion-option-button class="button-dark" ng-click="remove(chat)"> -->
-          <!-- <i class="iconfont icon-delete"></i><br/> -->
-         <!--  <span class="text">分享</span>
-        </ion-option-button>
-        <ion-option-button class="button-dark" ng-click="remove(chat)"> -->
-          <!-- <i class="iconfont icon-delete"></i><br/> -->
-         <!--  <span class="text">删除</span>
-        </ion-option-button>
-        <ion-option-button class="button-dark" ng-click="remove(chat)"> -->
-          <!-- <i class="iconfont icon-delete"></i><br/> -->
-        <!--   <span class="text">流量</span>
-        </ion-option-button>
-
-      </ion-item> -->
-    <!-- </ion-list> -->
+  <ion-content  class="warpProductDetail">
     <div class="detailList">
       <ion-list can-swipe="true">
-          <ion-item ng-repeat="item in pageData.orderDetail.appDetailCounts">
+          <ion-item ng-repeat="item in goodsListData">
             <ul>
               <li>
-                <img src="/img/test.png">
+                <img src="{{item.picUrl}}">
               </li>
               <li>
                 <div>
                   <span>{{item.detailName}}</span>
-                  <span class="floatR colorGrey_9">2015-1-1</span>
+                  <span class="floatR colorGrey_9 font14">{{item.postDate}}</span>
                 </div>
                 <div>
                   <span class="colorGrey_9"> 
                     <i class="iconfont icon-wodexiangqingyanjing"></i>
-                    {{item.browse}}
+                    {{item.llCount}}
                   </span>
                   <span class="colorGrey_9">
                     <i class="iconfont icon-wodexiangqingfenxianghei"></i>
-                    {{item.share}}
+                    {{item.zfCount}}
                   </span>
                   <span  class="colorGrey_9">
                     <i class="iconfont icon-store1"></i>
-                    {{item.dd}}
+                    {{item.ddCount}}
                   </span>
                 </div>
               </li>
             </ul>
             <div class="Clear"></div>
             <i class="iconfont icon-points"></i>
-            <!-- <ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
-                    制作详情
-            </ion-option-button> -->
-            <ion-option-button class="button-dark" ng-click="creatShow(templateId)">
+            <ion-option-button class="button-dark" ui-sref="editpages.editer({showId:item.detailId,pageId:0,pageTemp:2})">
                 <span class="text">编辑</span>
             </ion-option-button>
             <ion-option-button class="button-dark" ng-click="">
                 <span class="text">分享</span>
             </ion-option-button>
-            <ion-option-button class="button-dark" ng-click="dele()">
+            <ion-option-button class="button-dark" ng-click="dele(item.detailId)">
                 <span class="text">删除</span>
             </ion-option-button>
-            <ion-option-button class="button-dark" ng-click="liuliang()">
+            <ion-option-button class="button-dark" ui-sref="liuliang({showId:item.detailId})">
                 <span class="text">流量</span>
             </ion-option-button>
 

@@ -26,7 +26,6 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 			productId:$stateParams.productId,//宝贝ID
 			productPlat:$stateParams.productPlat,//所属平台
 		};
-
 		creatShow(creatdata,function(data){
 
 			//隐藏“创建中,请稍等...”
