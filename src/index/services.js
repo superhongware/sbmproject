@@ -104,7 +104,7 @@
 		var lastdata=systemdata(data);
 		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
 		if(location.host!=="jira.hongware.cn:8084"){
-			lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+			lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		}
 		return {url:jsonpURL(lasturl,lastdata)};
 	};
