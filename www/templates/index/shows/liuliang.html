@@ -3,39 +3,67 @@
     <div class="liuliang">
         <ul>
             <li>
-              <img src="{{goodsInfoData.reportDetail.detailUrl}}">
+              <img src="{{showsInfoData.reportDetail.detailUrl}}">
             </li>
             <li>
               <div>
-                <span>{{goodsInfoData.reportDetail.detailTitle}}</span>
+                <span>{{showsInfoData.reportDetail.detailTitle}}</span>
               </div>
               <div>
                 <div class="colorGrey_9">
                   <i class="iconfont icon-wodexiangqingyanjing"></i>&nbsp;&nbsp;总浏览：
-                  {{goodsInfoData.reportDetail.llCount}}次
+                  {{showsInfoData.reportDetail.llCount}}次
                 </div>
                 <div class="colorGrey_9">
                   <i class="iconfont icon-wodexiangqingfenxianghei"></i>&nbsp;&nbsp;总到店：
-                  {{goodsInfoData.reportDetail.ddCount}}人
+                  {{showsInfoData.reportDetail.ddCount}}人
                 </div>
                 <div  class="colorGrey_9">
                   <i class="iconfont icon-store1"></i>&nbsp;&nbsp;被转发：
-                  {{goodsInfoData.reportDetail.zfCount}}次
+                  {{showsInfoData.reportDetail.zfCount}}次
                 </div>
               </div>
             </li>
         </ul>
         <div  class="secondTitle">平台流量</div>
 
-       <!--  <div class="bar bar-subheader">
+        <div class="bar bar-subheader">
             <div class="checkbtn">
                 <div class="button-bar">
-                  <a class="button" ng-class="{'button-energized': pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
-                  <a class="button" ng-class="{'button-energized': !pageData.isOnsaleStatus}"  ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
+                  <a class="button" ng-class="{'button-energized':tabsBtn.lldetail}" ng-click="tabsClick('lldetail')">浏览数</a>
+                  <a class="button" ng-class="{'button-energized':tabsBtn.dddetail}"  ng-click="tabsClick('dddetail')">到店数</a>
+                  <a class="button" ng-class="{'button-energized':tabsBtn.zfdetail}"  ng-click="tabsClick('zfdetail')">转发数</a>
                 </div>
             </div>
-        </div> -->
+        </div>
         
+
+        <div class="graph">
+            <div class="zhu">
+              <span class="shu">{{tabsBtn.wxFriend}}</span>
+              <span class="ming">微信好友</span>
+            </div>
+             <div class="zhu">
+              <span class="shu">{{tabsBtn.wxFriends}}</span>
+              <span class="ming">微信朋友圈</span>
+            </div>
+             <div class="zhu">
+              <span class="shu">{{tabsBtn.weibo}}</span>
+              <span class="ming">新浪微博</span>
+            </div>
+             <div class="zhu">
+              <span class="shu">{{tabsBtn.qq}}</span>
+              <span class="ming">QQ</span>
+            </div>
+             <div class="zhu">
+              <span class="shu">{{tabsBtn.qzone}}</span>
+              <span class="ming">QQ空间</span>
+            </div>
+        </div>
+
+        <div class="padding">
+            <a class="button button-block button-energized" ng-click="logout()">再次分享</a>
+        </div>
     </div>
   </ion-content>
 </ion-view>

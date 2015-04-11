@@ -1,8 +1,12 @@
 <ion-view view-title="我的宝贝秀">
   <ion-content  class="warpProductDetail">
     <div class="detailList">
+      <ion-refresher
+        pulling-text="下拉更新..."
+        on-refresh="refresh()">
+      </ion-refresher>
       <ion-list can-swipe="true">
-          <ion-item ng-repeat="item in goodsListData">
+          <ion-item ng-repeat="item in showsListData">
             <ul>
               <li>
                 <img src="{{item.picUrl}}">
@@ -42,9 +46,15 @@
             <ion-option-button class="button-dark" ui-sref="liuliang({showId:item.detailId})">
                 <span class="text">流量</span>
             </ion-option-button>
-
           </ion-item>
-      </ion-list>
+        </ion-list>
+
+        <ion-infinite-scroll
+         on-infinite="loadMoreData()"
+         distance="1%"
+       
+        >
+        </ion-infinite-scroll>
     </div>
   </ion-content>
 </ion-view>
