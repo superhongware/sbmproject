@@ -1,8 +1,9 @@
+.psanimatepagemainbtn{-webkit-animation: psanimate15 1.5s ease-in 0s;}
+.psanimatepagemainbtnend{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
 
 .ps_page{
 
-
-//大→小 渐出
+//页面最下方的  向上滑动小提示 动画
 .psanimateTapUpTipstart{-webkit-transform: scale(2) rotate(0deg) translate3d(0px,0px,0px);opacity: 0;} 
 .psanimateTapUpTip{-webkit-animation: psanimateTapUpTip 2s ease-out 0s infinite;}
 .psanimateTapUpTipend{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
@@ -11,6 +12,8 @@
 	35%{-webkit-transform: translate3d(0px,-10px,0px);opacity: 1;}
 	100%{-webkit-transform: translate3d(0px,0px,0px);opacity: 0.3;}
 }
+
+
 //大→小 渐出
 .psanimate1start{-webkit-transform: scale(2) rotate(0deg) translate3d(0px,0px,0px);opacity: 0;} 
 .psanimate1{-webkit-animation: psanimate1 3s ease-out 0s;}
@@ -25,6 +28,10 @@
 .psanimate2start{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,100px,0px);opacity: 0;}
 .psanimate2{-webkit-animation: psanimate2 2s ease-out 0s;}
 .psanimate2end{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
+@-webkit-keyframes psanimate2{
+	0%{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,100px,0px);opacity: 0;}
+	100%{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
+}
 
 //下→上
 .psanimate3start{-webkit-transform: scale(1.3) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
@@ -115,6 +122,8 @@
 		transform: none;
 	}
 }
+
+// 上 下长距离
 .psanimateFadeInDown_1start {
 	opacity: 0;
 	-webkit-transform: translate3d(0, -100%, 0);
@@ -297,10 +306,6 @@
 
 
 
-@-webkit-keyframes psanimate2{
-	0%{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,100px,0px);opacity: 0;}
-	100%{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
-}
 @-webkit-keyframes psanimate3{
 	0%{-webkit-transform: scale(1.3) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
 	100%{-webkit-transform: scale(1.3) rotate(0deg) translate3d(0px,-45px,0px);opacity: 1;}

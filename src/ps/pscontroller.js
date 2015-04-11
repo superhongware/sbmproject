@@ -4,91 +4,29 @@
  * Description
  */
 
-var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services']);
+var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services','ngTouch']);
 
-SBMPS.controller('spCtrl', ['$scope', '$http','getRequest','SBMJSONP','p_s', function($scope, $http,getRequest,SBMJSONP,p_s) {
+SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 'threePointData', function($scope, $http, getRequest, SBMJSONP, p_s,threePointData) {
 
-	//购买按钮提示 区分安卓苹果
-	if(navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
-		$(".screenforbiden").css({"background-image":"url(/img/applegobuy.png)"});
-	}else if(navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1){
-		$(".screenforbiden").css({"background-image":"url(/img/azgobuy.png)"});
-	}
 
-	var getdata={
-		orgName:getRequest("orgname"),
-		detailId:getRequest("detailid"),
-		method:"softbanana.app.detail.search"
+
+	$scope.showdata="";
+
+	var getdata = {
+		orgName: getRequest("orgname"),
+		detailId: getRequest("detailid"),
+		method: "softbanana.app.detail.search"
 	};
-	var api= SBMJSONP("searchDetail",getdata);
+	var api = SBMJSONP("searchDetail", getdata);
 	$http.jsonp(api.url)
 		.success(function(data) {
 
-			var getdata={
-				orgName:getRequest("orgname"),
-				detailId:getRequest("detailid"),
-				plat:data.plat,
-				method:"softbanana.app.detailProperty.search"
-			};
-			var api= SBMJSONP("searchDetaiProperty",getdata);
-			$http.jsonp(api.url)
-			.success(function(data){
-				var i=0;
-				var showpagema="";
-				for(standa in data.desc.noSalesProperty){
-					if(i<8&&data.desc.noSalesProperty[standa].length>0){
-						i++;
-						showpagema+=standa+":"+data.desc.noSalesProperty[standa][0]+"<br/>";
-					}
-				}
-				$(".showstanda").html(showpagema);
+			threePointData(getdata.orgName,getdata.detailId);
+
+			$scope.showdata = data;
 
 
-				console.log(data);
-			})
-			.error(function(data){
-				console.log(data);
-			});
-
-
-			$("#buybtn").on("touchend",function(){
-				if(navigator.userAgent.match("MicroMessenger")&&data.detailUrl.match("taobao.com")){
-					$(".screenforbiden").show();
-				}else{
-					location.href=data.detailUrl;
-				}
-			})
-			$(".screenforbiden").on("touchstart",function(){
-				$(this).hide();
-			});
-
-
-			$("#standabtn").on("touchend",function(){
-				if($(this).hasClass("current")){
-					$(this).removeClass("current");
-					$(".showstanda").removeClass("showstandashow");
-				}else{
-					$(this).addClass("current");
-					$(".showstanda").addClass("showstandashow");
-					$("#parmabtn").removeClass("current");
-					$(".showpagema").removeClass("showpagemashow");
-				}
-			});
-
-			$("#parmabtn").on("touchend",function(){
-				if($(this).hasClass("current")){
-					$(this).removeClass("current");
-					$(".showpagema").removeClass("showpagemashow");
-				}else{
-					$(this).addClass("current");
-					$(".showpagema").addClass("showpagemashow");
-					$("#standabtn").removeClass("current");
-					$(".showstanda").removeClass("showstandashow");
-				}
-			});
-
-
-			$(".topbar").on("touchend",function(){
+			$(".topbar").on("touchend", function() {
 				$(".currenttopbar").removeClass("currenttopbar");
 				$(this).addClass("currenttopbar");
 			});
@@ -96,6 +34,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http','getRequest','SBMJSONP','p_s', fun
 			p_s.CreatDomtree(data);
 			p_s.init_animation();
 		});
+
 
 	// $http.get("testdata/template1.json")
 	// .success(function(data) {
@@ -106,7 +45,80 @@ SBMPS.controller('spCtrl', ['$scope', '$http','getRequest','SBMJSONP','p_s', fun
 
 }])
 
-.directive('showBox', ['$http','p_s', function($http,p_s) {
+
+
+.directive('threePoints', function() {
+	// Runs during compile
+	return {
+		// name: '',
+		// priority: 1,
+		// terminal: true,
+		// scope: {}, // {} = isolate, true = child, false/undefined = no change
+		// controller: function($scope, $element, $attrs, $transclude) {},
+		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+		// template: '',
+		templateUrl: 'templates/ps/threePoints.html',
+		replace: true,
+		// transclude: true,
+		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+		link: function($scope, iElm, iAttrs, controller) {
+			//购买按钮提示 区分安卓苹果
+			if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+				$(".screenforbiden").css({
+					"background-image": "url(/img/applegobuy.png)"
+				});
+			} else if (navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1) {
+				$(".screenforbiden").css({
+					"background-image": "url(/img/azgobuy.png)"
+				});
+			}
+
+			$scope.buybuybuy=function(url){
+				if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
+					$(".screenforbiden").show();
+				} else {
+					location.href = url;
+				}
+			}
+
+			$scope.igetitjustgobuynow=function(){
+				$(".screenforbiden").hide();
+			}
+
+
+			$scope.parma=function(e){
+				if ($(e.path[1]).hasClass("current")) {
+					$(e.path[1]).removeClass("current");
+					$(".showstanda").removeClass("showstandashow");
+				} else {
+					$(e.path[1]).addClass("current");
+					$(".showstanda").addClass("showstandashow");
+					$("#parmabtn").removeClass("current");
+					$(".showpagema").removeClass("showpagemashow");
+				}
+				
+			}
+
+			$scope.standa=function(e){
+				if ($(e.path[1]).hasClass("current")) {
+					$(e.path[1]).removeClass("current");
+					$(".showpagema").removeClass("showpagemashow");
+				} else {
+					$(e.path[1]).addClass("current");
+					$(".showpagema").addClass("showpagemashow");
+					$("#standabtn").removeClass("current");
+					$(".showstanda").removeClass("showstandashow");
+				}
+			}
+
+
+
+		}
+	};
+})
+
+.directive('showBox', ['$http', 'p_s', function($http, p_s) {
 	// Runs during compile
 	return {
 		// name: '',

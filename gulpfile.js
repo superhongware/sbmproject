@@ -116,7 +116,7 @@ gulp.task('browser-sync', function () {
 gulp.task('watch', function() {
   // livereload.listen();
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.less, ['less']);
+  // gulp.watch(paths.less, ['less']);
   // for (var i = 0; i < paths.js.length; i++) {
     gulp.watch(paths.jssrc+paths.js[0]+'/**/*.js', ['js']);
   // };

@@ -14,7 +14,6 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 		this.spheight = $(window).height();
 		this.pagesize = 0;
 		this.pagemoving = 0;
-
 	}
 
 	p_s.prototype.CreatDomtree = function(data) {
@@ -325,6 +324,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 					animatemode(prev, -unit, 0.2, 1);
 				}
 
+
 				animatemode(curr, 0, 0.2, 0);
 
 				animatemode(next, unit, 0.2, 1);
@@ -332,10 +332,14 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 				_.pagemoving = 0;
 				break;
 			case "pagechange":
+
 				$(".ps_page").eq(curr).on("webkitTransitionEnd", function() {
 					$(".ps_page").eq(curr).off("webkitTransitionEnd");
 					//若pagemoving=0,动画进行中touchmove的话动画结束后touchmove&touchend会继续
 					_.pagemoving = 2;
+					
+					//页面位置初始化
+					_.pagemovemode("pageinit");
 
 					//翻页动画完成 终止上一页动画并清除 动画结束后样式
 					if (_.direction===1) {
@@ -343,10 +347,28 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 					}else{
 						_.clearAnimateClass(_.nextpage);
 					}
-					//
+					//内页动画开始
 					_.pageinneract();
 				});
+
+				//第一页不显示三个点 pagemainbtn  
+				if (curr===0) {
+					pagemainbtnhide();
+				}
+				
 				animatemode(curr, 0, 0.5, 1);
+
+				function pagemainbtnhide(){
+					$(".pagemainbtn").removeClass("pagemainbtnshow");
+
+					$(".pagemainbtn").on("webkitTransitionEnd",function(){
+						$(".pagemainbtn").off("webkitTransitionEnd");
+						//加当前页处理  否则隐藏动画没完成就进入第二页，第二页的显示动画完成后会把.pagemainbtn隐藏掉
+						if(_.currpage===0){
+							$(".pagemainbtn").addClass("pagemainbtnhide");
+						}
+					});
+				}
 				break;
 			default:
 				break;
@@ -375,7 +397,22 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 		$(".pagemainbtn").css({"z-index":"2"});
 		var _=this,
 		currpage=$(".ps_page").eq(_.currpage);
-		p_s_temp(currpage);
+
+		p_s_temp(currpage,pagemainbtnshow);
+
+		function pagemainbtnshow(){
+			if(!$(".pagemainbtnshow")[0]&&_.currpage!==0){
+				$(".pagemainbtn").removeClass("pagemainbtnshow").removeClass("pagemainbtnhide");
+				setTimeout(function(){
+					//settimeout间隔期间翻到第一页 pagemainbtnhide运行完后 运行pagemainbtnshow 会在第一页出现.pagemainbtn
+					if(_.currpage!==0){
+						$(".pagemainbtn").addClass("pagemainbtnshow");
+					}else{
+						$(".pagemainbtn").addClass("pagemainbtnhide");
+					}
+				},50);
+			}
+		}
 		// console.log(page)
 	};
 

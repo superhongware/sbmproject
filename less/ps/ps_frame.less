@@ -7,6 +7,7 @@ body{
 	overflow: hidden;
 	font-size: 8px;
 }
+
 //通用样式
 .backgroundpic{
 	.square(100%);
@@ -15,6 +16,7 @@ body{
 	background-position: center;
 	z-index: -1;
 }
+//没有接口的分享页面
 .shareimg{
 	.square(0px);
 	position: absolute;
@@ -22,7 +24,8 @@ body{
 	top:-1px;
 	left: -1px;
 }
-//居中
+
+//图片文字上下居中
 .centerpic{
 	.square(100px);
 	position: absolute;
@@ -46,6 +49,22 @@ body{
 	font-weight: normal;
 	color: #fff;
 	z-index: 1;
+}
+
+//页面外框样式
+.ps_page{
+	.square(100%);
+	overflow: hidden;
+	position: absolute;
+
+	.ps_img{
+		opacity: 0;
+	}
+
+	.ps_text{
+		opacity: 0;
+	}
+
 }
 
 //参数showpagema  规格showstanda
@@ -103,23 +122,7 @@ body{
 
 
 
-
-.ps_page{
-	.square(100%);
-	overflow: hidden;
-	position: absolute;
-
-	.ps_img{
-		opacity: 0;
-	}
-
-
-	.ps_text{
-		opacity: 0;
-	}
-
-}
-
+//页面最下方的  向上滑动小提示
 .tapuptip{
 	.size(100%,5vh);
 	color:#fff;
@@ -159,6 +162,7 @@ body{
 	height:100px;
 	bottom:-70%;
 	opacity: 0;
+	-webkit-transition: opacity 0.5s ease-out;
 	// background-color: rgba(255, 255, 255, 0.1);
 	.centerround{
 		.square(20vw);
@@ -179,7 +183,7 @@ body{
 			top:0px;
 			height: 100%;
 			width: 100%;	
-			background-color: rgba(255, 255, 255, 0.3);
+			background-color: rgba(0, 0, 0, 0.3);
 			border: 1px solid rgba(255, 255, 255, 0.9);
 			color:#fff;
 		}
@@ -196,14 +200,20 @@ body{
 			color:#666;
 		}
 		.buybtn{
-			background-color: rgba(254, 153, 0, 0.9);
+			background-color: rgba(254, 153, 0, 0.7);
 			border-color: rgba(254, 153, 0, 1);
 			color:#fff;
 		}
 	}
 }
-.psanimatepagemainbtn{-webkit-animation: psanimate15 0.5s ease-in 0s;}
-.psanimatepagemainbtnend{-webkit-transform: scale(1) rotate(0deg) translate3d(0px,0px,0px);opacity: 1;}
+.pagemainbtnhide{
+	display: none;
+}
+.pagemainbtnshow{
+	-webkit-transition: opacity 1.5s ease-in;
+	opacity: 1;
+}
+
 
 
 //iPhone4兼容

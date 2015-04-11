@@ -1,5 +1,5 @@
 SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
-	var p_s_temp = function(page) {
+	var p_s_temp = function(page,callback) {
 		var temp = page[0].className.match(/tmp\w*\s?/)[0].replace(/tmp/, "");
 
 // var c="4";
@@ -8,20 +8,17 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 // 		console.log("sdasdasd");
 // 	break;
 // }
+		//底部向上滑动小提示出现  参数规格购买出现
 		function allpageanimate(){
 			p_s_anination(page,".tapuptip","psanimateTapUpTip");
-			// console.log()
-			// if(page.index(".ps_page")!==0){
-				p_s_anination($("body"),".pagemainbtn","psanimatepagemainbtn");
-			// }
-			
+
+			callback();
 		}
 		switch(temp){
 			case "1":
 				p_s_anination(page, ".ps_img1", "psanimate2", function() {
 					p_s_anination(page, ".ps_img2", "psanimate15");
 					p_s_anination(page, ".ps_text1", "psanimate2");
-
 					
 					allpageanimate();
 				});
