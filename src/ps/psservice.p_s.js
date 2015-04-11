@@ -125,7 +125,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			_.startT = e.timeStamp;
 
 			//.pagemainbtn z-index 特殊处理
-			$(".pagemainbtn").css({"z-index":"1"});
+			// $(".pagemainbtn").css({"z-index":"1"});
 
 		}).on("touchmove", function(e) {
 			e.preventDefault();
@@ -362,10 +362,10 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			}
 		});
 		//清除.pagemainbtn的动画
-		var classnames = $(".pagemainbtn")[0].className.match(/psanimate\w*/g);
-		for (var i in classnames) {
-			$(".pagemainbtn").removeClass(classnames[i]);
-		}
+		// var classnames = $(".pagemainbtn")[0].className.match(/psanimate\w*/g);
+		// for (var i in classnames) {
+		// 	$(".pagemainbtn").removeClass(classnames[i]);
+		// }
 	};
 
 
