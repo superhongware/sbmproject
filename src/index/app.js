@@ -9,6 +9,7 @@ angular.module('starter',
 	"creatshowmodule",
 	'productsmodule',
 	'settingmodule',
+	'showsmodule',
 	'starter.controllers',
 	'starter.services',
 	'starter.directives'])
