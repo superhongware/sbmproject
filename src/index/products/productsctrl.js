@@ -50,6 +50,10 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 
 			getDataComm.loadShopList(function(data) {
 				if (data && data.length > 0) {
+					for(var a in data){
+						var b = data[a].plat;
+						data[a].img = getDataComm.platObj[b].imgSrc;
+					}
 					pageData.shopList = data;
 					if (pageData.currShop === null) {
 						pageData.currShop = pageData.shopList[0];
@@ -302,14 +306,9 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 			
 			//页面视图数据展现处理
 			pageData.orderDetail = data;
-
 			pageData.orderDetail.picArr = pageData.orderDetail.picUrl.split(',');
-
 			// $ionicSlideBoxDelegate.$getByHandle('productImgBox').update();
-
 			pageData.isPageShow = true;
-
-			
 		},function(msg){
 			$ionicLoading.hide();
 			console.log(msg);

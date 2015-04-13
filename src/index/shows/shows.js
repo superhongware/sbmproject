@@ -174,7 +174,8 @@ showsmodule.controller('liuliangCtrl', ['$rootScope', '$scope', '$http', '$state
 		    	}
 		    	max = Math.max.apply(null, maxarray);
 		    	for(var i in maxarray){
-		    		$(".zhu").eq(i).css("height",maxarray[i]/max*180);
+		    		$(".zhu").eq(i).css("height",(maxarray[i]/max*180+36));
+		    		$(".tiao").eq(i).css("height",maxarray[i]/max*180);
 		    	}	
 
 		    }
@@ -212,7 +213,8 @@ showsmodule.controller('liuliangCtrl', ['$rootScope', '$scope', '$http', '$state
 
 		    	max = Math.max.apply(null, maxarray);
 		    	for(var i in maxarray){
-		    		$(".zhu").eq(i).css("height",maxarray[i]/max*180);
+		    		$(".zhu").eq(i).css("height",(maxarray[i]/max*180+36));
+		    		$(".tiao").eq(i).css("height",maxarray[i]/max*180);
 		    	}
 		    	
 		    };

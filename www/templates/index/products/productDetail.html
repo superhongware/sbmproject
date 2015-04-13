@@ -20,7 +20,7 @@
 				<span class="colorGrey_9">{{key}}：</span><span>{{val.join('、')}}</span>
 			</div>
 			<div>
-				<sapn class="colorGrey_9">库存：</sapn><span>99件</span>
+				<sapn class="colorGrey_9">库存：</sapn><span>{{pageData.orderDetail.num}}件</span>
 			</div>
 			<div>
 				<sapn class="colorGrey_9">运费：</sapn><span>￥{{pageData.orderDetail.postFee}}</span>
@@ -59,7 +59,7 @@
 					</ul>
 					<div class="Clear"></div>
 					<ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
-		              制作详情
+		              制作宝贝秀
 		            </ion-option-button>
 		            <i class="iconfont icon-points"></i>
 				</ion-item>
