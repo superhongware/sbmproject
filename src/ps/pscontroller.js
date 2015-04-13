@@ -6,12 +6,11 @@
 
 var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services','ngTouch']);
 
-SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 'threePointData', function($scope, $http, getRequest, SBMJSONP, p_s,threePointData) {
-
-
+SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
 
 	$scope.showdata="";
 
+	//获取宝贝秀数据
 	var getdata = {
 		orgName: getRequest("orgname"),
 		detailId: getRequest("detailid"),
@@ -21,33 +20,23 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 	$http.jsonp(api.url)
 		.success(function(data) {
 
-			threePointData(getdata.orgName,getdata.detailId);
-
 			$scope.showdata = data;
-
-
-			$(".topbar").on("touchend", function() {
-				$(".currenttopbar").removeClass("currenttopbar");
-				$(this).addClass("currenttopbar");
-			});
-
-			p_s.CreatDomtree(data);
-			p_s.init_animation();
+			// p_s.CreatDomtree(data);
+			setTimeout(function(){
+				p_s.init_animation();
+			},100);
 		});
 
-
-	// $http.get("testdata/template1.json")
-	// .success(function(data) {
-	// 	p_s.CreatDomtree(data);
-	// 	// $scope.show = data;
-	// 	p_s.init_animation();
-	// });
+	$scope.hidePagemaStanda=function(){
+		$(".pagema_standa_show").removeClass("pagema_standa_show");
+		$(".centerround").removeClass("current");
+	};
 
 }])
 
 
-
-.directive('threePoints', function() {
+//三个点
+.directive('threePoints',['threePointData',function(threePointData) {
 	// Runs during compile
 	return {
 		// name: '',
@@ -58,65 +47,113 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
 		// template: '',
-		templateUrl: 'templates/ps/threePoints.html',
+		templateUrl: 'templates/ps/threepoints.html',
 		replace: true,
 		// transclude: true,
 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 		link: function($scope, iElm, iAttrs, controller) {
+
 			//购买按钮提示 区分安卓苹果
 			if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
 				$(".screenforbiden").css({
-					"background-image": "url(/img/applegobuy.png)"
+					"background-image": "url(img/applegobuy.png)"
 				});
 			} else if (navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1) {
 				$(".screenforbiden").css({
-					"background-image": "url(/img/azgobuy.png)"
+					"background-image": "url(img/azgobuy.png)"
 				});
 			}
 
+			//三个点数据
+			$scope.pinfo="";
+
+			//三个点
+			threePointData(function(data){
+
+				console.log(["三个点数据",data]);
+				if(!data.isSuccess){
+					return;
+				}
+
+				$scope.pinfo=data.desc;
+
+				$scope.pinfo.salesProperty={
+					"颜色分类":["紫罗兰","褐色"],
+					"尺码":["大","中","小"]
+				};
+
+				var pnum=0;
+				for (var i in $scope.pinfo.salesProperty) {
+					pnum++;
+				}
+				$scope.pinfo.standawidth={"width":(100/pnum)+"%"};
+				// $scope.$broadcast("pinfochange");
+
+				// var i = 0;
+				// var showpagema = "";
+
+				// for (standa in data.desc.noSalesProperty) {
+				// 	if (i < 8 && data.desc.noSalesProperty[standa].length > 0) {
+				// 		i++;
+				// 		showpagema += standa + ":" + data.desc.noSalesProperty[standa][0] + "<br/>";
+				// 	}
+				// }
+				// $(".showstanda").html(showpagema);
+			});
+
+
+			//购买按钮点击事件
 			$scope.buybuybuy=function(url){
 				if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
 					$(".screenforbiden").show();
-				} else {
+				} else if(url!==""){
 					location.href = url;
 				}
-			}
+			};
+
 
 			$scope.igetitjustgobuynow=function(){
 				$(".screenforbiden").hide();
-			}
+			};
 
 
 			$scope.parma=function(e){
-				if ($(e.path[1]).hasClass("current")) {
-					$(e.path[1]).removeClass("current");
-					$(".showstanda").removeClass("showstandashow");
+				e.preventDefault();
+				// alert(e.srcElement)
+				// for(d in e){
+				// 	alert(d)
+				// }
+				console.dir(e);
+				if ($(e.srcElement).parent().hasClass("current")) {
+					$(e.srcElement).parent().removeClass("current");
+					$(".showpagema").removeClass("pagema_standa_show");
 				} else {
-					$(e.path[1]).addClass("current");
-					$(".showstanda").addClass("showstandashow");
-					$("#parmabtn").removeClass("current");
-					$(".showpagema").removeClass("showpagemashow");
+					$(e.srcElement).parent().addClass("current");
+					$(".showpagema").addClass("pagema_standa_show");
+					$("#standabtn").removeClass("current");
+					$(".showstanda").removeClass("pagema_standa_show");
 				}
-				
-			}
+			};
+
 
 			$scope.standa=function(e){
-				if ($(e.path[1]).hasClass("current")) {
-					$(e.path[1]).removeClass("current");
-					$(".showpagema").removeClass("showpagemashow");
+				if ($(e.srcElement).parent().hasClass("current")) {
+					$(e.srcElement).parent().removeClass("current");
+					$(".showstanda").removeClass("pagema_standa_show");
 				} else {
-					$(e.path[1]).addClass("current");
-					$(".showpagema").addClass("showpagemashow");
-					$("#standabtn").removeClass("current");
-					$(".showstanda").removeClass("showstandashow");
+					$(e.srcElement).parent().addClass("current");
+					$(".showstanda").addClass("pagema_standa_show");
+					$("#parmabtn").removeClass("current");
+					$(".showpagema").removeClass("pagema_standa_show");
 				}
-			}
+
+			};
 
 
 
 		}
 	};
-})
+}])
 
 .directive('showBox', ['$http', 'p_s', function($http, p_s) {
 	// Runs during compile
@@ -147,46 +184,3 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 		}
 	};
 }]);
-
-
-// {
-// 	"id": "123",
-// 	"title": "宝贝秀标题",
-// 	"des": "宝贝秀描述",
-// 	"img": "img/pic1.png",
-// 	"buyurl": "http://www.taobao.com",
-// 	"pages": [{
-// 		"tmp": 1,
-// 		"imgs": [
-// 			"img/pic1.png",
-// 			"img/pic2.png",
-// 			"img/pic1.jpg"
-// 		],
-// 		"contents": [
-// 			"用心做好宝贝手机详情",
-// 			"用心做好宝贝手机详情"
-// 		]
-// 	},{
-// 		"tmp": 1,
-// 		"imgs": [
-// 			"img/pic1.png",
-// 			"img/pic2.png",
-// 			"img/pic1.jpg"
-// 		],
-// 		"contents": [
-// 			"用心做好宝贝手机详情",
-// 			"用心做好宝贝手机详情"
-// 		]
-// 	}, {
-// 		"tmp": 1,
-// 		"imgs": [
-// 			"img/pic1.png",
-// 			"img/pic2.png",
-// 			"img/pic1.jpg"
-// 		],
-// 		"contents": [
-// 			"用心做好宝贝手机详情",
-// 			"用心做好宝贝手机详情"
-// 		]
-// 	}]
-// }

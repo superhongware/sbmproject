@@ -47,9 +47,9 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 				});
 				break;
 			case "5":
-				p_s_anination(page, ".ps_img1", "psanimateFadeInDown", function() {
-					p_s_anination(page, ".ps_img2", "psanimateFadeInLeft",function(){
-						p_s_anination(page, ".ps_img3", "psanimateFadeInRight",function(){
+				p_s_anination(page, ".ps_img1", "psanimateFadeInDown_f", function() {
+					p_s_anination(page, ".ps_img2", "psanimateFadeInLeft_f",function(){
+						p_s_anination(page, ".ps_img3", "psanimateFadeInRight_f",function(){
 							p_s_anination(page, ".ps_text1", "psanimateFadeInDown");
 							p_s_anination(page, ".ps_text2", "psanimateFadeInDown_1");
 							

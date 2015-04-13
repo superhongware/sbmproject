@@ -1,28 +1,17 @@
-SBMPS.factory('threePointData', ['$http', 'SBMJSONP', function($http, SBMJSONP) {
-	return function threePointData(orgname,detailid) {
+SBMPS.factory('threePointData', ['$http', 'SBMJSONP','getRequest', function($http, SBMJSONP,getRequest) {
+	return function threePointData(callback,errorcallback) {
 		var getdata = {
-			orgName: orgname,
-			detailId: detailid,
+			orgName: getRequest("orgname"),
+			detailId: getRequest("detailid"),
 			method: "softbanana.app.detailProperty.search"
 		};
 		var api = SBMJSONP("searchDetaiProperty", getdata);
 		$http.jsonp(api.url)
 			.success(function(data) {
-				var i = 0;
-				var showpagema = "";
-
-				for (standa in data.desc.noSalesProperty) {
-					if (i < 8 && data.desc.noSalesProperty[standa].length > 0) {
-						i++;
-						showpagema += standa + ":" + data.desc.noSalesProperty[standa][0] + "<br/>";
-					}
-				}
-				$(".showstanda").html(showpagema);
-
-				console.log(data);
+				callback(data);
 			})
 			.error(function(data) {
-				console.log(data);
+				console.log("获取参数,规格失败");
 			});
 	};
 }])

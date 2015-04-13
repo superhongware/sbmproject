@@ -1,26 +1,44 @@
 <div class="threepoints">
 
 	<div class="pagemainbtn pagemainbtnhide">
-		<div class="centerround" id="standabtn" ng-click="parma($event)">
+		<div class="centerround"  ng-click="parma($event)">
 			<span class="parmabtn">参数</span>
 		</div>
-		<div class="centerround" id="parmabtn" ng-click="standa($event)">
+		<div class="centerround" ng-hide="!pinfo.salesProperty" ng-click="standa($event)">
 			<span class="standabtn" >规格</span>
 		</div>
-		<div class="centerround current" id="buybtn" ng-click="buybuybuy(showdata.detailUrl)">
+		<div class="centerround current" id="buybtn" ng-click="buybuybuy(pinfo.detailUrl)">
 			<span class="buybtn" >购买</span>
 		</div>
 	</div>
+
 	<div class="screenforbiden" ng-click="igetitjustgobuynow()">
 	</div>
 
 	<div class="showpagema">
-		<span class="topbar currenttopbar">
-			<span class="text">颜色</span>
-		</span>
-		<span class="topbar">
-			<span class="text">尺码</span>
+		<span 
+		class="pagemaitem" 
+		ng-repeat="(pagemaname, pagema) in pinfo.noSalesProperty">
+			<span class="pagemaname">{{pagemaname}}</span>
+			<span class="maohao">:</span>
+			<span class="pagemainfo">
+				<span ng-repeat="(key, value) in pagema">{{value}} </span>
+			</span>
 		</span>
 	</div>
-	<div class="showstanda"></div>
+
+	<div class="showstanda">
+		<span 
+		class="topbar currenttopbar" 
+		ng-repeat="(standaname, standa) in pinfo.salesProperty" 
+		ng-style="pinfo.standawidth">
+			<span class="text">{{standaname}}</span>
+			<div class="standabox">
+				<span class="standaitem" ng-repeat="(key, value) in standa">
+					{{standa[key]}}
+				</span>
+			</div>
+		</span>
+	</div>
+	
 </div>

@@ -16,85 +16,85 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 		this.pagemoving = 0;
 	}
 
-	p_s.prototype.CreatDomtree = function(data) {
-		console.log('p_s.prototype.CreatDomtree');
-		console.log(data);
-		$("title")[0].innerText=data.detailTitle;
-		$(".pagemainbtn").before("<img class='shareimg' src="+data.detailImage+">");
-		//设置页面数量
-		this.pagesize = data.pages.length - 1;
-		for (var i = 0; i < data.pages.length; i++) { //正排序
-			// for (var i =data.pages.length-1; i >=0 ; i--) {//反排序
+	// p_s.prototype.CreatDomtree = function(data) {
+	// 	console.log('p_s.prototype.CreatDomtree');
+	// 	console.log(data);
+	// 	$("title")[0].innerText=data.detailTitle;
+	// 	$(".pagemainbtn").before("<img class='shareimg' src="+data.detailImage+">");
+	// 	//设置页面数量
+	// 	this.pagesize = data.pages.length - 1;
+	// 	for (var i = 0; i < data.pages.length; i++) { //正排序
+	// 		// for (var i =data.pages.length-1; i >=0 ; i--) {//反排序
 
-			//创建ps_page
-			var pagedata = data.pages[i];
+	// 		//创建ps_page
+	// 		var pagedata = data.pages[i];
 
-			var pageclass = "tmp" + pagedata.templatePageId;
+	// 		var pageclass = "tmp" + pagedata.templatePageId;
 
-			var ps_page = $("<div></div>")
-				.addClass("beforestart ps_page " + pageclass);
+	// 		var ps_page = $("<div></div>")
+	// 			.addClass("beforestart ps_page " + pageclass);
 
-			$("body").append(ps_page);
+	// 		$("body").append(ps_page);
 
-			//创建ps_img
-			if (pagedata.detailPageImage.length > 0) {
+	// 		//创建ps_img
+	// 		if (pagedata.detailPageImage.length > 0) {
 
-				for (var m = 0; m < pagedata.detailPageImage.length; m++) {
+	// 			for (var m = 0; m < pagedata.detailPageImage.length; m++) {
 
-					var imgurl = pagedata.detailPageImage[m].img;
-
-
-					if (imgurl instanceof Array) {
-						var divImgWarp = $("<div></div>").addClass("divImgWarp divImgWarp" + m);
-						for (var k = 0; k < imgurl.length; k++) {
-							var img = $('<div></div>')
-							.addClass("ps_img_s ps_img_s" + k)
-							.css({
-								"background-image": "url(" + imgurl[k] + ")"
-							});
-							divImgWarp.append(img);
-						}
-						$(ps_page).append(divImgWarp);
-
-					} else {
-						var imgclass = "ps_img" + (m + 1);
-						var ps_img = $("<div></div>")
-							.addClass("ps_img " + imgclass)
-							.css({
-								"background-image": "url(" + imgurl + ")",
-								// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
-							});
-						$(ps_page).append(ps_img);
-					}
-
-				}
-			}
-
-			//创建ps_text
-			if (pagedata.detailPageText.length > 0) {
-
-				for (var t = 0; t < pagedata.detailPageText.length; t++) {
-
-					var contentdata = pagedata.detailPageText[t].txt;
+	// 				var imgurl = pagedata.detailPageImage[m].img;
 
 
-					var ps_text = $("<div></div>")
-						.addClass("ps_text ps_text" + (t + 1))
-						.html(contentdata);
+	// 				if (imgurl instanceof Array) {
+	// 					var divImgWarp = $("<div></div>").addClass("divImgWarp divImgWarp" + m);
+	// 					for (var k = 0; k < imgurl.length; k++) {
+	// 						var img = $('<div></div>')
+	// 						.addClass("ps_img_s ps_img_s" + k)
+	// 						.css({
+	// 							"background-image": "url(" + imgurl[k] + ")"
+	// 						});
+	// 						divImgWarp.append(img);
+	// 					}
+	// 					$(ps_page).append(divImgWarp);
 
-					$(ps_page).append(ps_text);
+	// 				} else {
+	// 					var imgclass = "ps_img" + (m + 1);
+	// 					var ps_img = $("<div></div>")
+	// 						.addClass("ps_img " + imgclass)
+	// 						.css({
+	// 							"background-image": "url(" + imgurl + ")",
+	// 							// "background-position":imgdata.translateX+"px "+imgdata.translateY+"px",
+	// 						});
+	// 					$(ps_page).append(ps_img);
+	// 				}
 
-				}
-			}
+	// 			}
+	// 		}
 
-			$(ps_page).append("<psan class='tapuptip'></span>");
+	// 		//创建ps_text
+	// 		if (pagedata.detailPageText.length > 0) {
 
-		}
+	// 			for (var t = 0; t < pagedata.detailPageText.length; t++) {
 
-	};
+	// 				var contentdata = pagedata.detailPageText[t].txt;
+
+
+	// 				var ps_text = $("<div></div>")
+	// 					.addClass("ps_text ps_text" + (t + 1))
+	// 					.html(contentdata);
+
+	// 				$(ps_page).append(ps_text);
+
+	// 			}
+	// 		}
+
+	// 		$(ps_page).append("<psan class='tapuptip'></span>");
+
+	// 	}
+
+	// };
 
 	p_s.prototype.init_animation = function() {
-		
+		this.pagesize=$(".ps_page").length-1;
 		//位置初始化
 		this.pagemovemode("pageinit");
 
@@ -112,7 +112,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 	p_s.prototype.touchbind = function() {
 		var _ = this;
 
-		$("body").on("touchstart", function(e) {
+		$("#mainbox").on("touchstart", function(e) {
 			if (_.pagemoving  === 1) {
 				return;
 			}else if(_.pagemoving === 2){
@@ -285,7 +285,13 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			case "pagemove":
 				//拖动的时页面变化
 				// console.log("pagemove pagemoving:" + _.pagemoving)
-					//第一页 禁止向上翻 
+				//拖动时参数规格消失
+				if($(".pagema_standa_show")[0]&&Math.abs(d)>10){
+					$(".pagema_standa_show").removeClass("pagema_standa_show");
+					$(".centerround").removeClass("current");
+				}
+
+					//第一页 禁止向上翻
 				if(curr !== 0){
 					animatemode(prev, d - unit, 0, 1);
 				}
