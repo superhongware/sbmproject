@@ -49,7 +49,7 @@
             <span class="xiang" ng-if="item.hasDetail != '0'">祥</span>
 
             <ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
-              制作详情
+              制作宝贝秀
             </ion-option-button>
           </ion-item>
           <div class="warpNoData" ng-if="pageData.productList.length == 0"><i class="iconfont icon-logo"></i>该店铺没有上架的宝贝</div>
@@ -68,11 +68,12 @@
     </ion-side-menu-content>
 
     <!-- Left menu -->
-    <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="100">
+    <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="140">
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
-            {{item.shopName}}
+           <img src="{{item.img}}">
+           {{item.shopName}}
           </ion-item>
         </ion-list>
       </ion-content>

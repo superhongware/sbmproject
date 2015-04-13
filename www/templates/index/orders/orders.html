@@ -55,6 +55,7 @@
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
+           <img src="{{item.img}}">
             {{item.shopName}}
           </ion-item>
         </ion-list>

@@ -28,6 +28,10 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
         if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
             getDataComm.loadShopList(function(data) {
                 if (data && data.length > 0) {
+                    for(var a in data){
+                        var b = data[a].plat;
+                        data[a].img = getDataComm.platObj[b].imgSrc;
+                    }
                     pageData.shopList = data;
                     pageData.currShop = pageData.shopList[0];
                     pageFunc.loadData();
