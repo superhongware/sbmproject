@@ -405,7 +405,6 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 		currpage=$(".ps_page").eq(_.currpage);
 
 		p_s_temp(currpage,pagemainbtnshow);
-
 		function pagemainbtnshow(){
 			if(!$(".pagemainbtnshow")[0]&&_.currpage!==0){
 				$(".pagemainbtn").removeClass("pagemainbtnshow").removeClass("pagemainbtnhide");

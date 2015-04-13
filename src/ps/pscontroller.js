@@ -4,7 +4,8 @@
  * Description
  */
 
-var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services','ngTouch']);
+// var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services','ngTouch']);
+var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 
 SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
 

@@ -1,10 +1,10 @@
 <div class="threepoints">
 
 	<div class="pagemainbtn pagemainbtnhide">
-		<div class="centerround"  ng-click="parma($event)">
+		<div class="centerround"  id="parmabtn" ng-click="parma($event)">
 			<span class="parmabtn">参数</span>
 		</div>
-		<div class="centerround" ng-hide="!pinfo.salesProperty" ng-click="standa($event)">
+		<div class="centerround" id="standabtn"  ng-hide="!pinfo.salesProperty" ng-click="standa($event)">
 			<span class="standabtn" >规格</span>
 		</div>
 		<div class="centerround current" id="buybtn" ng-click="buybuybuy(pinfo.detailUrl)">
@@ -15,7 +15,7 @@
 	<div class="screenforbiden" ng-click="igetitjustgobuynow()">
 	</div>
 
-	<div class="showpagema">
+	<ion-content class="showpagema">
 		<span 
 		class="pagemaitem" 
 		ng-repeat="(pagemaname, pagema) in pinfo.noSalesProperty">
@@ -25,7 +25,7 @@
 				<span ng-repeat="(key, value) in pagema">{{value}} </span>
 			</span>
 		</span>
-	</div>
+	</ion-content>
 
 	<div class="showstanda">
 		<span 
