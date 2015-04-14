@@ -212,35 +212,38 @@
 .warpProductList {
 	ul.productInfo {
 		li:nth-child(1) {
-			width: 130px;
+			width: 90%;
 		}
-		li:nth-child(2) {
-			text-align: center;
-			width: 60px;
+		.productName{
+			display:inline-block;
+			height:20px;
+			max-width:72%;  
+			whitespace:nowrap;
+			overflow:hidden;
+			text-overflow:ellipsis;
 		}
 		.imgPlat {
-			.size(28px, 28px);
-			// margin-left: 5px;
-			border-radius: 2px;
+			.size(18px, 18px);
+			margin:1px 5px 0 5px;
+		}
+		.xiu{
+			margin:1px 0 0 0;
+			display: inline-block;
+			.size(18px, 18px);
+			font-size: 12px;
+			color: #fff;
+			text-align: center;
+			line-height: 18px;
+			background-color: #FE9900;
 		}
 	}
 	.item {
 		.icon-points {
 			position: absolute;
 			right: 15px;
-			top: 14px;
-			font-size: 28px;
-		}
-		.xiang {
-			position: absolute;
-			right: 19px;
-			top: 36px;
-			font-size: 10px;
-			display: block;
-			padding: 0 4px 0 5px;
-			color: #fff;
-			background-color: #FE9900;
-			border-radius: 3px;
+			top: 20px;
+			font-size: 30px;
+			color: #cfcfcf;
 		}
 		.imgProduct {
 			border-radius: 3px !important;
