@@ -136,6 +136,11 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/checktemplate.html",
 		controller:'checktemplateCtrl'
 	})
+	.state('viewtemplate', {
+		url: "/viewtemplate",
+		templateUrl: "templates/index/creatshows/viewtemplate.html",
+		controller:'viewtemplateCtrl'
+	})
 	.state('editpages', {
 		url: "/editpages",
 		templateUrl: "templates/index/creatshows/editpages.html",

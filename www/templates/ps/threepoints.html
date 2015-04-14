@@ -22,23 +22,28 @@
 			<span class="pagemaname">{{pagemaname}}</span>
 			<span class="maohao">:</span>
 			<span class="pagemainfo">
-				<span ng-repeat="(key, value) in pagema">{{value}} </span>
+				<span ng-repeat="value in pagema track by $index">{{value}} </span>
 			</span>
 		</span>
 	</ion-content>
 
 	<div class="showstanda">
-		<span 
-		class="topbar currenttopbar" 
-		ng-repeat="(standaname, standa) in pinfo.salesProperty" 
-		ng-style="pinfo.standawidth">
+		<span
+		class="textbox"
+		ng-class="{currenttopbar:standaindex===$index}"
+		ng-click="standatopbar($index)"
+		ng-repeat="(standaname, standa) in pinfo.salesProperty"
+		ng-style="pinfo.textboxstyle($index)">
 			<span class="text">{{standaname}}</span>
-			<div class="standabox">
-				<span class="standaitem" ng-repeat="(key, value) in standa">
-					{{standa[key]}}
-				</span>
-			</div>
 		</span>
+		<ion-content
+		class="standabox"
+		ng-class="{standaboxshow:standaindex===$index}"
+		ng-repeat="(standaname, standa) in pinfo.salesProperty">
+			<span class="standaitem" ng-repeat="value in standa track by $index ">
+				{{value}}
+			</span>
+		</ion-content>
 	</div>
 	
 </div>

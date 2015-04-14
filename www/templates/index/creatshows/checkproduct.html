@@ -64,11 +64,12 @@
     </ion-side-menu-content>
 
     <!-- Left menu -->
-    <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="100">
+    <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="140">
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
-            {{item.shopName}}
+           <img src="{{item.img}}">
+           {{item.shopName}}
           </ion-item>
         </ion-list>
       </ion-content>

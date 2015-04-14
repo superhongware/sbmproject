@@ -69,7 +69,7 @@
 
 //参数showpagema  规格showstanda
 .showpagema,.showstanda{
-	.size(100%,40%);
+	.size(100%,40vh);
 	position: absolute;
 	top:0px;
 	left: 0px;
@@ -109,46 +109,56 @@
 }
 
 .showstanda{
-	padding: 10px;
-	.topbar{
-		display: block;
-		float: left;
-		width: 100%;
-		height: 30px;
-		font-size: 20px;
-		text-align: center;
+	width: 100%;
+	display: block;
+	float: left;
+	padding-top: 7vh;
+	text-align: center;
+	.textbox{
 		color: #ccc;
-		border-bottom: 1px solid #ccc;
+		position: absolute;
+		top: 0px;
+		height: 7vh;
+		font-size: 20px;
+		box-sizing: border-box;
+		border-bottom: 1px solid #ccc;		
 		.text{
 			max-width: 100px;
+			line-height: 7vh;
 			overflow-x: hidden;
 			display: block;
 			margin: 0 auto;
-			line-height: 29px;
 		}
 	}
 	.currenttopbar{
-		color:rgba(254, 153, 0, 1);
 		.text{
+			color:rgba(254, 153, 0, 1);
 			border-bottom:2px solid rgba(254, 153, 0, 1);
 		}
 	}
-
 	.standabox{
-		position: absolute;
-		top: 0px;
-		left: 0px;
 		width: 100%;
-		height: 100%;
-		padding-top: 50px;
+		height: 33vh;
+		float: left;
 		box-sizing:border-box;
+		display: none;
+		overflow: hidden;
 		.standaitem{
+			color:rgba(254, 153, 0, 1);
 			display: block;
 			float: left;
 			height: 30px;
+			line-height: 30px;
 			width: 50%;
 		}
+		.scroll{
+			.ellipsis();
+		}
 	}
+	.standaboxshow{
+		display: block;
+	}
+
 }
 
 .pagema_standa_show{
@@ -222,9 +232,9 @@
 			color:#fff;
 		}
 		.buybtn{
-			background-color: rgba(254, 153, 0, 0.3);
-			border-color: rgba(254, 153, 0, 0.9);
-			color:rgba(254, 153, 0, 0.9)
+			background-color: rgba(254, 153, 0, 0.7);
+			border-color: rgba(254, 153, 0, 1);
+			color:#fff;
 		}
 	}
 	.current{
@@ -232,11 +242,6 @@
 			background-color: rgba(255, 255, 255, 0.9);
 			border-color: rgba(255, 255, 255, 1);
 			color:#666;
-		}
-		.buybtn{
-			background-color: rgba(254, 153, 0, 0.7);
-			border-color: rgba(254, 153, 0, 1);
-			color:#fff;
 		}
 	}
 }

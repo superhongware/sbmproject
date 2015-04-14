@@ -20,13 +20,17 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 	var api = SBMJSONP("searchDetail", getdata);
 	$http.jsonp(api.url)
 		.success(function(data) {
-
 			$scope.showdata = data;
 			// p_s.CreatDomtree(data);
-			setTimeout(function(){
-				p_s.init_animation();
-			},100);
+			$scope.$broadcast("showdataready");
 		});
+
+	$scope.$on("showdataready",function(){
+		setTimeout(function(){
+			p_s.init_animation();
+		},100);
+	});
+
 
 	$scope.hidePagemaStanda=function(){
 		$(".pagema_standa_show").removeClass("pagema_standa_show");
@@ -78,16 +82,19 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 				$scope.pinfo=data.desc;
 
-				$scope.pinfo.salesProperty={
-					"颜色分类":["紫罗兰","褐色"],
-					"尺码":["大","中","小"]
-				};
+				// $scope.pinfo.salesProperty={
+				// 	"颜色分类":["紫罗兰","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色","褐色"],
+				// 	"尺码":["大","中","小"]
+				// };
 
 				var pnum=0;
 				for (var i in $scope.pinfo.salesProperty) {
 					pnum++;
 				}
-				$scope.pinfo.standawidth={"width":(100/pnum)+"%"};
+				// $scope.pinfo.pnum={"width":(100/pnum)+"%"};
+				$scope.pinfo.textboxstyle=function(index){
+					return {"width":(100/pnum)+"%","left":(100/pnum)*index+"%"}
+				};
 				// $scope.$broadcast("pinfochange");
 
 				// var i = 0;
@@ -115,6 +122,12 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 			$scope.igetitjustgobuynow=function(){
 				$(".screenforbiden").hide();
+			};
+
+			//standa 切换
+			$scope.standaindex=0;
+			$scope.standatopbar=function(index){
+				$scope.standaindex=index;
 			};
 
 
