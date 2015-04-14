@@ -1,6 +1,6 @@
 <ion-view view-title="我的宝贝" class="sbm_products warpProductList">
   <ion-nav-buttons side="right">
-    <button class="button" ng-click="show()">
+    <button class="button" ng-click="pageFunc.refreshServer()">
     同步
     </button>
   </ion-nav-buttons>
@@ -35,19 +35,20 @@
             <img ng-src="{{item.picUrl}}" class="imgProduct">
             <ul class="productInfo">
               <li class="floatL">
-                <h2 class="mTop6 mBottom9">{{item.title}}</h2>
-                <p class="colorYellow">￥{{item.price}}</p>
-              </li>
-              <li class="floatL">
-                <p><img ng-src="{{item.picPlatUrl}}" class="imgPlat"></p>
-                <p>{{item.num}}件</p>
+                <div class="mTop6 mBottom9">
+                  <span  class="floatL productName">{{item.title}}</span>
+                  <img ng-src="{{item.picPlatUrl}}" class="imgPlat floatL"/>
+                  <span class="xiu floatL" ng-if="item.hasDetail != '0'">秀</span>
+                  <div class="Clear"></div>
+                </div>
+                <div>
+                    <p class="colorYellow floatL">￥{{item.price}}</p>
+                    <p class="floatR">{{item.num}}件</p>
+                    <div class="Clear"></div>
+                </div>
               </li>
             </ul>
-            <div class="Clear"></div>
-            
             <i class="iconfont icon-points"></i>
-            <span class="xiang" ng-if="item.hasDetail != '0'">祥</span>
-
             <ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
               制作宝贝秀
             </ion-option-button>

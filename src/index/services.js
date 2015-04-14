@@ -341,7 +341,7 @@
 /**
  * [产品通用模块]
  */
-.factory('productComm', ['$http', 'SBMJSONP', '$rootScope','getDataComm', function($http, SBMJSONP, $rootScope,getDataComm) {
+.factory('productComm', ['$http', 'SBMJSONP', '$rootScope','getDataComm','dateFormat', function($http, SBMJSONP, $rootScope, getDataComm, dateFormat) {
 
 	var productComm = {};
 

@@ -66,7 +66,7 @@
 			</ion-list>
 			<div ng-if="pageData.orderDetail.appDetailCounts.length == 0" class="detailListEmpty">
 				<span>尚未制作宝贝秀</span>				
-				<button class="button button-energized button-small">
+				<button class="button button-energized button-small" ui-sref="checktemplate({productId:pageData.currSelectOrder.numIid,productPlat:pageData.currSelectOrder.plat})">
 				  立即制作
 				</button>
 			</div>
