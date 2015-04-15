@@ -1,6 +1,6 @@
-<ion-view view-title="模板预览" class="viewtemplate">
+<ion-view view-title="{{viewneam}}" class="viewtemplate">
 	<ion-nav-buttons side="right">
-		<button class="button" ng-click="creatshow()">应用</button>
+		<button class="button" ng-click="viewbtn()">{{viewbtnneam}}</button>
 	</ion-nav-buttons>
-	<iframe class="viewbox" src="http://192.168.1.181:3000/ps.html?orgname=work&detailid=987883" frameborder="0"></iframe>
+	<iframe class="viewbox" ng-src="{{iframesrc}}" frameborder="0"></iframe>
 </ion-view>

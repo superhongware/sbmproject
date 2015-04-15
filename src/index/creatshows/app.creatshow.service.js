@@ -147,7 +147,7 @@ creatshowmodule.factory('changepagesize', function(){
 				// 	console.log(["图片上传失败",data]);
 				// });
 			};
-		};
+		}
 
 		function compress(source_img_obj,quality,output_format){
 			var mime_type = "image/jpeg";

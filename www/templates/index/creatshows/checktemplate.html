@@ -1,7 +1,10 @@
 <ion-view view-title="第二步：请选择模板" class="checktemplate">
 	<ion-content>
 		<ion-list>
-			<div class="template" ng-click="creatShow(templateId)">
+			<!-- ng-click="creatShow(templateId)" -->
+			<div 
+			class="template" 
+			ui-sref="viewtemplate({templateId:templateId,productId:productId,productPlat:productPlat})">
 				<span class="image">
 					<img src="img/template.jpg" alt="" width="100%">
 				</span>

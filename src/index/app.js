@@ -137,7 +137,7 @@ angular.module('starter',
 		controller:'checktemplateCtrl'
 	})
 	.state('viewtemplate', {
-		url: "/viewtemplate",
+		url: "/viewtemplate/:templateId/:productId/:productPlat",
 		templateUrl: "templates/index/creatshows/viewtemplate.html",
 		controller:'viewtemplateCtrl'
 	})
@@ -146,6 +146,11 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/editpages.html",
 		controller:'editpagesCtrl',
     	// abstract: true
+	})
+	.state('viewshow', {
+		url: "/viewshow/:showId",
+		templateUrl: "templates/index/creatshows/viewtemplate.html",
+		controller:'viewshowCtrl'
 	})
 
 	.state('editpages.editer', {
