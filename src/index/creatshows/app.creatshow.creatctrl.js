@@ -16,7 +16,6 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 	$scope.templateId=1;
 	$scope.productId=$stateParams.productId;
 	$scope.productPlat=$stateParams.productPlat;
-	
 
 
 

@@ -61,6 +61,14 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 					allpageanimate();
 				});
 				break;
+			case 7:
+				p_s_anination(page, ".ps_img1", "psanimateFadeInLeft_f", function() {
+					p_s_anination(page, ".ps_img2", "psanimateFadeInRight_f",function(){
+						p_s_anination(page, ".ps_img3", "psanimateFadeInLeft_f");
+						allpageanimate();
+					});
+				});
+				break;
 			default:
 				console.log("default"+temp);
 				break;

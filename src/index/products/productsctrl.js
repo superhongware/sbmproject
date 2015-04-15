@@ -309,6 +309,20 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 			pageData.orderDetail.picArr = pageData.orderDetail.picUrl.split(',');
 			// $ionicSlideBoxDelegate.$getByHandle('productImgBox').update();
 			pageData.isPageShow = true;
+
+			setTimeout(function(){
+				$("#sliders").touchSlider({
+					animatetime:300,
+					automatic:!0,
+					timeinterval:4e3,
+					sliderpoint:!0,
+					sliderpointwidth:8,
+					sliderpointcolor:"#fa9d00"
+				})
+			},200)
+
+
+
 		},function(msg){
 			$ionicLoading.hide();
 			console.log(msg);
@@ -326,6 +340,7 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 
 	$scope.pageData = pageData;
 	pageFunc.init();
+	
 
 
 }]);

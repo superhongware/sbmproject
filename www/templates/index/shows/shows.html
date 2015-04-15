@@ -34,7 +34,10 @@
             </ul>
             <div class="Clear"></div>
             <i class="iconfont icon-points"></i>
-            <ion-option-button class="button-dark" ui-sref="editpages.editer({showId:item.detailId,pageId:0,pageTemp:2})">
+           <!--  <ion-option-button class="button-dark" ui-sref="editpages.editer({showId:item.detailId,pageId:0,pageTemp:2})">
+                <span class="text">编辑</span>
+            </ion-option-button> -->
+            <ion-option-button class="button-dark" ng-click="edit(item.detailId)">
                 <span class="text">编辑</span>
             </ion-option-button>
             <ion-option-button class="button-dark" ng-click="">
