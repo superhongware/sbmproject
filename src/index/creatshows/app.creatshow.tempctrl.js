@@ -57,16 +57,30 @@ creatshowmodule
 		$state.go("editpages.editer",params);
 	};
 
+
 	// console.log(["aa",$rootScope.editShowData]);
+	$scope.editpages=0;
+	ionic.onGesture("hold",function(){
+
+		$scope.editpages=1;
+		$scope.$apply();
+	},$('.pagelistbox')[0])
+
+
+
+
+	$scope.pagelistwidth={"width":0};
 
 	//获取宝贝秀数据
-	$rootScope.$watch("editShowData",function() {
-		// body...
-			console.log(["$watch-editShowData",$rootScope.editShowData]);
-			// console.log(["$watch-editShowData",$rootScope.editShowData.showId,$rootScope.editShowData.mainData.detailId]);
+	// $rootScope.$watch("editShowData",function() {
+	$rootScope.$on("showdatachanged",function(){
+		console.log(["showdatachanged",$rootScope.editShowData]);
+		//宽度控制
+		if(typeof $rootScope.editShowData.pages !== "undefined"){
+			$scope.pagelistwidth={"width":$rootScope.editShowData.pages.length*73+"px"};
+		}
 
 		if(!$rootScope.editShowData.mainData||$rootScope.editShowData.showId!==$rootScope.editShowData.mainData.detailId){
-
 
 			console.log("开始更新宝贝秀数据");
 			var getshowdata = {
@@ -83,12 +97,17 @@ creatshowmodule
 			.success(function(data){
 				console.log(["更新宝贝秀数据结束",data]);
 				$rootScope.editShowData.mainData=data;
+
+				$scope.pagelistwidth={"width":data.pages.length*73+"px"};
+
 			})
 			.error(function(){
 				alert("更新宝贝秀数据失败");
 			});
 		}
 	});
+
+
 
 
 }])
@@ -108,6 +127,7 @@ creatshowmodule
 
 	$rootScope.editShowData.showId=$stateParams.showId;
 	$rootScope.editShowData.currentpage=parseInt($stateParams.pageId);
+	$rootScope.$emit("showdatachanged");
 
 	// console.log(["cc",$rootScope.editShowData]);
 	// console.log($rootScope.editShowData.currentpage);

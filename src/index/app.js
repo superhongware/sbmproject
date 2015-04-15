@@ -147,6 +147,7 @@ angular.module('starter',
 		controller:'editpagesCtrl',
     	// abstract: true
 	})
+	//宝贝秀预览
 	.state('viewshow', {
 		url: "/viewshow/:showId",
 		templateUrl: "templates/index/creatshows/viewtemplate.html",

@@ -41,16 +41,26 @@
 	</button>
 
 
-	<div class="pagelistbox">
-		<div class="pagelist">
-			<div class="pageitem" 
-			ng-class="{current:editShowData.currentpage===$index}"
-			ng-repeat="page in editShowData.mainData.pages"
-			style="background-image:url({{page.detailPageImage[0].img}})"
-			ui-sref="editpages.editer({showId:editShowData.showId,pageId:$index,pageTemp:page.templatePageId})"
-			></div>
-		</div>
-	</div>
+	<!-- <div class="pagelistbox"> -->
+<!-- 		<div class="pagelist">
+		</div> -->
+		<ion-scroll
+		class="pagelistbox"
+		direction="x">
+			<div class="pagelist" ng-style="pagelistwidth">
+				<div class="pageitem"
+				ng-class="{current:editShowData.currentpage===$index,editpages:editpages}"
+				ng-repeat="page in editShowData.mainData.pages"
+				style="background-image:url({{page.detailPageImage[0].img}})"
+				ui-sref="editpages.editer({showId:editShowData.showId,pageId:$index,pageTemp:page.templatePageId})"
+				>
+					<div class="deletethispage">
+						<span class="iconfont icon-shanchu"></span>
+					</div>
+				</div>
+			</div>
+		</ion-scroll>
+	<!-- </div> -->
 
 <!-- 	<sbm-page ng-attr-pagenum="{{showdata.page}}">
 

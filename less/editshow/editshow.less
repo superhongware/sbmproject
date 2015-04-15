@@ -57,25 +57,36 @@
 	.pagelistbox{
 		.size(100%,110px);
 		position: absolute;
+		top: auto;
 		bottom:0px;
 		left: 0px;
 		overflow-y: hidden;
 		overflow-x: auto;
-		background-color: #000;		
+		background-color: #000;
+
+		//清除 ion-content  默认样式
+		.has-header{
+			top: 0px;
+		}
+
 		.pagelist{
-			position: absolute;
-			.size(600%,110px);
+			// .size(441px,110px);
+			// .clearfix();
+		}
 			.pageitem{
 				.size(63px,100px);
 				float: left;
 				border:2px solid rgba(254, 153, 0, 0);
 				margin: 5px;
 				background-size:auto 100%;
+				background-position: center;
 			}
 			.current{
 				border-color:rgba(254, 153, 0, 1);;
 			}
-		}
+
+
+
 	}
 
 	.editplace{
@@ -128,7 +139,6 @@
 
 
 
-
 .viewbox{
 	position: absolute;
 	top: 44px;
@@ -138,3 +148,31 @@
 }
 
 
+.deletethispage{
+	.square(25px);
+	border-radius: 25px;
+	background-color: @mainyellow;;
+	display: none;
+	position: absolute;
+	top: -7px;
+	right: -7px;
+	font-size: 10px;
+	color:#fff;
+	text-align: center;
+	line-height: 25px;
+}
+.editpages{
+	-webkit-animation: editpages 1s linear infinite;
+	position: relative;
+	.deletethispage{
+		display: block;
+	}
+}
+@-webkit-keyframes editpages {
+	0%, 50%, 100%{
+		-webkit-transform:rotate3d(0, 0, 1, 2deg);
+	}
+	25%, 75%{
+		-webkit-transform:rotate3d(0, 0, 1, -2deg);
+	}
+}

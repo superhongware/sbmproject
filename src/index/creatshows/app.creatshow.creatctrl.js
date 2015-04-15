@@ -58,7 +58,6 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 		});
 	};
 
-
 }])
 
 
