@@ -8,21 +8,34 @@ var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.servi
 creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($scope,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
 	
 	//假设取到的模板信息
-	$scope.templateId=1;
 
 	// getTemplate(function(data){
 	// 	console.log(data);
 	// })
 
-	//根据模板创建宝贝秀
-	$scope.creatShow=function(templateId){
+	$scope.templateId=1;
+	$scope.productId=$stateParams.productId;
+	$scope.productPlat=$stateParams.productPlat;
+	
 
+
+
+}])
+
+.controller('viewtemplateCtrl',['$scope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$stateParams,$ionicLoading,$state,creatShow){
+	
+	$scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
+	$scope.viewbtnneam="应用";
+	$scope.viewneam="模板预览";
+
+	//根据模板创建宝贝秀
+	$scope.viewbtn=function(){
 		$ionicLoading.show({
 			template:"创建中,请稍等...",
 		});
 
 		var creatdata={
-			templateId:templateId,
+			templateId:$stateParams.templateId,
 			productId:$stateParams.productId,//宝贝ID
 			productPlat:$stateParams.productPlat,//所属平台
 		};
@@ -45,12 +58,28 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 		});
 	};
 
+
 }])
 
-.controller('viewtemplateCtrl', ['$scope', function($scope){
+
+.controller('viewshowCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
 
+	$scope.iframesrc=location.origin+"/ps.html?orgname="+$rootScope.orgName+"&detailid="+$stateParams.showId+"&templateview=1";
+	console.log($scope.iframesrc);
+	$scope.viewbtnneam="分享";
+	$scope.viewneam="宝贝秀预览";
+
+	$scope.viewbtn=function(){
+		$ionicLoading.show({
+			template:"跳转页面中",
+			duration:2000
+		});
+		// $ionicLoading.hide();
+	};
+
 
 }])
+
 
 ;
