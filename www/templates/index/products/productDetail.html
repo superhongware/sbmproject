@@ -1,18 +1,14 @@
 <ion-view view-title="宝贝详情">
 	<ion-content class="warpProductDetail"  ng-show="pageData.isPageShow">
-		<div class="productImgBox">
-
-			<ion-slide-box delegate-handle="productImgBox">
-
-				<ion-slide ng-repeat="item in pageData.orderDetail.picArr">
-					<div class="box">
-						<img class="full-image" ng-src="{{item}}">
-					</div>
-				</ion-slide>
-
-			</ion-slide-box>
-
+		<div class="wcontainer">
+			<div class="sliders" id="sliders">
+				<a href="http://www.baidu.com" class="sliderlist" ng-repeat="item in pageData.orderDetail.picArr">
+					<img ng-src="{{item}}" alt="">
+				</a>
+			</div>
 		</div>
+
+		<!-- </div> -->
 		<div class="productInfo">
 			<div class="title">{{pageData.orderDetail.title}}</div>
 			<div class="price">￥{{pageData.orderDetail.price}}</div>

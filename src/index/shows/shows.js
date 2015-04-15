@@ -113,6 +113,32 @@ showsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', 
 
 	};
 
+	$scope.edit = function(detailId){
+		$scope.detaildata = {
+			orgName:$rootScope.orgName,
+			detailId:detailId
+		};
+		$scope.detaildata.method = "softbanana.app.detail.search";
+		var api = SBMJSONP("searchDetail",$scope.detaildata);
+		$http.jsonp(api.url)
+			.success(function(data){
+				if(data.isSuccess){
+					$state.go("editpages.editer",{
+						showId:detailId,
+						pageId:0,
+						pageTemp:data.pages[0].templatePageId
+					});
+				}else{
+					console.log(data.map.errorMsg);
+				}
+			})
+			.error(function(status,response){
+				console.log("连接失败");
+			});
+
+	};
+
+
 }]);
 
 
