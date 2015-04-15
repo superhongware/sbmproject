@@ -10,6 +10,7 @@ var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
 
 	$scope.showdata="";
+	$scope.shownoshowdata=false;
 
 	//获取宝贝秀数据
 	var getdata = {
@@ -23,6 +24,9 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 			$scope.showdata = data;
 			// p_s.CreatDomtree(data);
 			$scope.$broadcast("showdataready");
+		})
+		.error(function(){
+			$scope.shownoshowdata=true;
 		});
 
 	$scope.$on("showdataready",function(){
