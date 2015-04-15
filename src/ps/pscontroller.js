@@ -41,7 +41,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 
 //三个点
-.directive('threePoints',['$ionicPopup','threePointData','getRequest',function($ionicPopup,threePointData,getRequest) {
+.directive('threePoints',['threePointData',function(threePointData) {
 	// Runs during compile
 	return {
 		// name: '',
@@ -112,20 +112,6 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 			//购买按钮点击事件
 			$scope.buybuybuy=function(url){
-
-				if(getRequest("templateview")){
-					alert("模板预览模式，购买按钮不跳转哦！")
-					// $ionicPopup.show({
-					// 	title: "模板浏览提示",
-					// 	template: "模板预览模式，此按钮不跳转！",
-					// 	buttons: [{
-					// 		text: "我知道了",
-					// 		type: "button-energized",
-					// 	}]
-					// });
-					return;
-				}
-
 				if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
 					$(".screenforbiden").show();
 				} else if(url!==""){
@@ -137,6 +123,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 			$scope.igetitjustgobuynow=function(){
 				$(".screenforbiden").hide();
 			};
+
 			//standa 切换
 			$scope.standaindex=0;
 			$scope.standatopbar=function(index){

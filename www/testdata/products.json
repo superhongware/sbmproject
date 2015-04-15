@@ -1,1 +1,104 @@
-[1,2,3,4,5]
+{
+	"templateId": 1,
+	"detailTitle":"标题",
+	"detailDesc": "描述",
+	"detailImage":"详情图片",
+	"shopName":"店铺名称",
+	"numIid": "宝贝ID",
+	"detailUrl": "购买链接",
+	"plat": "平台",
+	"pages": [
+	{
+		"detailPageIndex":"1",
+		"templatePageId": 2,
+		"detailPageImage": [
+			{"img":"img/pic2.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"SOFTBANANA"},
+			{"txt":"宝贝秀制作助手"},
+			{"txt":"开启手机详情新时代"},
+			{"txt":""}
+
+		]
+	},
+	{
+		"detailPageIndex":"2",
+		"templatePageId": 3,
+		"detailPageImage": [
+			{"img":"img/pic3.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"高清大图"},
+			{"txt":"全屏设计，充分展示宝贝，引人入胜"}
+		]
+	},
+	{
+		"detailPageIndex":"3",
+		"templatePageId": 4,
+		"detailPageImage": [
+			{"img":"img/pic4.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"细节展示，无微不至"},
+			{"txt":"专为宝贝细节展示设计，支撑添加多张细节图片，突显宝贝质地，让买家了解更多"}
+
+		]
+	},
+	{
+		"detailPageIndex":"4",
+		"templatePageId": 5,
+		"detailPageImage": [
+			{"img":"img/pic5_1.jpg"},
+			{"img":"img/pic5_2.jpg"},
+			{"img":"img/pic5_3.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"多图结合"},
+			{"txt":"添加多张图片拼接展示更多亮点"}
+		]
+	},
+	{
+		"detailPageIndex":"5",
+		"templatePageId": 3,
+		"detailPageImage": [
+			{"img":"img/pic6.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"自动获取宝贝数据"},
+			{"txt":"宝贝参数、规格属性自动生成，买家更多选择"}
+		]
+	},
+	{
+		"detailPageIndex":"6",
+		"templatePageId": 6,
+		"detailPageImage": [
+			{"img":"img/pic7.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"流量入口,一建到店成交"},
+			{"txt":"买家只需点击宝贝秀中的购买即可立即打开宝贝页面，即看即买！"}
+		]
+	},
+	{
+		"detailPageIndex":"7",
+		"templatePageId": 4,
+		"detailPageImage": [
+			{"img":"img/pic8.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"一建分享"},
+			{"txt":"支持各大社交平台分享手机详情,让流量爆棚"}
+		]
+	},
+	{
+		"detailPageIndex":"8",
+		"templatePageId": 7,
+		"detailPageImage": [
+			{"img":"img/pic6.jpg"},
+			{"img":"img/pic7.jpg"},
+			{"img":"img/pic8.jpg"}
+		]
+	}
+	]
+}
