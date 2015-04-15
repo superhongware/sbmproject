@@ -9,6 +9,15 @@
 	"plat": "平台",
 	"pages": [
 	{
+		"detailPageIndex":"8",
+		"templatePageId": 7,
+		"detailPageImage": [
+			{"img":"img/pic6.jpg"},
+			{"img":"img/pic7.jpg"},
+			{"img":"img/pic8.jpg"}
+		]
+	},
+	{
 		"detailPageIndex":"1",
 		"templatePageId": 2,
 		"detailPageImage": [
@@ -89,15 +98,6 @@
 		"detailPageText": [
 			{"txt":"一建分享"},
 			{"txt":"支持各大社交平台分享手机详情,让流量爆棚"}
-		]
-	},
-	{
-		"detailPageIndex":"8",
-		"templatePageId": 7,
-		"detailPageImage": [
-			{"img":"img/pic6.jpg"},
-			{"img":"img/pic7.jpg"},
-			{"img":"img/pic8.jpg"}
 		]
 	}
 	]
