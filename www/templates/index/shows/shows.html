@@ -6,7 +6,7 @@
         on-refresh="refresh()">
       </ion-refresher>
       <ion-list can-swipe="true">
-          <ion-item ng-repeat="item in showsListData">
+          <ion-item ng-repeat="item in showsListData" ui-sref="viewshow({showId:item.detailId})">
             <ul>
               <li>
                 <img src="{{item.picUrl}}">
@@ -40,7 +40,7 @@
             <ion-option-button class="button-dark" ng-click="edit(item.detailId)">
                 <span class="text">编辑</span>
             </ion-option-button>
-            <ion-option-button class="button-dark" ng-click="">
+            <ion-option-button class="button-dark" ui-sref="share({showId:item.detailId})">
                 <span class="text">分享</span>
             </ion-option-button>
             <ion-option-button class="button-dark" ng-click="dele(item.detailId)">

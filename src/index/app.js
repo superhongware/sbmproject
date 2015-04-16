@@ -162,7 +162,12 @@ angular.module('starter',
 		},
 		controller:'editerCtrl'
 	})
-
+	//宝贝分享
+	.state('share', {
+		url: "/share/:showId",
+		templateUrl: "templates/index/creatshows/share.html",
+		controller:'shareCtrl'
+	})
 
 	//sidebar测试  正式上线删除
 	.state('sidebartest',{
