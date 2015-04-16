@@ -458,8 +458,7 @@
 		console.log(reqData);
 		$http.jsonp(api.url)
 			.success(function(data) {
-				console.log('productComm.loadProductDetail');
-				console.log(data);
+				console.log(['productComm.loadProductDetail',data]);
 				if (data.isSuccess) {
 					callBack(data.item);
 				}else{

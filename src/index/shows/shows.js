@@ -48,6 +48,7 @@ showsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', 
 				}
 
 				$scope.showsListData = $scope.showsListData.concat(data.details);
+
 				if (data.length === 0 && pageData.direction === 'up') {
 					pageData.isHaveMoreData = false;
 					return;
@@ -103,6 +104,11 @@ showsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', 
 			.success(function(data){
 				if(data.isSuccess){
 					console.log(data);
+					for(var i in $scope.showsListData){
+						if($scope.showsListData[i].detailId == $scope.deldata.detailId){
+							$scope.showsListData.splice(i,1);
+						}
+					}
 				}else{
 					console.log(data.map.errorMsg);
 				}

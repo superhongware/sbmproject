@@ -130,6 +130,15 @@ settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'l
 				var api = SBMJSONP("deleteShop",$scope.delshopinfo);
 				$http.jsonp(api.url)
 					.success(function(data){
+						if(data.isSuccess){
+							for(var i in $scope.shopList.shops){
+								if($scope.shopList.shops[i].shopName == $scope.delshopinfo.shopName){
+									$scope.shopList.shops.splice(i,1);
+								}
+							}
+						}else{
+							console.log(data.map.errorMsg);
+						}	
 					})
 					.error(function(status,response){
 						console.log("连接失败");

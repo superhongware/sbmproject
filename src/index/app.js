@@ -155,6 +155,7 @@ angular.module('starter',
 		},
 		controller:'editerCtrl'
 	})
+
 	.state('addpage', {
 		url: "/addpage/:showId/:pageId",
 		templateUrl: "templates/index/creatshows/addpage.html",
@@ -168,6 +169,12 @@ angular.module('starter',
 		controller:'viewshowCtrl'
 	})
 
+	//宝贝分享
+	.state('share', {
+		url: "/share/:showId",
+		templateUrl: "templates/index/creatshows/share.html",
+		controller:'shareCtrl'
+	})
 
 
 	//sidebar测试  正式上线删除

@@ -11,6 +11,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 	$scope.showdata="";
 	$scope.shownoshowdata=false;
+	$scope.showmainbox = false;
 
 	//获取宝贝秀数据
 	var getdata = {
@@ -21,14 +22,18 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 	var api = SBMJSONP("searchDetail", getdata);
 	$http.jsonp(api.url)
 		.success(function(data) {
+			//宝贝秀删除后不执行后面代码
+			if(!data.isSuccess){
+				return;
+			}
 			$scope.showdata = data;
 			// p_s.CreatDomtree(data);
 			$scope.$broadcast("showdataready");
 		})
 		.error(function(){
+			$scope.showmainbox = true;
 			$scope.shownoshowdata=true;
 		});
-
 	$scope.$on("showdataready",function(){
 		setTimeout(function(){
 			p_s.init_animation();
@@ -80,7 +85,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 			threePointData(function(data){
 
 				console.log(["三个点数据",data]);
-				if(!data.isSuccess){
+				if(!data.desc){
 					return;
 				}
 

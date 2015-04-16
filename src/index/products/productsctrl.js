@@ -303,7 +303,7 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 			plat: pageData.currSelectOrder.plat
 		},function(data){
 			$ionicLoading.hide();
-			
+			console.log(data);
 			//页面视图数据展现处理
 			pageData.orderDetail = data;
 			pageData.orderDetail.picArr = pageData.orderDetail.picUrl.split(',');
@@ -318,8 +318,8 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 					sliderpoint:!0,
 					sliderpointwidth:8,
 					sliderpointcolor:"#fa9d00"
-				})
-			},200)
+				});
+			},200);
 
 
 
@@ -341,6 +341,59 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 	$scope.pageData = pageData;
 	pageFunc.init();
 	
+
+		//删除
+	$scope.dele = function(detailid){
+		$scope.deldata = {
+			orgName:$rootScope.orgName,
+			detailId:detailid
+		};
+		$scope.deldata.method = "softbanana.app.detail.delete";
+		var api = SBMJSONP("deleteDetail",$scope.deldata);
+		$http.jsonp(api.url)
+			.success(function(data){
+				if(data.isSuccess){
+					console.log(data);
+					for(var i in pageData.orderDetail.appDetailCounts){
+						if(pageData.orderDetail.appDetailCounts[i].detailId == $scope.deldata.detailId){
+							pageData.orderDetail.appDetailCounts.splice(i,1);
+						}
+					}
+				}else{
+					console.log(data.map.errorMsg);
+				}
+			})
+			.error(function(status,response){
+				console.log("连接失败");
+			});
+
+	};
+
+	$scope.edit = function(detailId){
+		$scope.detaildata = {
+			orgName:$rootScope.orgName,
+			detailId:detailId
+		};
+		$scope.detaildata.method = "softbanana.app.detail.search";
+		var api = SBMJSONP("searchDetail",$scope.detaildata);
+		$http.jsonp(api.url)
+			.success(function(data){
+				if(data.isSuccess){
+					$state.go("editpages.editer",{
+						showId:detailId,
+						pageId:0,
+						pageTemp:data.pages[0].templatePageId
+					});
+				}else{
+					console.log(data.map.errorMsg);
+				}
+			})
+			.error(function(status,response){
+				console.log("连接失败");
+			});
+
+	};
+
 
 
 }]);

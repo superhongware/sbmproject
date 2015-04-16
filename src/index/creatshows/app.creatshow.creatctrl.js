@@ -79,5 +79,24 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 
 }])
 
+.controller('shareCtrl',['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP',function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP){
+	 $scope.shareInfo = {
+    	orgName:$rootScope.orgName,
+		detailId:$stateParams.showId
+	};
+	$scope.shareInfo.method = "softbanana.app.detail.search";
+	var api = SBMJSONP("searchDetail",$scope.shareInfo);
+	$http.jsonp(api.url)
+		.success(function(data){
+			console.log(data);	
+			$scope.shareData = data;
+		})
+		.error(function(status,response){
+			console.log("连接失败");
+		});
+
+
+}])
+
 
 ;
