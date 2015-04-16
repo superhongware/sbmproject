@@ -1,0 +1,19 @@
+<ion-view view-title="添加页面" class="editbox">
+<!-- 	<ion-nav-buttons side="right">
+		<button class="button" ng-click="saveShow()">保存</button>
+	</ion-nav-buttons> -->
+
+
+	<ion-content>
+		<div
+		ng-repeat="temp in tempdata.pages"
+		ng-click="addpage($index)" 
+		class="templist">
+			<img ng-src="{{temp.pageImg}}" alt="">
+			<span class="title">{{temp.pageTitle}}</span>
+		</div>
+
+	
+	</ion-content>
+
+</ion-view>

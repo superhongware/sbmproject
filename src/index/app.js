@@ -145,15 +145,8 @@ angular.module('starter',
 		url: "/editpages",
 		templateUrl: "templates/index/creatshows/editpages.html",
 		controller:'editpagesCtrl',
-    	// abstract: true
+		// abstract: true
 	})
-	//宝贝秀预览
-	.state('viewshow', {
-		url: "/viewshow/:showId",
-		templateUrl: "templates/index/creatshows/viewtemplate.html",
-		controller:'viewshowCtrl'
-	})
-
 	.state('editpages.editer', {
 		url: "/editer/:showId/:pageId/:pageTemp",
 		// templateUrl: "templates/index/creatshows/pages/page1.html",
@@ -162,6 +155,19 @@ angular.module('starter',
 		},
 		controller:'editerCtrl'
 	})
+	.state('addpage', {
+		url: "/addpage/:showId/:pageId",
+		templateUrl: "templates/index/creatshows/addpage.html",
+		controller:'addpagesCtrl',
+		// abstract: true
+	})
+	//宝贝秀预览
+	.state('viewshow', {
+		url: "/viewshow/:showId",
+		templateUrl: "templates/index/creatshows/viewtemplate.html",
+		controller:'viewshowCtrl'
+	})
+
 
 
 	//sidebar测试  正式上线删除

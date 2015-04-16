@@ -1,0 +1,24 @@
+<ion-scroll
+class="pagelistbox"
+direction="x">
+	<div class="pagelist" ng-style="pagelistwidth">
+		<div class="pageitem"
+		ng-class="{current:editShowData.currentpage===$index,editpages:editpages}"
+		ng-repeat="page in editShowData.mainData.pages"
+		ng-style="pageitemposition($index)"
+		on-finish-render-filters
+		>
+			<div 
+			ng-click="pageitemclick($index)"
+			class="pageimg"
+			style="background-image:url({{page.detailPageImage[0].img}})">
+			</div>
+
+			<div 
+			ng-click="deletethispage($index)"
+			class="deletethispage">
+				<span class="iconfont icon-shanchu"></span>
+			</div>
+		</div>
+	</div>
+</ion-scroll>

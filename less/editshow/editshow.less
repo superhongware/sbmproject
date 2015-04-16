@@ -54,41 +54,6 @@
 	}
 
 
-	.pagelistbox{
-		.size(100%,110px);
-		position: absolute;
-		top: auto;
-		bottom:0px;
-		left: 0px;
-		overflow-y: hidden;
-		overflow-x: auto;
-		background-color: #000;
-
-		//清除 ion-content  默认样式
-		.has-header{
-			top: 0px;
-		}
-
-		.pagelist{
-			// .size(441px,110px);
-			// .clearfix();
-		}
-			.pageitem{
-				.size(63px,100px);
-				float: left;
-				border:2px solid rgba(254, 153, 0, 0);
-				margin: 5px;
-				background-size:auto 100%;
-				background-position: center;
-			}
-			.current{
-				border-color:rgba(254, 153, 0, 1);;
-			}
-
-
-
-	}
-
 	.editplace{
 		position: absolute;
 		top: 44px;
@@ -147,32 +112,109 @@
 	width: 100%;
 }
 
-
-.deletethispage{
-	.square(25px);
-	border-radius: 25px;
-	background-color: @mainyellow;;
-	display: none;
+.pagelistbox{
+	.size(100%,110px);
 	position: absolute;
-	top: -7px;
-	right: -7px;
-	font-size: 10px;
-	color:#fff;
-	text-align: center;
-	line-height: 25px;
-}
-.editpages{
-	-webkit-animation: editpages 1s linear infinite;
-	position: relative;
-	.deletethispage{
-		display: block;
+	top: auto;
+	bottom:0px;
+	left: 0px;
+	overflow: visible;
+	// overflow-y: hidden;
+	// overflow-x: auto;
+	background-color: #000;
+
+	//清除 ion-content  默认样式
+	.has-header{
+		top: 0px;
 	}
+
+
+	.pageitem{
+		.size(63px,100px);
+		// float: left;
+		// display: inline-block;
+		position: relative;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		border:2px solid rgba(254, 153, 0, 0);
+		transition:0.3s linear all;
+		margin: 4px;
+		.pageimg{
+			.square(100%);
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			background-size:auto 100%;
+			background-position: center;
+		}
+		.deletethispage{
+			.square(25px);
+			border-radius: 25px;
+			background-color: @mainyellow;;
+			display: none;
+			position: absolute;
+			top: -7px;
+			right: -7px;
+			font-size: 10px;
+			color:#fff;
+			text-align: center;
+			line-height: 25px;
+		}
+	}
+	//添加删除页面动画
+	.pageitem.ng-leave{
+		transition:0.5s linear all;
+		opacity:1;
+	}
+	.pageitem.ng-leave.ng-leave-active{
+		opacity:0;
+	}
+	.pageitem.ng-enter{
+		transition:0.5s linear all;
+		opacity:0;
+	}
+	.pageitem.ng-enter.ng-enter-active{
+		opacity:1;
+	}
+
+	.current{
+		border-color:rgba(254, 153, 0, 1);;
+	}
+	.editpages{
+		-webkit-animation: editpages 1s linear infinite;
+		.deletethispage{
+			display: block;
+		}
+	}
+
 }
+
 @-webkit-keyframes editpages {
 	0%, 50%, 100%{
 		-webkit-transform:rotate3d(0, 0, 1, 2deg);
 	}
 	25%, 75%{
 		-webkit-transform:rotate3d(0, 0, 1, -2deg);
+	}
+}
+
+
+
+//添加页面
+.templist{
+	width: 30vw;
+	margin-left:2vw;
+	float: left;
+	margin-top: 3vh;
+	img{
+		width:100%;
+	}
+	.title{
+		width: 100%;
+		display: block;
+		padding: 5px 0px;
+		text-align: center;
+		color: #fff;
 	}
 }
