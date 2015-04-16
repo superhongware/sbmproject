@@ -67,7 +67,7 @@ creatshowmodule
 		console.log(["showdatachanged",$rootScope.editShowData]);
 		//宽度控制
 		if(typeof $rootScope.editShowData.mainData.pages !== "undefined"){
-			console.log("改变宽度啊！！")
+			console.log("改变宽度啊！！");
 			$scope.pagelistwidth={"width":$rootScope.editShowData.mainData.pages.length*71+"px"};
 		}
 
@@ -107,36 +107,7 @@ creatshowmodule
 
 
 }])
-.controller('addpagesCtrl', ['$scope','$rootScope','$http','$stateParams','$state', function($scope,$rootScope,$http,$stateParams,$state){
-	
-	$http.get('testdata/pagetemplate.json')
-	.success(function(data){
-		console.log(["模板数据",data])
-		$scope.tempdata=data;
-	})
-	.error(function(){
-		console.log("网络有问题,没有获取模板数据");
-		alert("网络有问题,没有获取模板数据");
-	});
 
-
-	$scope.addpage=function(index){
-		console.log($rootScope.editShowData.mainData.pages)
-		var pages=$rootScope.editShowData.mainData.pages;
-		var addpage=$scope.tempdata.pages[index].pagedata;
-		console.log($stateParams.pageId)
-		pages.splice($stateParams.pageId,0,addpage);
-		
-		console.log($rootScope.editShowData.mainData.pages);
-
-		$state.go("editpages.editer",{
-					showId:$rootScope.editShowData.showId,
-					pageId:index+1,
-					pageTemp:$rootScope.editShowData.mainData.pages[index-1].templatePageId
-				});
-	};
-
-}])
 
 
 .controller('editerCtrl', ['$scope','$rootScope','$http','$ionicLoading','$stateParams','changepagesize',function($scope,$rootScope,$http,$ionicLoading,$stateParams,changepagesize){
@@ -210,7 +181,7 @@ creatshowmodule
 							$scope.$apply();
 						},this));
 				});
-			})
+			});
 
 			$scope.pageitemclick=function(index){
 				if($scope.editpages){
@@ -231,14 +202,14 @@ creatshowmodule
 				$(".pageitem").eq(index).on("webkitTransitionEnd", function() {
 					$(".pageitem").eq(index).off("webkitTransitionEnd");
 					$rootScope.$emit("showdatachanged");
-				})
+				});
 
 				pages.splice(index,1);
 			};
 
 			//小页面位置控制
 			$scope.pageitemposition=function(index){
-				return {"left":index*71+"px"}
+				return {"left":index*71+"px"};
 			};
 
 
