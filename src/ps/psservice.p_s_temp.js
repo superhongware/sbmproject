@@ -10,11 +10,16 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 			callback();
 		}
 		switch(temp){
-			case 1:
+			case 0:
 				p_s_anination(page, ".ps_img1", "psanimate2", function() {
 					p_s_anination(page, ".ps_img2", "psanimate15");
 					p_s_anination(page, ".ps_text1", "psanimate2");
 					
+					allpageanimate();
+				});
+				break;
+			case 1:
+				p_s_anination(page, ".ps_img1", "psanimate2", function() {
 					allpageanimate();
 				});
 				break;
