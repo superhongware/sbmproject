@@ -234,27 +234,6 @@ creatshowmodule.factory('changepagesize', function(){
 .factory('setProductImg', function(){
 	return function setProductImg(imgArr,jsonObj){
 
-			// var pages=tempdata.pages;		  //模板page数
-			// var baobeiImgCount=productimgs.length; //宝贝总图片数
-			// var usedBaobeiImg=0;			  //宝贝已用掉的图片数,刚好可以定位第一个未使用的图片index
-			// var restBaobeiImg=productimgs.length;  //宝贝剩余的未用掉的图片数
-			// var pageImgCount=0;				  //模板page总图片数
-			// for(var i=0;i<pages.length;i++){
-			// 	var singlePageCount=pages[i].detailPageImage.length;	//单个page的图片数
-			// 	if(restBaobeiImg<singlePageCount){		//剩余图片<当前page图片数量
-			// 		for(var m=0;m<restBaobeiImg;m++){
-			// 			pages[i].detailPageImage[m].img=productimgs[usedBaobeiImg];	
-			// 			usedBaobeiImg++;
-			// 		}
-			// 	}else{	//剩余图片>当前page图片数量
-			// 		for(var j=0;j<singlePageCount;j++){
-			// 			pages[i].detailPageImage[j].img=productimgs[usedBaobeiImg];	
-			// 			usedBaobeiImg++;
-			// 		}
-			// 	}
-			// 	restBaobeiImg=baobeiImgCount-usedBaobeiImg;		//得到当前剩余的宝贝图片数量,遍历下一个page
-			// }
-
 		var pages=jsonObj.pages;		  //模板page数
 		var baobeiImgCount=imgArr.length; //宝贝总图片数
 		var usedBaobeiImg=0;			  //宝贝已用掉的图片数,刚好可以定位第一个未使用的图片index

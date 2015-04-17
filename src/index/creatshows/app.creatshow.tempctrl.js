@@ -15,6 +15,7 @@ creatshowmodule
 			},
 			function(data){
 				$ionicLoading.hide();
+				console.log(["保存失败",data]);
 				alert(data);
 			});
 	};
@@ -129,198 +130,85 @@ creatshowmodule
 }])
 
 
-.directive('onFinishRenderFilters',["$timeout", function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function() {
-                    scope.$emit('ngRepeatFinished');
-                });
-            }
-        }
-    };
-}])
-
-.directive('pageEditor',['$rootScope','$state','$animate',function($rootScope,$state,$animate){
-	// Runs during compile
-	return {
-		// name: '',
-		// priority: 1,
-		// terminal: true,
-		// scope: {}, // {} = isolate, true = child, false/undefined = no change
-		// controller: function($scope, $element, $attrs, $transclude) {},
-		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-		restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
-		// template: '',
-		templateUrl: 'templates/index/creatshows/pageeditor.html',
-		replace: true,
-		// transclude: true,
-		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
-		link: function($scope, iElm, iAttrs, controller) {
-			console.log($rootScope);
-			// console.log(["aa",$rootScope.editShowData]);
-			$scope.editpages=0;
-			// var pagelistboxhold=ionic.onGesture("hold",function(){
-			// 	console.log("pagelistboxhold");
-			// 	$scope.editpages=1;
-			// 	$scope.$apply();
-			// },$('.pagelistbox')[0])
-			
-
-			var holdtouchlist=[];
-			//小页页面DOME渲染完成够出发
-			$rootScope.$on("ngRepeatFinished",function() {
-				var pages=$rootScope.editShowData.mainData.pages;
-				console.log("小页页面DOME渲染完成");
-				$('.pageitem').each(function(){
-					holdtouchlist.push(
-						ionic.onGesture("hold",function(){
-							console.log("pagelistboxhold");
-							$scope.editpages=1;
-							$scope.$apply();
-						},this));
-				});
-			});
-
-			$scope.pageitemclick=function(index){
-				if($scope.editpages){
-					$scope.editpages=0;
-					return;
-				}
-				$state.go("editpages.editer",{
-					showId:$rootScope.editShowData.showId,
-					pageId:index,
-					pageTemp:$rootScope.editShowData.mainData.pages[index].templatePageId
-				});
-			};
-
-			//删除页面
-			$scope.deletethispage=function(index){
-				var pages=$rootScope.editShowData.mainData.pages;
-				console.log($animate);
-				$(".pageitem").eq(index).on("webkitTransitionEnd", function() {
-					$(".pageitem").eq(index).off("webkitTransitionEnd");
-					$rootScope.$emit("showdatachanged");
-				});
-
-				pages.splice(index,1);
-			};
-
-			//小页面位置控制
-			$scope.pageitemposition=function(index){
-				return {"left":index*71+"px"};
-			};
-
-
-			//添加页面测试
-			// setTimeout(function(){
-			// 	var pages=$rootScope.editShowData.mainData.pages;
-			// 	console.log(pages);
-			// 	console.log(pages[0]);
-
-			// 	// var cc= cloneobj(pages[0]);
-
-			// 	pages.splice(0,0,{
-			// 		"detailPageIndex":"6",
-			// 		"templatePageId": 6,
-			// 		"detailPageImage": [
-			// 			{"img":"img/pic7.jpg"}
-			// 		],
-			// 		"detailPageText": [
-			// 			{"txt":"流量入口,一建到店成交"},
-			// 			{"txt":"买家只需点击宝贝秀中的购买即可立即打开宝贝页面，即看即买！"}
-			// 		]
-			// 	})
-
-			// 	console.log(pages);
-			// 	$rootScope.$apply();
-			// 	$rootScope.$emit("showdatachanged");
-
-			// },5000)
-
-		}
-	};
-}])
-
-.directive('normalEditPage', function(){
-	// Runs during compile
-	return {
-		// name: '',
-		// priority: 1,
-		// terminal: true,
-		// scope: {}, // {} = isolate, true = child, false/undefined = no change
-		// controller: function($scope, $element, $attrs, $transclude) {},
-		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-		restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
-		// template: '',
-		templateUrl: 'templates/index/creatshows/pages/normaleditpage.html',
-		replace: true,
-		// transclude: true,
-		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
-		link: function($scope, iElm, iAttrs, controller) {
-			
-		}
-	};
-})
-
 
 .controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http","setShowImg",function($scope,$rootScope,$state,$http,setShowImg){
-	// console.log($state.current);
+
 	console.log("pagetempht1Ctrl");
-	// console.log("editerCtrl");
 
 
-	// $scope.checkimg=function(){
-	// 	document.getElementById('fileImg').click();
-	// };
-
-	// document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
-
-	// function handleFileSelect (evt) {
-	// 	var file = evt.target.files[0];
-	// 	if (!file.type.match('image.*')) {
-	// 		return;
-	// 	}
-
-	// 	var reader = new FileReader();
-
-	// 	reader.readAsDataURL(file);
-
-	// 	reader.onload=function(e){
-	// 		console.log(e.target.result);
-	// 		var img=new Image();
-	// 		img.src=e.target.result;
-
-	// 		console.log(compress(img,50));
-
-	// 		var api=SBMJSONP("uploadImage/uploadFile",{
-	// 			orgName:$rootScope.orgName,
-	// 			method:"softbanana.app.image.upload",
-	// 			imageData:compress(img,50)
-	// 		});
-
-	// 		$http.jsonp(api.url)
-	// 		.success(function(data){
-	// 			console.log(["图片上传成功",data]);
-	// 		})
-	// 		.error(function(data){
-	// 			console.log(["图片上传失败",data]);
-	// 		});
-	// 	};
-
-	// }
-
-	$scope.ccc="ccc";
-	var editShowData=$rootScope.editShowData;
 	$scope.setimg=function(index){
-		console.log(index);
-		setShowImg([320,504],function(imgurl){
-			// model=imgurl;
-			console.log(imgurl);
-			editShowData.mainData.pages[editShowData.currentpage].detailPageImage[index].img=imgurl;
-		});
+
+		checkimg([234,138]);
+
 	};
+
+	function checkimg(size){
+		var position={
+			startpoint:[0,0],
+			point:[10,0],
+			scale:[1,1],
+			rotation:[0,0],
+			img:""
+		};
+
+		document.getElementById('fileImg').click();
+		var cvs=document.getElementById('imgcanvas');
+		var ctx=cvs.getContext("2d");
+		cvs.width=size[0];
+		cvs.height=size[1];
+
+
+
+		function drawimg(imgobj){
+			ctx.clearRect(0,0,cvs.width,cvs.height);
+			ctx.save();
+			ctx.scale(position.scale[0]*1.2,position.scale[1]*1.2);
+			ctx.translate(position.point[0]/position.scale[0],position.point[1]/position.scale[1]);
+			// ctx.rotate(position.rotation[0]);
+			ctx.drawImage(imgobj,position.point[0],position.point[1]);
+			ctx.restore();
+
+		}
+
+		document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
+		function handleFileSelect (evt) {
+			var file = evt.target.files[0];
+			if (!file.type.match('image.*')){
+				return;
+			}
+
+			var reader = new FileReader();
+
+			reader.readAsDataURL(file);
+
+			reader.onload=function(e){
+				console.log(e.target.result);
+				var img=new Image();
+				img.src=e.target.result;
+				position.img=img;
+				position.scale=givemescale(img.width,img.height,cvs.width,cvs.height);
+				drawimg(position.img);
+			};
+		}
+
+		function givemescale(imgw,imgh,cw,ch){
+			if(imgw/imgh>=cw/ch){
+				return [cw/imgw,cw/imgw];
+			}else{
+				return [ch/imgh,ch/imgh];
+			}
+		}
+	}
+	// $scope.ccc="ccc";
+	// var editShowData=$rootScope.editShowData;
+	// $scope.setimg=function(index){
+	// 	console.log(index);
+	// 	setShowImg([320,504],function(imgurl){
+	// 		// model=imgurl;
+	// 		console.log(imgurl);
+	// 		editShowData.mainData.pages[editShowData.currentpage].detailPageImage[index].img=imgurl;
+	// 	});
+	// };
 
 
 }])
