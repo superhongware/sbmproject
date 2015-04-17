@@ -13,7 +13,7 @@
         <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
         <button class="button button-icon font14 mRight5" menu-toggle="right" ng-click="popover.show($event)">{{pageData.currOrderStatus.name}}<i class="iconfont icon-xiangxia font14 mLeft2"></i></button>
       </div>
-      <ion-content class="paddingtop44">
+      <ion-content class="pTop45">
         <ion-refresher
         pulling-text="下拉更新..."
         on-refresh="pageFunc.refreshOrderList()">
@@ -26,11 +26,12 @@
             ng-click="pageFunc.showOrderDetail(item)"
             ng-href="javascripe:;"
           >
-            <img ng-src="{{item.picUrl}}" class="avatar">
+            <img ng-src="{{item.picUrl}}" class="avatar noradius">
             <p class="orderIdAndStatus">{{ item.statusName + '&nbsp;&nbsp;' + item.orderNumber}}</p>
+            <p class="orderDate">{{ item.orderDate}}</p>
             <h2 class="lbTitle">{{item.title}}</h2>
             <p>
-              <span class="">￥{{item.totalAmount}}</span><span class="lbOrderCount">{{item.orderCount}}件</span>
+              <span class="colorYellow">￥{{item.totalAmount}}</span><span class="lbOrderCount">{{item.orderCount}}件</span>
               <div class="Clear"></div>
             </p>
           </ion-item>
@@ -54,7 +55,7 @@
     <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="140">
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
-          <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
+          <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)"  class="borderbtm">
            <img src="{{item.img}}">
             {{item.shopName}}
           </ion-item>

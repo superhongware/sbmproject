@@ -83,6 +83,9 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
             .success(function(data) {
                 console.log('loadData');
                 console.log(data);
+                for(var i in data.trades){
+                    data.trades[i].orderDate = data.trades[i].orderDate.substr(0,10);
+                }
                 pageFunc.loadDataComplete();
 
                 if (isClearCurrData) {
