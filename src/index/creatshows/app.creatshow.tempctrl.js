@@ -136,19 +136,79 @@ creatshowmodule
 	console.log("pagetempht1Ctrl");
 
 
-	
-
-
-	$scope.ccc="ccc";
-	var editShowData=$rootScope.editShowData;
 	$scope.setimg=function(index){
-		console.log(index);
-		setShowImg([320,504],function(imgurl){
-			// model=imgurl;
-			console.log(imgurl);
-			editShowData.mainData.pages[editShowData.currentpage].detailPageImage[index].img=imgurl;
-		});
+
+		checkimg([234,138]);
+
 	};
+
+	function checkimg(size){
+		var position={
+			startpoint:[0,0],
+			point:[10,0],
+			scale:[1,1],
+			rotation:[0,0],
+			img:""
+		};
+
+		document.getElementById('fileImg').click();
+		var cvs=document.getElementById('imgcanvas');
+		var ctx=cvs.getContext("2d");
+		cvs.width=size[0];
+		cvs.height=size[1];
+
+
+
+		function drawimg(imgobj){
+			ctx.clearRect(0,0,cvs.width,cvs.height);
+			ctx.save();
+			ctx.scale(position.scale[0]*1.2,position.scale[1]*1.2);
+			ctx.translate(position.point[0]/position.scale[0],position.point[1]/position.scale[1]);
+			// ctx.rotate(position.rotation[0]);
+			ctx.drawImage(imgobj,position.point[0],position.point[1]);
+			ctx.restore();
+
+		}
+
+		document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
+		function handleFileSelect (evt) {
+			var file = evt.target.files[0];
+			if (!file.type.match('image.*')){
+				return;
+			}
+
+			var reader = new FileReader();
+
+			reader.readAsDataURL(file);
+
+			reader.onload=function(e){
+				console.log(e.target.result);
+				var img=new Image();
+				img.src=e.target.result;
+				position.img=img;
+				position.scale=givemescale(img.width,img.height,cvs.width,cvs.height);
+				drawimg(position.img);
+			};
+		}
+
+		function givemescale(imgw,imgh,cw,ch){
+			if(imgw/imgh>=cw/ch){
+				return [cw/imgw,cw/imgw];
+			}else{
+				return [ch/imgh,ch/imgh];
+			}
+		}
+	}
+	// $scope.ccc="ccc";
+	// var editShowData=$rootScope.editShowData;
+	// $scope.setimg=function(index){
+	// 	console.log(index);
+	// 	setShowImg([320,504],function(imgurl){
+	// 		// model=imgurl;
+	// 		console.log(imgurl);
+	// 		editShowData.mainData.pages[editShowData.currentpage].detailPageImage[index].img=imgurl;
+	// 	});
+	// };
 
 
 }])
