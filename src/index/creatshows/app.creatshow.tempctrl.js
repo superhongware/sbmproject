@@ -133,82 +133,119 @@ creatshowmodule
 
 .controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http","setShowImg",function($scope,$rootScope,$state,$http,setShowImg){
 
+
 	console.log("pagetempht1Ctrl");
 
+	$scope.imgviewinfo=[];
 
 	$scope.setimg=function(index){
+		
+		console.log(index);
 
-		checkimg([234,138]);
+		checklocalimg(function(img){
+			// console.log(img);
+			var thisimgdata=$scope.imgviewinfo[index];
+			var imgbox=$(".ps_img"+(index+1));
+			
+			if(typeof thisimgdata.img==="undefined"){
+				console.log(["初始化图片数据"]);
+				//初始化图片属性		
+				thisimgdata.startpoint=[0,0];
+				thisimgdata.point=[0,0];
+				thisimgdata.scale=[1,1];
+				// thisimgdata.scale=[0.4,0.4];
+				thisimgdata.point=[0,0];
+				thisimgdata.dragstart=ionic.onGesture("dragstart",dragstart,imgbox[0]);
+				thisimgdata.drag=ionic.onGesture("drag",dragmove,imgbox[0]);
+				thisimgdata.drag=ionic.onGesture("transformstart",dragstart,imgbox[0]);
+				thisimgdata.drag=ionic.onGesture("transform",dragmove,imgbox[0]);
 
+			}
+			thisimgdata.img=img;
+			// thisimgdata.scale=[]
+			// ionic.onGesture("transform",moveimg,imgbox[0]);
+			imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
+
+
+			function dragstart(e){
+				console.log(e);
+				if(e.type==="dragstart"){
+					thisimgdata.startpoint[0] = thisimgdata.point[0];
+					thisimgdata.startpoint[1] = thisimgdata.point[1];
+				}else{
+					thisimgdata.scale[1]=thisimgdata.scale[0];
+				}
+				// thisimgdata.rotation[1]=thisimgdata.rotation[0];
+			}
+
+			function dragmove(e){
+				// console.log(e)
+				if(e.type==="drag"){				
+					thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
+					thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
+				}else{
+					thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
+				}
+				imgbox.find(".innerimg").css({
+					"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
+				});
+				drawimg(thisimgdata.img);
+			}
+			function drawimg(imgobj){
+				var cvs=document.getElementById('imgcanvas');
+				var ctx=cvs.getContext("2d");
+				//宽度以全屏640为基准 计算出图片压缩后尺寸
+				var finalwidthscal=640/imgbox.parent(".ps_page")[0].clientWidth;
+				cvs.width=imgbox[0].clientWidth*finalwidthscal;
+				cvs.height=imgbox[0].clientHeight*finalwidthscal;
+				
+				//清除画布 准备绘图
+				ctx.clearRect(0,0,cvs.width,cvs.height);
+				ctx.save();
+				
+				//把原图缩放 平铺canvas
+				var scale=cvs.width/imgobj.width;
+				ctx.scale(scale,scale);
+
+				//根据用户缩放比例，位移尺寸绘图  图片缩放原点为图片中心
+				var translatex=thisimgdata.point[0]*finalwidthscal/scale+imgobj.width/2;
+				var translatey=thisimgdata.point[1]*finalwidthscal/scale+imgobj.height/2;
+				ctx.translate(translatex,translatey);
+				ctx.scale(thisimgdata.scale[0],thisimgdata.scale[0]);
+				ctx.translate(-imgobj.width/2,-imgobj.height/2);
+				ctx.drawImage(imgobj,0,0);
+				ctx.restore();
+				// console.log(translatex,-translatex/thisimgdata.scale[0],"--",translatey,-translatey/thisimgdata.scale[0]);
+			}
+
+		});
 	};
 
-	function checkimg(size){
-		var position={
-			startpoint:[0,0],
-			point:[10,0],
-			scale:[1,1],
-			rotation:[0,0],
-			img:""
-		};
-
-		document.getElementById('fileImg').click();
-		var cvs=document.getElementById('imgcanvas');
-		var ctx=cvs.getContext("2d");
-		cvs.width=size[0];
-		cvs.height=size[1];
 
 
-
-		function drawimg(imgobj){
-			ctx.clearRect(0,0,cvs.width,cvs.height);
-			ctx.save();
-			ctx.scale(position.scale[0]*1.2,position.scale[1]*1.2);
-			ctx.translate(position.point[0]/position.scale[0],position.point[1]/position.scale[1]);
-			// ctx.rotate(position.rotation[0]);
-			ctx.drawImage(imgobj,position.point[0],position.point[1]);
-			ctx.restore();
-
-		}
-
+	function checklocalimg(callback){
 		document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
+		document.getElementById('fileImg').click();
 		function handleFileSelect (evt) {
+			document.getElementById('fileImg').removeEventListener('change', handleFileSelect, false);
 			var file = evt.target.files[0];
 			if (!file.type.match('image.*')){
 				return;
 			}
-
 			var reader = new FileReader();
-
 			reader.readAsDataURL(file);
-
 			reader.onload=function(e){
 				console.log(e.target.result);
 				var img=new Image();
 				img.src=e.target.result;
-				position.img=img;
-				position.scale=givemescale(img.width,img.height,cvs.width,cvs.height);
-				drawimg(position.img);
+				callback(img);
 			};
 		}
-
-		function givemescale(imgw,imgh,cw,ch){
-			if(imgw/imgh>=cw/ch){
-				return [cw/imgw,cw/imgw];
-			}else{
-				return [ch/imgh,ch/imgh];
-			}
-		}
 	}
-	// $scope.ccc="ccc";
-	// var editShowData=$rootScope.editShowData;
-	// $scope.setimg=function(index){
-	// 	console.log(index);
-	// 	setShowImg([320,504],function(imgurl){
-	// 		// model=imgurl;
-	// 		console.log(imgurl);
-	// 		editShowData.mainData.pages[editShowData.currentpage].detailPageImage[index].img=imgurl;
-	// 	});
-	// };
+
+
+
+
 
 
 }])
@@ -223,8 +260,8 @@ creatshowmodule
 }])
 
 
-.controller('pagetemp2Ctrl',['$scope','$state',function($scope,$state){
+.controller('pagetemp5Ctrl',['$scope','$state',function($scope,$state){
 	// console.log($state);
-	console.log("pagetemp2");
+	console.log("pagetemp5");
 	// console.log("editerCtrl");
 }]);

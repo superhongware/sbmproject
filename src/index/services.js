@@ -103,7 +103,7 @@
 	return function SBMJSONP(url,data){
 		var lastdata=systemdata(data);
 		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		if(location.host!=="jira.hongware.cn:8084"&&!location.host.match(":3000")){
+		if((location.host!=="jira.hongware.cn:8084"&&!location.host.match(":3000"))||location.host.match("192.168.51")){
 			lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		}
 		return {url:jsonpURL(lasturl,lastdata)};
@@ -136,8 +136,8 @@
 			//服务器端不接收json格式的数据，必须拼接成类似a=1&b=2&c=3格式
 			lastdata=postURL(lastdata);
 		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		if(location.host!=="jira.hongware.cn:8084"){
-			lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		if((location.host!=="jira.hongware.cn:8084"&&!location.host.match(":3000"))||location.host.match("192.168.51")){
+			lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		}
 		return {url:lasturl,data:lastdata};
 	};

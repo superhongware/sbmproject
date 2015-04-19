@@ -2,13 +2,15 @@
 
 <div 
 ng-repeat="img in editShowData.mainData.pages[editShowData.currentpage].detailPageImage"
-style="background-image:url({{img.img}});"
 class="ps_img ps_img{{$index+1}}"
+ng-init="imgviewinfo[$index]={}"
+style="background-image:url({{img.img}});"
 ng-click="setimg($index)">
+	<img src="" class="innerimg" alt="">
 	<input type="hidden"  ng-model="img.img">
 </div>
 
-<input type="file" accept="image/*" class="checkimg"  id="fileImg">
+<input type="file" accept="image/*" class="checkimg"  id="fileImg" >
 <canvas id="imgcanvas" class="imgcanvas"></canvas>
 
 <!-- <div class="checkimgbox">

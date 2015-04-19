@@ -7,7 +7,7 @@
 		"pagedata":{
 				"templatePageId": 1,
 				"detailPageImage": [
-					{"img":"img/pic2.jpg"}
+					{"img":"img/pagetemp1.jpg"}
 				],
 				"detailPageText": [
 					{"txt":"SOFTBANANA"},
@@ -25,7 +25,7 @@
 		"pagedata":	{
 			"templatePageId": 2,
 			"detailPageImage": [
-				{"img":"img/pic2.jpg"}
+				{"img":"img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"SOFTBANANA"},
@@ -43,7 +43,7 @@
 		"pagedata":	{
 			"templatePageId": 3,
 			"detailPageImage": [
-				{"img":"img/pic3.jpg"}
+				{"img":"img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"高清大图"},
@@ -58,7 +58,7 @@
 		"pagedata":	{
 			"templatePageId": 6,
 			"detailPageImage": [
-				{"img":"img/pic7.jpg"}
+				{"img":"img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"细节展示，无微不至"},
@@ -74,9 +74,9 @@
 		"pagedata":	{
 			"templatePageId": 5,
 			"detailPageImage": [
-				{"img":"img/pic5_1.jpg"},
-				{"img":"img/pic5_2.jpg"},
-				{"img":"img/pic5_3.jpg"}
+				{"img":"img/pagetemp1.jpg"},
+				{"img":"img/pagetemp1.jpg"},
+				{"img":"img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"多图结合"},
@@ -91,9 +91,9 @@
 		"pagedata":	{
 			"templatePageId": 7,
 			"detailPageImage": [
-				{"img":"img/pic6.jpg"},
-				{"img":"img/pic7.jpg"},
-				{"img":"img/pic8.jpg"}
+				{"img":"img/pagetemp1.jpg"},
+				{"img":"img/pagetemp1.jpg"},
+				{"img":"img/pagetemp1.jpg"}
 			]
 		}
 	}
