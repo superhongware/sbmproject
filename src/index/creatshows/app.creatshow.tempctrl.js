@@ -86,9 +86,11 @@ creatshowmodule
 			var api = SBMJSONP("searchDetail",getshowdata);
 			//获取宝贝秀数据
 			$http.jsonp(api.url)
+			// $http.get("testdata/template1.json")
 			.success(function(data){
 				if(!data.isSuccess){
-					alert("获取数据失败");
+					alert("获取宝贝秀数据失败");
+					console.log(["获取宝贝秀数据失败"]);
 					return;
 				}
 				console.log(["更新宝贝秀数据结束",data]);
@@ -103,9 +105,6 @@ creatshowmodule
 			});
 		}
 	});
-
-
-
 
 }])
 
@@ -131,98 +130,135 @@ creatshowmodule
 
 
 
-.controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http","setShowImg",function($scope,$rootScope,$state,$http,setShowImg){
+.controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http",'$ionicLoading',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow',function($scope,$rootScope,$state,$http,$ionicLoading,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow){
 
 
 	console.log("pagetempht1Ctrl");
 
 	$scope.imgviewinfo=[];
 
-	$scope.setimg=function(index){
-		
-		console.log(index);
+	$scope.showdata=$rootScope.editShowData;
 
-		checklocalimg(function(img){
-			// console.log(img);
+	$scope.$on('$destroy', function() {
+		tempImgngRepeatFinished();
+		saveShowImg();
+	});
+
+	var tempImgngRepeatFinished=$scope.$on("tempImgngRepeatFinished",function(){
+		console.log("tempImgngRepeatFinished");
+		$(".editplace").find(".ps_img").each(function(index){
 			var thisimgdata=$scope.imgviewinfo[index];
-			var imgbox=$(".ps_img"+(index+1));
-			
-			if(typeof thisimgdata.img==="undefined"){
-				console.log(["初始化图片数据"]);
-				//初始化图片属性		
-				thisimgdata.startpoint=[0,0];
-				thisimgdata.point=[0,0];
-				thisimgdata.scale=[1,1];
-				// thisimgdata.scale=[0.4,0.4];
-				thisimgdata.point=[0,0];
-				thisimgdata.dragstart=ionic.onGesture("dragstart",dragstart,imgbox[0]);
-				thisimgdata.drag=ionic.onGesture("drag",dragmove,imgbox[0]);
-				thisimgdata.drag=ionic.onGesture("transformstart",dragstart,imgbox[0]);
-				thisimgdata.drag=ionic.onGesture("transform",dragmove,imgbox[0]);
-
-			}
-			thisimgdata.img=img;
-			// thisimgdata.scale=[]
-			// ionic.onGesture("transform",moveimg,imgbox[0]);
-			imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
-
-
+			// console.log($scope.imgviewinfo[index]);
+			thisimgdata.startpoint=[0,0];
+			thisimgdata.point=[0,0];
+			thisimgdata.scale=[1,1];
+			thisimgdata.dragstart=ionic.onGesture("dragstart",dragstart,this);
+			thisimgdata.drag=ionic.onGesture("drag",dragmove,this);
+			thisimgdata.transformstart=ionic.onGesture("transformstart",dragstart,this);
+			thisimgdata.transform=ionic.onGesture("transform",dragmove,this);
+			thisimgdata.img=$(this).find("img").show()[0];
+			thisimgdata.imgbox=$(this);
 			function dragstart(e){
-				console.log(e);
 				if(e.type==="dragstart"){
 					thisimgdata.startpoint[0] = thisimgdata.point[0];
 					thisimgdata.startpoint[1] = thisimgdata.point[1];
 				}else{
 					thisimgdata.scale[1]=thisimgdata.scale[0];
 				}
-				// thisimgdata.rotation[1]=thisimgdata.rotation[0];
 			}
-
 			function dragmove(e){
-				// console.log(e)
 				if(e.type==="drag"){				
 					thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
 					thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
 				}else{
 					thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
 				}
-				imgbox.find(".innerimg").css({
+				$(this).find(".innerimg").css({
 					"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
 				});
-				drawimg(thisimgdata.img);
-			}
-			function drawimg(imgobj){
-				var cvs=document.getElementById('imgcanvas');
-				var ctx=cvs.getContext("2d");
-				//宽度以全屏640为基准 计算出图片压缩后尺寸
-				var finalwidthscal=640/imgbox.parent(".ps_page")[0].clientWidth;
-				cvs.width=imgbox[0].clientWidth*finalwidthscal;
-				cvs.height=imgbox[0].clientHeight*finalwidthscal;
-				
-				//清除画布 准备绘图
-				ctx.clearRect(0,0,cvs.width,cvs.height);
-				ctx.save();
-				
-				//把原图缩放 平铺canvas
-				var scale=cvs.width/imgobj.width;
-				ctx.scale(scale,scale);
 
-				//根据用户缩放比例，位移尺寸绘图  图片缩放原点为图片中心
-				var translatex=thisimgdata.point[0]*finalwidthscal/scale+imgobj.width/2;
-				var translatey=thisimgdata.point[1]*finalwidthscal/scale+imgobj.height/2;
-				ctx.translate(translatex,translatey);
-				ctx.scale(thisimgdata.scale[0],thisimgdata.scale[0]);
-				ctx.translate(-imgobj.width/2,-imgobj.height/2);
-				ctx.drawImage(imgobj,0,0);
-				ctx.restore();
-				// console.log(translatex,-translatex/thisimgdata.scale[0],"--",translatey,-translatey/thisimgdata.scale[0]);
+				// var cvs=drawShowImg(thisimgdata);
+				// compressShowImg(cvs,80);
 			}
 
 		});
+	});
+
+	//切换页面  左右翻页按钮  都会触发图片上传保存事件，完成后再回调翻页
+	//此功能在directive跟controller中互相回调
+	var saveShowImg=$scope.$on("saveShowImg",function(){
+		$ionicLoading.show({
+			template:"正在保存,请稍等...",
+		});
+		console.log(['saveShowImg-保存图片']);
+		var imgnum=0,
+			sendnum=[];
+		for (var i = $scope.imgviewinfo.length - 1; i >= 0; i--) {
+			// console.log(["$scope.imgviewinfo[i].point[0]",$scope.imgviewinfo[i].point[0]]);
+			if($scope.imgviewinfo[i].point[0]!==0){
+				sendnum.push(i);
+				console.log("保存图片yoyoyo");
+			}
+		}
+
+
+		if(sendnum.length>0){
+			sendimg();
+		}else{
+			$ionicLoading.hide();
+			console.log("保存图片回调");
+			$scope.$emit('saveShowImgOver');
+		}
+
+		function sendimg(){
+			var cvs=drawShowImg($scope.imgviewinfo[sendnum[imgnum]]);
+			var imgdata=compressShowImg(cvs,80);
+			sendShowImg(imgdata,function(imgsrc){
+				console.log(["图片上传成功",imgsrc]);
+
+				$rootScope.editShowData.mainData
+				.pages[$scope.showdata.currentpage]
+				.detailPageImage[sendnum[imgnum]]
+				.img=imgsrc;
+				
+				saveShow($rootScope.editShowData.mainData,
+				function(data){
+					console.log(["资料保存成功",data]);
+					imgnum++;
+					//图片上传成功 还有图片继续传下一张 没有调用saveShowImgOver事件
+					if(sendnum.length>imgnum){
+						sendimg();
+					}else{
+						$ionicLoading.hide();
+						$scope.$emit('saveShowImgOver');
+					}
+				},function(data){
+					console.log(["资料保存失败",data]);
+				});
+			});
+		}
+
+	});
+
+
+	$scope.setimg=function(index){
+		console.log(index);
+
+		checklocalimg(function(img){
+			// console.log(img);
+			var thisimgdata=$scope.imgviewinfo[index];
+			var imgbox=$(".ps_img"+(index+1));
+
+			thisimgdata.img=img;
+			// thisimgdata.scale=[]
+			// ionic.onGesture("transform",moveimg,imgbox[0]);
+			imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
+
+		});
+
 	};
 
-
-
+	//选择本地图片
 	function checklocalimg(callback){
 		document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
 		document.getElementById('fileImg').click();
@@ -243,14 +279,31 @@ creatshowmodule
 		}
 	}
 
-
-
-
-
-
 }])
+.factory('sendShowImg', ['$rootScope','$http','SBMJSONP','SBMPOST',function($rootScope,$http,SBMJSONP,SBMPOST){
+	return function sendShowImg(imgdata,callback){
+			var senddata={
+					orgName:$rootScope.orgName,
+					method:"softbanana.app.image.upload",
+					imageData:encodeURIComponent(imgdata)
+				};
 
+			// 此处使用POST
+			// var api=SBMJSONP("uploadImage/uploadFile",senddata);
+			// $http.jsonp(api.url)
+				callback("img/pic2.png");
 
+			var api=SBMPOST("uploadImage/uploadFile",senddata);
+			$http.post(api.url,api.data)
+			.success(function(data){
+				console.log(["图片上传成功",data]);
+				callback(data.image.imageUrl);
+			})
+			.error(function(data){
+				console.log(["图片上传失败",data]);
+			});
+	};
+}])
 
 .controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
 	// console.log($state.current);

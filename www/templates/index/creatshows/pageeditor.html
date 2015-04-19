@@ -1,17 +1,26 @@
-<ion-scroll
-class="pagelistbox"
-direction="x">
+<ion-scroll	class="pagelistbox" direction="x">
 	<div class="pagelist" ng-style="pagelistwidth">
-		<div class="pageitem"
+		<div class="pageitem ps_page tmp{{page.templatePageId}}"
 		ng-class="{current:editShowData.currentpage===$index,editpages:editpages}"
 		ng-repeat="page in editShowData.mainData.pages"
 		ng-style="pageitemposition($index)"
 		on-finish-render-filters
 		>
-			<div 
+<!-- 			<div 
 			ng-click="pageitemclick($index)"
 			class="pageimg"
 			style="background-image:url({{page.detailPageImage[0].img}})">
+			</div> -->
+			
+			<div 
+			ng-repeat="img in page.detailPageImage"
+			class="ps_img ps_img{{$index+1}}" 
+			style="background-image:url({{img.img}})">
+			</div>
+
+			<div 
+			ng-click="pageitemclick($index)"
+			class="pageimg">
 			</div>
 
 			<div 

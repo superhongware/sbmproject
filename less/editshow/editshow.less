@@ -86,6 +86,7 @@
 		bottom: 0px;
 		margin: auto;
 		background-color: #000;
+		display: none;
 	}
 }
 
@@ -162,6 +163,7 @@
 		border:2px solid rgba(254, 153, 0, 0);
 		transition:0.3s linear all;
 		margin: 4px;
+		overflow: visible;
 		.pageimg{
 			.square(100%);
 			position: absolute;
@@ -169,6 +171,7 @@
 			top: 0px;
 			background-size:auto 100%;
 			background-position: center;
+			z-index: 2;
 		}
 		.deletethispage{
 			.square(25px);
@@ -182,6 +185,7 @@
 			color:#fff;
 			text-align: center;
 			line-height: 25px;
+			z-index: 3;
 		}
 	}
 	//添加删除页面动画
@@ -208,6 +212,10 @@
 		.deletethispage{
 			display: block;
 		}
+	}
+	.dragpages{
+		-webkit-animation: none;
+		transition:0s;
 	}
 
 }

@@ -1,18 +1,31 @@
 creatshowmodule
 .directive('onFinishRenderFilters',["$timeout", function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function() {
-                    scope.$emit('ngRepeatFinished');
-                });
-            }
-        }
-    };
+	return {
+		restrict: 'A',
+		link: function(scope, element, attr) {
+			if (scope.$last === true) {
+				$timeout(function() {
+					scope.$emit('ngRepeatFinished');
+				});
+			}
+		}
+	};
 }])
 
-.directive('pageEditor',['$rootScope','$state','$animate',function($rootScope,$state,$animate){
+.directive('onFinishTempImg',["$timeout", function ($timeout) {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attr) {
+			if (scope.$last === true) {
+				$timeout(function() {
+					scope.$emit('tempImgngRepeatFinished');
+				});
+			}
+		}
+	};
+}])
+
+.directive('pageEditor',['$rootScope','$state','$animate','$ionicLoading',function($rootScope,$state,$animate,$ionicLoading){
 	// Runs during compile
 	return {
 		// name: '',
@@ -31,39 +44,89 @@ creatshowmodule
 			console.log($rootScope);
 			// console.log(["aa",$rootScope.editShowData]);
 			$scope.editpages=0;
-			// var pagelistboxhold=ionic.onGesture("hold",function(){
-			// 	console.log("pagelistboxhold");
-			// 	$scope.editpages=1;
-			// 	$scope.$apply();
-			// },$('.pagelistbox')[0])
+			var pagelistboxhold=ionic.onGesture("hold",function(){
+				console.log("pagelistboxhold");
+				$scope.editpages=1;
+				$scope.$apply();
+			},$('.pagelistbox')[0]);
 			
 
 			var holdtouchlist=[];
+			var dragtouchlist=[];
 			//小页页面DOME渲染完成够出发
 			$rootScope.$on("ngRepeatFinished",function() {
 				var pages=$rootScope.editShowData.mainData.pages;
 				console.log("小页页面DOME渲染完成");
-				$('.pageitem').each(function(){
-					holdtouchlist.push(
-						ionic.onGesture("hold",function(){
-							console.log("pagelistboxhold");
-							$scope.editpages=1;
-							$scope.$apply();
-						},this));
+				// $('.pageitem').each(function(){
+				// 	holdtouchlist.push(
+				// 		ionic.onGesture("hold",function(){
+				// 			console.log("pagelistboxhold");
+				// 			$scope.editpages=1;
+				// 			$scope.$apply();
+				// 		},this));
+				// });
+				$('.pageitem').each(function(index){
+					var thispage=$(this);
+					ionic.onGesture("drag",function(e){
+							console.log("drag");
+						if($scope.editpages){		
+							if(thispage.hasClass('dragpages')){
+								thispage.css({
+									"-webkit-transform":"translate3d("+e.gesture.deltaX+"px,"+e.gesture.deltaY+"px,0px)"
+								});
+							//拖动加个延时，否则左右拖动  页面就被选中拖起来了
+							}else if(typeof dragtouchlist[index] ==="undefined" || !dragtouchlist[index][0]){
+								dragtouchlist[index]=[];
+								dragtouchlist[index][0]=true;
+								dragtouchlist[index][1]=setTimeout(function(){
+									console.log(["drag-setTimeout"]);
+									thispage.addClass('dragpages');
+								},500);
+							}
+						}
+					},this);
+					ionic.onGesture("dragend",function(e){
+						console.log("dragend");
+						if(dragtouchlist[index][0]){
+							dragtouchlist[index][0]=false;
+							clearTimeout(dragtouchlist[index][1]);
+							thispage.removeClass('dragpages').css({
+								"-webkit-transform":"translate3d("+0+"px,"+0+"px,0px)"
+							});
+						}
+					},this);
 				});
 			});
 
+			//当前页面
+			var turnpageindex=$rootScope.editShowData.currentpage;
 			$scope.pageitemclick=function(index){
 				if($scope.editpages){
 					$scope.editpages=0;
 					return;
 				}
-				$state.go("editpages.editer",{
-					showId:$rootScope.editShowData.showId,
-					pageId:index,
-					pageTemp:$rootScope.editShowData.mainData.pages[index].templatePageId
-				});
+				turnpageindex=index;
+				//调用保存图片功能  pagetempht1Ctrl中有方法
+				$scope.$broadcast('saveShowImg');
 			};
+			//scope删除 取消事件侦听
+			$scope.$on('$destroy', function() {
+				saveShowImgOver();
+			});
+			//图片保存完成 跳转页面
+			//图片保存在编辑页面中  所以此处添加侦听事件
+			var saveShowImgOver=$scope.$on("saveShowImgOver",function(){
+				console.log("保存图片完成,这是回调函数");
+				if(turnpageindex!==$rootScope.editShowData.currentpage){
+					$state.go("editpages.editer",{
+						showId:$rootScope.editShowData.showId,
+						pageId:turnpageindex,
+						pageTemp:$rootScope.editShowData.mainData.pages[turnpageindex].templatePageId
+					});
+				}
+			});
+
+
 
 			//删除页面
 			$scope.deletethispage=function(index){

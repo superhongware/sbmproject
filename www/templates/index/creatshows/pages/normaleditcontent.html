@@ -1,12 +1,12 @@
 <div>
 
-<div 
-ng-repeat="img in editShowData.mainData.pages[editShowData.currentpage].detailPageImage"
+<!-- style="background-image:url({{img.img}});" -->
+<div on-finish-temp-img
+ng-repeat="img in showdata.mainData.pages[showdata.currentpage].detailPageImage"
 class="ps_img ps_img{{$index+1}}"
 ng-init="imgviewinfo[$index]={}"
-style="background-image:url({{img.img}});"
 ng-click="setimg($index)">
-	<img src="" class="innerimg" alt="">
+	<img ng-src="{{img.img}}" class="innerimg" alt="">
 	<input type="hidden"  ng-model="img.img">
 </div>
 
@@ -22,7 +22,7 @@ ng-click="setimg($index)">
 
 
 <div 
-ng-repeat="text in editShowData.mainData.pages[editShowData.currentpage].detailPageText"
+ng-repeat="text in showdata.mainData.pages[showdata.currentpage].detailPageText"
 class="ps_text ps_text{{$index+1}}">
 	<input type="text" ng-model="text.txt">
 </div>

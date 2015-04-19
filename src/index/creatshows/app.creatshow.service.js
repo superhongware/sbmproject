@@ -167,6 +167,49 @@ creatshowmodule.factory('changepagesize', function(){
 }])
 
 
+// var cvs=drawShowImg(thisimgdata);
+// compressShowImg(cvs,80);
+.factory('drawShowImg', function(){
+	return function drawShowImg(picdata){
+		// var cvs=document.getElementById('imgcanvas');
+		var cvs = document.createElement('canvas');
+		var ctx=cvs.getContext("2d");
+		//宽度以全屏640为基准 计算出图片压缩后尺寸
+		var finalwidthscal=640/picdata.imgbox.parent(".ps_page")[0].clientWidth;
+		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
+		cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
+		
+		//清除画布 准备绘图
+		ctx.clearRect(0,0,cvs.width,cvs.height);
+		ctx.save();
+		
+		//把原图缩放 平铺canvas
+		var scale=cvs.width/picdata.img.naturalWidth;
+		ctx.scale(scale,scale);
+		//根据用户缩放比例，位移尺寸绘图  图片缩放原点为图片中心
+		var translatex=picdata.point[0]*finalwidthscal/scale+picdata.img.naturalWidth/2;
+		var translatey=picdata.point[1]*finalwidthscal/scale+picdata.img.naturalHeight/2;
+		ctx.translate(translatex,translatey);
+		ctx.scale(picdata.scale[0],picdata.scale[0]);
+		ctx.translate(-picdata.img.naturalWidth/2,-picdata.img.naturalHeight/2);
+		ctx.drawImage(picdata.img,0,0);
+		ctx.restore();
+		return cvs;
+
+	};
+})
+.factory('compressShowImg', function(){
+	return function compressShowImg(cvs,quality,output_format){
+		var mime_type = "image/jpeg";
+		if(output_format!==undefined && output_format=="png"){
+			mime_type = "image/png";
+		}
+		var newImageData = cvs.toDataURL(mime_type, quality/100);
+		console.log(newImageData);
+		return newImageData;
+	};
+})
+
 /**
  * [creatShow 创建宝贝秀]
  * @param  {[obj]} creatshowdata [参数选项{templateId、productId、productPlat}]
