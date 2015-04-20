@@ -1,10 +1,10 @@
-<ion-view view-title=" " class="sbm_home" hide-nav-bar="true">
-	<div class="home_top">
+<ion-view view-title=" " class="sbm_home" hide-nav-bar="true" ng-class="{showshow:ishow}">
+	<div class="home_top"  ng-class="{animates:ishows}">
 		<a class="button" ui-sref="setting"><i class="iconfont icon-setting"></i></a>
 		<a class="button" ui-sref="shops"><i class="iconfont icon-store1"></i></a>
 	</div>
 	<span class="logoimg"></span>
-	<div class="home_bottom">
+	<div class="home_bottom" ng-class="{up:iup}">
 		<button class="button button-full button-energized startbutton" ui-sref="checkproduct">
 			<i class="iconfont icon-logo"></i>
 			<span class="text">开始制作宝贝秀</span>

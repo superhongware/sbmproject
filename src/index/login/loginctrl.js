@@ -4,7 +4,7 @@
  * 登录注册功能
  */
 var loginmodule = angular.module('loginmodule', ['ionic', 'starter.services', 'starter.directives']);
-loginmodule.controller('LoginCtrl', ['$scope', 'loginSubmit', function($scope, loginSubmit) {
+loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', function($scope, $rootScope, loginSubmit) {
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.logindata = {
@@ -16,6 +16,12 @@ loginmodule.controller('LoginCtrl', ['$scope', 'loginSubmit', function($scope, l
 	$scope.hidetip = function(){
 		$(".error-tip").hide();
 	};
+
+	//首页动画只登陆时显示一次
+	$rootScope.ishow = true;
+	$rootScope.ishows = true;
+	$rootScope.iup = true;
+
 
 }])
 
