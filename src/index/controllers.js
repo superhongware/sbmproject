@@ -36,11 +36,26 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope', '$ionicLoading', 
 //首页
 .controller('indexCtrl', ['$scope','$rootScope','loginCheck','myCookie',function($scope,$rootScope,loginCheck,myCookie){
 	// userName
-	// console.log(myCookie.get("userId"));
 	//$ionicHistory  清全部数据
 	// .fromTemplate() method
 	console.log($rootScope.orgName);
-	// console.log($rootScope.orgName);
+	// setTimeout(function(){
+	// 	$rootScope.animate = false;
+	// },1000);
+	if($rootScope.ishow){
+		$(".home_bottom").hide();
+		$(".home_top").hide();
+	}
+	setTimeout(function(){
+		$rootScope.ishow = false;
+		$(".home_bottom").show();
+	    $(".home_top").show();
+	},500);
+	setTimeout(function(){
+		$rootScope.ishows = false;
+		$rootScope.iup = false;
+	},1500);
+	
 }])
 
 

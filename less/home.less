@@ -4,7 +4,6 @@
   background-image:url(../img/pic1_1.jpg);
   background-position: center;
   background-size:auto 100%;
-
   .home_top{
     width:100%;
     position:fixed;
@@ -20,12 +19,23 @@
       }
     }
   }
+  @-webkit-keyframes animatekey
+  {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+  }
+  .animates{
+    -webkit-animation: animatekey 1s; 
+  }
 
-    @-webkit-keyframes upup
-    {
-    0% {-webkit-transform:translateY(100%);opacity: 0.2;}
-    100% {-webkit-transform:translateY(0%);opacity: 1;}
-    }
+  @-webkit-keyframes upup
+  {
+  0% {-webkit-transform:translateY(100%);opacity: 0.2;}
+  100% {-webkit-transform:translateY(0%);opacity: 1;}
+  }
+  .up{
+     -webkit-animation: upup 1s; 
+  }
   .home_bottom{
     @bottompadding:5px;
     width:100%;
@@ -33,7 +43,6 @@
     bottom: 0px;
     left: 0px;
     padding:@bottompadding @bottompadding 0 @bottompadding;
-    -webkit-animation: upup 1s; 
     .startbutton{
       font-size: 24px;
 
@@ -79,4 +88,12 @@
     }
   }//.home_bottom
 
+}
+
+@-webkit-keyframes showkey{
+  0%{-webkit-transform:translateY(50%);width:0%;height:0%;opacity: 0.2;}
+  100%{-webkit-transform:translateY(0%);width:100%;height:100%;opacity: 1;}
+}
+.showshow{
+     -webkit-animation: showkey 0.8s; 
 }
