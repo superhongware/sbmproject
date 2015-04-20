@@ -6,7 +6,7 @@ ng-repeat="img in showdata.mainData.pages[showdata.currentpage].detailPageImage"
 class="ps_img ps_img{{$index+1}}"
 ng-init="imgviewinfo[$index]={}"
 ng-click="setimg($index)">
-	<img ng-src="{{img.img}}" class="innerimg" alt="">
+	<img ng-src="{{img.img}}" class="innerimg" alt="" crossorigin="anonymous">
 	<input type="hidden"  ng-model="img.img">
 </div>
 

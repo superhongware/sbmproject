@@ -204,6 +204,7 @@ creatshowmodule.factory('changepagesize', function(){
 		if(output_format!==undefined && output_format=="png"){
 			mime_type = "image/png";
 		}
+		
 		var newImageData = cvs.toDataURL(mime_type, quality/100);
 		console.log(newImageData);
 		return newImageData;

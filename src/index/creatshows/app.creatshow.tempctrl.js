@@ -12,6 +12,9 @@ creatshowmodule
 			function(data){
 				$ionicLoading.hide();
 				console.log("保存成功");
+				$state.go("share",{
+					showId:$rootScope.editShowData.showId
+				});
 			},
 			function(data){
 				$ionicLoading.hide();
@@ -212,6 +215,7 @@ creatshowmodule
 
 		function sendimg(){
 			var cvs=drawShowImg($scope.imgviewinfo[sendnum[imgnum]]);
+			// $(".editplace").append(cvs);
 			var imgdata=compressShowImg(cvs,80);
 			sendShowImg(imgdata,function(imgsrc){
 				console.log(["图片上传成功",imgsrc]);
@@ -291,7 +295,6 @@ creatshowmodule
 			// 此处使用POST
 			// var api=SBMJSONP("uploadImage/uploadFile",senddata);
 			// $http.jsonp(api.url)
-				callback("img/pic2.png");
 
 			var api=SBMPOST("uploadImage/uploadFile",senddata);
 			$http.post(api.url,api.data)
