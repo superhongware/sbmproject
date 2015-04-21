@@ -29,14 +29,17 @@
 	<span class="iconfont icon-editright"></span>
 	</button>
 
-	<a href="ps.html?orgname={{orgName}}&detailid={{editShowData.showId}}&productid={{editShowData.mainData.numIid}}&plat={{editShowData.mainData.plat}}" 
+	<button
+	ng-click="playthisshow()"
 	class="yellowroundbtn playshow"
 	>
 	<span class="iconfont icon-bofang"></span>
-	</a>
+	</button>
+
+<!-- 	ui-sref="addpage({showId:editShowData.showId,pageId:editShowData.currentpage})" -->
 	<button
-	ui-sref="addpage({showId:editShowData.showId,pageId:editShowData.currentpage})"
 	class="yellowroundbtn addpage"
+	ng-click="addpage()"
 	>
 	<span class="iconfont icon-jia"></span>
 	</button>

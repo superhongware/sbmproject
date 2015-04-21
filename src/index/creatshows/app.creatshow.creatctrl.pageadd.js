@@ -16,18 +16,20 @@ creatshowmodule
 		console.log($rootScope.editShowData.mainData.pages);
 		var pages=$rootScope.editShowData.mainData.pages;
 		var addpage=$scope.tempdata.pages[index].pagedata;
+		var pageposition=parseInt($stateParams.pageId)+1;
 
 		// console.log($stateParams.pageId)
 		
-		pages.splice($stateParams.pageId,0,addpage);
+		pages.splice(pageposition,0,addpage);
 		
 		// console.log($rootScope.editShowData.mainData.pages);
 
 		$state.go("editpages.editer",{
 					showId:$rootScope.editShowData.showId,
-					pageId:$stateParams.pageId,
-					pageTemp:$rootScope.editShowData.mainData.pages[$stateParams.pageId].templatePageId
+					pageId:pageposition,
+					pageTemp:$rootScope.editShowData.mainData.pages[pageposition].templatePageId
 				});
+		
 	};
 
 }]);

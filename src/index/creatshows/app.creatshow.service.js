@@ -320,12 +320,12 @@ creatshowmodule.factory('changepagesize', function(){
 			};
 
 			// 此处使用POST
-			var api=SBMJSONP("saveOrUpdateDetail",showdata);
-			api.url+=("&detailData="+encodeURIComponent(JSON.stringify(saveshowdata)));
-			$http.jsonp(api.url)
-			// var api=SBMPOST("saveOrUpdateDetail",showdata);
-			// api.data+=("&detailData="+encodeURIComponent(JSON.stringify(saveshowdata)));
-			// $http.post(api.url,api.data)
+			// var api=SBMJSONP("saveOrUpdateDetail",showdata);
+			// api.url+=("&detailData="+encodeURIComponent(JSON.stringify(saveshowdata)));
+			// $http.jsonp(api.url)
+			var api=SBMPOST("saveOrUpdateDetail",showdata);
+			api.data+=("&detailData="+encodeURIComponent(JSON.stringify(saveshowdata)));
+			$http.post(api.url,api.data)
 
 			.success(function(data){
 				console.log(["保存宝贝秀-保存后数据",data]);
@@ -336,7 +336,7 @@ creatshowmodule.factory('changepagesize', function(){
 				}
 			})
 			.error(function(status, response){
-
+				console.log(["保存宝贝秀失败-网络链接有问题~",status])
 				alert("保存宝贝秀失败-网络链接有问题~");
 			});
 

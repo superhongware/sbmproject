@@ -1,0 +1,21 @@
+<ion-view view-title="图片空间" class="editbox">
+<!-- 	<ion-nav-buttons side="right">
+		<button class="button" ng-click="saveShow()">保存</button>
+	</ion-nav-buttons> -->
+	<!-- ui-sref="editpages.editer({showId:showId,pageId:prevpage,pageTemp:pageTemp})" -->
+	<ion-content>
+		<div class="checkbar">
+			<span
+			ng-repeat="cat in remoteimgcat"
+			ng-click="refreshimg(cat.pictureCategoryId)">{{cat.pictureCategoryName}}</span>
+		</div>
+		<ion-list>
+			<ion-item
+			ng-repeat="img in remoteimgdata">
+				<!-- <img ng-src="{{item.img}}"> -->
+			</ion-item>
+		</ion-list>
+		<div class="button" ng-click="goback()">返回gnmdb</div>
+	</ion-content>
+
+</ion-view>
