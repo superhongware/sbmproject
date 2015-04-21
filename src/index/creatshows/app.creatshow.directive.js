@@ -54,56 +54,64 @@ creatshowmodule
 				$scope.$apply();
 			},$('.pagelistbox')[0]);
 			
-
+			var viewwidth=$(window).width();
 
 			var holdtouchlist=[];
 			var dragtouchlist=[];
+			var dragdata=[];
+
 			//小页页面DOME渲染完成够出发
 			$scope.$on("ngRepeatFinished",function() {
 
 				var pages=$rootScope.editShowData.mainData.pages;
 				console.log("小页页面DOME渲染完成");
 
-
-				// console.log(movebar.getScrollPosition());
-				// console.log($ionicScrollDelegate.getScrollPosition());
-				// console.log(movebar);
-				// console.log($ionicScrollDelegate);
-				// console.log([$ionicScrollDelegate.getScrollView()]);
-				console.log([movebar.getScrollView()]);
-
-
-
-
-				movebar.freezeScroll(true);
-				movebar.freezeScroll(false);
-
-				// $('.pageitem').each(function(){
-				// 	holdtouchlist.push(
-				// 		ionic.onGesture("hold",function(){
-				// 			console.log("pagelistboxhold");
-				// 			$scope.editpages=1;
-				// 			$scope.$apply();
-				// 		},this));
-				// });
 				$('.pageitem').each(function(index){
 					var thispage=$(this);
+
+					ionic.onGesture("dragstart",function(e){
+						var scrollposition=movebar.getScrollPosition();
+						dragdata[index]={};
+						dragdata[index].dnum=thispage[0].offsetLeft-scrollposition.left;
+						dragdata[index].moveindex="";
+					},this);
 
 					ionic.onGesture("drag",function(e){
 							// console.log("drag");
 						if($scope.editpages){		
 							if(thispage.hasClass('dragpages')){
 								
-
-								
 								movebar.freezeScroll(true);
+								// console.dir(thispage);
+
+								var scrollposition=movebar.getScrollPosition(),
+									boxleft=scrollposition.left,
+									itemwidth=71,
+									ganyinqu=20,
+									itemleft=thispage[0].offsetLeft,
+									moveleft=e.gesture.deltaX,
+									moveindex=Math.round((moveleft-4+dragdata[index].dnum+boxleft)/itemwidth),
+									pageleft=dragdata[index].dnum+moveleft;
+
+								dragdata[index].moveindex=moveindex;
+								console.log(["moveindex",dragdata[index].moveindex]);
+
+								if(pageleft<ganyinqu&&boxleft>=0){
+
+									movebar.scrollTo(boxleft-1,scrollposition.top);
+
+								}else if(pageleft>(viewwidth-itemwidth-ganyinqu)&&boxleft<=($('.pageitem').length*itemwidth-viewwidth)){
+			
+									movebar.scrollTo(boxleft+1,scrollposition.top);
+		
+								}
 
 								thispage.css({
 									// "position":"relative",
 									"z-index":"99",
-									"-webkit-transform":"translate3d("+e.gesture.deltaX+"px,"+e.gesture.deltaY+"px,0px)"
+									"-webkit-transform":"translate3d("+(moveleft+dragdata[index].dnum-itemleft+boxleft)+"px,"+e.gesture.deltaY+"px,0px)"
 								});
-								console.log(thispage[0].offsetLeft);
+
 							//拖动加个延时，否则左右拖动  页面就被选中拖起来了
 							}else if(typeof dragtouchlist[index] ==="undefined" || !dragtouchlist[index][0]){
 								dragtouchlist[index]=[];
@@ -127,9 +135,16 @@ creatshowmodule
 								
 								var pages=$rootScope.editShowData.mainData.pages;
 								
-								dragpage=pages[thispage.index()];
-								// pages.splice(thispage.index(),1);
-								// pages.splice(1,0,dragpage);
+								if(dragdata[index].moveindex&&dragdata[index].moveindex!==thispage.index()){
+									console.log("move")
+									dragdata[index].moveindex=dragdata[index].moveindex<=0?0:dragdata[index].moveindex;
+									dragdata[index].moveindex=dragdata[index].moveindex>=$('.pageitem').length?$('.pageitem').length-1:dragdata[index].moveindex;
+
+									dragpage=pages[thispage.index()];
+									pages.splice(thispage.index(),1);
+									var resideindex=thispage.index()>dragdata[index].moveindex?dragdata[index].moveindex:dragdata[index].moveindex-1;
+									pages.splice(dragdata[index].moveindex,0,dragpage);
+								}
 
 								$rootScope.$apply();
 
