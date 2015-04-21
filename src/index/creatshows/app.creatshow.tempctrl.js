@@ -141,7 +141,6 @@ creatshowmodule
 	$scope.imgviewinfo=[];
 
 	$scope.showdata=$rootScope.editShowData;
-
 	$scope.$on('$destroy', function() {
 		tempImgngRepeatFinished();
 		saveShowImg();
@@ -198,9 +197,9 @@ creatshowmodule
 			sendnum=[];
 		for (var i = $scope.imgviewinfo.length - 1; i >= 0; i--) {
 			// console.log(["$scope.imgviewinfo[i].point[0]",$scope.imgviewinfo[i].point[0]]);
-			if($scope.imgviewinfo[i].point[0]!==0){
+			if($scope.imgviewinfo[i].changed||$scope.imgviewinfo[i].point[0]!==0||$scope.imgviewinfo[i].point[1]!==0){
 				sendnum.push(i);
-				console.log("保存图片yoyoyo");
+				console.log("保存图片yayaya");
 			}
 		}
 
@@ -250,6 +249,7 @@ creatshowmodule
 
 		checklocalimg(function(img){
 			// console.log(img);
+			$scope.imgviewinfo[index].changed=1;
 			var thisimgdata=$scope.imgviewinfo[index];
 			var imgbox=$(".ps_img"+(index+1));
 

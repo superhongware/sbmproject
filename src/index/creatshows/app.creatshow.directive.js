@@ -87,7 +87,7 @@ creatshowmodule
 					},this);
 					ionic.onGesture("dragend",function(e){
 						console.log("dragend");
-						if(dragtouchlist[index][0]){
+						if(dragtouchlist[index]&&dragtouchlist[index][0]){
 							dragtouchlist[index][0]=false;
 							clearTimeout(dragtouchlist[index][1]);
 							thispage.removeClass('dragpages').css({
