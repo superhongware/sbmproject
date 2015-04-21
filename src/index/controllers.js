@@ -42,19 +42,18 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope', '$ionicLoading', 
 	// setTimeout(function(){
 	// 	$rootScope.animate = false;
 	// },1000);
-	if($rootScope.ishow){
-		$(".home_bottom").hide();
-		$(".home_top").hide();
-	}
+
+	//首页动画只登陆时显示一次
+	$rootScope.ishow = ($rootScope.ishow===undefined)?true:$rootScope.ishow;
+	$rootScope.ishows = ($rootScope.ishows===undefined)?true:$rootScope.ishows;
+	$rootScope.iup = ($rootScope.iup===undefined)?true:$rootScope.iup;
+	$rootScope.showpic = ($rootScope.showpic===undefined)?true:$rootScope.showpic;
 	setTimeout(function(){
-		$rootScope.ishow = false;
-		$(".home_bottom").show();
-	    $(".home_top").show();
-	},500);
-	setTimeout(function(){
+		$rootScope.showpic = false;
 		$rootScope.ishows = false;
+		$rootScope.ishow = false;
 		$rootScope.iup = false;
-	},1500);
+	},2000);
 	
 }])
 

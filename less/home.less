@@ -1,9 +1,24 @@
 //home.html
 .sbm_home{
-  background-color: #4D1731;
-  background-image:url(../img/pic1_1.jpg);
-  background-position: center;
-  background-size:auto 100%;
+  // background-color: #4D1731;
+  position: absolute;
+  z-index: 9;
+  background: transparent;
+  .logopic{
+    width:80px;
+    height: auto;
+    display: block;
+    margin:100px auto 0;
+  }
+  .logotext{
+    width:100%;
+    text-align: center;
+    color:#fff;
+    font-size: 20px;
+    font-family: arial;
+    padding:10px 0;
+    display: inline-block;
+  }
   .home_top{
     width:100%;
     position:fixed;
@@ -19,22 +34,15 @@
       }
     }
   }
-  @-webkit-keyframes animatekey
-  {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-  }
-  .animates{
-    -webkit-animation: animatekey 1s; 
-  }
 
   @-webkit-keyframes upup
   {
   0% {-webkit-transform:translateY(100%);opacity: 0.2;}
+  60% {-webkit-transform:translateY(100%);opacity: 0.2;}
   100% {-webkit-transform:translateY(0%);opacity: 1;}
   }
   .up{
-     -webkit-animation: upup 1s; 
+     -webkit-animation: upup 2s; 
   }
   .home_bottom{
     @bottompadding:5px;
@@ -89,11 +97,97 @@
   }//.home_bottom
 
 }
-
-@-webkit-keyframes showkey{
-  0%{-webkit-transform:translateY(50%);width:0%;height:0%;opacity: 0.2;}
-  100%{-webkit-transform:translateY(0%);width:100%;height:100%;opacity: 1;}
+@-webkit-keyframes animatekey
+{
+0% {opacity: 0;}
+50% {opacity: 0;}
+100% {opacity: 1;}
 }
-.showshow{
-     -webkit-animation: showkey 0.8s; 
+.animates{
+  -webkit-animation: animatekey 0.2s; 
+}
+.pic-one{
+  position:absolute;
+  width:60%;
+  height:55%;
+  left:0px;
+  top:0px;
+  background-image:url(../img/pic1_2.jpg);
+  background-position: center;
+  background-size:100% 100%;
+  z-index:-99;
+}
+@-webkit-keyframes onekey{
+  0%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  33%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  100%{-webkit-transform:translateY(0%);opacity: 1;}
+}
+.showone{
+     -webkit-animation: onekey 0.6s; 
+}
+@-webkit-keyframes twokey{
+  0%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  50%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  100%{-webkit-transform:translateY(0%);opacity: 1;}
+}
+.showtwo{
+     -webkit-animation: twokey 0.8s; 
+}
+@-webkit-keyframes threekey{
+  0%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  60%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  100%{-webkit-transform:translateY(0%);opacity: 1;}
+}
+.showthree{
+     -webkit-animation: threekey 1s; 
+}
+@-webkit-keyframes fourkey{
+  0%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  65%{-webkit-transform:translateY(100%);opacity: 0.2;}
+  100%{-webkit-transform:translateY(0%);opacity: 1;}
+}
+.showfour{
+     -webkit-animation: fourkey 1.2s; 
+}
+
+.pic-two{
+  position:absolute;
+  width:45%;
+  height:45%;
+  left:55%;
+  top:0px;
+  background-image:url(../img/pic1_3.jpg);
+  background-position: center;
+  background-size:100% 100%;
+  z-index:-99;
+}
+.pic-three{
+  position:absolute;
+  width:40%;
+  height:45%;
+  left:0px;
+  top:55%;
+  background-image:url(../img/pic1_4.jpg);
+  background-position: center;
+  background-size:100% 100%;
+  z-index:-99;
+}
+.pic-four{
+  position:absolute;
+  width:60%;
+  height:55%;
+  left:40%;
+  top:45%;
+  background-image:url(../img/pic1_5.jpg);
+  background-position: center;
+  background-size:100% 100%;
+  z-index:-99;
+}
+.mengban{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #41152a;
+  opacity: 0.9;
+  z-index: -9;
 }
