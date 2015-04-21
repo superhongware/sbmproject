@@ -24,7 +24,10 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 		.success(function(data) {
 			//宝贝秀删除后不执行后面代码
 			if(!data.isSuccess){
+				$scope.showmainbox = true;
+				$scope.shownoshowdata=true;
 				return;
+
 			}
 			$scope.showdata = data;
 			// p_s.CreatDomtree(data);
@@ -50,7 +53,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 
 //三个点
-.directive('threePoints',['threePointData',function(threePointData) {
+.directive('threePoints',['$http','threePointData','getRequest','SBMJSONP',function($http, threePointData, getRequest, SBMJSONP) {
 	// Runs during compile
 	return {
 		// name: '',
@@ -102,7 +105,7 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 				}
 				// $scope.pinfo.pnum={"width":(100/pnum)+"%"};
 				$scope.pinfo.textboxstyle=function(index){
-					return {"width":(100/pnum)+"%","left":(100/pnum)*index+"%"}
+					return {"width":(100/pnum)+"%","left":(100/pnum)*index+"%"};
 				};
 				// $scope.$broadcast("pinfochange");
 
@@ -126,6 +129,44 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 				} else if(url!==""){
 					location.href = url;
 				}
+			};
+			$scope.buywx=function(){
+				var getdata = {
+						orgName: getRequest("orgname"),
+						numIid: getRequest("productid"),
+						plat:getRequest("plat"),
+						method: "softbanana.app.item.detail.search"
+				};
+				var api = SBMJSONP("searchItemDetail", getdata);
+				$http.jsonp(api.url)
+					.success(function(data) {
+						//宝贝秀删除后不执行后面代码
+						if(!data.isSuccess){
+							$scope.showmainbox = true;
+							$scope.shownoshowdata=true;
+							return;
+
+						}
+						$scope.showdata = data;
+						var Url = data.item.detailUrl;
+						if (navigator.userAgent.match("MicroMessenger") && Url.match("taobao.com")) {
+							$(".screenforbiden").show();
+						} else if(Url!==""){
+							location.href = Url;
+						}
+						// p_s.CreatDomtree(data);
+						$scope.$broadcast("showdataready");
+					})
+					.error(function(){
+						$scope.showmainbox = true;
+						$scope.shownoshowdata=true;
+					});
+				
+				// if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
+				// 	$(".screenforbiden").show();
+				// } else if(url!==""){
+				// 	location.href = url;
+				// }
 			};
 
 
