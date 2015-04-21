@@ -125,28 +125,33 @@ angular.module('starter',
 		controller:"shopManage"
 	})
 
-	//新建宝贝秀
+	/*------------新建宝贝秀-----------*/
+	//选择宝贝
 	.state('checkproduct', {
 		url: "/checkproduct",
 		templateUrl: "templates/index/creatshows/checkproduct.html",
 		controller:'productsCtrl'
 	})
+	//选择模板
 	.state('checktemplate', {
 		url: "/checktemplate/:productId/:productPlat",
 		templateUrl: "templates/index/creatshows/checktemplate.html",
 		controller:'checktemplateCtrl'
 	})
+	//模板预览
 	.state('viewtemplate', {
 		url: "/viewtemplate/:templateId/:productId/:productPlat",
 		templateUrl: "templates/index/creatshows/viewtemplate.html",
 		controller:'viewtemplateCtrl'
 	})
+	//编辑页
 	.state('editpages', {
 		url: "/editpages",
 		templateUrl: "templates/index/creatshows/editpages.html",
 		controller:'editpagesCtrl',
 		// abstract: true
 	})
+	//页面编辑模块
 	.state('editpages.editer', {
 		url: "/editer/:showId/:pageId/:pageTemp",
 		// templateUrl: "templates/index/creatshows/pages/page1.html",
@@ -155,7 +160,13 @@ angular.module('starter',
 		},
 		controller:'editerCtrl'
 	})
-
+	//选图片空间的图片
+	.state('remoteimg', {
+		url: "/remoteimg",
+		templateUrl: "templates/index/creatshows/remoteimg.html",
+		controller:'remoteimgCtrl'
+	})
+	//添加页面
 	.state('addpage', {
 		url: "/addpage/:showId/:pageId",
 		templateUrl: "templates/index/creatshows/addpage.html",
@@ -168,13 +179,13 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/viewtemplate.html",
 		controller:'viewshowCtrl'
 	})
-
 	//宝贝分享
 	.state('share', {
 		url: "/share/:showId",
 		templateUrl: "templates/index/creatshows/share.html",
 		controller:'shareCtrl'
 	})
+	/*------------新建宝贝秀  end-----------*/
 
 
 	//sidebar测试  正式上线删除

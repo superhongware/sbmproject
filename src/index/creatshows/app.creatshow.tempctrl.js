@@ -1,4 +1,6 @@
 creatshowmodule
+
+//整编辑页的controller
 .controller('editpagesCtrl',['$scope','$rootScope','$state','$http','$ionicLoading','$stateParams','SBMJSONP','saveShow',function($scope,$rootScope,$state,$http,$ionicLoading,$stateParams,SBMJSONP,saveShow){
 
 
@@ -62,6 +64,42 @@ creatshowmodule
 	};
 
 
+	// var deletescopeon;
+	$scope.playthisshow=function(){
+		$rootScope.$broadcast("saveShowImg");
+		// if(typeof deletescopeon=="function"){
+		// 	deletescopeon();
+		// }
+		$scope.$on("saveShowImgOver", function() {
+			gohref = "/ps.html?orgname=" + $rootScope.orgName +
+				"&detailid=" + $rootScope.editShowData.showId +
+				"&productid=" + $rootScope.editShowData.mainData.numIid +
+				"&plat=" + $rootScope.editShowData.mainData.plat;
+				console.log(location.origin+gohref)
+			location.href = location.origin + gohref;
+		});
+	};
+
+
+	var addpagesaveshowdata;
+	$scope.$on('$destroy', function() {
+		if(typeof addpagesaveshowdata ==="function"){
+			addpagesaveshowdata();
+		}
+	});
+	$scope.addpage=function(){
+		$rootScope.$broadcast("saveShowImg");
+		if(typeof addpagesaveshowdata ==="function"){
+			addpagesaveshowdata();
+		}
+		addpagesaveshowdata=$scope.$on("saveShowImgOver", function() {
+			$state.go("addpage",{
+				showId:$rootScope.editShowData.showId,
+				pageId:$rootScope.editShowData.currentpage
+			})
+		});
+	}
+
 	//小页面宽度
 	$scope.pagelistwidth={"width":0};
 
@@ -113,177 +151,49 @@ creatshowmodule
 
 
 
-.controller('editerCtrl', ['$scope','$rootScope','$http','$ionicLoading','$stateParams','changepagesize',function($scope,$rootScope,$http,$ionicLoading,$stateParams,changepagesize){
 
-	changepagesize();
+.controller('remoteimgCtrl', ['$rootScope','$scope','$ionicHistory','getremoteimgcat', function($rootScope,$scope,$ionicHistory,getremoteimgcat){
+	$scope.remoteimgcat=[];
+	$scope.remoteimg={};
 
-	$rootScope.editShowData.ddd="cccc";
-
-	console.log("editerCtrl");
-	// console.log(["bb",$rootScope.editShowData]);
-
-	$rootScope.editShowData.showId=$stateParams.showId;
-	$rootScope.editShowData.currentpage=parseInt($stateParams.pageId);
-	$rootScope.$emit("showdatachanged");
-
-	// console.log(["cc",$rootScope.editShowData]);
-	// console.log($rootScope.editShowData.currentpage);
-
-}])
-
-
-
-.controller('pagetempht1Ctrl',['$scope','$rootScope','$state',"$http",'$ionicLoading',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow',function($scope,$rootScope,$state,$http,$ionicLoading,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow){
-
-
-	console.log("pagetempht1Ctrl");
-
-	$scope.imgviewinfo=[];
-
-	$scope.showdata=$rootScope.editShowData;
-	$scope.$on('$destroy', function() {
-		tempImgngRepeatFinished();
-		saveShowImg();
-	});
-
-	var tempImgngRepeatFinished=$scope.$on("tempImgngRepeatFinished",function(){
-		console.log("tempImgngRepeatFinished");
-		$(".editplace").find(".ps_img").each(function(index){
-			var thisimgdata=$scope.imgviewinfo[index];
-			// console.log($scope.imgviewinfo[index]);
-			thisimgdata.startpoint=[0,0];
-			thisimgdata.point=[0,0];
-			thisimgdata.scale=[1,1];
-			thisimgdata.dragstart=ionic.onGesture("dragstart",dragstart,this);
-			thisimgdata.drag=ionic.onGesture("drag",dragmove,this);
-			thisimgdata.transformstart=ionic.onGesture("transformstart",dragstart,this);
-			thisimgdata.transform=ionic.onGesture("transform",dragmove,this);
-			thisimgdata.img=$(this).find("img").show()[0];
-			thisimgdata.imgbox=$(this);
-			function dragstart(e){
-				if(e.type==="dragstart"){
-					thisimgdata.startpoint[0] = thisimgdata.point[0];
-					thisimgdata.startpoint[1] = thisimgdata.point[1];
-				}else{
-					thisimgdata.scale[1]=thisimgdata.scale[0];
-				}
-			}
-			function dragmove(e){
-				if(e.type==="drag"){				
-					thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
-					thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
-				}else{
-					thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
-				}
-				$(this).find(".innerimg").css({
-					"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
-				});
-
-				// var cvs=drawShowImg(thisimgdata);
-				// compressShowImg(cvs,80);
-			}
-
-		});
-	});
-
-	//切换页面  左右翻页按钮  都会触发图片上传保存事件，完成后再回调翻页
-	//此功能在directive跟controller中互相回调
-	var saveShowImg=$scope.$on("saveShowImg",function(){
-		$ionicLoading.show({
-			template:"正在保存,请稍等...",
-		});
-		console.log(['saveShowImg-保存图片']);
-		var imgnum=0,
-			sendnum=[];
-		for (var i = $scope.imgviewinfo.length - 1; i >= 0; i--) {
-			// console.log(["$scope.imgviewinfo[i].point[0]",$scope.imgviewinfo[i].point[0]]);
-			if($scope.imgviewinfo[i].changed||$scope.imgviewinfo[i].point[0]!==0||$scope.imgviewinfo[i].point[1]!==0){
-				sendnum.push(i);
-				console.log("保存图片yayaya");
-			}
-		}
-
-
-		if(sendnum.length>0){
-			sendimg();
-		}else{
-			$ionicLoading.hide();
-			console.log("保存图片回调");
-			$scope.$emit('saveShowImgOver');
-		}
-
-		function sendimg(){
-			var cvs=drawShowImg($scope.imgviewinfo[sendnum[imgnum]]);
-			// $(".editplace").append(cvs);
-			var imgdata=compressShowImg(cvs,80);
-			sendShowImg(imgdata,function(imgsrc){
-				console.log(["图片上传成功",imgsrc]);
-
-				$rootScope.editShowData.mainData
-				.pages[$scope.showdata.currentpage]
-				.detailPageImage[sendnum[imgnum]]
-				.img=imgsrc;
-				
-				saveShow($rootScope.editShowData.mainData,
-				function(data){
-					console.log(["资料保存成功",data]);
-					imgnum++;
-					//图片上传成功 还有图片继续传下一张 没有调用saveShowImgOver事件
-					if(sendnum.length>imgnum){
-						sendimg();
-					}else{
-						$ionicLoading.hide();
-						$scope.$emit('saveShowImgOver');
-					}
-				},function(data){
-					console.log(["资料保存失败",data]);
-				});
-			});
-		}
-
-	});
-
-
-	$scope.setimg=function(index){
-		console.log(index);
-
-		checklocalimg(function(img){
-			// console.log(img);
-			$scope.imgviewinfo[index].changed=1;
-			var thisimgdata=$scope.imgviewinfo[index];
-			var imgbox=$(".ps_img"+(index+1));
-
-			thisimgdata.img=img;
-			// thisimgdata.scale=[]
-			// ionic.onGesture("transform",moveimg,imgbox[0]);
-			imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
-
-		});
+	$scope.goback=function(){
+		$ionicHistory.goBack();
+	};
+	$scope.refreshimg=function(){
 
 	};
-
-	//选择本地图片
-	function checklocalimg(callback){
-		document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
-		document.getElementById('fileImg').click();
-		function handleFileSelect (evt) {
-			document.getElementById('fileImg').removeEventListener('change', handleFileSelect, false);
-			var file = evt.target.files[0];
-			if (!file.type.match('image.*')){
-				return;
-			}
-			var reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload=function(e){
-				console.log(e.target.result);
-				var img=new Image();
-				img.src=e.target.result;
-				callback(img);
-			};
-		}
-	}
+	getremoteimgcat(function(data){
+		console.log(data.pictureCategorys);
+		$scope.remoteimgcat=data.pictureCategorys;
+		// $scope.$apply();
+	});
 
 }])
+
+.factory('getremoteimgcat', ['$http','$rootScope', 'SBMJSONP',function($http,$rootScope,SBMJSONP){
+	return function getremoteimgcat(callback){
+		console.log($rootScope.editShowData.mainData.shopName);
+		var senddata={
+				orgName:$rootScope.orgName,
+				shopName:$rootScope.editShowData.mainData.shopName,
+				method:"softbanana.app.picture.category.search",
+				plat:$rootScope.editShowData.mainData.plat,
+				path:"",
+				type:""
+			};
+
+		var api=SBMJSONP("searchPictureCategory",senddata);
+		$http.jsonp(api.url)
+		.success(function(data){
+			console.log(["获取空间图片成功",data]);
+			callback(data);
+		})
+		.error(function(data){
+			console.log(["获取空间图片失败",data]);
+		});
+	};
+}])
+
 .factory('sendShowImg', ['$rootScope','$http','SBMJSONP','SBMPOST',function($rootScope,$http,SBMJSONP,SBMPOST){
 	return function sendShowImg(imgdata,callback){
 			var senddata={
@@ -293,9 +203,6 @@ creatshowmodule
 				};
 
 			// 此处使用POST
-			// var api=SBMJSONP("uploadImage/uploadFile",senddata);
-			// $http.jsonp(api.url)
-
 			var api=SBMPOST("uploadImage/uploadFile",senddata);
 			$http.post(api.url,api.data)
 			.success(function(data){
