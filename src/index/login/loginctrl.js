@@ -16,13 +16,6 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', func
 	$scope.hidetip = function(){
 		$(".error-tip").hide();
 	};
-
-	//首页动画只登陆时显示一次
-	$rootScope.ishow = true;
-	$rootScope.ishows = true;
-	$rootScope.iup = true;
-
-
 }])
 
 //注册页
