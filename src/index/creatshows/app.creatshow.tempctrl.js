@@ -1,7 +1,9 @@
 creatshowmodule
 
 //整编辑页的controller
-.controller('editpagesCtrl',['$scope','$rootScope','$state','$http','$ionicLoading','$stateParams','SBMJSONP','saveShow',function($scope,$rootScope,$state,$http,$ionicLoading,$stateParams,SBMJSONP,saveShow){
+.controller('editpagesCtrl',[
+	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow',
+	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow){
 
 
 	console.log("editpagesCtrl");
@@ -75,7 +77,7 @@ creatshowmodule
 				"&detailid=" + $rootScope.editShowData.showId +
 				"&productid=" + $rootScope.editShowData.mainData.numIid +
 				"&plat=" + $rootScope.editShowData.mainData.plat;
-				console.log(location.origin+gohref)
+				console.log(location.origin+gohref);
 			location.href = location.origin + gohref;
 		});
 	};
@@ -96,21 +98,30 @@ creatshowmodule
 			$state.go("addpage",{
 				showId:$rootScope.editShowData.showId,
 				pageId:$rootScope.editShowData.currentpage
-			})
+			});
 		});
-	}
+	};
 
 	//小页面宽度
 	$scope.pagelistwidth={"width":0};
 
 	//获取宝贝秀数据
 	// $rootScope.$watch("editShowData",function() {
-	$rootScope.$on("showdatachanged",function(){
+
+
+	$scope.$on("showdatachanged",function(){
 		console.log(["showdatachanged",$rootScope.editShowData]);
 		//宽度控制
-		if(typeof $rootScope.editShowData.mainData.pages !== "undefined"){
-			console.log("改变宽度啊！！");
-			$scope.pagelistwidth={"width":$rootScope.editShowData.mainData.pages.length*71+"px"};
+		if($rootScope.editShowData.mainData && typeof $rootScope.editShowData.mainData.pages !== "undefined"){
+			console.log(["改变宽度啊222！！"]);
+			// cc=$rootScope.editShowData.mainData.pages;
+			// $rootScope.editShowData.mainData.pages="undefined";
+			// $rootScope.$apply();
+			// $rootScope.editShowData.mainData.pages=cc;
+			// $rootScope.$apply();
+
+			// $scope.pagelistwidth={"width":$rootScope.editShowData.mainData.pages.length*71+"px"};
+			// $scope.$emit('scroll.infiniteScrollComplete');
 		}
 
 		if(!$rootScope.editShowData.mainData||$rootScope.editShowData.showId!==$rootScope.editShowData.mainData.detailId){
@@ -136,7 +147,8 @@ creatshowmodule
 				}
 				console.log(["更新宝贝秀数据结束",data]);
 				$rootScope.editShowData.mainData=data;
-				$scope.pagelistwidth={"width":data.pages.length*71+"px"};
+				console.log(["改变宽度啊111！！"]);
+				// $scope.pagelistwidth={"width":data.pages.length*71+"px"};
 				//
 				// $rootScope.$broadcast("showdataIsReady");
 
