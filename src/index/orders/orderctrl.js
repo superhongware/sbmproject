@@ -99,7 +99,7 @@ starterctrl.controller('ordersCtrl', ['$scope', '$ionicPopover', '$http', '$ioni
                         return parseInt(a.id) > parseInt(b.id) ? -1 : 1;
                     });
 
-                    var i=0;
+                    
                     if (pageData.direction === 'up') { //moredata
                         pageData.isHaveMoreData = true;
                         for ( i = 0; i < data.trades.length; i++) {

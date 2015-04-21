@@ -336,7 +336,7 @@ creatshowmodule.factory('changepagesize', function(){
 				}
 			})
 			.error(function(status, response){
-				console.log(["保存宝贝秀失败-网络链接有问题~",status])
+				console.log(["保存宝贝秀失败-网络链接有问题~",status]);
 				alert("保存宝贝秀失败-网络链接有问题~");
 			});
 
