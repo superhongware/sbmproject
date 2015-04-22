@@ -1,5 +1,5 @@
 //模板1
-.tmp1, .tmp2, .tmp3, .tmp4, .tmp6, .tmp8 {
+.tmp1, .tmp2, .tmp3, .tmp4, .tmp6, .tmp8{
 	.ps_img1 {
 		&:extend(.backgroundpic);
 		opacity: 1;
@@ -219,4 +219,71 @@
 		top:68%;
 	}
 
+}
+.tmp8 {
+	.ps_text {
+		.tmpPsText1();
+	}
+	.ps_text1 {
+		// .lineandheight(7vh);
+		line-height: 7vh;
+		font-size: 24px;
+		bottom: 45%;
+	}
+	.ps_text2 {
+		line-height: 4vh;
+		font-size: 16px;
+		bottom: 33%;
+	}
+	.ps_btnwrap1,.ps_btnwrap2,.ps_btnwrap3{
+		z-index: 1;
+	    width: 16vw;
+  		height: 16vw;
+ 		border-radius: 20vw;
+		position: relative;
+		display: inline-block;
+		line-height: 16vw;
+		text-align: center;
+		font-size: 20px;
+		top:70%;
+		margin: 0 0 0 13vw;
+		opacity: 0;
+		.ps_btn1{
+			border-radius: 20vw;
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		    height: 100%;
+		    width: 100%;
+		    background-color: rgba(0,0,0,0.3);
+		    border: 1px solid rgba(255,255,255,0.9);
+		    color: #fff;
+		}
+	}
+	.top_img{
+		position:absolute;
+		top:0px;
+		left:0px;
+		width:100%;
+		height:auto;
+		z-index:2;
+		opacity: 0;
+	}
+}
+.tmp9 {
+	.ps_text {
+		.tmpPsText1();
+	}
+	.ps_text1 {
+		line-height: 7vh;
+		// .lineandheight(7vh);
+		font-size: 24px;
+		bottom: 45%;
+	}
+	.ps_text2 {
+		// height: 8vh;
+		line-height: 4vh;
+		font-size: 16px;
+		bottom: 33%;
+	}
 }

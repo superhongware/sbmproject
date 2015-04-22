@@ -51,6 +51,15 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 }])
 
+.controller('spCtrlpre', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
+
+		setTimeout(function(){
+			p_s.init_animation();
+		},100);
+
+}])
+
+
 
 //三个点
 .directive('threePoints',['$http','threePointData','getRequest','SBMJSONP',function($http, threePointData, getRequest, SBMJSONP) {
