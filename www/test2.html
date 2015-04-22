@@ -1,36 +1,42 @@
+	
 <!DOCTYPE html>
 <html ng-app="myApp">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/zepto/zepto.js"></script>
-
-    <title></title>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<script src="lib/angular/angular.js"></script>
+	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+	<script src="lib/zepto/zepto.js"></script>
+	<script src="http://g.alicdn.com/tmapp/tida2/2.0.13/tida.js?appkey=应用的前台appkey"></script>
+	<title></title>
 <style>
-  body{
-    position: absolute;
-    top:0px;
-    left: 0px;
-    overflow: hidden;
-    width:100%;
-    font-size: 8px;
-    height: 100%;
-  }
+body{
+	position: absolute;
+	top:0px;
+	left: 0px;
+	overflow: hidden;
+	width:100%;
+	font-size: 16px;
+	height: 100%;
+}
 </style>
-    
-  </head>
+	
+</head>
 
 
-  <body ng-controller="test">
-      {{greeting}}
-  
+<body ng-controller="test">
+	{{greeting}}
+	<div class="btn btn-primary btn-lg btn-block" ng-click="getposition()">地理位置</div>
+	<div class="btn btn-primary btn-lg btn-block" ng-click="network()">网络状况</div>
+	<div class="btn btn-primary btn-lg btn-block" ng-click="photo()">摄像头</div>
+	<div class="btn btn-primary btn-lg btn-block" ng-click="share()">分享</div>
 
-<input type="file" style="position:relative;z-index:99;">
-      
+
+<!-- <input type="file" style="position:relative;z-index:99;"> -->
+	
 
 
-  </body>
+	</body>
 </html>
 
 <script type="text/javascript">
@@ -38,32 +44,124 @@
 var myApp = angular.module('myApp',[]);
 
 myApp.controller('test', ['$scope', "$http",function($scope,$http) {
-  $scope.greeting = "Hola";
-  var datab={a:'Hola!',b:"bbbb"}
-  $scope.dataa = "dasdad="+JSON.stringify(datab);
-  // $http.post("url",$scope.dataa)
-  // .success(function(data){
-  //    console.log(data)
-  // })
-  // .error(function(a,b){
 
-  //   console.log("连接失败");
-  //   console.log(a);
-  //   console.log(b);
-  // })
+
+function alert2(data){
+	var eventdata=data;
+	var htmldata="";
+	for(a in eventdata){
+		htmldata+=(a+":"+eventdata[a]+"<br/>");
+	}
+	document.body.innerHTML=htmldata;
+}
+
+
+	$scope.greeting = "Hola";
+	var datab={a:'Hola!',b:"bbbb"}
+	$scope.dataa = "dasdad="+JSON.stringify(datab);
+
+
+
+
+	var isSupportedApp = Tida.isSupportedApp;
+	var info = Tida.appinfo;
+
+	// if (!isSupportedApp) return;
+
+	// alert2(Tida)
+
+
+
+
+
+	Tida.ready({
+		interactId:"", // 互动实列ID type string 若无抽奖模块，此参数无须传入。给错误的实例ID会走错误流程
+		module: ["device", "media", "server", "social", "widget", "sensor", "share","buy","draw","im"] // 应用所需要的模块。默认加载所有模块。支持的模块有draw:抽奖;sensor:传感器;buy:交易;device:基础设备接口 social:社交相关 widget:客户端UI
+	}, function(){
+
+console.log(Tida)
+
+		$scope.getposition=function(){
+			Tida.geolocation.getCurrentPosition(function(result) {
+				alert(0);
+				alert(result);
+				if (result.errorCode) { // data.errorCode 错误码 只有为0时才是成功的
+					console.error(result.errorCode, result.errorMessage);
+					return;
+				}
+			});
+		}
+
+		$scope.network=function(){
+			Tida.network.getType(function(data) {
+				alert(data)
+				if (data.errorCode) {
+					console.error(data.errorCode, data.errorMessage);
+					return;
+				}
+				console.log(data);
+			});
+		}
+
+		$scope.photo=function(){
+			alert(Tida.showLoading)
+			Tida.photo({
+				// 暂不支持参数传入
+			}, function (data) {
+				alert(data)
+				if (data.errorCode) {
+					console.error(data.errorCode, data.errorMessage);
+				} else {
+					var img = document.createElement('img');
+					img.src = data.photo; // 其中 天猫上返回base64数据。各平台上都可以使用data.photo使用一张图片。若选择有多张图片时。手淘IOS下有data.resourceUrl字段供使用，但仅限该平台环境下才有。
+					document.body.appendChild(img);
+				}
+			});
+		}
+
+
+		$scope.share=function(){
+			Tida.share({
+				title:"分享的标题", // 分享标题 在来往和微信好友中有标题显示
+				content: "分享内容", //分享的内容
+				url: "www.uedlink.com", // 跳转地址，分享的内容跳转的url
+				image:"//img.alicdn.com/tps/i3/TB16SgbHpXXXXc7XFXXx67lOXXX-156-156.png", // 图片地址,客户端可能需要根据url下载图片再分享。需要CDN上的完整图片链接
+				wxIsAvailable: 1, // 是否添加微信通道。为真时添加微信入口。仅手淘支持 取值为真或假。老版本使用这个参数进行设置。如果需要微信建议与weixinshare一起设置为真
+				weixinshare: 1, // 是否添加微信通道。为真时添加微信入口。仅手淘支持 取值为真或假。在手淘5.2.7及以后版本上支持
+				shareType: 1, // 为1时只能分享到通讯录。仅手淘支持
+				wxImage: 1, // 天猫IOS客户端分享到微信/微信朋友圈的图片有限制，这里默认自动转为200x200的。若不是正方形图片且需要自己传递该图片,并遵循天猫客户端图片的限制规则（不要过大 阿里的CDN上的）
+			}, function(data){
+
+				alert2(data);
+			// data.errorCode 为0时分享成功
+			});
+		}
+
+
+
+	})
+
+
+
+
+
 
 }]);
+
+
+
+
+
 console.log($("body"));
-  $("body").on("touchmove",function(e){
-    e.preventDefault();
-    console.log(e);
-    var eventdata=e;
-    var htmldata="";
-      for(a in eventdata){
-        htmldata+=(a+":"+eventdata[a]+"<br/>");
-      }
-      document.body.innerHTML=htmldata;
-  })
 
-
+// $("body").on("touchmove",function(e){
+// 	e.preventDefault();
+// 	console.log(e);
+// 	var eventdata=e;
+// 	var htmldata="";
+// 	for(a in eventdata){
+// 		htmldata+=(a+":"+eventdata[a]+"<br/>");
+// 	}
+// 	document.body.innerHTML=htmldata;
+// })
 </script>
