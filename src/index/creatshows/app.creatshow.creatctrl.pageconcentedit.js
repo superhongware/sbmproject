@@ -146,51 +146,51 @@ creatshowmodule
 	$scope.setimg=function(index){
 
 
-		checklocalimg(function(img){
-			// console.log(img);
-			$scope.imgviewinfo[index].changed=1;
-			var thisimgdata=$scope.imgviewinfo[index];
-			var imgbox=$(".ps_img"+(index+1));
+		// checklocalimg(function(img){
+		// 	// console.log(img);
+		// 	$scope.imgviewinfo[index].changed=1;
+		// 	var thisimgdata=$scope.imgviewinfo[index];
+		// 	var imgbox=$(".ps_img"+(index+1));
 
-			thisimgdata.img=img;
-			// thisimgdata.scale=[]
-			// ionic.onGesture("transform",moveimg,imgbox[0]);
-			imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
-		});
-
-		// $ionicActionSheet.show({
-		// 	buttons: [{
-		// 		text: '本机图片'
-		// 	}, {
-		// 		text: '店铺图片空间'
-		// 	}],
-		// 	// destructiveText: 'Delete',
-		// 	titleText: '选择图片源',
-		// 	cancelText: '取消',
-		// 	cancel: function() {
-		// 		// add cancel code..
-		// 	},
-		// 	buttonClicked: function(index) {
-		// 		if(index===0){		
-		// 			checklocalimg(function(img){
-		// 				// console.log(img);
-		// 				$scope.imgviewinfo[index].changed=1;
-		// 				var thisimgdata=$scope.imgviewinfo[index];
-		// 				var imgbox=$(".ps_img"+(index+1));
-
-		// 				thisimgdata.img=img;
-		// 				// thisimgdata.scale=[]
-		// 				// ionic.onGesture("transform",moveimg,imgbox[0]);
-		// 				imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
-		// 			});
-		// 		}else{
-		// 			//选择图片空间图片
-		// 			$state.go("remoteimg");
-
-		// 		}
-		// 		return true;
-		// 	}
+		// 	thisimgdata.img=img;
+		// 	// thisimgdata.scale=[]
+		// 	// ionic.onGesture("transform",moveimg,imgbox[0]);
+		// 	imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
 		// });
+
+		$ionicActionSheet.show({
+			buttons: [{
+				text: '本机图片'
+			}, {
+				text: '店铺图片空间'
+			}],
+			// destructiveText: 'Delete',
+			titleText: '选择图片源',
+			cancelText: '取消',
+			cancel: function() {
+				// add cancel code..
+			},
+			buttonClicked: function(index) {
+				if(index===0){		
+					checklocalimg(function(img){
+						// console.log(img);
+						$scope.imgviewinfo[index].changed=1;
+						var thisimgdata=$scope.imgviewinfo[index];
+						var imgbox=$(".ps_img"+(index+1));
+
+						thisimgdata.img=img;
+						// thisimgdata.scale=[]
+						// ionic.onGesture("transform",moveimg,imgbox[0]);
+						imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
+					});
+				}else{
+					//选择图片空间图片
+					$state.go("remoteimg");
+
+				}
+				return true;
+			}
+		});
 	};
 
 
