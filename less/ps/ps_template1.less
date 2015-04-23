@@ -1,5 +1,5 @@
 //模板1
-.tmp1, .tmp2, .tmp3, .tmp4, .tmp6, .tmp8{
+.tmp1, .tmp2, .tmp3, .tmp4, .tmp6, .tmp8, .tmp9, .tmp10{
 	.ps_img1 {
 		&:extend(.backgroundpic);
 		opacity: 1;
@@ -239,7 +239,7 @@
 		z-index: 1;
 	    width: 16vw;
   		height: 16vw;
- 		border-radius: 20vw;
+ 		border-radius: 16vw;
 		position: relative;
 		display: inline-block;
 		line-height: 16vw;
@@ -248,16 +248,21 @@
 		top:70%;
 		margin: 0 0 0 13vw;
 		opacity: 0;
-		.ps_btn1{
-			border-radius: 20vw;
+		.ps_btn1,.ps_btn3{
+			border-radius: 16vw;
 		    position: absolute;
-		    left: 0;
-		    top: 0;
+		    left: -1px;
+		    top: -1px;
 		    height: 100%;
 		    width: 100%;
 		    background-color: rgba(0,0,0,0.3);
 		    border: 1px solid rgba(255,255,255,0.9);
 		    color: #fff;
+		}
+		.ps_btn3{
+		    background-color: rgba(0,0,0,0.3);
+		    border: 1px solid rgba(254,153,0,0.9);
+		    color: rgba(254,153,0,0.9);
 		}
 	}
 	.top_img{
@@ -270,7 +275,60 @@
 		opacity: 0;
 	}
 }
+
 .tmp9 {
+	.ps_text {
+		.tmpPsText1();
+	}
+	.ps_img1 {
+		width: 100%;
+		height: 100%;
+	}
+	.ps_text1 {
+		line-height: 7vh;
+		// .lineandheight(7vh);
+		font-size: 24px;
+		bottom: 27%;
+	}
+	.ps_text2 {
+		// height: 8vh;
+		line-height: 4vh;
+		font-size: 16px;
+		bottom: 16%;
+	}
+	.ps_btnwrap1,.ps_btnwrap2,.ps_btnwrap3{
+		z-index: 1;
+	    width: 16vw;
+  		height: 16vw;
+ 		border-radius: 16vw;
+		position: relative;
+		display: inline-block;
+		line-height: 16vw;
+		text-align: center;
+		font-size: 20px;
+		top:50%;
+		margin: 0 0 0 13vw;
+		opacity: 0;
+		.ps_btn1,.ps_btn3{
+			display: inline-block;
+			border-radius: 16vw;
+		    position: absolute;
+		    left: -1px;
+		    top: -1px;
+		    height: 100%;
+		    width: 100%;
+		    background-color: rgba(0,0,0,0.3);
+		    border: 1px solid rgba(255,255,255,0.9);
+		    color: #fff;
+		}
+		.ps_btn3{
+		    background-color: rgba(0,0,0,0.3);
+		    border: 1px solid rgba(254,153,0,0.9);
+		    color: rgba(254,153,0,0.9);
+		}
+	}
+}
+.tmp10 {
 	.ps_text {
 		.tmpPsText1();
 	}
@@ -278,12 +336,56 @@
 		line-height: 7vh;
 		// .lineandheight(7vh);
 		font-size: 24px;
-		bottom: 45%;
+		bottom: 70%;
 	}
 	.ps_text2 {
 		// height: 8vh;
 		line-height: 4vh;
 		font-size: 16px;
-		bottom: 33%;
+		bottom: 58%;
+	}
+	.sharewarp{
+		position: absolute;
+		bottom: 0;
+		width:100%;
+		height:250px;
+		background:#E9E5E6;
+		z-index: 2;
+		opacity: 0;
+		.shareTitle{
+			width:100%;
+			text-align: center;
+			padding:10px 0 10px;
+			font-size: 16px;
+			color:#6F6D6E;
+		}
+		.imgwrap1,.imgwrap2,.imgwrap3,.imgwrap4,.imgwrap5,.imgwrap6{
+				display: block;
+				width:25%;
+				text-align: center;
+				float: left;
+				dt{
+					height: 60px;
+					width: 100%;
+					line-height: 60px;
+					img{
+						width: 50px;
+						height: 50px;
+						vertical-align: top;
+					}
+				}
+				dd{
+					height: 20px;
+					line-height: 20px;
+					width:100%;
+					color:#6B696A;
+					font-size: 13px;
+					text-align: center;
+					margin:0 !important;
+				}
+			}
+	}
+	.Clear{
+		clear:both;
 	}
 }
