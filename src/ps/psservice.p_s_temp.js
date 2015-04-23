@@ -75,26 +75,41 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 				});
 				break;
 			case 8:
-				p_s_anination(page, ".ps_text1", "psanimate8_1", function() {
-					p_s_anination(page, ".ps_text2", "psanimate8_1",function(){
-						p_s_anination(page, ".ps_btnwrap1", "psanimate2",function(){
-							p_s_anination(page, ".ps_btnwrap2", "psanimate2",function(){
-								p_s_anination(page, ".ps_btnwrap3", "psanimate2",function(){
-									p_s_anination(page, ".top_img", "psanimate2");
-									allpageanimate();
-								});
+				p_s_anination(page, ".ps_btnwrap1", "psanimate22");
+				p_s_anination(page, ".ps_btnwrap2", "psanimate23");
+				p_s_anination(page, ".ps_btnwrap3", "psanimate24",function(){
+					p_s_anination(page, ".ps_btnwrap2", "psanimate25",function(){
+						p_s_anination(page, ".top_img", "psanimateFadeInDown_f",function(){
+							p_s_anination(page, ".ps_text1", "psanimate8_1",function(){
+								p_s_anination(page, ".ps_text2", "psanimate8_1");
+								allpageanimate();
 							});
 						});
 					});
 				});
+				
 				break;
 			case 9:
-				p_s_anination(page, ".ps_text1", "psanimateFadeInDown", function() {
-					p_s_anination(page, ".ps_text2", "psanimateFadeInDown");
-					
-					allpageanimate();
+				p_s_anination(page, ".ps_btnwrap1", "psanimate22");
+				p_s_anination(page, ".ps_btnwrap2", "psanimate23");
+				p_s_anination(page, ".ps_btnwrap3", "psanimate24",function(){
+					p_s_anination(page, ".ps_btnwrap3", "psanimate26",function(){
+						p_s_anination(page, ".ps_text1", "psanimateFadeInDown", function() {
+							p_s_anination(page, ".ps_text2", "psanimateFadeInDown");
+							allpageanimate();
+						});
+					});
 				});
+				
 			break;
+			case 10:
+				p_s_anination(page, ".sharewarp", "psanimate22", function() {
+					p_s_anination(page, ".ps_text1", "psanimateFadeInDown", function() {
+						p_s_anination(page, ".ps_text2", "psanimateFadeInDown");
+						allpageanimate();
+					})
+				});
+				break;
 			default:
 				console.log("default"+temp);
 				break;

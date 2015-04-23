@@ -136,7 +136,7 @@ creatshowmodule
 								var pages=$rootScope.editShowData.mainData.pages;
 								
 								if(dragdata[index].moveindex&&dragdata[index].moveindex!==thispage.index()){
-									console.log("move")
+									console.log("move");
 									dragdata[index].moveindex=dragdata[index].moveindex<=0?0:dragdata[index].moveindex;
 									dragdata[index].moveindex=dragdata[index].moveindex>=$('.pageitem').length?$('.pageitem').length-1:dragdata[index].moveindex;
 
