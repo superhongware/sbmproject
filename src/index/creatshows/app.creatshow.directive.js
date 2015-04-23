@@ -36,7 +36,7 @@ creatshowmodule
 		// scope: {}, // {} = isolate, true = child, false/undefined = no change
 		// controller: function($scope, $element, $attrs, $transclude) {},
 		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-		restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
 		// template: '',
 		templateUrl: 'templates/index/creatshows/pageeditor.html',
 		replace: true,
@@ -221,7 +221,7 @@ creatshowmodule
 		// scope: {}, // {} = isolate, true = child, false/undefined = no change
 		// controller: function($scope, $element, $attrs, $transclude) {},
 		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-		restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
 		// template: '',
 		templateUrl: 'templates/index/creatshows/pages/normaleditcontent.html',
 		replace: true,

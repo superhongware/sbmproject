@@ -21,8 +21,13 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 
 }])
 
-.controller('viewtemplateCtrl',['$scope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$stateParams,$ionicLoading,$state,creatShow){
+.controller('viewtemplateCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
+
+	$(".viewtemplate").append('<iframe class="viewbox" src='+location.origin+
+		'/ps.html?orgname='+$rootScope.orgName+
+		'&detailid=987883&templateview=1" frameborder="0"></iframe>');
+console.log(0);
 	$scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
 	$scope.viewbtnneam="应用";
 	$scope.viewneam="模板预览";
@@ -62,8 +67,13 @@ creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionic
 
 .controller('viewshowCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
+	$(".viewtemplate").append('<iframe class="viewbox" src='+location.origin+
+		'/ps.html?orgname='+$rootScope.orgName+
+		'&detailid='+$stateParams.showId+
+		'&templateview=1" frameborder="0"></iframe>');
 
 	$scope.iframesrc=location.origin+"/ps.html?orgname="+$rootScope.orgName+"&detailid="+$stateParams.showId+"&templateview=1";
+
 	console.log($scope.iframesrc);
 	$scope.viewbtnneam="分享";
 	$scope.viewneam="宝贝秀预览";
