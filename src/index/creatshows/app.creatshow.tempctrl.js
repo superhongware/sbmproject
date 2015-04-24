@@ -164,7 +164,7 @@ creatshowmodule
 
 
 
-.controller('remoteimgCtrl', ['$rootScope','$scope','$ionicHistory','getremoteimgcat', function($rootScope,$scope,$ionicHistory,getremoteimgcat){
+.controller('remoteimgCtrl', ['$rootScope','$scope','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http',function($rootScope,$scope,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http){
 	$scope.remoteimgcat=[];
 	$scope.remoteimg={};
 
@@ -175,34 +175,78 @@ creatshowmodule
 
 	};
 	getremoteimgcat(function(data){
-		console.log(data.pictureCategorys);
+		console.log(["图片分类",data]);
 		$scope.remoteimgcat=data.pictureCategorys;
 		// $scope.$apply();
 	});
+
+  
+
+
+
+
+//获取分类的图片
+    $scope.loadPicsByStatusFilter=function(categoryid){
+    	var categorydata={
+				orgName:$rootScope.orgName,
+				shopName:$rootScope.editShowData.mainData.shopName,
+				plat:$rootScope.editShowData.mainData.plat,
+				pictureCategoryId:categoryid,
+				method:"softbanana.app.picture.category.search"
+			};
+
+		var api=SBMJSONP("searchPictureCategory",categorydata);
+		$http.jsonp(api.url)
+		.success(function(data){
+			console.log(["获取空间图片成功",data]);
+			if(data.isSuccess){
+				$scope.pics = data.pictureCategorys[0].pictures;
+			}
+			console.log($scope.pics);
+		})
+		.error(function(data){
+			console.log(["获取空间图片失败",data]);
+		});
+		$scope.popover.hide();
+    };
+
+    $scope.uppic = function(picurl){
+    	$rootScope.picurl = picurl;
+    	$ionicHistory.goBack();
+    };
+
+
+
+    $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {
+        scope: $scope,
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
 
 }])
 
 .factory('getremoteimgcat', ['$http','$rootScope', 'SBMJSONP',function($http,$rootScope,SBMJSONP){
 	return function getremoteimgcat(callback){
-		console.log($rootScope.editShowData.mainData.shopName);
+		console.log("shopName:"+$rootScope.editShowData.mainData.shopName);
 		var senddata={
 				orgName:$rootScope.orgName,
 				shopName:$rootScope.editShowData.mainData.shopName,
-				method:"softbanana.app.picture.category.search",
 				plat:$rootScope.editShowData.mainData.plat,
-				path:"",
-				type:""
+				method:"softbanana.app.picture.category.search"
+
 			};
 
 		var api=SBMJSONP("searchPictureCategory",senddata);
 		$http.jsonp(api.url)
 		.success(function(data){
-			console.log(["获取空间图片成功",data]);
+			console.log(["获取空间图片分类成功",data]);
 			callback(data);
+
 		})
 		.error(function(data){
-			console.log(["获取空间图片失败",data]);
+			console.log(["获取空间图片分类失败",data]);
 		});
+
 	};
 }])
 
