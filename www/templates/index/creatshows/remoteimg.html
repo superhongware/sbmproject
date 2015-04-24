@@ -1,21 +1,26 @@
 <ion-view view-title="图片空间" class="editbox">
-<!-- 	<ion-nav-buttons side="right">
-		<button class="button" ng-click="saveShow()">保存</button>
-	</ion-nav-buttons> -->
-	<!-- ui-sref="editpages.editer({showId:showId,pageId:prevpage,pageTemp:pageTemp})" -->
+	 <div class="bar bar-subheader bgcolor textAlignR">
+        <button class="button button-icon font14 mRight5 colorD2" menu-toggle="right" ng-click="popover.show($event)">选择店铺图片分类
+        		<i class="iconfont icon-xiangxia font14 mLeft2"></i>
+		</button>
+      </div>
 	<ion-content>
-		<div class="checkbar">
-			<span
-			ng-repeat="cat in remoteimgcat"
-			ng-click="refreshimg(cat.pictureCategoryId)">{{cat.pictureCategoryName}}</span>
+		<div class="picwrap">
+		   <img  ng-repeat="pic in pics" ng-src="{{pic.URL}}" class="pic" ng-click="uppic(pic.URL)">
 		</div>
-		<ion-list>
-			<ion-item
-			ng-repeat="img in remoteimgdata">
-				<!-- <img ng-src="{{item.img}}"> -->
-			</ion-item>
-		</ion-list>
-		<div class="button" ng-click="goback()">返回gnmdb</div>
 	</ion-content>
 
 </ion-view>
+
+<script id="pageTplorderStatusfilterPopover" type="text/ng-template">
+  <ion-popover-view class="warpPicStatusList">
+      <ion-content>
+        <div>
+          <a class="item" ng-repeat="cat in remoteimgcat" ng-click="loadPicsByStatusFilter(cat.pictureCategoryId)">
+            {{cat.pictureCategoryName}}
+          </a>
+        </div>
+      </ion-content>
+  </ion-popover-view>
+</script>
+
