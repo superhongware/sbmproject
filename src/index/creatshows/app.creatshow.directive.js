@@ -39,7 +39,7 @@ creatshowmodule
 		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
 		// template: '',
 		templateUrl: 'templates/index/creatshows/pageeditor.html',
-		replace: true,
+		// replace: true,
 		// transclude: true,
 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 		link: function($scope, iElm, iAttrs, controller) {
@@ -72,28 +72,34 @@ creatshowmodule
 					ionic.onGesture("dragstart",function(e){
 						var scrollposition=movebar.getScrollPosition();
 						dragdata[index]={};
-						dragdata[index].dnum=thispage[0].offsetLeft-scrollposition.left;
-						dragdata[index].moveindex="";
+						dragdata[index].dnum=thispage[0].offsetLeft-scrollposition.left;//小页面当前在页面中位置
+						dragdata[index].moveindex="";//小页面被移动到的位置
 					},this);
 
+					//小页面被拖动时干的事情
 					ionic.onGesture("drag",function(e){
 							// console.log("drag");
-						if($scope.editpages){		
+						//开启编辑模式后(看起来是这样的:开始抖动,右上角带个小叉叉),能拖动,能删除
+						if($scope.editpages){
+							//长按拖动页面才会被移动,不然是左右拖动
 							if(thispage.hasClass('dragpages')){
 								
+								//禁止滚动条
 								movebar.freezeScroll(true);
 								// console.dir(thispage);
 
+
 								var scrollposition=movebar.getScrollPosition(),
-									boxleft=scrollposition.left,
-									itemwidth=71,
-									ganyinqu=20,
-									itemleft=thispage[0].offsetLeft,
-									moveleft=e.gesture.deltaX,
-									moveindex=Math.round((moveleft-4+dragdata[index].dnum+boxleft)/itemwidth),
-									pageleft=dragdata[index].dnum+moveleft;
+									boxleft=scrollposition.left,//当前滚动条位置数据(滚动条指的是包裹着小页面的div)
+									itemwidth=71,//小页面宽度
+									ganyinqu=20,//小页面拖到两端 滚动条开始移动 的感应距离
+									itemleft=thispage[0].offsetLeft,//小页面在滚动条内的位置
+									moveleft=e.gesture.deltaX,//小页面在页面上被拖动的距离
+									moveindex=Math.round((moveleft-4+dragdata[index].dnum+boxleft)/itemwidth),//当前小页面被移动到哪一页的位置
+									pageleft=dragdata[index].dnum+moveleft;//小页面被拖动后的位置
 
 								dragdata[index].moveindex=moveindex;
+
 								console.log(["moveindex",dragdata[index].moveindex]);
 
 								if(pageleft<ganyinqu&&boxleft>=0){
@@ -124,19 +130,20 @@ creatshowmodule
 						}
 					},this);
 
+					//小页面拖动结束后 更新数据
 					ionic.onGesture("dragend",function(e){
 						console.log("dragend");
 						if(dragtouchlist[index]&&dragtouchlist[index][0]){
 							dragtouchlist[index][0]=false;
 							clearTimeout(dragtouchlist[index][1]);
 							
-
 							if(thispage.hasClass("dragpages")){
 								
 								var pages=$rootScope.editShowData.mainData.pages;
 								
+								//移动页面位置变化就改变数据位置
 								if(dragdata[index].moveindex&&dragdata[index].moveindex!==thispage.index()){
-									console.log("move");
+									console.log("move")
 									dragdata[index].moveindex=dragdata[index].moveindex<=0?0:dragdata[index].moveindex;
 									dragdata[index].moveindex=dragdata[index].moveindex>=$('.pageitem').length?$('.pageitem').length-1:dragdata[index].moveindex;
 
@@ -149,6 +156,8 @@ creatshowmodule
 								$rootScope.$apply();
 
 								movebar.freezeScroll(false);
+
+
 
 								thispage.removeClass('dragpages').css({
 									"z-index":"initial",
@@ -163,6 +172,7 @@ creatshowmodule
 			//当前页面
 			var turnpageindex=$rootScope.editShowData.currentpage;
 			$scope.pageitemclick=function(index){
+				console.log("点击");
 				if($scope.editpages){
 					$scope.editpages=0;
 					return;
@@ -224,7 +234,7 @@ creatshowmodule
 		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
 		// template: '',
 		templateUrl: 'templates/index/creatshows/pages/normaleditcontent.html',
-		replace: true,
+		// replace: true,
 		// transclude: true,
 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 		link: function($scope, iElm, iAttrs, controller) {

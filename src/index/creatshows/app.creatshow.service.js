@@ -175,7 +175,7 @@ creatshowmodule.factory('changepagesize', function(){
 		var cvs = document.createElement('canvas');
 		var ctx=cvs.getContext("2d");
 		//宽度以全屏640为基准 计算出图片压缩后尺寸
-		var finalwidthscal=640/picdata.imgbox.parent(".ps_page")[0].clientWidth;
+		var finalwidthscal=640/picdata.imgbox.parents(".ps_page")[0].clientWidth;
 		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
 		cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
 		
