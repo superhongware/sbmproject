@@ -67,12 +67,15 @@ creatshowmodule
 				console.log("小页页面DOME渲染完成");
 
 				$('.pageitem').each(function(index){
-					var thispage=$(this);
+					var thispage=$(this),
+						itemwidth=71;//小页面宽度
 
 					ionic.onGesture("dragstart",function(e){
 						var scrollposition=movebar.getScrollPosition();
 						dragdata[index]={};
-						dragdata[index].dnum=thispage[0].offsetLeft-scrollposition.left;//小页面当前在页面中位置
+						dragdata[index].boxleftstart=scrollposition.left;
+						dragdata[index].boxleftmove=0;
+						// dragdata[index].dnum=-thispage.index()*itemwidth-4;//小页面当前在页面中位置，滚动条有4px的间距
 						dragdata[index].moveindex="";//小页面被移动到的位置
 					},this);
 
@@ -91,31 +94,34 @@ creatshowmodule
 
 								var scrollposition=movebar.getScrollPosition(),
 									boxleft=scrollposition.left,//当前滚动条位置数据(滚动条指的是包裹着小页面的div)
-									itemwidth=71,//小页面宽度
 									ganyinqu=20,//小页面拖到两端 滚动条开始移动 的感应距离
-									itemleft=thispage[0].offsetLeft,//小页面在滚动条内的位置
+									itemleft=-thispage.index()*itemwidth-4,//小页面在滚动条内的位置,滚动条有4px的间距
 									moveleft=e.gesture.deltaX,//小页面在页面上被拖动的距离
-									moveindex=Math.round((moveleft-4+dragdata[index].dnum+boxleft)/itemwidth),//当前小页面被移动到哪一页的位置
-									pageleft=dragdata[index].dnum+moveleft;//小页面被拖动后的位置
+									pageleft=itemleft-moveleft+dragdata[index].boxleftmove+dragdata[index].boxleftstart-boxleft,//小页面被拖动后的位置
+									moveindex=Math.round(-pageleft/itemwidth);//当前小页面被移动到哪一页的位置
 
 								dragdata[index].moveindex=moveindex;
 
 								console.log(["moveindex",dragdata[index].moveindex]);
 
-								if(pageleft<ganyinqu&&boxleft>=0){
 
+
+								if((-boxleft-pageleft)<ganyinqu&&boxleft>=0){
+									
 									movebar.scrollTo(boxleft-1,scrollposition.top);
 
-								}else if(pageleft>(viewwidth-itemwidth-ganyinqu)&&boxleft<=($('.pageitem').length*itemwidth-viewwidth)){
-			
+								}else if((-boxleft-pageleft)>(viewwidth-itemwidth-ganyinqu)&&boxleft<=($('.pageitem').length*itemwidth-viewwidth)){
+									
 									movebar.scrollTo(boxleft+1,scrollposition.top);
-		
+
 								}
+
+								console.log(-boxleft-pageleft);
 
 								thispage.css({
 									// "position":"relative",
 									"z-index":"99",
-									"-webkit-transform":"translate3d("+(moveleft+dragdata[index].dnum-itemleft+boxleft)+"px,"+e.gesture.deltaY+"px,0px)"
+									"-webkit-transform":"translate3d("+(-pageleft)+"px,"+e.gesture.deltaY+"px,0px)"
 								});
 
 							//拖动加个延时，否则左右拖动  页面就被选中拖起来了
@@ -140,9 +146,9 @@ creatshowmodule
 							if(thispage.hasClass("dragpages")){
 								
 								var pages=$rootScope.editShowData.mainData.pages;
-								
+
 								//移动页面位置变化就改变数据位置
-								if(dragdata[index].moveindex&&dragdata[index].moveindex!==thispage.index()){
+								if(typeof dragdata[index].moveindex!=="undefined"&&dragdata[index].moveindex!==thispage.index()){
 									console.log("move")
 									dragdata[index].moveindex=dragdata[index].moveindex<=0?0:dragdata[index].moveindex;
 									dragdata[index].moveindex=dragdata[index].moveindex>=$('.pageitem').length?$('.pageitem').length-1:dragdata[index].moveindex;
@@ -151,18 +157,23 @@ creatshowmodule
 									pages.splice(thispage.index(),1);
 									var resideindex=thispage.index()>dragdata[index].moveindex?dragdata[index].moveindex:dragdata[index].moveindex-1;
 									pages.splice(dragdata[index].moveindex,0,dragpage);
+								}else if(dragdata[index].moveindex===thispage.index()){
+									thispage.css({
+										"z-index":"initial",
+										"-webkit-transform":"translate3d("+(thispage.index()*itemwidth+4)+"px,"+0+"px,0px)"
+									});
 								}
 
 								$rootScope.$apply();
 
 								movebar.freezeScroll(false);
 
+								thispage.removeClass('dragpages');
 
-
-								thispage.removeClass('dragpages').css({
-									"z-index":"initial",
-									"-webkit-transform":"translate3d("+0+"px,"+0+"px,0px)"
-								});
+								// .css({
+								// 	"z-index":"initial",
+								// 	"-webkit-transform":"translate3d("+0+"px,"+0+"px,0px)"
+								// });
 							}
 						}
 					},this);
@@ -213,8 +224,10 @@ creatshowmodule
 			};
 
 			//小页面位置控制
+			// console.log("-webkit-transform","translate3d("+1*71+"px 0px 0px)")
 			$scope.pageitemposition=function(index){
-				return {"left":index*71+"px"};
+				return {"-webkit-transform":"translate3d("+index*71+"px,0px,0px)"};
+				// return {"left":index*71+"px"};
 			};
 
 
