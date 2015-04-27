@@ -21,8 +21,8 @@ creatshowmodule
 
 //整编辑页—图片文字编辑区模板1
 .controller('pagetempht1Ctrl',[
-	'$scope','$rootScope','$state',"$http",'$ionicLoading','$ionicActionSheet',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow',
-	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicActionSheet,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow){
+	'$scope','$rootScope','$state','$stateParams',"$http",'$ionicLoading','$ionicActionSheet',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow',
+	function($scope,$rootScope,$state,$stateParams,$http,$ionicLoading,$ionicActionSheet,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow){
 
 
 	console.log("pagetempht1Ctrl");
@@ -38,16 +38,14 @@ creatshowmodule
 
 	//初始化页面
 	var tempImgngRepeatFinished=$scope.$on("tempImgngRepeatFinished",function(){
-		console.log("tempImgngRepeatFinished");
 		if($rootScope.picurl!==undefined){
-				var i = parseInt($rootScope.Index)+1;
-				var imgbox=$(".ps_img"+ i);
-				    imgbox.find(".innerimg").attr("src",$rootScope.picurl).show();
-				    console.log(imgbox.find(".innerimg"));
-				    console.log("$rootScope.picurl:"+$rootScope.picurl);
-				    $rootScope.picurl=undefined;
-			}
-
+			var i = parseInt($rootScope.Index)+1;
+			var imgbox=$(".ps_img"+ i);
+			    imgbox.find(".innerimg").attr("src",$rootScope.picurl).show();
+			    //点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为改变缓存
+			    $rootScope.editShowData.mainData.pages[$rootScope.pic_pageId].detailPageImage[$rootScope.Index].img = $rootScope.picurl;
+			    $rootScope.picurl=undefined;
+		}
 		$(".editplace").find(".ps_img").each(function(index){
 			var thisimgdata=$scope.imgviewinfo[index];
 			// console.log($scope.imgviewinfo[index]);
@@ -64,6 +62,7 @@ creatshowmodule
 				if(e.type==="dragstart"){
 					thisimgdata.startpoint[0] = thisimgdata.point[0];
 					thisimgdata.startpoint[1] = thisimgdata.point[1];
+					$rootScope.xychange = true;
 				}else{
 					thisimgdata.scale[1]=thisimgdata.scale[0];
 				}
@@ -94,9 +93,13 @@ creatshowmodule
 		console.log(['saveShowImg-保存图片']);
 		var imgnum=0,
 			sendnum=[];
+		if($rootScope.Index!==undefined){
+			$scope.imgviewinfo[$rootScope.Index].changed=1;
+			$rootScope.Index=undefined;
+		}	
 		for (var i = $scope.imgviewinfo.length - 1; i >= 0; i--) {
 			// console.log(["$scope.imgviewinfo[i].point[0]",$scope.imgviewinfo[i].point[0]]);
-			if($scope.imgviewinfo[i].changed||$scope.imgviewinfo[i].point[0]!==0||$scope.imgviewinfo[i].point[1]!==0){
+			if($scope.imgviewinfo[i].changed||$scope.imgviewinfo[i].point[0]!==0||$scope.imgviewinfo[i].point[1]!==0||$rootScope.picurl!==undefined){
 				sendnum.push(i);
 				console.log("保存图片yayaya");
 			}
@@ -166,6 +169,9 @@ creatshowmodule
 		// 	imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
 		// });
 		$rootScope.Index = index;
+		$rootScope.pic_showId = $stateParams.showId;
+		$rootScope.pic_pageId = $stateParams.pageId;
+		$rootScope.pic_pageTemp = $stateParams.pageTemp;
 		$ionicActionSheet.show({
 			buttons: [{
 				text: '本机图片'
@@ -190,6 +196,8 @@ creatshowmodule
 						// thisimgdata.scale=[]
 						// ionic.onGesture("transform",moveimg,imgbox[0]);
 						imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
+						//点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为改变缓存
+						$rootScope.editShowData.mainData.pages[$rootScope.pic_pageId].detailPageImage[$rootScope.Index].img = $scope.imgviewinfo[index].img.src;
 					});
 				}else{
 					//选择图片空间图片

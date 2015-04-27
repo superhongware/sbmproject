@@ -143,7 +143,7 @@ creatshowmodule
 								
 								//移动页面位置变化就改变数据位置
 								if(dragdata[index].moveindex&&dragdata[index].moveindex!==thispage.index()){
-									console.log("move")
+									console.log("move");
 									dragdata[index].moveindex=dragdata[index].moveindex<=0?0:dragdata[index].moveindex;
 									dragdata[index].moveindex=dragdata[index].moveindex>=$('.pageitem').length?$('.pageitem').length-1:dragdata[index].moveindex;
 
@@ -180,6 +180,8 @@ creatshowmodule
 				turnpageindex=index;
 				//调用保存图片功能  pagetempht1Ctrl中有方法
 				$scope.$broadcast('saveShowImg');
+				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
+				$rootScope.SaveChange = true;
 			};
 			//scope删除 取消事件侦听
 			$scope.$on('$destroy', function() {
