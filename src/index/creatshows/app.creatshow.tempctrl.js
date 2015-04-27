@@ -16,6 +16,8 @@ creatshowmodule
 			function(data){
 				$ionicLoading.hide();
 				console.log("保存成功");
+				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
+				$rootScope.SaveChange = true;
 				$state.go("share",{
 					showId:$rootScope.editShowData.showId
 				});
@@ -50,7 +52,15 @@ creatshowmodule
 			pageId:pageid,
 			pageTemp:showdata.mainData.pages[pageid].templatePageId
 		};
-		$state.go("editpages.editer",params);
+
+		if($rootScope.xychange === true){
+				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
+				$rootScope.SaveChange = true;
+				$scope.$broadcast('saveShowImg');
+				$rootScope.xychange = undefined;
+			}else{
+			$state.go("editpages.editer",params);
+		}
 	};
 
 	$scope.gonext = function() {
@@ -62,7 +72,16 @@ creatshowmodule
 			pageId:pageid,
 			pageTemp:showdata.mainData.pages[pageid].templatePageId
 		};
-		$state.go("editpages.editer",params);
+
+		if($rootScope.xychange === true){
+			//点击保存以后要重新加载服务器数据，否则用改变后的缓存
+			$rootScope.SaveChange = true;
+			$scope.$broadcast('saveShowImg');
+			$rootScope.xychange = undefined;
+		}else{
+			$state.go("editpages.editer",params);
+		}
+		
 	};
 
 
@@ -146,7 +165,12 @@ creatshowmodule
 					return;
 				}
 				console.log(["更新宝贝秀数据结束",data]);
-				$rootScope.editShowData.mainData=data;
+				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
+				if(($rootScope.SaveChange === undefined)||($rootScope.SaveChange === true)){
+					$rootScope.editShowData.mainData=data;
+					$rootScope.SaveChange = false;
+				}
+				
 				console.log(["改变宽度啊111！！"]);
 				// $scope.pagelistwidth={"width":data.pages.length*71+"px"};
 				//
@@ -164,12 +188,12 @@ creatshowmodule
 
 
 
-.controller('remoteimgCtrl', ['$rootScope','$scope','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http',function($rootScope,$scope,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http){
+.controller('remoteimgCtrl', ['$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http',function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http){
 	$scope.remoteimgcat=[];
 	$scope.remoteimg={};
 
 	$scope.goback=function(){
-		$ionicHistory.goBack();
+		$ionicHistorsy.goBack();
 	};
 	$scope.refreshimg=function(){
 
@@ -212,9 +236,14 @@ creatshowmodule
 
     $scope.uppic = function(picurl){
     	$rootScope.picurl = picurl;
-    	$ionicHistory.goBack();
+    	$state.go("editpages.editer",{
+				showId:$rootScope.pic_showId,
+				pageId:$rootScope.pic_pageId,
+				pageTemp:$rootScope.pic_pageTemp
+			});
+    	
     };
-
+// ui-sref="viewtemplate({templateId:pic_templteId,productId:pic_productId,productPlat:pic_productPlat})"
 
 
     $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {

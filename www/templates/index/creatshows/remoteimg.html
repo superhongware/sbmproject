@@ -1,15 +1,19 @@
 <ion-view view-title="图片空间" class="editbox">
-	 <div class="bar bar-subheader bgcolor textAlignR">
-        <button class="button button-icon font14 mRight5 colorD2" menu-toggle="right" ng-click="popover.show($event)">选择店铺图片分类
-        		<i class="iconfont icon-xiangxia font14 mLeft2"></i>
-		</button>
-      </div>
-	<ion-content>
-		<div class="picwrap">
-		   <img  ng-repeat="pic in pics" ng-src="{{pic.URL}}" class="pic" ng-click="uppic(pic.URL)">
-		</div>
-	</ion-content>
-
+   <ion-side-menus enable-menu-with-back-views-"true">
+      <ion-side-menu-content class="paddingtop88">
+        	 <div class="bar bar-subheader bgcolor textAlignR">
+                <button class="button button-icon font14 mRight5 colorD2" menu-toggle="right" ng-click="popover.show($event)">选择店铺图片分类
+                		<i class="iconfont icon-xiangxia font14 mLeft2"></i>
+        		    </button>
+          </div>
+     
+        	<ion-content>
+        		<div class="picwrap">
+        		   <img  ng-repeat="pic in pics" ng-src="{{pic.URL}}" class="pic" ng-click="uppic(pic.URL)">
+        		</div>
+        	</ion-content>
+       </ion-side-menu-content>
+   </ion-side-menus>
 </ion-view>
 
 <script id="pageTplorderStatusfilterPopover" type="text/ng-template">
