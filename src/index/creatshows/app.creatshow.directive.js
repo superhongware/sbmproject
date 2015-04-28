@@ -158,6 +158,15 @@ creatshowmodule
 									pages.splice(thispage.index(),1);
 									var resideindex=thispage.index()>dragdata[index].moveindex?dragdata[index].moveindex:dragdata[index].moveindex-1;
 									pages.splice(dragdata[index].moveindex,0,dragpage);
+
+									var showdata=$rootScope.editShowData;
+									var pageid=showdata.currentpage;
+									var params={
+											showId:showdata.showId,
+											pageId:pageid,
+											pageTemp:showdata.mainData.pages[pageid].templatePageId
+										}; 
+									$state.go("editpages.editer",params); 
 									
 								}else if(dragdata[index].moveindex===thispage.index()){
 									thispage.css({
