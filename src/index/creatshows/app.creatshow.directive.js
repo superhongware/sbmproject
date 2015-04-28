@@ -148,8 +148,9 @@ creatshowmodule
 								var pages=$rootScope.editShowData.mainData.pages;
 
 								//移动页面位置变化就改变数据位置
+
 								if(typeof dragdata[index].moveindex!=="undefined"&&dragdata[index].moveindex!==thispage.index()){
-									console.log("move")
+									console.log("move");
 									dragdata[index].moveindex=dragdata[index].moveindex<=0?0:dragdata[index].moveindex;
 									dragdata[index].moveindex=dragdata[index].moveindex>=$('.pageitem').length?$('.pageitem').length-1:dragdata[index].moveindex;
 
@@ -157,6 +158,16 @@ creatshowmodule
 									pages.splice(thispage.index(),1);
 									var resideindex=thispage.index()>dragdata[index].moveindex?dragdata[index].moveindex:dragdata[index].moveindex-1;
 									pages.splice(dragdata[index].moveindex,0,dragpage);
+
+									var showdata=$rootScope.editShowData;
+									var pageid=showdata.currentpage;
+									var params={
+											showId:showdata.showId,
+											pageId:pageid,
+											pageTemp:showdata.mainData.pages[pageid].templatePageId
+										}; 
+									$state.go("editpages.editer",params); 
+									
 								}else if(dragdata[index].moveindex===thispage.index()){
 									thispage.css({
 										"z-index":"initial",
@@ -191,6 +202,8 @@ creatshowmodule
 				turnpageindex=index;
 				//调用保存图片功能  pagetempht1Ctrl中有方法
 				$scope.$broadcast('saveShowImg');
+				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
+				$rootScope.SaveChange = true;
 			};
 			//scope删除 取消事件侦听
 			$scope.$on('$destroy', function() {

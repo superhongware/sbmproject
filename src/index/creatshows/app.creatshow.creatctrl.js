@@ -5,14 +5,15 @@
  */
 var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.services', 'starter.directives']);
 
-creatshowmodule.controller('checktemplateCtrl', ['$scope','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($scope,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
+creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($rootScope,$scope,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
 	
 	//假设取到的模板信息
 
 	// getTemplate(function(data){
 	// 	console.log(data);
 	// })
-
+    //点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为退出
+    $rootScope.SaveChange = undefined;
 	$scope.templateId=1;
 	$scope.productId=$stateParams.productId;
 	$scope.productPlat=$stateParams.productPlat;
