@@ -150,9 +150,7 @@ creatshowmodule
 								//移动页面位置变化就改变数据位置
 
 								if(typeof dragdata[index].moveindex!=="undefined"&&dragdata[index].moveindex!==thispage.index()){
-									console.log("move")
-
-							
+									console.log("move");
 									dragdata[index].moveindex=dragdata[index].moveindex<=0?0:dragdata[index].moveindex;
 									dragdata[index].moveindex=dragdata[index].moveindex>=$('.pageitem').length?$('.pageitem').length-1:dragdata[index].moveindex;
 
@@ -160,6 +158,7 @@ creatshowmodule
 									pages.splice(thispage.index(),1);
 									var resideindex=thispage.index()>dragdata[index].moveindex?dragdata[index].moveindex:dragdata[index].moveindex-1;
 									pages.splice(dragdata[index].moveindex,0,dragpage);
+									
 								}else if(dragdata[index].moveindex===thispage.index()){
 									thispage.css({
 										"z-index":"initial",
