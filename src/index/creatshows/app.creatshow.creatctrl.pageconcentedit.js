@@ -39,27 +39,53 @@ creatshowmodule
 	//初始化页面
 	var tempImgngRepeatFinished=$scope.$on("tempImgngRepeatFinished",function(){
 		console.log("tempImgngRepeatFinished");
+
+		//图片空间选择图片
 		if($rootScope.picurl!==undefined){
 				var i = parseInt($rootScope.Index)+1;
 				var imgbox=$(".ps_img"+ i);
-				    imgbox.find(".innerimg").attr("src",$rootScope.picurl).show();
-				    console.log(imgbox.find(".innerimg"));
-				    console.log("$rootScope.picurl:"+$rootScope.picurl);
-				    $rootScope.picurl=undefined;
-			}
+					imgbox.find(".innerimg").attr("src",$rootScope.picurl).show();
+					console.log(imgbox.find(".innerimg"));
+					console.log("$rootScope.picurl:"+$rootScope.picurl);
+					$rootScope.picurl=undefined;
+		}
+
+		var picnum=$(".editplace").find(".ps_img").length;
 
 		$(".editplace").find(".ps_img").each(function(index){
+
+
 			var thisimgdata=$scope.imgviewinfo[index];
 			// console.log($scope.imgviewinfo[index]);
 			thisimgdata.startpoint=[0,0];
 			thisimgdata.point=[0,0];
 			thisimgdata.scale=[1,1];
-			thisimgdata.dragstart=ionic.onGesture("dragstart",dragstart,this);
-			thisimgdata.drag=ionic.onGesture("drag",dragmove,this);
-			thisimgdata.transformstart=ionic.onGesture("transformstart",dragstart,this);
-			thisimgdata.transform=ionic.onGesture("transform",dragmove,this);
+			// thisimgdata.dragstart=
+			ionic.onGesture("dragstart",dragstart,this);
+			// thisimgdata.drag=
+			ionic.onGesture("drag",dragmove,this);
+			// thisimgdata.transformstart=
+			ionic.onGesture("transformstart",dragstart,this);
+			// thisimgdata.transform=
+			ionic.onGesture("transform",dragmove,this);
+
+			// if(picnum>1){
+			// 	// thisimgdata.hold=
+			// 	ionic.onGesture("hold",holdimg,this);
+			// 	console.log(["一共有的图片数",picnum]);
+			// 	function holdimg(e){
+			// 		$(this).css({
+			// 			"border":"2px solid #ccc"
+			// 		})
+			// 	}
+			// }
+
+
 			thisimgdata.img=$(this).find("img").show()[0];
 			thisimgdata.imgbox=$(this);
+
+
+
 			function dragstart(e){
 				if(e.type==="dragstart"){
 					thisimgdata.startpoint[0] = thisimgdata.point[0];
@@ -68,6 +94,7 @@ creatshowmodule
 					thisimgdata.scale[1]=thisimgdata.scale[0];
 				}
 			}
+
 			function dragmove(e){
 				if(e.type==="drag"){				
 					thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
@@ -78,7 +105,6 @@ creatshowmodule
 				$(this).find(".innerimg").css({
 					"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
 				});
-
 				// var cvs=drawShowImg(thisimgdata);
 				// compressShowImg(cvs,80);
 			}
@@ -107,12 +133,12 @@ creatshowmodule
 			sendimg();
 		}else{
 			saveshowdata();
-
 			// $ionicLoading.hide();
 			// console.log("保存图片回调");
 			// $scope.$emit('saveShowImgOver');
 		}
 
+		//图片上传
 		function sendimg(){
 			var cvs=drawShowImg($scope.imgviewinfo[sendnum[imgnum]]);
 			// $(".editplace").append(cvs);
