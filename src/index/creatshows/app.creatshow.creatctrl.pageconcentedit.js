@@ -52,31 +52,43 @@ creatshowmodule
 
 		$(".editplace").find(".ps_img").each(function(index){
 
-
+			var thispsimg=$(this);
 			var thisimgdata=$scope.imgviewinfo[index];
 			// console.log($scope.imgviewinfo[index]);
 			thisimgdata.startpoint=[0,0];
 			thisimgdata.point=[0,0];
 			thisimgdata.scale=[1,1];
+
+			//每个ps_img的范围数据[x0,y0,x1,y1] 相对于ui-view.editplace的位置 数据为左上顶点与右下顶点
+			thisimgdata.imgboxposition=[this.offsetLeft,this.offsetTop,this.offsetLeft+this.offsetWidth,this.offsetTop+this.offsetHeight];
 			// thisimgdata.dragstart=
 			ionic.onGesture("dragstart",dragstart,this);
 			// thisimgdata.drag=
 			ionic.onGesture("drag",dragmove,this);
+			// thisimgdata.dragend=
+			ionic.onGesture("release",release,this);
 			// thisimgdata.transformstart=
 			ionic.onGesture("transformstart",dragstart,this);
 			// thisimgdata.transform=
 			ionic.onGesture("transform",dragmove,this);
 
-			// if(picnum>1){
-			// 	// thisimgdata.hold=
-			// 	ionic.onGesture("hold",holdimg,this);
-			// 	console.log(["一共有的图片数",picnum]);
-			// 	function holdimg(e){
-			// 		$(this).css({
-			// 			"border":"2px solid #ccc"
-			// 		})
-			// 	}
-			// }
+			//是否支持图片互相换位
+			var changimage=0;
+			var picnum=$(".editplace").find(".ps_img").length;
+			if(picnum>1){
+				// thisimgdata.hold=
+				ionic.onGesture("hold",holdimg,this);
+				console.log(["一共有的图片数",picnum]);
+				function holdimg(e){
+					//拖动图片换位触发时点的位置,是相对于ui-view.editplace的位置
+					thisimgdata.holdpoint=[e.gesture.center.pageX-$(".editplace")[0].offsetLeft,e.gesture.center.pageY-$(".editplace")[0].offsetTop];
+					console.log(thisimgdata.holdpoint);
+					changimage=1;
+					$(this).css({
+						"border":"2px solid #fe9900"
+					});
+				}
+			}
 
 
 			thisimgdata.img=$(this).find("img").show()[0];
@@ -95,18 +107,77 @@ creatshowmodule
 			}
 
 			function dragmove(e){
-				if(e.type==="drag"){				
-					thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
-					thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
+				if(!changimage){
+					if(e.type==="drag"){
+						thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
+						thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
+					}else if(!changimage){
+						thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
+					}
+					$(this).find(".innerimg").css({
+						"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
+					});
 				}else{
-					thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
+
 				}
-				$(this).find(".innerimg").css({
-					"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
-				});
 				// var cvs=drawShowImg(thisimgdata);
 				// compressShowImg(cvs,80);
 			}
+
+			function release(e){
+				if(changimage){
+					console.log(thisimgdata.holdpoint[0]+e.gesture.deltaX,thisimgdata.holdpoint[1]+e.gesture.deltaY);
+					var x=thisimgdata.holdpoint[0]+e.gesture.deltaX,
+						y=thisimgdata.holdpoint[1]+e.gesture.deltaY;
+					changimage=0;
+
+					var imageindex="";
+
+					console.log(thispsimg);
+
+					thispsimg.css({
+						"border":"none"
+					});
+					
+					for (var i = 0; i < $scope.imgviewinfo.length; i++) {
+						if(isinthisbox(x,y,$scope.imgviewinfo[i].imgboxposition)){
+							imageindex=i;
+						}
+					}
+
+					//图片换位了 对换位置
+					if(thispsimg.index()!==imageindex){
+
+						var img1=thispsimg.find("img");
+						var img2=$(".editplace").find(".ps_img").eq(imageindex).find("img");
+						var img1src=img1.attr("src");
+						img1.attr("src",img2.attr("src"));
+						img2.attr("src",img1src);
+
+						//压缩图片是取的这边的数据canvas
+						$scope.imgviewinfo[thispsimg.index()].changed=1;
+						$scope.imgviewinfo[thispsimg.index()].img=img1[0];
+
+						$scope.imgviewinfo[imageindex].changed=1;
+						$scope.imgviewinfo[imageindex].img=img2[0];
+
+					}
+
+
+					console.log(["换换换",thispsimg.index(),imageindex]);
+				}
+			}
+
+			function isinthisbox(x,y,box){
+				if(x>box[0]&&x<box[2]&&y>box[1]&&y<box[3]){
+
+					return true;
+				}else{
+					return false;
+				}
+
+			}
+
 		});
 	});
 

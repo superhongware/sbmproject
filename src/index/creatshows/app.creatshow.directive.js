@@ -159,15 +159,33 @@ creatshowmodule
 									var resideindex=thispage.index()>dragdata[index].moveindex?dragdata[index].moveindex:dragdata[index].moveindex-1;
 									pages.splice(dragdata[index].moveindex,0,dragpage);
 
+
+
 									var showdata=$rootScope.editShowData;
-									var pageid=showdata.currentpage;
-									var params={
-											showId:showdata.showId,
-											pageId:pageid,
-											pageTemp:showdata.mainData.pages[pageid].templatePageId
-										}; 
-									$state.go("editpages.editer",params); 
+									var pageid="";
+
+									if(thispage.index()===showdata.currentpage&&dragdata[index].moveindex!==showdata.currentpage){
+										// 拖动当前页
+										pageid=dragdata[index].moveindex;
+									}else if(thispage.index()<showdata.currentpage&&dragdata[index].moveindex>=showdata.currentpage){
+										//当前页左侧页拖动到当前页右侧
+										pageid=showdata.currentpage-1;
+									}else if(thispage.index()>showdata.currentpage&&dragdata[index].moveindex<=showdata.currentpage){
+										//当前页左侧页拖动到当前页左侧
+										pageid=showdata.currentpage+1;
+									}
+									if(pageid){
+										var params={
+												showId:showdata.showId,
+												pageId:pageid,
+												pageTemp:showdata.mainData.pages[pageid].templatePageId
+											}; 
+										$state.go("editpages.editer",params); 
+									}
 									
+
+
+
 								}else if(dragdata[index].moveindex===thispage.index()){
 									thispage.css({
 										"z-index":"initial",

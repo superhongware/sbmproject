@@ -22,6 +22,26 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 	var api = SBMJSONP("searchDetail", getdata);
 	$http.jsonp(api.url)
 		.success(function(data) {
+
+			// 自动打开淘宝跳转跳转
+			var userAgentInfo = navigator.userAgent;  
+			var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+			var url=data.detailUrl;
+			var flag = false;  
+			for (var v = 0; v < Agents.length; v++) {  
+				if (userAgentInfo.indexOf(Agents[v]) > 0) { 
+					flag = true;
+					break; 
+				}
+			}  
+			console.log(["flag",flag])
+			if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag){
+				url=url.replace("http","taobao")
+				location.href=url;
+			}
+
+
+
 			//宝贝秀删除后不执行后面代码
 			if(!data.isSuccess){
 				$scope.showmainbox = true;

@@ -166,10 +166,18 @@ creatshowmodule
 				}
 				console.log(["更新宝贝秀数据结束",data]);
 				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
+
+
+				/*======================================改=改=改=改=改=改=改=改=改=改=改===================================*/
+
+				$rootScope.editShowData.mainData=data;
+
 				if(($rootScope.SaveChange === undefined)||($rootScope.SaveChange === true)){
-					$rootScope.editShowData.mainData=data;
 					$rootScope.SaveChange = false;
 				}
+				
+				/*======================================改=改=改=改=改=改=改=改=改=改=改===================================*/
+
 				
 				console.log(["改变宽度啊111！！"]);
 				// $scope.pagelistwidth={"width":data.pages.length*71+"px"};

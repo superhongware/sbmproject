@@ -9,13 +9,7 @@
 				"detailPageImage": [
 					{"img":"img/pagetemp1.jpg"}
 				],
-				"detailPageText": [
-					{"txt":"SOFTBANANA"},
-					{"txt":"宝贝秀制作助手"},
-					{"txt":"开启手机详情新时代"},
-					{"txt":""}
-
-				]
+				"detailPageText": [{"txt":""}]
 		}
 	},
 	{
@@ -94,7 +88,9 @@
 				{"img":"img/pagetemp1.jpg"},
 				{"img":"img/pagetemp1.jpg"},
 				{"img":"img/pagetemp1.jpg"}
-			]
+			],
+			"detailPageText": [{"txt":""}]
+
 		}
 	}
 	]
