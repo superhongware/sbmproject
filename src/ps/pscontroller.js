@@ -9,6 +9,47 @@ var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 
 SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
 
+console.log(wx);
+
+	$http.jsonp("http://hongwei.comeoncloud.net/serv/wxapi.ashx?action=getjsapiconfig&callback=JSON_CALLBACK&url="+encodeURIComponent(location.href))
+	.success(function(wxapidata){
+		console.log(wxapidata);
+		wx.config({
+			debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			appId: wxapidata.appId, // 必填，公众号的唯一标识
+			timestamp: wxapidata.timestamp, // 必填，生成签名的时间戳
+			nonceStr: wxapidata.nonceStr, // 必填，生成签名的随机串
+			signature: wxapidata.signature, // 必填，签名，见附录1
+			jsApiList: [
+				"onMenuShareTimeline",
+				"onMenuShareAppMessage",
+				"onMenuShareQQ",
+				] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+	});
+
+	$scope.weixinsharedata={
+		link:location.href,
+		desc:"",
+		title:"",
+		imgUrl:"",
+	};
+
+	wx.ready(function () {
+		wx.onMenuShareAppMessage({
+			title: $scope.weixinsharedata.title, // 分享标题
+			desc:$scope.weixinsharedata.desc,
+			link: $scope.weixinsharedata.link, // 分享链接
+			imgUrl:$scope.weixinsharedata.imgUrl , // 分享图标
+			success: function() {
+				alert("分享成功");
+			},
+			cancel: function() {
+				alert("取消分享");
+			}
+		});
+	});
+
 	$scope.showdata="";
 	$scope.shownoshowdata=false;
 	$scope.showmainbox = false;
@@ -23,6 +64,15 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 	$http.jsonp(api.url)
 		.success(function(data) {
 
+			console.log(data);
+			//宝贝秀删除后不执行后面代码
+			if(!data.isSuccess){
+				$scope.showmainbox = true;
+				$scope.shownoshowdata=true;
+				return;
+
+			}
+
 			// 自动打开淘宝跳转跳转
 			var userAgentInfo = navigator.userAgent;  
 			var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
@@ -34,21 +84,20 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 					break; 
 				}
 			}  
-			console.log(["flag",flag])
+			console.log(["flag",flag]);
+
 			if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag){
-				url=url.replace("http","taobao")
+				url=url.replace("http","taobao");
 				location.href=url;
+			}else if(userAgentInfo.match("MicroMessenger")){
+				//微信分享内容
+				$scope.weixinsharedata.title=data.detailTitle;
+				$scope.weixinsharedata.desc=data.detailDesc;
+				$scope.weixinsharedata.imgUrl=data.detailImage;
 			}
 
 
 
-			//宝贝秀删除后不执行后面代码
-			if(!data.isSuccess){
-				$scope.showmainbox = true;
-				$scope.shownoshowdata=true;
-				return;
-
-			}
 			$scope.showdata = data;
 			// p_s.CreatDomtree(data);
 			$scope.$broadcast("showdataready");

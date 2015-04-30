@@ -239,7 +239,7 @@ creatshowmodule.factory('changepagesize', function(){
 					//填充模板数据
 					tempdata.detailTitle = productdata.title + "宝贝秀";
 					tempdata.detailDesc = productdata.title + "描述";
-					tempdata.detailImage = "img/shareimg.jpg";
+					tempdata.detailImage = "http://bbx1.hongware.com:8084/sbmproject/img/shareimg.jpg";
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
 					tempdata.detailUrl = productdata.detailUrl;

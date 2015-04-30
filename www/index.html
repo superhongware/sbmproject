@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html 
+ng-app="starter"
 >
-<!-- ng-app="starter" -->
 
 <head>
 	<meta charset="utf-8">
@@ -13,11 +13,10 @@
 
 	<link href="css/ionic.app.css" ver='0.1.0' rel="stylesheet">
 	<link href="css/style.css?v=0.0.1" ver='0.1.0' rel="stylesheet">
-	<!--
 	<script src="lib/zepto/zepto.min.js"></script>
 	<script src="lib/ionic/js/ionic.bundle.js"></script>
 	<script src="js/index/app.js"></script>
-	-->
+	
 	<!--<script src="lib/ui-bootstrap-tpls-0.12.1.min.js"></script>
 	<script src="cordova.js"></script>-->
 
@@ -34,36 +33,41 @@
 <!-- <div id="mainview" ng-class="viewanimate" ui-view ng-controller="mainviewCtrl"></div> -->
 </body>
 <script type="text/javascript">
-function loadscript(){
-	LazyLoad([
-	"lib/zepto/zepto.min.js",
-	"lib/ionic/js/ionic.bundle.js",
-	"js/index/app.js"
-	],function(e){
-		console.log(e)
-		angular.bootstrap(document, ['starter']);
-	});
-}
-function LazyLoad(urls,callback){
-	var num=urls.length;
-	var i=0;
-	loadscript(urls[i]);
-	function loadscript(url){
-		var script = document.createElement('script');
-		script.src = url;
+// setTimeout(function(){
+// alert(0)
 
-		document.getElementsByTagName('head')[0].appendChild(script);
-		script.onload=function(){
-			if(i<num){
-				loadscript(urls[i]);
-				i++
-			}else{
-				callback();
-			}
-		};
-	}		
+	
+// },1000)
+// function loadscript(){
+// 	LazyLoad([
+// 	"lib/zepto/zepto.min.js",
+// 	"lib/ionic/js/ionic.bundle.js",
+// 	"js/index/app.js"
+// 	],function(e){
+// 		console.log(e)
+// 		angular.bootstrap(document, ['starter']);
+// 	});
+// }
+// function LazyLoad(urls,callback){
+// 	var num=urls.length;
+// 	var i=0;
+// 	loadscript(urls[i]);
+// 	function loadscript(url){
+// 		var script = document.createElement('script');
+// 		script.src = url;
 
-};
-setTimeout(loadscript,100);
+// 		document.getElementsByTagName('head')[0].appendChild(script);
+// 		script.onload=function(){
+// 			if(i<num){
+// 				loadscript(urls[i]);
+// 				i++
+// 			}else{
+// 				callback();
+// 			}
+// 		};
+// 	}		
+
+// };
+// setTimeout(loadscript,10);
 </script>
 </html>

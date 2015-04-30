@@ -79,15 +79,15 @@ creatshowmodule
 				// thisimgdata.hold=
 				ionic.onGesture("hold",holdimg,this);
 				console.log(["一共有的图片数",picnum]);
-				function holdimg(e){
-					//拖动图片换位触发时点的位置,是相对于ui-view.editplace的位置
-					thisimgdata.holdpoint=[e.gesture.center.pageX-$(".editplace")[0].offsetLeft,e.gesture.center.pageY-$(".editplace")[0].offsetTop];
-					console.log(thisimgdata.holdpoint);
-					changimage=1;
-					$(this).css({
-						"border":"2px solid #fe9900"
-					});
-				}
+			}
+			function holdimg(e){
+				//拖动图片换位触发时点的位置,是相对于ui-view.editplace的位置
+				thisimgdata.holdpoint=[e.gesture.center.pageX-$(".editplace")[0].offsetLeft,e.gesture.center.pageY-$(".editplace")[0].offsetTop];
+				console.log(thisimgdata.holdpoint);
+				changimage=1;
+				$(this).css({
+					"border":"2px solid #fe9900"
+				});
 			}
 
 
