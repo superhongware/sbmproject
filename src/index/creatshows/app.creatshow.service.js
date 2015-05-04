@@ -237,8 +237,8 @@ creatshowmodule.factory('changepagesize', function(){
 
 					var imgurls=productdata.picUrl.split(",");
 					//填充模板数据
-					tempdata.detailTitle = productdata.title + "宝贝秀";
-					tempdata.detailDesc = productdata.title + "描述";
+					tempdata.detailTitle = productdata.title;
+					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
 					tempdata.detailImage = "http://bbx1.hongware.com:8084/sbmproject/img/shareimg.jpg";
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
