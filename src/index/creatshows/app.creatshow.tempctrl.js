@@ -231,8 +231,33 @@ creatshowmodule
 		$http.jsonp(api.url)
 		.success(function(data){
 			console.log(["获取空间图片成功",data]);
+			$scope.pics=data.pictureCategorys[0].pictures;
 			if(data.isSuccess){
-				$scope.pics = data.pictureCategorys[0].pictures;
+				for (var i = 0; i <data.pictureCategorys[0].pictures.length; i++) {
+					if(categorydata.plat === "TAOBAO"){
+						$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"_100x100.jpg";
+					}
+					else if(categorydata.plat === "TMALL"){
+						$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"_100x100.jpg";
+					}
+					else if(categorydata.plat === "JINGD"){
+						var arr=[];
+						arr = data.pictureCategorys[0].pictures[i].URL.split('/');
+						arr[3]='n4';
+						arr = arr.join('/');
+						$scope.pics[i].URL2 = arr;
+					}
+					// else if(categorydata.plat === "PAIPAI"){
+					// 	$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+".100x100.jpg";
+					// }
+					// else if(categorydata.plat === "KDT"){
+					// 	$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"!100x100.jpg";
+					// }
+					else{
+						$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL;
+					}
+					
+				}
 			}
 			console.log($scope.pics);
 		})
