@@ -256,19 +256,22 @@ creatshowmodule.factory('changepagesize', function(){
 
 					},function(errmesg){
 
+						console.log(["saveShow失败",msg])
 						errorcallback(errmesg);
 
 					});
 
 
 				})
-				.error(function(status, response) {
-					errorcallback(status, response);
+				.error(function(msg,status, response) {
+					console.log(["testdata/template失败",msg])
+					errorcallback(msg,status, response);
 				});
 
 
 		},function(msg,status, response){//获取宝贝信息失败
-				errorcallback(status, response);
+			console.log(["productComm.loadProductDetail失败",msg])
+			errorcallback(msg,status, response);
 
 		});
 
@@ -364,4 +367,86 @@ creatshowmodule.factory('changepagesize', function(){
 			});
 	};
 }])
+
+
+.factory('getremoteimgcat', ['$http','$rootScope', 'SBMJSONP',function($http,$rootScope,SBMJSONP){
+	return function getremoteimgcat(callback){
+		console.log("shopName:"+$rootScope.editShowData.mainData.shopName);
+		var senddata={
+				orgName:$rootScope.orgName,
+				shopName:$rootScope.editShowData.mainData.shopName,
+				plat:$rootScope.editShowData.mainData.plat,
+				method:"softbanana.app.picture.category.search"
+
+			};
+
+		var api=SBMJSONP("searchPictureCategory",senddata);
+		$http.jsonp(api.url)
+		.success(function(data){
+			console.log(["获取空间图片分类成功",data]);
+			callback(data);
+
+		})
+		.error(function(data){
+			console.log(["获取空间图片分类失败",data]);
+		});
+
+	};
+}])
+
+.factory('sendShowImg', ['$rootScope','$http','SBMJSONP','SBMPOST',function($rootScope,$http,SBMJSONP,SBMPOST){
+	return function sendShowImg(imgdata,callback){
+			var senddata={
+					orgName:$rootScope.orgName,
+					method:"softbanana.app.image.upload",
+					imageData:encodeURIComponent(imgdata)
+				};
+
+			// 此处使用POST
+			var api=SBMPOST("uploadImage/uploadFile",senddata);
+			$http.post(api.url,api.data)
+			.success(function(data){
+				console.log(["图片上传成功",data]);
+				callback(data.image.imageUrl);
+			})
+			.error(function(data){
+				console.log(["图片上传失败",data]);
+			});
+	};
+}])
+
+.factory('checklocalimg', function(){
+	return function checklocalimg(callback){
+			//选择本地图片
+			var fileinput;
+			if(!document.getElementById('fileImg')){
+				fileinput=document.createElement("input");
+				fileinput.id='fileImg';
+				fileinput.type='file';
+				fileinput.accept="image/*";
+				document.body.appendChild(fileinput);
+			}else{
+				fileinput=document.getElementById('fileImg')
+			}
+			fileinput.addEventListener('change', handleFileSelect, false);
+			fileinput.click();
+			function handleFileSelect (evt) {
+				fileinput.removeEventListener('change', handleFileSelect, false);
+				var file = evt.target.files[0];
+				if (!file.type.match('image.*')){
+					return;
+				}
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload=function(e){
+					console.log(e.target.result);
+					var img=new Image();
+					img.src=e.target.result;
+					callback(img);
+				};
+			}
+
+	};
+})
+
 ;

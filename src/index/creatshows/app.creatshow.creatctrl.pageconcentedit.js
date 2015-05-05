@@ -21,8 +21,8 @@ creatshowmodule
 
 //整编辑页—图片文字编辑区模板1
 .controller('pagetempht1Ctrl',[
-	'$scope','$rootScope','$state','$stateParams',"$http",'$ionicLoading','$ionicActionSheet',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow',
-	function($scope,$rootScope,$state,$stateParams,$http,$ionicLoading,$ionicActionSheet,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow){
+	'$scope','$rootScope','$state','$stateParams','$ionicLoading','$ionicActionSheet',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow','checklocalimg',
+	function($scope,$rootScope,$state,$stateParams,$ionicLoading,$ionicActionSheet,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow,checklocalimg){
 
 
 	console.log("pagetempht1Ctrl");
@@ -238,14 +238,14 @@ creatshowmodule
 
 		//保存资料
 		function saveshowdata(){
-				saveShow($rootScope.editShowData.mainData,
-				function(data){
-					console.log(["资料保存成功",data]);
-					$ionicLoading.hide();
-					$scope.$emit('saveShowImgOver');
-				},function(data){
-					console.log(["资料保存失败",data]);
-				});
+			saveShow($rootScope.editShowData.mainData,
+			function(data){
+				console.log(["资料保存成功",data]);
+				$ionicLoading.hide();
+				$scope.$emit('saveShowImgOver');
+			},function(data){
+				console.log(["资料保存失败",data]);
+			});
 		}
 
 	});
@@ -253,18 +253,6 @@ creatshowmodule
 
 	$scope.setimg=function(index){
 
-
-		// checklocalimg(function(img){
-		// 	// console.log(img);
-		// 	$scope.imgviewinfo[index].changed=1;
-		// 	var thisimgdata=$scope.imgviewinfo[index];
-		// 	var imgbox=$(".ps_img"+(index+1));
-
-		// 	thisimgdata.img=img;
-		// 	// thisimgdata.scale=[]
-		// 	// ionic.onGesture("transform",moveimg,imgbox[0]);
-		// 	imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
-		// });
 		$rootScope.Index = index;
 		$rootScope.pic_showId = $stateParams.showId;
 		$rootScope.pic_pageId = $stateParams.pageId;
@@ -308,26 +296,7 @@ creatshowmodule
 
 
 
-	//选择本地图片
-	function checklocalimg(callback){
-		document.getElementById('fileImg').addEventListener('change', handleFileSelect, false);
-		document.getElementById('fileImg').click();
-		function handleFileSelect (evt) {
-			document.getElementById('fileImg').removeEventListener('change', handleFileSelect, false);
-			var file = evt.target.files[0];
-			if (!file.type.match('image.*')){
-				return;
-			}
-			var reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload=function(e){
-				console.log(e.target.result);
-				var img=new Image();
-				img.src=e.target.result;
-				callback(img);
-			};
-		}
-	}
+
 }])
 
 ;
