@@ -11,6 +11,10 @@ SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s', 
 
 console.log(wx);
 
+
+
+
+//微信分享
 	$http.jsonp("http://hongwei.comeoncloud.net/serv/wxapi.ashx?action=getjsapiconfig&callback=JSON_CALLBACK&url="+encodeURIComponent(location.href))
 	.success(function(wxapidata){
 		console.log(wxapidata);
@@ -54,58 +58,77 @@ console.log(wx);
 	$scope.shownoshowdata=false;
 	$scope.showmainbox = false;
 
-	//获取宝贝秀数据
-	var getdata = {
-		orgName: getRequest("orgname"),
-		detailId: getRequest("detailid"),
-		method: "softbanana.app.detail.search"
-	};
-	var api = SBMJSONP("searchDetail", getdata);
-	$http.jsonp(api.url)
-		.success(function(data) {
-
-			console.log(data);
-			//宝贝秀删除后不执行后面代码
-			if(!data.isSuccess){
-				$scope.showmainbox = true;
-				$scope.shownoshowdata=true;
-				return;
-
-			}
-
-			// 自动打开淘宝跳转跳转
-			var userAgentInfo = navigator.userAgent;  
-			var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
-			var url=data.detailUrl;
-			var flag = false;  
-			for (var v = 0; v < Agents.length; v++) {  
-				if (userAgentInfo.indexOf(Agents[v]) > 0) { 
-					flag = true;
-					break; 
-				}
-			}  
-			console.log(["flag",flag]);
-
-			if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag){
-				url=url.replace("http","taobao");
-				location.href=url;
-			}else if(userAgentInfo.match("MicroMessenger")){
-				//微信分享内容
-				$scope.weixinsharedata.title=data.detailTitle;
-				$scope.weixinsharedata.desc=data.detailDesc;
-				$scope.weixinsharedata.imgUrl=data.detailImage;
-			}
 
 
+console.log(["asdasdasd",getRequest("templateview")]);
+	if(getRequest("templateview")==="1"){
 
+		$http.get("testdata/template1.json")
+		.success(function(data){
 			$scope.showdata = data;
-			// p_s.CreatDomtree(data);
 			$scope.$broadcast("showdataready");
 		})
-		.error(function(){
-			$scope.showmainbox = true;
-			$scope.shownoshowdata=true;
+		.error(function(msg){
+			console.log(msg);
 		});
+
+	}else{
+		//获取宝贝秀数据
+		var getdata = {
+			orgName: getRequest("orgname"),
+			detailId: getRequest("detailid"),
+			method: "softbanana.app.detail.search"
+		};
+		var api = SBMJSONP("searchDetail", getdata);
+		$http.jsonp(api.url)
+			.success(function(data) {
+
+				console.log(data);
+				//宝贝秀删除后不执行后面代码
+				if(!data.isSuccess){
+					$scope.showmainbox = true;
+					$scope.shownoshowdata=true;
+					return;
+
+				}
+
+				// 自动打开淘宝跳转跳转
+				var userAgentInfo = navigator.userAgent;  
+				var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+				var url=data.detailUrl;
+				var flag = false;  
+				for (var v = 0; v < Agents.length; v++) {  
+					if (userAgentInfo.indexOf(Agents[v]) > 0) { 
+						flag = true;
+						break; 
+					}
+				}  
+				console.log(["flag",flag]);
+
+				if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag){
+					url=url.replace("http","taobao");
+					location.href=url;
+				}else if(userAgentInfo.match("MicroMessenger")){
+					//微信分享内容
+					$scope.weixinsharedata.title=data.detailTitle;
+					$scope.weixinsharedata.desc=data.detailDesc;
+					$scope.weixinsharedata.imgUrl=data.detailImage;
+				}
+
+
+
+				$scope.showdata = data;
+				// p_s.CreatDomtree(data);
+				$scope.$broadcast("showdataready");
+			})
+			.error(function(){
+				$scope.showmainbox = true;
+				$scope.shownoshowdata=true;
+			});
+	}
+
+
+
 	$scope.$on("showdataready",function(){
 		setTimeout(function(){
 			p_s.init_animation();
@@ -297,32 +320,33 @@ console.log(wx);
 	};
 }])
 
-.directive('showBox', ['$http', 'p_s', function($http, p_s) {
-	// Runs during compile
-	return {
-		// name: '',
-		// priority: 1,
-		// terminal: true,
-		// scope: {}, // {} = isolate, true = child, false/undefined = no change
-		// controller: function($scope, $element, $attrs, $transclude) {},
-		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
-		// template: '',
-		templateUrl: "templates/ps/page1.html",
-		// replace: true,
-		// transclude: true,
-		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
-		link: function($scope, iElm, iAttrs, controller) {
+// .directive('showBox', ['$http', 'p_s', function($http, p_s) {
+// 	// Runs during compile
+// 	return {
+// 		// name: '',
+// 		// priority: 1,
+// 		// terminal: true,
+// 		// scope: {}, // {} = isolate, true = child, false/undefined = no change
+// 		// controller: function($scope, $element, $attrs, $transclude) {},
+// 		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+// 		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+// 		// template: '',
+// 		templateUrl: "templates/ps/page1.html",
+// 		// replace: true,
+// 		// transclude: true,
+// 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+// 		link: function($scope, iElm, iAttrs, controller) {
 
-			$http.get("testdata/productshow.json")
-				.success(function(data) {
-					$scope.show = data;
-					$scope.show.current = 0;
+// 			$http.get("testdata/productshow.json")
+// 				.success(function(data) {
+// 					$scope.show = data;
+// 					$scope.show.current = 0;
 
-					p_s.init_animation();
+// 					p_s.init_animation();
 
-				});
+// 				});
 
-		}
-	};
-}]);
+// 		}
+// 	};
+// }])
+;
