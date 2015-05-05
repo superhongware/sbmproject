@@ -231,8 +231,8 @@ creatshowmodule
 		$http.jsonp(api.url)
 		.success(function(data){
 			console.log(["获取空间图片成功",data]);
-			$scope.pics=data.pictureCategorys[0].pictures;
 			if(data.isSuccess){
+				$scope.pics=data.pictureCategorys[0].pictures;
 				for (var i = 0; i <data.pictureCategorys[0].pictures.length; i++) {
 					if(categorydata.plat === "TAOBAO"){
 						$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"_100x100.jpg";
