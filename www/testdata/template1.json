@@ -35,9 +35,11 @@
 	},
 	{
 		"detailPageIndex":"3",
-		"templatePageId": 4,
+		"templatePageId": 7,
 		"detailPageImage": [
-			{"img":"img/pic4.jpg"}
+			{"img":"img/pic4_1.jpg"},
+			{"img":"img/pic4_2.jpg"},
+			{"img":"img/pic4_3.jpg"}
 		],
 		"detailPageText": [
 			{"txt":"细节展示，无微不至"},
@@ -62,7 +64,7 @@
 		"detailPageIndex":"5",
 		"templatePageId": 3,
 		"detailPageImage": [
-			{"img":"img/pic6.jpg"}
+			{"img":"img/pic5_2.jpg"}
 		],
 		"detailPageText": [
 			{"txt":"自动获取宝贝数据"},
@@ -84,7 +86,7 @@
 		"detailPageIndex":"7",
 		"templatePageId": 4,
 		"detailPageImage": [
-			{"img":"img/pic8.jpg"}
+			{"img":"img/pic3.jpg"}
 		],
 		"detailPageText": [
 			{"txt":"一建分享"},

@@ -25,11 +25,11 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$statePa
 .controller('viewtemplateCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
 
-	$(".viewtemplate").append('<iframe class="viewbox" src='+location.origin+
+	$(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
 		'/ps.html?orgname='+$rootScope.orgName+
 		'&detailid=987883&templateview=1" frameborder="0"></iframe>');
 console.log(0);
-	$scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
+	// $scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
 	$scope.viewbtnneam="应用";
 	$scope.viewneam="模板预览";
 
@@ -69,12 +69,12 @@ console.log(0);
 
 .controller('viewshowCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
-	$(".viewtemplate").append('<iframe class="viewbox" src='+location.origin+
+	$(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
 		'/ps.html?orgname='+$rootScope.orgName+
 		'&detailid='+$stateParams.showId+
-		'&templateview=1" frameborder="0"></iframe>');
+		'&templateview=2" frameborder="0"></iframe>');
 
-	$scope.iframesrc=location.origin+"/ps.html?orgname="+$rootScope.orgName+"&detailid="+$stateParams.showId+"&templateview=1";
+	// $scope.iframesrc=location.origin+"/ps.html?orgname="+$rootScope.orgName+"&detailid="+$stateParams.showId+"&templateview=1";
 
 	console.log($scope.iframesrc);
 	$scope.viewbtnneam="分享";
