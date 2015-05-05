@@ -303,7 +303,7 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 			plat: pageData.currSelectOrder.plat
 		},function(data){
 			$ionicLoading.hide();
-			console.log(data);
+			console.log(['loadProductDetail',data]);
 			//页面视图数据展现处理
 			pageData.orderDetail = data;
 			pageData.orderDetail.picArr = pageData.orderDetail.picUrl.split(',');

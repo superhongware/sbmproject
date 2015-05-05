@@ -107,7 +107,7 @@ console.log(0);
 			console.log("连接失败");
 		});
 
-	$scope.istaobao=$rootScope.istaobao
+	$scope.istaobao=$rootScope.istaobao;
 	console.log($rootScope.istaobao);
 
 // $scope.showjuhua=-1;
