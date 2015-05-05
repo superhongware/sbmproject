@@ -1,6 +1,10 @@
 creatshowmodule
-.controller('remoteimgCtrl', ['$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http',function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http){
+.controller('remoteimgCtrl',[
+'$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http',
+function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http){
+
 	$scope.remoteimgcat=[];
+
 	$scope.remoteimg={};
 
 	$scope.goback=function(){

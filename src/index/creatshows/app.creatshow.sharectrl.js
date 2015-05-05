@@ -1,7 +1,6 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP',function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP){
-	
 
 	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
@@ -38,8 +37,6 @@ creatshowmodule
 
 	}
 
-
-
 // $scope.showjuhua=-1;
 // $scope.sharetosomewhere=function(){
 // 	// Tida.toast("Hello World!");
@@ -56,7 +53,6 @@ creatshowmodule
 //         interactId:"", // 互动实列ID type string 若无抽奖模块，此参数无须传入。给错误的实例ID会走错误流程
 //         module: ['draw','sensor','buy','device','social','widget'] // 应用所需要的模块。默认加载所有模块。支持的模块有draw:抽奖;sensor:传感器;buy:交易;device:基础设备接口 social:社交相关 widget:客户端UI
 //     }, function(){
-	
 //         console.log(Tida);
 //         Tida.doAuth(function(data){
 //             if(data.finish){
@@ -77,7 +73,6 @@ creatshowmodule
 //         }, function(data){
 //         // data.errorCode 为0时分享成功
 //         });
-
 //     });
 
 }])
