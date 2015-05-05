@@ -43,9 +43,9 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope','$log', '$ionicLoa
 	//$ionicHistory  清全部数据
 	// .fromTemplate() method
 	// console.log($rootScope.orgName);
-	// if($rootScope.orgName===undefined){
-	// 	location.href = "preview.html";
-	// }
+	if($rootScope.orgName===undefined){
+		location.href = "preview.html";
+	}
 	// setTimeout(function(){
 	// 	$rootScope.animate = false;
 	// },1000);

@@ -199,8 +199,6 @@ creatshowmodule
 
 
 
-
-
 .controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
 	// console.log($state.current);
 	console.log("pagetemp1");
