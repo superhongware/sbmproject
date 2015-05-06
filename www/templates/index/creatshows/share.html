@@ -5,8 +5,8 @@
   	<div class="shuoming">点击框框，修改文字和图片</div>
   	<div class="content">
   		<textarea  class="inputs" ng-model="shareData.detailName"></textarea>
-  		<div class="inputs">
-  			<img  src="{{shareData.detailImage}}"/>
+  		<div class="inputs" ng-click="checkshareimg()">
+  			<img id="shareimg" src="{{shareData.detailImage}}"/>
       </div>
   		<textarea  class="inputs" ng-model="shareData.detailDesc"></textarea>
   		<div class="Clear"></div>
@@ -22,7 +22,7 @@
   			<div class="Clear"></div>
   		</div>
 
-		<div class="Clear"></div>
+		  <div class="Clear"></div>
   		<div class="shareway">
         <div
         ng-hide="!istaobao"

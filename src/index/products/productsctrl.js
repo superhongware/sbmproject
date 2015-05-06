@@ -32,6 +32,8 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 	};
 
 
+// alert(JSON.stringify(pageData.pageViewState));
+
 	pageFunc.init = function() {
 		if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
 			console.log('pageData.pageViewState');
@@ -47,6 +49,18 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 					currStatus: 'onsale'
 				};
 			}
+				
+			//如果是淘小铺版本,直接加载数据，不用加载店铺的其他数据了
+			if ($rootScope.istaobao) {
+				pageData.currShop={
+					plat: "TAOBAO",
+					shopName: "宏巍软件"
+				}
+				pageFunc.loadData();
+				return;
+
+			};
+
 
 			getDataComm.loadShopList(function(data) {
 				if (data && data.length > 0) {
@@ -210,7 +224,9 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 		console.log('pageFunc.loadData option');
 		console.log(option);
 
+
 		productComm.loadProductData(option, function(data) {
+						alert(JSON.stringify(data))
 
 			pageFunc.loadDataComplete();
 

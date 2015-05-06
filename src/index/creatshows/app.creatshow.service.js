@@ -239,7 +239,7 @@ creatshowmodule.factory('changepagesize', function(){
 					//填充模板数据
 					tempdata.detailTitle = productdata.title;
 					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
-					tempdata.detailImage = "http://bbx1.hongware.com:8084/sbmproject/img/shareimg.jpg";
+					tempdata.detailImage = "/img/shareimg.jpg";
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
 					tempdata.detailUrl = productdata.detailUrl;
@@ -256,7 +256,7 @@ creatshowmodule.factory('changepagesize', function(){
 
 					},function(errmesg){
 
-						console.log(["saveShow失败",msg])
+						console.log(["saveShow失败",msg]);
 						errorcallback(errmesg);
 
 					});
@@ -264,13 +264,13 @@ creatshowmodule.factory('changepagesize', function(){
 
 				})
 				.error(function(msg,status, response) {
-					console.log(["testdata/template失败",msg])
+					console.log(["testdata/template失败",msg]);
 					errorcallback(msg,status, response);
 				});
 
 
 		},function(msg,status, response){//获取宝贝信息失败
-			console.log(["productComm.loadProductDetail失败",msg])
+			console.log(["productComm.loadProductDetail失败",msg]);
 			errorcallback(msg,status, response);
 
 		});
@@ -426,7 +426,7 @@ creatshowmodule.factory('changepagesize', function(){
 				fileinput.accept="image/*";
 				document.body.appendChild(fileinput);
 			}else{
-				fileinput=document.getElementById('fileImg')
+				fileinput=document.getElementById('fileImg');
 			}
 			fileinput.addEventListener('change', handleFileSelect, false);
 			fileinput.click();

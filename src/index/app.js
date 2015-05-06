@@ -29,9 +29,9 @@ angular.module('starter',
 }])
 .config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider) {
 	// $ionicConfigProvider.backButton.text("返回");
-	$ionicConfigProvider.views.maxCache(0);
-	$ionicConfigProvider.views.forwardCache(false);
-	$ionicConfigProvider.templates.maxPrefetch(0);
+	// $ionicConfigProvider.views.maxCache(0);
+	// $ionicConfigProvider.views.forwardCache(false);
+	// $ionicConfigProvider.templates.maxPrefetch(0);
 
 	$stateProvider
 	.state('login',{

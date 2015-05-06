@@ -1,6 +1,8 @@
 creatshowmodule
 //分享页
-.controller('shareCtrl',['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP',function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP){
+.controller('shareCtrl',
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg){
 
 	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
@@ -30,10 +32,21 @@ creatshowmodule
 		}
 
 
-	$scope.istaobao=$rootScope.istaobao
+	$scope.istaobao=$rootScope.istaobao;
 	console.log($rootScope.istaobao);
 
+
+
+
+
 	$scope.checkshareimg=function(){
+		checklocalimg(function(img){
+			console.log(img);
+			$("#shareimg").attr("src",img.src);
+		});
+	};
+
+	$scope.sharepage=function(){
 
 	}
 
@@ -76,3 +89,18 @@ creatshowmodule
 //     });
 
 }])
+
+
+;
+
+
+
+
+
+
+
+
+
+
+
+

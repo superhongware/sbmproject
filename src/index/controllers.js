@@ -14,54 +14,58 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope','$log', '$ionicLoa
 	// 	$scope.sncybtnhide=toState.controller==="productsCtrl"?false:true;
 	// });
 	
-	$rootScope.istaobao=parseInt(getRequest("taobao"));
 
 
-	var logininfo=loginCheck();
-	if(typeof logininfo !== "object"){
-		return;
-	}else{
-		$rootScope.orgName=logininfo.orgName;
-		$rootScope.userName=logininfo.userName;
-	}
 
-	$scope.show= function(){
-		$ionicLoading.show({
-			template:"loading...",
-			duration:2000
-		});
-	};
-	$scope.hide=function(){
-		$ionicLoading.hide();
-	};
+
+	// $scope.show= function(){
+	// 	$ionicLoading.show({
+	// 		template:"loading...",
+	// 		duration:2000
+	// 	});
+	// };
+	// $scope.hide=function(){
+	// 	$ionicLoading.hide();
+	// };
 }])
 
 
 //首页
-.controller('indexCtrl', ['$scope','$rootScope','loginCheck','myCookie',function($scope,$rootScope,loginCheck,myCookie){
+.controller('indexCtrl', [
+'$scope','$rootScope','loginCheck','getRequest','myCookie',
+function($scope,$rootScope,loginCheck,getRequest,myCookie){
 	// userName
 	//$ionicHistory  清全部数据
 	// .fromTemplate() method
 	// console.log($rootScope.orgName);
-	if($rootScope.orgName===undefined){
-		location.href = "preview.html";
-	}
+	// if($rootScope.orgName===undefined){
+	// 	location.href = "preview.html";
+	// }
+	//?orgName=work&plat=
 	// setTimeout(function(){
 	// 	$rootScope.animate = false;
 	// },1000);
 // myCookie.delete("orgName");
 
-	//首页动画只登陆时显示一次
-	// $rootScope.ishow = ($rootScope.ishow===undefined)?true:$rootScope.ishow;
-	// $rootScope.ishows = ($rootScope.ishows===undefined)?true:$rootScope.ishows;
-	// $rootScope.iup = ($rootScope.iup===undefined)?true:$rootScope.iup;
-	// $rootScope.showpic = ($rootScope.showpic===undefined)?true:$rootScope.showpic;
-	// setTimeout(function(){
-	// 	$rootScope.showpic = false;
-	// 	$rootScope.ishows = false;
-	// 	$rootScope.ishow = false;
-	// 	$rootScope.iup = false;
-	// },2000);
+	//淘宝判断
+	$rootScope.orgName=getRequest("orgName");
+	$rootScope.plat=getRequest("plat");
+
+	if($rootScope.orgName&&$rootScope.plat){
+		$rootScope.istaobao=true;
+	}else{
+		$rootScope.istaobao=false;
+	}
+
+	if(!$rootScope.istaobao){
+		var logininfo=loginCheck();
+		if(typeof logininfo === "object"){
+			$rootScope.orgName=logininfo.orgName;
+			$rootScope.userName=logininfo.userName;
+		}
+	}
+	// console.log(logininfo)
+
 	
 }])
 

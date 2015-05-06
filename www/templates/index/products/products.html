@@ -10,7 +10,7 @@
     <ion-side-menu-content class="paddingtop88">
 
       <div class="bar bar-subheader">
-        <button class="button button-icon icon ion-navicon" menu-toggle="left1"></button>
+        <button class="button button-icon icon ion-navicon" menu-toggle="left1" ng-hide="istaobao" ></button>
         <div class="checkbtn">
           <div class="button-bar">
             <a class="button" ng-class="{'button-energized': pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
@@ -18,6 +18,7 @@
           </div>
         </div>
       </div>
+
       <ion-content class="paddingtop44">
         <ion-refresher
         pulling-text="下拉更新..."
