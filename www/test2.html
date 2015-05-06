@@ -4,7 +4,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<script src="lib/zepto/zepto.js"></script>
 	<script src="http://g.alicdn.com/tmapp/tida2/2.0.16/tida.js?appkey=23127299"></script>
 	<script src="lib/angular/angular.js"></script>
@@ -27,6 +27,36 @@ body{
 
 <body ng-controller="test">
 	{{greeting}}
+	<a 
+	href='
+	fenxiang={
+	"titlle":"分享1",
+	"image":"http://img.alicdn.com/tps/i3/TB16SgbHpXXXXc7XFXXx67lOXXX-156-156.png",
+	"describe":"分享1描述描述描述描述描述描述描述描述描述描述",
+	"way":"weixin"}' 
+	target="_blank" 
+	class="btn btn-primary btn-lg btn-block">分享微信好友</a>
+	<a 
+	href='
+	fenxiang={
+	"titlle":"分享1",
+	"image":"http://img.alicdn.com/tps/i3/TB16SgbHpXXXXc7XFXXx67lOXXX-156-156.png",
+	"describe":"分享1描述描述描述描述描述描述描述描述描述描述",
+	"way":"timeline"}'
+	target="_blank" 
+	class="btn btn-primary btn-lg btn-block">分享微信朋友圈</a>
+
+	<a 
+	href="fenxiang=titlle:分享1&image:http://img.alicdn.com/tps/i3/TB16SgbHpXXXXc7XFXXx67lOXXX-156-156.png&describe:分享1描述描述描述描述描述描述描述描述描述描述" 
+	class="btn btn-primary btn-lg btn-block">分享1</a>
+	<a 
+	href="fenxiang=titlle:分享2&image:http://static.bootcss.com/expo/img/6/56/aecc20901cc436b5cd10911302e0b.png&describe:分享2分享2分享2分享2分享2分享2分享2分享" 
+	class="btn btn-primary btn-lg btn-block">分享2</a>
+	<a 
+	href="fenxiang=titlle:分享3&image:http://static.bootcss.com/expo/img/9/77/9aa20712a7dba02b00e73db495950.png&describe:分分分分分分分分分分分分分分分分分" 
+	class="btn btn-primary btn-lg btn-block">分享3</a>
+
+
 	<div class="btn btn-primary btn-lg btn-block" ng-click="getposition()">地理位置</div>
 	<div class="btn btn-primary btn-lg btn-block" ng-click="network()">网络状况</div>
 	<div class="btn btn-primary btn-lg btn-block" ng-click="photo()">摄像头</div>
