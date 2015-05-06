@@ -187,126 +187,13 @@ creatshowmodule
 			})
 			.error(function(){
 				alert("更新宝贝秀数据失败");
+				console.log("更新宝贝秀数据失败");
 			});
 		}
 	});
 
 }])
 
-
-
-
-.controller('remoteimgCtrl', ['$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http',function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http){
-	$scope.remoteimgcat=[];
-	$scope.remoteimg={};
-
-	$scope.goback=function(){
-		$ionicHistorsy.goBack();
-	};
-	$scope.refreshimg=function(){
-
-	};
-	getremoteimgcat(function(data){
-		console.log(["图片分类",data]);
-		$scope.remoteimgcat=data.pictureCategorys;
-		// $scope.$apply();
-	});
-
-  
-
-
-
-
-//获取分类的图片
-    $scope.loadPicsByStatusFilter=function(categoryid){
-    	var categorydata={
-				orgName:$rootScope.orgName,
-				shopName:$rootScope.editShowData.mainData.shopName,
-				plat:$rootScope.editShowData.mainData.plat,
-				pictureCategoryId:categoryid,
-				method:"softbanana.app.picture.category.search"
-			};
-
-		var api=SBMJSONP("searchPictureCategory",categorydata);
-		$http.jsonp(api.url)
-		.success(function(data){
-			console.log(["获取空间图片成功",data]);
-			if(data.isSuccess){
-				$scope.pics = data.pictureCategorys[0].pictures;
-			}
-			console.log($scope.pics);
-		})
-		.error(function(data){
-			console.log(["获取空间图片失败",data]);
-		});
-		$scope.popover.hide();
-    };
-
-    $scope.uppic = function(picurl){
-    	$rootScope.picurl = picurl;
-    	$state.go("editpages.editer",{
-				showId:$rootScope.pic_showId,
-				pageId:$rootScope.pic_pageId,
-				pageTemp:$rootScope.pic_pageTemp
-			});
-    	
-    };
-// ui-sref="viewtemplate({templateId:pic_templteId,productId:pic_productId,productPlat:pic_productPlat})"
-
-
-    $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {
-        scope: $scope,
-    }).then(function(popover) {
-        $scope.popover = popover;
-    });
-
-}])
-
-.factory('getremoteimgcat', ['$http','$rootScope', 'SBMJSONP',function($http,$rootScope,SBMJSONP){
-	return function getremoteimgcat(callback){
-		console.log("shopName:"+$rootScope.editShowData.mainData.shopName);
-		var senddata={
-				orgName:$rootScope.orgName,
-				shopName:$rootScope.editShowData.mainData.shopName,
-				plat:$rootScope.editShowData.mainData.plat,
-				method:"softbanana.app.picture.category.search"
-
-			};
-
-		var api=SBMJSONP("searchPictureCategory",senddata);
-		$http.jsonp(api.url)
-		.success(function(data){
-			console.log(["获取空间图片分类成功",data]);
-			callback(data);
-
-		})
-		.error(function(data){
-			console.log(["获取空间图片分类失败",data]);
-		});
-
-	};
-}])
-
-.factory('sendShowImg', ['$rootScope','$http','SBMJSONP','SBMPOST',function($rootScope,$http,SBMJSONP,SBMPOST){
-	return function sendShowImg(imgdata,callback){
-			var senddata={
-					orgName:$rootScope.orgName,
-					method:"softbanana.app.image.upload",
-					imageData:encodeURIComponent(imgdata)
-				};
-
-			// 此处使用POST
-			var api=SBMPOST("uploadImage/uploadFile",senddata);
-			$http.post(api.url,api.data)
-			.success(function(data){
-				console.log(["图片上传成功",data]);
-				callback(data.image.imageUrl);
-			})
-			.error(function(data){
-				console.log(["图片上传失败",data]);
-			});
-	};
-}])
 
 .controller('pagetemp1Ctrl',['$scope','$state',function($scope,$state){
 	// console.log($state.current);

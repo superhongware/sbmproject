@@ -1,13 +1,19 @@
-<ion-view view-title="分享">
-  <ion-content class="share">
-  	<div class="shuoming">点击红框，修改文字和图片</div>
+<ion-view view-title="分享" class="share">
+  
+    <div class="paddingtop44"></div>
+
+  	<div class="shuoming">点击框框，修改文字和图片</div>
   	<div class="content">
-  		<textarea  class="inputs">{{shareData.detailName}}</textarea>
+  		<textarea  class="inputs" ng-model="shareData.detailName"></textarea>
   		<div class="inputs">
-  			<img  src="{{shareData.detailImage}}"/></div>
-  		<textarea  class="inputs">{{shareData.detailDesc}}</textarea>
+  			<img  src="{{shareData.detailImage}}"/>
+      </div>
+  		<textarea  class="inputs" ng-model="shareData.detailDesc"></textarea>
   		<div class="Clear"></div>
   	</div>
+
+
+
   	<div class="sharediv">
   		<div class="barwrap">
   			<div class="barl"></div>
@@ -15,43 +21,57 @@
   			<div class="barl"></div>
   			<div class="Clear"></div>
   		</div>
+
 		<div class="Clear"></div>
   		<div class="shareway">
-      <div
-      ng-click="sharetosomewhere()" 
-      class="button button-energized button-block">分享</div>
-<!--   			<dl class="imgwrap">
-  				<dt><img src="img/pic1.jpg"></dt>
-  				<dd>微信好友</dd>
-  			</dl>
-  			<dl class="imgwrap">
-  				<dt><img src="img/pic1.jpg"></dt>
-  				<dd>微信朋友圈</dd>
-  			</dl>
-  			<dl class="imgwrap">
-  				<dt><img src="img/pic1.jpg"></dt>
-  				<dd>微信好友</dd>
-  			</dl>
-  			<dl class="imgwrap">
-  				<dt><img src="img/pic1.jpg"></dt>
-  				<dd>微信好友</dd>
-  			</dl>
-  			<dl class="imgwrap">
-  				<dt><img src="img/pic1.jpg"></dt>
-  				<dd>微信好友</dd>
-  			</dl>
-  			<dl class="imgwrap">
-  				<dt><img src="img/pic1.jpg"></dt>
-  				<dd>微信好友</dd>
-  			</dl>
-  			<dl class="imgwrap">
-  				<dt><img src="img/pic1.jpg"></dt>
-  				<dd>微信好友</dd>
-  			</dl> -->
+        <div
+        ng-hide="!istaobao"
+        ng-click="sharetosomewhere()" 
+        class="button button-energized button-block">分享</div>
+        <div
+        ng-hide="istaobao"
+        class="sharebox">        
+    			<span class="imgwrap">
+    				<i>
+              <span class="iconfont icon-weixin"></span>    
+            </i>
+    				<p>微信好友</p>
+    			</span>
+    			<span class="imgwrap">
+    				<i>
+              <span class="iconfont icon-pengyouquan"></span>    
+            </i>
+    				<p>微信朋友圈</p>
+    			</span>
+    			<span class="imgwrap">
+    				<i>
+              <span class="iconfont icon-xinlang"></span>    
+            </i>
+    				<p>微信好友</p>
+    			</span>
+    			<span class="imgwrap">
+    				<i>
+              <span class="iconfont icon-qq"></span>    
+            </i>
+    				<p>微信好友</p>
+    			</span>
+    			<span class="imgwrap">
+    				<i>
+              <span class="iconfont icon-qqkongjian"></span>    
+            </i>
+    				<p>微信好友</p>
+    			</span>
+    			<span class="imgwrap">
+    				<i>
+              <span class="iconfont icon-fuzhilianjie"></span>    
+            </i>
+    				<p>微信好友</p>
+    			</span>
+        </div>
   			<div class="Clear"></div>
   			
   		</div>
   		
   	</div>
-  </ion-content>
+
 </ion-view>
