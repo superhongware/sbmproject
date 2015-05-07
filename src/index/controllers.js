@@ -32,8 +32,8 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope','$log', '$ionicLoa
 
 //首页
 .controller('indexCtrl', [
-'$scope','$rootScope','loginCheck','getRequest','myCookie',
-function($scope,$rootScope,loginCheck,getRequest,myCookie){
+'$scope','$rootScope','loginCheck','getRequest','myCookie','base64',
+function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
 	// userName
 	//$ionicHistory  清全部数据
 	// .fromTemplate() method
@@ -46,13 +46,16 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie){
 	// 	$rootScope.animate = false;
 	// },1000);
 // myCookie.delete("orgName");
-
+// d29yaw== VEFPQkFP
+console.log(base64.encode("work"),base64.encode("TAOBAO"))
 	//淘宝判断
-	$rootScope.orgName=getRequest("orgName");
-	$rootScope.plat=getRequest("plat");
-
-	if($rootScope.orgName&&$rootScope.plat){
+	var orgname=getRequest("orgName"),
+		plat=getRequest("plat");
+	if(orgname&&plat){
+		$rootScope.orgName=base64.decode(decodeURIComponent(orgname));
+		$rootScope.plat=base64.decode(decodeURIComponent(plat));
 		$rootScope.istaobao=true;
+		console.log($rootScope.orgName,$rootScope.plat)
 	}else{
 		$rootScope.istaobao=false;
 	}

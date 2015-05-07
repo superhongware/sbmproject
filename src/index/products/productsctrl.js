@@ -82,7 +82,7 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 				console.log('数据查询连接失败');
 			});
 		} else {
-			$state.go("login");
+			$state.go("home");
 		}
 	};
 
@@ -226,7 +226,9 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 
 
 		productComm.loadProductData(option, function(data) {
-						alert(JSON.stringify(data))
+
+			// alert(JSON.stringify(data))
+			console.log(['productComm.loadProductData',data])
 
 			pageFunc.loadDataComplete();
 

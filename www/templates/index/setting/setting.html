@@ -1,8 +1,8 @@
 <ion-view view-title="设置">
   <ion-content class="set-list">
     <ion-list>
-      <div class="list-divider"></div>
-      <ion-item class="item-icon-right" ui-sref="set-password">
+      <div class="list-divider ng-hide" ng-show="!istaobao"></div>
+      <ion-item class="item-icon-right ng-hide" ui-sref="set-password" ng-show="!istaobao">
         修改密码
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
@@ -11,17 +11,17 @@
         店铺管理
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
-      <div class="list-divider"></div>
+      <div class="list-divider ng-hide" ng-show="!istaobao"></div>
       <ion-item class="item-icon-right">
         宝贝同步
         <i class="icon icon-accessory">5分钟/次&nbsp;&nbsp;</i>
       </ion-item>
-      <ion-item class="item-icon-right">
+      <ion-item class="item-icon-right ng-hide" ng-show="!istaobao">
         订单同步
         <i class="icon icon-accessory">5分钟/次&nbsp;&nbsp;</i>
       </ion-item>
-      <div class="list-divider"></div>
-      <ion-item class="item-icon-right" ui-sref="set-remind">
+      <div class="list-divider ng-hide" ng-show="!istaobao"></div>
+      <ion-item class="item-icon-right ng-hide" ui-sref="set-remind" ng-show="!istaobao">
         提醒设置
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>

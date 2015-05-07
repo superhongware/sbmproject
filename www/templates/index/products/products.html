@@ -10,7 +10,7 @@
     <ion-side-menu-content class="paddingtop88">
 
       <div class="bar bar-subheader">
-        <button class="button button-icon icon ion-navicon" menu-toggle="left1" ng-hide="istaobao" ></button>
+        <button class="button button-icon icon ion-navicon" menu-toggle="left1" ng-show="!istaobao" ></button>
         <div class="checkbtn">
           <div class="button-bar">
             <a class="button" ng-class="{'button-energized': pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
