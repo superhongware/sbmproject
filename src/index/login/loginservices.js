@@ -14,6 +14,7 @@ loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup',
 					myCookie.add("orgName",base64.encode(logindata.orgName),720);
 					myCookie.add("userName",base64.encode(logindata.userName),720);
 					$rootScope.orgName=logindata.orgName;
+					$rootScope.orgCode=data.user.orgCode;
 					$state.go("home");
 				}else{
 

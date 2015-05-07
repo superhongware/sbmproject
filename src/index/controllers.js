@@ -47,7 +47,7 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
 	// },1000);
 // myCookie.delete("orgName");
 // d29yaw== VEFPQkFP
-console.log(base64.encode("work"),base64.encode("TAOBAO"))
+console.log(base64.encode("work"),base64.encode("TAOBAO"));
 	//淘宝判断
 	var orgname=getRequest("orgName"),
 		plat=getRequest("plat");
@@ -55,7 +55,7 @@ console.log(base64.encode("work"),base64.encode("TAOBAO"))
 		$rootScope.orgName=base64.decode(decodeURIComponent(orgname));
 		$rootScope.plat=base64.decode(decodeURIComponent(plat));
 		$rootScope.istaobao=true;
-		console.log($rootScope.orgName,$rootScope.plat)
+		console.log($rootScope.orgName,$rootScope.plat);
 	}else{
 		$rootScope.istaobao=false;
 	}
