@@ -48,6 +48,7 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
 	// },1000);
 // myCookie.delete("orgName");
 // d29yaw== VEFPQkFP
+
 loginCheck()
 console.log(base64.encode("work"),base64.encode("TAOBAO"))
 	// //淘宝判断

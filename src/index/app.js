@@ -51,7 +51,8 @@ angular.module('starter',
 	})
 	.state('shops', {
 		url: "/shops",
-		templateUrl: "templates/index/shops.html"
+		templateUrl: "templates/index/shops.html",
+		controller:'shopsCtrl'
 	})
 	
 
