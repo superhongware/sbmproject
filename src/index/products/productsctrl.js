@@ -4,8 +4,11 @@
  * 我的宝贝功能模块
  */
 var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
-productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm) {
+productsmodule.controller('productsCtrl', [
+'$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', 'loginCheck',
+function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,loginCheck) {
 
+// console.log(loginCheck);
 
 	var pageData = {},
 		pageFunc = {};
@@ -35,7 +38,7 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 // alert(JSON.stringify(pageData.pageViewState));
 
 	pageFunc.init = function() {
-		if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
+		// if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
 			console.log('pageData.pageViewState');
 			console.log(pageData.pageViewState);
 			if (pageData.pageViewState) {
@@ -81,9 +84,9 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 			}, function() {
 				console.log('数据查询连接失败');
 			});
-		} else {
-			$state.go("home");
-		}
+		// } else {
+		// 	$state.go("home");
+		// }
 	};
 
 	pageFunc.setCurrPageViewState = function(currShop, currStatus) {
@@ -275,6 +278,7 @@ productsmodule.controller('productsCtrl', ['$scope', '$ionicLoading', '$rootScop
 	$scope.pageData = pageData;
 	$scope.pageFunc = pageFunc;
 
+	loginCheck()
 	pageFunc.init();
 
 }]);
@@ -356,8 +360,6 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 		console.log("$index: " + $index);
 	};
 
-	$scope.pageData = pageData;
-	pageFunc.init();
 	
 
 		//删除
@@ -412,6 +414,7 @@ productsmodule.controller('productDetailCtrl', ['$rootScope', '$scope', '$http',
 
 	};
 
-
+	$scope.pageData = pageData;
+	pageFunc.init();
 
 }]);

@@ -62,7 +62,7 @@ showsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', 
 
 			})
 			.error(function(status,response){
-				console.log("连接失败");
+				console.log(status);
 			});
 	}
 

@@ -286,4 +286,111 @@ creatshowmodule
 		}
 	};
 })
+
+.directive('dragimg', function(){
+	// Runs during compile
+	return {
+		// name: '',
+		// priority: 1,
+		// terminal: true,
+		// scope: {}, // {} = isolate, true = child, false/undefined = no change
+		// controller: function($scope, $element, $attrs, $transclude) {},
+		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+		// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+		// template: '',
+		templateUrl: 'templates/index/creatshows/pages/dragimgbox.html',
+		// replace: true,
+		// transclude: true,
+		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+		link: function($scope, iElm, iAttrs, controller) {
+			// var thispsimg=$(iElm);
+			// var thisimgdata=$scope.imgviewinfo[index];
+			// // console.log($scope.imgviewinfo[index]);
+			// thisimgdata.startpoint=[0,0];
+			// thisimgdata.point=[0,0];
+			// thisimgdata.scale=[1,1];
+
+			// // thisimgdata.dragstart=
+			// ionic.onGesture("dragstart",dragstart,this);
+			// // thisimgdata.drag=
+			// ionic.onGesture("drag",dragmove,this);
+			// // thisimgdata.dragend=
+			// ionic.onGesture("release",release,this);
+			// // thisimgdata.transformstart=
+			// ionic.onGesture("transformstart",dragstart,this);
+			// // thisimgdata.transform=
+			// ionic.onGesture("transform",dragmove,this);
+
+			// //是否支持图片互相换位
+			// var changimage=0;
+			// var picnum=$(".editplace").find(".ps_img").length;
+			// if(picnum>1){
+			// 	// thisimgdata.hold=
+			// 	ionic.onGesture("hold",holdimg,this);
+			// 	console.log(["一共有的图片数",picnum]);
+			// }
+			// function holdimg(e){
+			// 	//拖动图片换位触发时点的位置,是相对于ui-view.editplace的位置
+			// 	thisimgdata.holdpoint=[e.gesture.center.pageX-$(".editplace")[0].offsetLeft,e.gesture.center.pageY-$(".editplace")[0].offsetTop];
+			// 	console.log(thisimgdata.holdpoint);
+			// 	changimage=1;
+			// 	$(this).css({
+			// 		"border":"2px solid #fe9900"
+			// 	});
+			// }
+
+
+			// thisimgdata.img=$(this).find("img").show()[0];
+			// thisimgdata.imgbox=$(this);
+
+
+
+			// function dragstart(e){
+			// 	if(e.type==="dragstart"){
+			// 		thisimgdata.startpoint[0] = thisimgdata.point[0];
+			// 		thisimgdata.startpoint[1] = thisimgdata.point[1];
+			// 		$rootScope.xychange = true;
+			// 	}else{
+			// 		thisimgdata.scale[1]=thisimgdata.scale[0];
+			// 	}
+			// }
+
+			// function dragmove(e){
+			// 	if(!changimage){
+			// 		if(e.type==="drag"){
+			// 			thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
+			// 			thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
+			// 		}else if(!changimage){
+			// 			thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
+			// 		}
+			// 		$(this).find(".innerimg").css({
+			// 			"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
+			// 		});
+			// 	}else{
+
+			// 	}
+			// 	// var cvs=drawShowImg(thisimgdata);
+			// 	// compressShowImg(cvs,80);
+			// }
+
+
+		}
+	};
+})
+
+
+
+
+
+
 ;
+
+
+
+
+
+
+
+
+
+

@@ -15,6 +15,7 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope','$log', '$ionicLoa
 	// });
 	
 
+	loginCheck()
 
 
 
@@ -47,26 +48,27 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
 	// },1000);
 // myCookie.delete("orgName");
 // d29yaw== VEFPQkFP
+loginCheck()
 console.log(base64.encode("work"),base64.encode("TAOBAO"))
-	//淘宝判断
-	var orgname=getRequest("orgName"),
-		plat=getRequest("plat");
-	if(orgname&&plat){
-		$rootScope.orgName=base64.decode(decodeURIComponent(orgname));
-		$rootScope.plat=base64.decode(decodeURIComponent(plat));
-		$rootScope.istaobao=true;
-		console.log($rootScope.orgName,$rootScope.plat)
-	}else{
-		$rootScope.istaobao=false;
-	}
+	// //淘宝判断
+	// var orgname=getRequest("orgName"),
+	// 	plat=getRequest("plat");
+	// if(orgname&&plat){
+	// 	$rootScope.orgName=base64.decode(decodeURIComponent(orgname));
+	// 	$rootScope.plat=base64.decode(decodeURIComponent(plat));
+	// 	$rootScope.istaobao=true;
+	// 	console.log($rootScope.orgName,$rootScope.plat)
+	// }else{
+	// 	$rootScope.istaobao=false;
+	// }
 
-	if(!$rootScope.istaobao){
-		var logininfo=loginCheck();
-		if(typeof logininfo === "object"){
-			$rootScope.orgName=logininfo.orgName;
-			$rootScope.userName=logininfo.userName;
-		}
-	}
+	// if(!$rootScope.istaobao){
+	// 	var logininfo=loginCheck();
+	// 	if(typeof logininfo === "object"){
+	// 		$rootScope.orgName=logininfo.orgName;
+	// 		$rootScope.userName=logininfo.userName;
+	// 	}
+	// }
 	// console.log(logininfo)
 
 	

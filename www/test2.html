@@ -27,6 +27,14 @@ body{
 
 <body ng-controller="test">
 	{{greeting}}
+
+Testing ZeroClipboard ...
+<br>
+Copy text to clipboard with Javascript, html5 and Jquery : 
+<button id="copy_clipboard">Click to copy</button>
+<br><br>
+and Paste here : <input />
+
 	<a
 	href='
 	fenxiang={
@@ -69,9 +77,21 @@ body{
 
 	</body>
 </html>
-
+<script src="http://davidwalsh.name/demo/ZeroClipboard.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+  
+  ZeroClipboard.setMoviePath('http://davidwalsh.name/demo/ZeroClipboard.swf');
+  //create client
+  var clip = new ZeroClipboard.Client();
+  
+  //event
+  clip.setText("Testing 1.2.3.4");
+  clip.glue('copy_clipboard');
+  ZeroClipboard.dispatch();
 
+	//ert(JSON.stringify(clip));
+});
 // function (a,e){
 // 	if(e=="tmall"){
 // 		t("//g.alicdn.com/tmapp/jump/1.0.11/appjump.js",function(){

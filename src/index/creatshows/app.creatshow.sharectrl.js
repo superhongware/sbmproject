@@ -1,19 +1,23 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg){
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg','loginCheck',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg,loginCheck){
+
+	loginCheck();
+
+	$scope.shareurl="http://192.168.51.38:3000/ps.html?";
+	// "http://192.168.51.38:3000/ps.html?orgname=work&detailid=988269&productid=45031625539&plat=TAOBAO"
 
 	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
 			$scope.shareData = $rootScope.editShowData.mainData;
+			setshareurl();
 
 		}else{
 
 			$scope.shareInfo = {
-
 				orgName:$rootScope.orgName,
-
 				detailId:$stateParams.showId
 			};
 
@@ -25,6 +29,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 				.success(function(data){
 					console.log(data);
 					$scope.shareData = data;
+					setshareurl();
 				})
 				.error(function(status,response){
 					console.log("连接失败");
@@ -35,9 +40,12 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 	$scope.istaobao=$rootScope.istaobao;
 	console.log($rootScope.istaobao);
 
-
-
-
+	function setshareurl () {
+		$scope.shareurl+="orgname="+$rootScope.orgname;
+		$scope.shareurl+="detailid="+$scope.shareData.detailId;
+		$scope.shareurl+="productid="+$scope.shareData.numIid;
+		$scope.shareurl+="plat="+$scope.shareData.plat;
+	}
 
 	$scope.checkshareimg=function(){
 		checklocalimg(function(img){

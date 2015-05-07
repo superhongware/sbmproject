@@ -60,14 +60,34 @@
 })
 
 
-.factory('loginCheck',['$state','myCookie','base64',function($state,myCookie,base64){
+.factory('loginCheck',[
+'$state','myCookie','base64','getRequest','$rootScope',
+function($state,myCookie,base64,getRequest,$rootScope){
+
 	return function(){
-		if(!myCookie.get("orgName")){
-			$state.go("login");
+		var orgname=getRequest("orgName"),
+		plat=getRequest("plat");
+
+		if($rootScope.istaobao===true||$rootScope.orgName){
+			//已知是淘宝 或者 已经登录并且结果logincheck
 			return;
+		}else if(orgname&&plat){
+			//淘宝版本
+			$rootScope.istaobao=true;
+			$rootScope.orgName=base64.decode(decodeURIComponent(orgname));
+			$rootScope.plat=base64.decode(decodeURIComponent(plat));
+			console.log($rootScope.orgName,$rootScope.plat);
+		}else if(myCookie.get("orgName")){
+			//非淘宝 有cookie记录
+			$rootScope.orgName=base64.decode(myCookie.get("orgName"));
+			$rootScope.userName=base64.decode(myCookie.get("userName"));
+			$rootScope.istaobao=false;
 		}else{
-			return {orgName:base64.decode(myCookie.get("orgName")),userName:base64.decode(myCookie.get("userName"))};
+			//非淘宝 没登录
+			$rootScope.istaobao=false;
+			$state.go("login");
 		}
+
 	};
 }])
 

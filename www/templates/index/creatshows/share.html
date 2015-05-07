@@ -1,10 +1,12 @@
 <ion-view view-title="分享" class="share">
-  
-    <div class="paddingtop44"></div>
+  <ion-content>
+    <!-- <div class="paddingtop44"></div> -->
 
   	<div class="shuoming">点击框框，修改文字和图片</div>
   	<div class="content">
   		<textarea  class="inputs" ng-model="shareData.detailName"></textarea>
+
+
   		<div class="inputs" ng-click="checkshareimg()">
   			<img id="shareimg" src="{{shareData.detailImage}}"/>
       </div>
@@ -23,11 +25,23 @@
   		</div>
 
 		  <div class="Clear"></div>
+      <span class="shareurlnote">宝贝秀链接地址</span>
+      <textarea class="shareurlbox" rows="3" readonly ng-model="shareurl">
+      </textarea>
+<!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+<!-- <img src="img/testrqcode.jpg" alt=""> -->
   		<div class="shareway">
+
         <div
         ng-hide="!istaobao"
         ng-click="sharetosomewhere()" 
-        class="button button-energized button-block">分享</div>
+        class="button button-energized button-block">如何分享到微信</div>
+
+<!--         <div
+        ng-hide="!istaobao"
+        ng-click="sharetosomewhere()" 
+        class="button button-energized button-block">分享</div> -->
+
         <div
         ng-hide="istaobao"
         class="sharebox">        
@@ -71,7 +85,14 @@
   			<div class="Clear"></div>
   			
   		</div>
-  		
   	</div>
+  </ion-content>
+
+  <div class="editimg">
+    <div>
+      <img src="" alt="">
+    </div>
+  </div>
+
 
 </ion-view>
