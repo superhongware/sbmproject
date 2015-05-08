@@ -27,6 +27,10 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, product
 		}
 	};
 
+	$scope.refresh = function() {
+		pageFunc.loadProductDetail();
+	};
+
 	/**
 	 * [loadProductDetail 加载产品详情]
 	 * @return {[type]} [description]
@@ -59,7 +63,7 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, product
 					sliderpointcolor:"#fa9d00"
 				});
 			},200);
-
+		 $scope.$broadcast('scroll.refreshComplete');
 
 		},function(msg){
 			$ionicLoading.hide();
