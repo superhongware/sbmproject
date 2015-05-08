@@ -1,8 +1,8 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg','loginCheck',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg,loginCheck){
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg){
 
 	loginCheck();
 
@@ -50,13 +50,77 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 	$scope.checkshareimg=function(){
 		checklocalimg(function(img){
 			console.log(img);
-			$("#shareimg").attr("src",img.src);
+			$(".editimg").show();
+			$(".editcheckimg").attr("src",img.src);
+			editimgctrl();
 		});
 	};
 
-	$scope.sharepage=function(){
 
+	function editimgctrl(){
+		if(!$scope.shareimgdata){
+			$scope.shareimgdata={};
+			// thisimgdata.dragstart=
+			ionic.onGesture("dragstart",dragstart,$(".editimg")[0]);
+			// thisimgdata.drag=
+			ionic.onGesture("drag",dragmove,$(".editimg")[0]);
+			// thisimgdata.transformstart=
+			ionic.onGesture("transformstart",dragstart,$(".editimg")[0]);
+		}
+		var thispsimg=$("#shareimgedit");
+		var thisimgdata=$scope.shareimgdata;
+		thisimgdata.startpoint=[0,0];
+		thisimgdata.point=[0,0];
+		thisimgdata.scale=[1,1];
+		setimgview()
+
+		thisimgdata.img=thispsimg.find("img").show()[0];
+		thisimgdata.imgbox=thispsimg;
+
+		function dragstart(e){
+			console.log("dragstart")
+			if(e.type==="dragstart"){
+				thisimgdata.startpoint[0] = thisimgdata.point[0];
+				thisimgdata.startpoint[1] = thisimgdata.point[1];
+			}else{
+				thisimgdata.scale[1]=thisimgdata.scale[0];
+			}
+		}
+
+		function dragmove(e){
+
+			if(e.type==="drag"){
+				thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
+				thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
+			}else{
+				thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
+			}
+			setimgview()
+		}
+		function setimgview(){
+			thispsimg.find("img").css({
+				"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
+			});
+			$(".backimgbox>img").css({
+				"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
+			});
+			
+		}
 	}
+
+	$scope.getthispic=function(){
+		var cvs=drawShowImg($scope.shareimgdata);
+		// console.log($scope.shareData);
+		// $scope.shareData={}
+		$scope.shareData.detailImage=compressShowImg(cvs,80);
+		$(".editimg").hide();
+		
+	};
+	$scope.dropthispic=function(){
+		// alert(0);
+		$(".editimg").hide();
+	};
+
 
 // $scope.showjuhua=-1;
 // $scope.sharetosomewhere=function(){
