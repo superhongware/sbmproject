@@ -43,8 +43,8 @@
         class="button button-energized button-block">分享</div> -->
 
         <div
-        ng-hide="istaobao"
-        class="sharebox">        
+        ng-show="!istaobao"
+        class="sharebox ng-hide">        
     			<span class="imgwrap">
     				<i>
               <span class="iconfont icon-weixin"></span>    
@@ -88,10 +88,16 @@
   	</div>
   </ion-content>
 
-  <div class="editimg">
-    <div>
-      <img src="" alt="">
+  <div class="editimg ps_page">
+    <div class="backimgbox">
+      <img src="/img/shareimg.jpg" class="editcheckimg" alt="">
     </div>
+    <div class="editbg"></div>
+    <div class="imgbox" id="shareimgedit">
+      <img src="/img/shareimg.jpg" class="editcheckimg" alt="">
+    </div>
+    <div class="button button-energized shurebtn" ng-click="getthispic()">确定</div>
+    <div class="button button-energized canclebtn" ng-click="dropthispic()">取消</div>
   </div>
 
 
