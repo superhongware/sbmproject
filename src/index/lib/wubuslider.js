@@ -74,6 +74,8 @@
 					"width": swidth,
 					"transform": "translate3d(" + (swidth * p) + "px," + 0 + "px," + 0 + "px)",
 					"transition": "0s ease-out",
+					"-webkit-transform": "translate3d(" + (swidth * p) + "px," + 0 + "px," + 0 + "px)",
+					"-webkit-transition": "0s ease-out",
 					"position": "absolute"
 				});
 			});
@@ -98,6 +100,7 @@
 				"height": pointlistw,
 				"position": "absolute",
 				"transform": "translate3d(0," + (sheight / 2 - args.sliderpointwidth) + "px,1px)",
+				"-webkit-transform": "translate3d(0," + (sheight / 2 - args.sliderpointwidth) + "px,1px)",
 				"padding": 0,
 				"top": 0,
 				"left": 0,
@@ -114,6 +117,7 @@
 				"float": "left",
 				"background-color": args.sliderpointbgcolor,
 				"transition": args.animatetime / 1000 + "s ease-out",
+				"-webkit-transition": args.animatetime / 1000 + "s ease-out"
 			});
 			$(".currentsliderpoint").css({
 				"background-color": args.sliderpointcolor
@@ -177,18 +181,24 @@
 
 			$(picarrary[position.index]).css({
 				"transform": "translate3d(" + (0 + x) + "px," + 0 + "px," + 0 + "px)",
-				"transition": time + "s ease-out"
+				"transition": time + "s ease-out",
+				"-webkit-transform": "translate3d(" + (0 + x) + "px," + 0 + "px," + 0 + "px)",
+				"-webkit-transition": time + "s ease-out"
 			});
 			if (time === 0 || position.direction >= 0) {
 				$(picarrary[position.prevpic]).css({
 					"transform": "translate3d(" + (-swidth + x) + "px," + 0 + "px," + 0 + "px)",
-					"transition": time + "s ease-out"
+					"transition": time + "s ease-out",
+					"-webkit-transform": "translate3d(" + (-swidth + x) + "px," + 0 + "px," + 0 + "px)",
+					"-webkit-transition": time + "s ease-out"
 				});
 			}
 			if (time === 0 || position.direction <= 0) {
 				$(picarrary[position.nextpic]).css({
 					"transform": "translate3d(" + (swidth + x) + "px," + 0 + "px," + 0 + "px)",
-					"transition": time + "s ease-out"
+					"transition": time + "s ease-out",
+					"-webkit-transform": "translate3d(" + (swidth + x) + "px," + 0 + "px," + 0 + "px)",
+					"-webkit-transition": time + "s ease-out"
 				});
 			}
 
