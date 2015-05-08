@@ -2,8 +2,8 @@ creatshowmodule
 
 //整编辑页的controller
 .controller('editpagesCtrl',[
-	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow',
-	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow){
+	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl',
+	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow,creatpsurl){
 
 
 	console.log("editpagesCtrl");
@@ -92,12 +92,17 @@ creatshowmodule
 		// 	deletescopeon();
 		// }
 		$scope.$on("saveShowImgOver", function() {
-			gohref = "/ps.html?orgname=" + $rootScope.orgName +
-				"&detailid=" + $rootScope.editShowData.showId +
-				"&productid=" + $rootScope.editShowData.mainData.numIid +
-				"&plat=" + $rootScope.editShowData.mainData.plat;
-				console.log(location.origin+gohref);
-			location.href = location.origin + gohref;
+
+			gohref=creatpsurl($rootScope.orgName,$rootScope.editShowData.showId,$rootScope.editShowData.mainData.numIid,$rootScope.editShowData.mainData.plat)
+
+			// gohref = "/ps.html?orgname=" + $rootScope.orgName +
+			// 	"&detailid=" + $rootScope.editShowData.showId +
+			// 	"&productid=" + $rootScope.editShowData.mainData.numIid +
+			// 	"&plat=" + $rootScope.editShowData.mainData.plat;
+
+			console.log(gohref);
+
+			location.href = gohref;
 		});
 	};
 

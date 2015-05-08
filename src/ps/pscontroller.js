@@ -7,7 +7,9 @@
 // var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services','ngTouch']);
 var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 
-SBMPS.controller('spCtrl', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
+SBMPS.controller('spCtrl', [
+'$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 
+function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s) {
 
 console.log(wx);
 
@@ -75,8 +77,8 @@ console.log(["asdasdasd",getRequest("templateview")]);
 	}else{
 		//获取宝贝秀数据
 		var getdata = {
-			orgName: getRequest("orgname"),
-			detailId: getRequest("detailid"),
+			orgName: getRequest2("orgname"),
+			detailId: getRequest2("detailid"),
 			method: "softbanana.app.detail.search"
 		};
 		var api = SBMJSONP("searchDetail", getdata);
@@ -154,7 +156,9 @@ console.log(["asdasdasd",getRequest("templateview")]);
 
 
 //三个点
-.directive('threePoints',['$http','threePointData','getRequest','SBMJSONP',function($http, threePointData, getRequest, SBMJSONP) {
+.directive('threePoints',[
+'$http','threePointData','getRequest','SBMJSONP','debase64url',
+function($http, threePointData, getRequest, SBMJSONP,debase64url) {
 	// Runs during compile
 	return {
 		// name: '',
@@ -233,9 +237,9 @@ console.log(["asdasdasd",getRequest("templateview")]);
 			};
 			$scope.buywx=function(){
 				var getdata = {
-						orgName: getRequest("orgname"),
-						numIid: getRequest("productid"),
-						plat:getRequest("plat"),
+						orgName: getRequest2("orgname"),
+						numIid: getRequest2("productid"),
+						plat:getRequest2("plat"),
 						method: "softbanana.app.item.detail.search"
 				};
 				var api = SBMJSONP("searchItemDetail", getdata);
@@ -245,7 +249,7 @@ console.log(["asdasdasd",getRequest("templateview")]);
 						if(!data.isSuccess){
 							$scope.showmainbox = true;
 							$scope.shownoshowdata=true;
-							return;
+							return; 
 
 						}
 						$scope.showdata = data;
