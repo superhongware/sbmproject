@@ -28,6 +28,33 @@
 	};
 })
 
+.factory('creatpsurl', ['base64url', function(base64url){
+	return function creatpsurl(orgname,detailid,productid,plat){
+		var psurl="orgname="+orgname;
+		psurl+="&detailid="+detailid;
+		psurl+="&productid="+productid;
+		psurl+="&plat="+plat;
+
+		psurl="http://baobeixiu-1.play.m.jaeapp.com/ps.html?"+base64url(psurl);
+		return psurl;
+	};
+}])
+
+.factory('base64url', ['base64', function(base64){
+	return function base64url(text){
+		// console.log(text)
+		return encodeURIComponent(base64.encode(text));
+	};
+}])
+
+.factory('debase64url', ['base64', function(base64){
+	return function debase64url(text){
+		// console.log(text)
+		return base64.decode(decodeURIComponent(text));
+	};
+}])
+
+
 .factory('dateFormat', function() {
 	/**
 	 * [时间格式化]
@@ -61,21 +88,21 @@
 
 
 .factory('loginCheck',[
-'$state','myCookie','base64','getRequest','$rootScope',
-function($state,myCookie,base64,getRequest,$rootScope){
-
+'$state','myCookie','base64','getRequest2','$rootScope',
+function($state,myCookie,base64,getRequest2,$rootScope){
+// console.log( encodeURIComponent(base64.encode("orgName=work&plat=taobao")))
 	return function(){
-		var orgname=getRequest("orgName"),
-		plat=getRequest("plat");
-
+		var orgname=getRequest2("orgName"),
+		plat=getRequest2("plat");
+		// console.log(orgname)
 		if($rootScope.istaobao===true||$rootScope.orgName){
 			//已知是淘宝 或者 已经登录并且结果logincheck
 			return;
 		}else if(orgname&&plat){
 			//淘宝版本
 			$rootScope.istaobao=true;
-			$rootScope.orgName=base64.decode(decodeURIComponent(orgname));
-			$rootScope.plat=base64.decode(decodeURIComponent(plat));
+			$rootScope.orgName=orgname;
+			$rootScope.plat=plat;
 			console.log($rootScope.orgName,$rootScope.plat);
 		}else if(myCookie.get("orgName")){
 			//非淘宝 有cookie记录
@@ -539,6 +566,18 @@ function($state,myCookie,base64,getRequest,$rootScope){
 	};
 })
 
+.factory('getRequest2', ['debase64url',function(debase64url){
+	return function GetRequest2(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var wls=window.location.search.substr(1);
+		var jiequ=wls.indexOf("&");
+		if(jiequ!==-1){
+			wls.substr(0,jiequ);
+		}
+		var r = debase64url(wls).match(reg);
+		if (r !== null) return unescape(r[2]); return null;
+	};
+}])
 ;
 
 

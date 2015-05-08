@@ -1,8 +1,8 @@
-SBMPS.factory('threePointData', ['$http', 'SBMJSONP','getRequest', function($http, SBMJSONP,getRequest) {
+SBMPS.factory('threePointData', ['$http', 'SBMJSONP','getRequest2', function($http, SBMJSONP,getRequest2) {
 	return function threePointData(callback,errorcallback) {
 		var getdata = {
-			orgName: getRequest("orgname"),
-			detailId: getRequest("detailid"),
+			orgName: getRequest2("orgname"),
+			detailId: getRequest2("detailid"),
 			method: "softbanana.app.detailProperty.search"
 		};
 		var api = SBMJSONP("searchDetaiProperty", getdata);

@@ -1,18 +1,18 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg){
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl){
 
 	loginCheck();
 
-	$scope.shareurl="http://192.168.51.38:3000/ps.html?";
-	// "http://192.168.51.38:3000/ps.html?orgname=work&detailid=988269&productid=45031625539&plat=TAOBAO"
+	$scope.shareurl="";
 
 	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
 			$scope.shareData = $rootScope.editShowData.mainData;
-			setshareurl();
+			// setshareurl();
+			$scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
 
 		}else{
 
@@ -30,6 +30,9 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 					console.log(data);
 					$scope.shareData = data;
 					setshareurl();
+			// console.log($rootScope.orgname)
+
+					$scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
 				})
 				.error(function(status,response){
 					console.log("连接失败");
@@ -41,10 +44,10 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 	console.log($rootScope.istaobao);
 
 	function setshareurl () {
-		$scope.shareurl+="orgname="+$rootScope.orgname;
-		$scope.shareurl+="detailid="+$scope.shareData.detailId;
-		$scope.shareurl+="productid="+$scope.shareData.numIid;
-		$scope.shareurl+="plat="+$scope.shareData.plat;
+		$scope.shareurl+="orgname="+$rootScope.orgName;
+		$scope.shareurl+="&detailid="+$scope.shareData.detailId;
+		$scope.shareurl+="&productid="+$scope.shareData.numIid;
+		$scope.shareurl+="&plat="+$scope.shareData.plat;
 	}
 
 	$scope.checkshareimg=function(){
