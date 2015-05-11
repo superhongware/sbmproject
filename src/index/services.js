@@ -35,7 +35,7 @@
 		psurl+="&productid="+productid;
 		psurl+="&plat="+plat;
 
-		psurl="http://baobeixiu-1.play.m.jaeapp.com/ps.html?"+base64url(psurl);
+		psurl="http://bbx1.hongware.com:8084/sbmproject/ps.html?"+base64url(psurl);
 		return psurl;
 	};
 }])
@@ -88,22 +88,27 @@
 
 
 .factory('loginCheck',[
-'$state','myCookie','base64','getRequest2','$rootScope',
-function($state,myCookie,base64,getRequest2,$rootScope){
+'$state','myCookie','base64','base64url','getRequest2','$rootScope','debase64url',
+function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 // console.log( encodeURIComponent(base64.encode("orgName=work&plat=taobao")))
 	return function(){
 		var orgname=getRequest2("orgName"),
-		plat=getRequest2("plat");
+		shopname=getRequest2("shopName");
+
+		console.log(debase64url("b3JnTmFtZT1iYW5hbmEmc2hvcE5hbWU95a6P5beN6L2v5Lu2"));
+		console.log(base64url("orgName=banana&shopName=宏巍软件"));
 		// console.log(orgname)
 		if($rootScope.istaobao===true||$rootScope.orgName){
 			//已知是淘宝 或者 已经登录并且结果logincheck
 			return;
-		}else if(orgname&&plat){
+		}else if(orgname&&shopname){
 			//淘宝版本
 			$rootScope.istaobao=true;
 			$rootScope.orgName=orgname;
-			$rootScope.plat=plat;
-			console.log($rootScope.orgName,$rootScope.plat);
+			$rootScope.plat="TAOBAO";
+			$rootScope.shopName=shopname;
+
+			console.log($rootScope.orgName,$rootScope.shopName);
 		}else if(myCookie.get("orgName")){
 			//非淘宝 有cookie记录
 			$rootScope.orgName=base64.decode(myCookie.get("orgName"));
@@ -149,10 +154,11 @@ function($state,myCookie,base64,getRequest2,$rootScope){
 .factory('SBMJSONP', ['jsonpURL','systemdata',function(jsonpURL,systemdata){
 	return function SBMJSONP(url,data){
 		var lastdata=systemdata(data);
-		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		if(location.host.match("192.168.51")){
-			lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
-		}
+		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
+		// if(location.host.match("192.168.51")){
+		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		// }
 		return {url:jsonpURL(lasturl,lastdata)};
 	};
 }])
@@ -182,10 +188,11 @@ function($state,myCookie,base64,getRequest2,$rootScope){
 		var lastdata=systemdata(data);
 			//服务器端不接收json格式的数据，必须拼接成类似a=1&b=2&c=3格式
 			lastdata=postURL(lastdata);
-		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		if(location.host.match("192.168.51")){
-			lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
-		}
+		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
+		// if(location.host.match("192.168.51")){
+		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		// }
 		return {url:lasturl,data:lastdata};
 	};
 }])
@@ -572,7 +579,7 @@ function($state,myCookie,base64,getRequest2,$rootScope){
 		var wls=window.location.search.substr(1);
 		var jiequ=wls.indexOf("&");
 		if(jiequ!==-1){
-			wls.substr(0,jiequ);
+			wls=wls.substring(0,jiequ);
 		}
 		var r = debase64url(wls).match(reg);
 		if (r !== null) return unescape(r[2]); return null;

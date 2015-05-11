@@ -272,7 +272,6 @@ creatshowmodule
 			buttonClicked: function(indexl) {
 				if(indexl===0){		
 					checklocalimg(function(img){
-						// console.log(img);
 						$scope.imgviewinfo[index].changed=1;
 						var thisimgdata=$scope.imgviewinfo[index];
 						var imgbox=$(".ps_img"+(index+1));

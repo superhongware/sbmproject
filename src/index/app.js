@@ -29,9 +29,9 @@ angular.module('starter',
 }])
 .config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider) {
 	// $ionicConfigProvider.backButton.text("返回");
-	// $ionicConfigProvider.views.maxCache(0);
-	// $ionicConfigProvider.views.forwardCache(false);
-	// $ionicConfigProvider.templates.maxPrefetch(0);
+	$ionicConfigProvider.views.maxCache(0);
+	$ionicConfigProvider.views.forwardCache(false);
+	$ionicConfigProvider.templates.maxPrefetch(0);
 
 	$stateProvider
 	.state('login',{
@@ -186,6 +186,13 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/share.html",
 		controller:'shareCtrl'
 	})
+	.state('sharehelp', {
+		url: "/sharehelp",
+		templateUrl: "templates/index/creatshows/sharehelp.html",
+		controller:'sharehelpCtrl'
+	})
+
+
 	/*------------新建宝贝秀  end-----------*/
 
 

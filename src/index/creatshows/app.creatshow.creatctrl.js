@@ -26,8 +26,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$statePa
 	
 
 	$(".viewtemplate").append('<iframe class="viewbox" src='+location.origin+
-		'/ps.html?orgname='+$rootScope.orgName+
-		'&detailid=987883&templateview=1 frameborder="0"></iframe>');
+		'/ps.html?templateview=1 frameborder="0"></iframe>');
 console.log(0);
 	// $scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
 	$scope.viewbtnneam="应用";
@@ -59,7 +58,7 @@ console.log(0);
 		},function(msg){
 
 			alert(msg);
-			console.log(msg)
+			console.log(msg);
 
 		});
 	};
@@ -67,12 +66,19 @@ console.log(0);
 }])
 
 
-.controller('viewshowCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
+.controller('viewshowCtrl',[
+'$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','creatpsurl',
+function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,creatpsurl){
 	
-	$(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
-		'/ps.html?orgname='+$rootScope.orgName+
-		'&detailid='+$stateParams.showId+
-		'&templateview=2" frameborder="0"></iframe>');
+
+	console.log(['lllll',creatpsurl($rootScope.orgName,$stateParams.showId,"0","0")])
+	var showurl=creatpsurl($rootScope.orgName,$stateParams.showId,"0","0")
+	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+'&templateview=2" frameborder="0"></iframe>');
+
+	// $(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
+	// 	'/ps.html?orgname='+$rootScope.orgName+
+	// 	'&detailid='+$stateParams.showId+
+	// 	'&templateview=2" frameborder="0"></iframe>');
 
 	// $scope.iframesrc=location.origin+"/ps.html?orgname="+$rootScope.orgName+"&detailid="+$stateParams.showId+"&templateview=1";
 

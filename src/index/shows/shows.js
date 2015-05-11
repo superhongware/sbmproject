@@ -1,5 +1,7 @@
 var showsmodule = angular.module('showsmodule', ['ionic', 'starter.services', 'starter.directives']);
-showsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
+showsmodule.controller('showsCtrl', [
+'$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading','$ionicListDelegate', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', 
+function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicListDelegate,productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
 
 //获取宝贝秀列表
 	$scope.showsListData = [];
@@ -59,6 +61,9 @@ showsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', 
 				}
 				pageData.isPostBack = true;
 				$scope.$broadcast('scroll.infiniteScrollComplete');
+
+		    console.log(["$getByHandle",$ionicListDelegate.$getByHandle()])
+
 
 			})
 			.error(function(status,response){
@@ -144,6 +149,15 @@ showsmodule.controller('showsCtrl', ['$rootScope', '$scope', '$http', '$state', 
 
 	};
 
+	$scope.showediticon=function(index){
+		console.log($(".showlistitem").eq(index))
+		var thisitem=$(".showlistitem").eq(index);
+		var itemoptions=thisitem.find(".item-options");
+		itemoptions.removeClass("invisible");
+		thisitem.find(".item-content").css({
+			"-webkit-transform":" translate3d(-"+itemoptions.width()+"px, 0px, 0px)"
+		});
+	}
 
 }]);
 
@@ -250,7 +264,6 @@ showsmodule.controller('liuliangCtrl', ['$rootScope', '$scope', '$http', '$state
 		    	}
 		    	
 		    };
-
 
 		})
 		.error(function(status,response){

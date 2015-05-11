@@ -1,8 +1,8 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl){
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow){
 
 	loginCheck();
 
@@ -29,7 +29,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 				.success(function(data){
 					console.log(data);
 					$scope.shareData = data;
-					setshareurl();
+					// setshareurl();
 			// console.log($rootScope.orgname)
 
 					$scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
@@ -69,19 +69,22 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 			ionic.onGesture("drag",dragmove,$(".editimg")[0]);
 			// thisimgdata.transformstart=
 			ionic.onGesture("transformstart",dragstart,$(".editimg")[0]);
+			// thisimgdata.transform=
+			ionic.onGesture("transform",dragmove,$(".editimg")[0]);
 		}
 		var thispsimg=$("#shareimgedit");
 		var thisimgdata=$scope.shareimgdata;
 		thisimgdata.startpoint=[0,0];
 		thisimgdata.point=[0,0];
 		thisimgdata.scale=[1,1];
-		setimgview()
+		//更新图片位置
+		setimgview();
 
 		thisimgdata.img=thispsimg.find("img").show()[0];
 		thisimgdata.imgbox=thispsimg;
 
 		function dragstart(e){
-			console.log("dragstart")
+			console.log("dragstart");
 			if(e.type==="dragstart"){
 				thisimgdata.startpoint[0] = thisimgdata.point[0];
 				thisimgdata.startpoint[1] = thisimgdata.point[1];
@@ -98,7 +101,8 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 			}else{
 				thisimgdata.scale[0]=e.gesture.scale*thisimgdata.scale[1];
 			}
-			setimgview()
+			//更新图片位置
+			setimgview();
 		}
 		function setimgview(){
 			thispsimg.find("img").css({
@@ -115,10 +119,42 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 		var cvs=drawShowImg($scope.shareimgdata);
 		// console.log($scope.shareData);
 		// $scope.shareData={}
-		$scope.shareData.detailImage=compressShowImg(cvs,80);
+		// $scope.shareData.detailImage=compressShowImg(cvs,80);
 		$(".editimg").hide();
 		
+		$ionicLoading.show({
+			template:"正在保存,请稍等...",
+		});
+
+		//隐藏编辑区域
+
+		// 上传图片dat 获取图片url
+		sendShowImg(compressShowImg(cvs,80),function(imgurl){
+			//更新宝贝秀分享图片的url
+			$scope.shareData.detailImage=imgurl;
+			//保存宝贝秀数据
+			saveShow($scope.shareData,function(data){
+				console.log("分享图片保存成功");
+				//隐藏提示
+				$ionicLoading.hide();
+			},function(){
+				console.log("分享图片保存失败");
+			});
+		});
+
 	};
+
+	$scope.saveshowadata=function(){
+			//保存宝贝秀数据
+			saveShow($scope.shareData,function(data){
+				console.log("宝贝秀数据保存成功");
+				//隐藏提示
+				$ionicLoading.hide();
+			},function(){
+				console.log("宝贝秀数据保存失败");
+			});
+	}
+
 	$scope.dropthispic=function(){
 		// alert(0);
 		$(".editimg").hide();
@@ -165,6 +201,10 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,SBM
 
 }])
 
+.controller('sharehelpCtrl',['$scope',function($scope){
+
+
+}])
 
 ;
 

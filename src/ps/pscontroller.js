@@ -8,8 +8,8 @@
 var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 
 SBMPS.controller('spCtrl', [
-'$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 
-function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s) {
+'$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm',
+function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm) {
 
 console.log(wx);
 
@@ -62,7 +62,7 @@ console.log(wx);
 
 
 
-console.log(["asdasdasd",getRequest("templateview")]);
+	console.log(["asdasdasd",getRequest("templateview")]);
 	if(getRequest("templateview")==="1"){
 
 		$http.get("testdata/template1.json")
@@ -88,10 +88,8 @@ console.log(["asdasdasd",getRequest("templateview")]);
 				console.log(data);
 				//宝贝秀删除后不执行后面代码
 				if(!data.isSuccess){
-					$scope.showmainbox = true;
-					$scope.shownoshowdata=true;
+					thereisnoshow();
 					return;
-
 				}
 
 				// 自动打开淘宝跳转跳转
@@ -124,11 +122,35 @@ console.log(["asdasdasd",getRequest("templateview")]);
 				$scope.$broadcast("showdataready");
 			})
 			.error(function(){
-				$scope.showmainbox = true;
-				$scope.shownoshowdata=true;
+
+				thereisnoshow();
+
 			});
 	}
 
+
+	function thereisnoshow(){
+				$scope.showmainbox = true;
+				$scope.shownoshowdata=true;
+				//没有宝贝秀数据 获取宝贝数据 跳转到宝贝页
+				console.log(["dasdadasdadad",getRequest2("plat")])
+				productComm.loadProductDetail({
+					orgName: getRequest2("orgname"),
+					numIid: getRequest2("productid"),
+					plat: getRequest2("plat")
+				},function(data){
+					console.log(['baobeishuju',data]);
+					$scope.gotoproduct=function(){
+						var url=data.detailUrl
+						if(url.match("taobao.com")){
+							url=url.replace("http","taobao");
+						}
+						location.href = url;
+					}
+				},function(){
+					alert("请检查网络是否问题");
+				});
+	}
 
 
 	$scope.$on("showdataready",function(){
@@ -142,6 +164,10 @@ console.log(["asdasdasd",getRequest("templateview")]);
 		$(".pagema_standa_show").removeClass("pagema_standa_show");
 		$(".centerround").removeClass("current");
 	};
+
+
+
+
 
 }])
 
@@ -157,8 +183,8 @@ console.log(["asdasdasd",getRequest("templateview")]);
 
 //三个点
 .directive('threePoints',[
-'$http','threePointData','getRequest','SBMJSONP','debase64url',
-function($http, threePointData, getRequest, SBMJSONP,debase64url) {
+'$http','threePointData','getRequest2','SBMJSONP','debase64url',
+function($http, threePointData, getRequest2, SBMJSONP,debase64url) {
 	// Runs during compile
 	return {
 		// name: '',
@@ -232,6 +258,7 @@ function($http, threePointData, getRequest, SBMJSONP,debase64url) {
 				if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
 					$(".screenforbiden").show();
 				} else if(url!==""){
+					url=url.replace("http","taobao");
 					location.href = url;
 				}
 			};
@@ -257,6 +284,9 @@ function($http, threePointData, getRequest, SBMJSONP,debase64url) {
 						if (navigator.userAgent.match("MicroMessenger") && Url.match("taobao.com")) {
 							$(".screenforbiden").show();
 						} else if(Url!==""){
+							if(Url.match("taobao.com")){
+								Url=Url.replace("http","taobao");
+							}
 							location.href = Url;
 						}
 						// p_s.CreatDomtree(data);

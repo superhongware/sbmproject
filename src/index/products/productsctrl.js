@@ -34,6 +34,16 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		pageViewState: JSON.parse(localStorage.getItem('productListPageViewState')) //{currShop,currStatus}
 	};
 
+	$scope.showediticon=function(index){
+		console.log($(".showlistitem").eq(index))
+		var thisitem=$(".showlistitem").eq(index);
+		var itemoptions=thisitem.find(".item-options");
+		itemoptions.removeClass("invisible");
+		thisitem.find(".item-content").css({
+			"-webkit-transform":" translate3d(-"+itemoptions.width()+"px, 0px, 0px)"
+		});
+	}
+
 
 // alert(JSON.stringify(pageData.pageViewState));
 
@@ -56,13 +66,13 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			//如果是淘小铺版本,直接加载数据，不用加载店铺的其他数据了
 			if ($rootScope.istaobao) {
 				pageData.currShop={
-					plat: "TAOBAO",
-					shopName: "宏巍软件"
-				}
+					plat:  $rootScope.plat,
+					shopName: $rootScope.shopName
+				};
 				pageFunc.loadData();
 				return;
 
-			};
+			}
 
 
 			getDataComm.loadShopList(function(data) {
@@ -231,7 +241,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		productComm.loadProductData(option, function(data) {
 
 			// alert(JSON.stringify(data))
-			console.log(['productComm.loadProductData',data])
+			console.log(['productComm.loadProductData',data]);
 
 			pageFunc.loadDataComplete();
 
@@ -278,7 +288,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	$scope.pageData = pageData;
 	$scope.pageFunc = pageFunc;
 
-	loginCheck()
+	loginCheck();
 	pageFunc.init();
 
 }]);

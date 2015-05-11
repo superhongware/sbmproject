@@ -176,6 +176,17 @@ creatshowmodule.factory('changepagesize', function(){
 		var ctx=cvs.getContext("2d");
 		//宽度以全屏640为基准 计算出图片压缩后尺寸
 		var finalwidthscal=640/picdata.imgbox.parents(".ps_page")[0].clientWidth;
+		var naturaw=picdata.img.naturalWidth;
+		var naturah=picdata.img.naturalHeight;
+
+		//手机里的照片 数据读进来后 照片是横过来的  这边
+		var isphoto=0;
+		if(picdata.img.naturalWidth>picdata.img.naturalHeight){
+			isphoto=1;
+			naturaw=picdata.img.naturalHeight;
+			naturah=picdata.img.naturalWidth;
+		}
+
 		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
 		cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
 		
@@ -183,15 +194,22 @@ creatshowmodule.factory('changepagesize', function(){
 		ctx.clearRect(0,0,cvs.width,cvs.height);
 		ctx.save();
 		
-		//把原图缩放 平铺canvas
-		var scale=cvs.width/picdata.img.naturalWidth;
+		//把原图缩放 平铺canvas 
+		//手机里的照片读进来后是横过来的  以宽度计算缩放比例  必须用naturaHeight
+		if(isphoto){
+			ctx.rotate(90 * Math.PI/180);
+			ctx.translate(0,-640);
+		}
+		var scale=cvs.width/naturaw;
+
 		ctx.scale(scale,scale);
 		//根据用户缩放比例，位移尺寸绘图  图片缩放原点为图片中心
-		var translatex=picdata.point[0]*finalwidthscal/scale+picdata.img.naturalWidth/2;
-		var translatey=picdata.point[1]*finalwidthscal/scale+picdata.img.naturalHeight/2;
+		var translatex=picdata.point[0]*finalwidthscal/scale+naturaw/2;
+		var translatey=picdata.point[1]*finalwidthscal/scale+naturah/2;
 		ctx.translate(translatex,translatey);
+
 		ctx.scale(picdata.scale[0],picdata.scale[0]);
-		ctx.translate(-picdata.img.naturalWidth/2,-picdata.img.naturalHeight/2);
+		ctx.translate(-naturaw/2,-naturah/2);
 		ctx.drawImage(picdata.img,0,0);
 		ctx.restore();
 		return cvs;
@@ -239,7 +257,7 @@ creatshowmodule.factory('changepagesize', function(){
 					//填充模板数据
 					tempdata.detailTitle = productdata.title;
 					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
-					tempdata.detailImage = "/img/shareimg.jpg";
+					tempdata.detailImage = "http://bbx1.hongware.com:8084/sbmproject/img/shareimg.jpg";
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
 					tempdata.detailUrl = productdata.detailUrl;

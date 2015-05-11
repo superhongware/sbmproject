@@ -93,3 +93,13 @@ function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SB
     });
 
 }])
+;
+
+
+
+
+
+
+
+
+

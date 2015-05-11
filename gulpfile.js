@@ -77,7 +77,23 @@ gulp.task('psjs', function() {
       .pipe(gulp.dest('www/js/ps'));
 });
 
-
+gulp.task("buildjs",function() {
+    gulp.src(paths.jssrc+paths.js[0]+'/**/*.js')
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(uglify({compress:{drop_console:true}}))
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest('www/js'+paths.js[0]));
+});
+gulp.task("buildpsjs",function() {
+    gulp.src(paths.psjs)
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(uglify({compress:{drop_console:true}}))
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest('www/js/ps'));
+});
+gulp.task("buildalljs",['buildjs','buildpsjs']);
 
 
 

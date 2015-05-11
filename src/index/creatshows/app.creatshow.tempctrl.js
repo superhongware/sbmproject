@@ -93,7 +93,7 @@ creatshowmodule
 		// }
 		$scope.$on("saveShowImgOver", function() {
 
-			gohref=creatpsurl($rootScope.orgName,$rootScope.editShowData.showId,$rootScope.editShowData.mainData.numIid,$rootScope.editShowData.mainData.plat)
+			gohref=creatpsurl($rootScope.orgName,$rootScope.editShowData.showId,$rootScope.editShowData.mainData.numIid,$rootScope.editShowData.mainData.plat);
 
 			// gohref = "/ps.html?orgname=" + $rootScope.orgName +
 			// 	"&detailid=" + $rootScope.editShowData.showId +

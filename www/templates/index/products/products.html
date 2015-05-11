@@ -27,14 +27,15 @@
 
         <ion-list>
           <ion-item
-          class="item-remove-animate item-avatar item-icon-right animate-repeat"  
+          class="item-remove-animate item-avatar item-icon-right animate-repeat showlistitem"  
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
           ng-href="javascripe:;"
-          ng-click="pageFunc.showDetail(item)"
           >
             <img ng-src="{{item.picUrl}}" class="imgProduct noradius">
-            <ul class="productInfo">
+            <ul 
+            ng-click="pageFunc.showDetail(item)"
+            class="productInfo">
               <li class="floatL">
                 <div class="mTop6 mBottom9">
                   <span  class="floatL productName">{{item.title}}</span>
@@ -49,7 +50,13 @@
                 </div>
               </li>
             </ul>
-            <i class="iconfont icon-points"></i>
+
+            <span class="openoptions" ng-click="showediticon($index)">
+              <i class="iconfont icon-points" ></i>
+            </span>
+
+            <!-- <i class="iconfont icon-points"></i> -->
+
             <ion-option-button class="button-dark" ui-sref="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})">
               制作宝贝秀
             </ion-option-button>

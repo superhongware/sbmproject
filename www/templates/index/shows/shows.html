@@ -5,11 +5,13 @@
         pulling-text="下拉更新..."
         on-refresh="refresh()">
       </ion-refresher>
-      <ion-list can-swipe="true">
-          <ion-item ng-repeat="item in showsListData" ui-sref="viewshow({showId:item.detailId})">
-            <ul>
+      <ion-list can-swipe="true" >
+          <ion-item 
+          class="showlistitem"
+          ng-repeat="item in showsListData" >
+            <ul ui-sref="viewshow({showId:item.detailId})">
               <li>
-                <img src="{{item.picUrl}}">
+                <img ng-src="{{item.picUrl}}">
               </li>
               <li>
                 <div>
@@ -33,10 +35,9 @@
               </li>
             </ul>
             <div class="Clear"></div>
-            <i class="iconfont icon-points"></i>
-           <!--  <ion-option-button class="button-dark" ui-sref="editpages.editer({showId:item.detailId,pageId:0,pageTemp:2})">
-                <span class="text">编辑</span>
-            </ion-option-button> -->
+            <span class="openoptions" ng-click="showediticon($index)">
+              <i class="iconfont icon-points" ></i>
+            </span>
             <ion-option-button class="button-dark" ng-click="edit(item.detailId)">
                 <span class="text">编辑</span>
             </ion-option-button>

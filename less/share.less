@@ -2,6 +2,7 @@
 	background: #333;
 	width:100%;
 	height: 100%;
+	overflow-y: auto;
 	.shuoming{
 		width:100%;
 		height:40px;
@@ -150,17 +151,18 @@
 	.shareurlnote{
 		color: #eee;
 	}
-	.shareurlbox{
-		background-color: #222 !important;
-		color:#fff !important;
-		width:100% !important;
-		padding:5px !important;
-	}
 
 	.editimg{
 		.square(100%);
 		position: fixed;
 		display: none;
+		top:0px;
+		left: 0px;
+		.controldiv{
+			.square(100%);
+
+			position: absolute;
+		}
 		.editbg{
 			.square(100%);
 			position: absolute;
@@ -202,14 +204,30 @@
 }
 
 
+.sharehelp{
+	background-color: #333;
+	img{
+		display: block;
+		width: 100%;
+	}
+}
 
 
 
 
+body{
+	// -webkit-user-select:initial;
+}
 
 
-
-
+.shareurlbox{
+	background-color: #222 !important;
+	color:#fff !important;
+	width:100% !important;
+	padding:5px !important;
+	word-break: break-all;
+	-webkit-user-select:initial;
+}
 
 
 
