@@ -35,6 +35,8 @@
 		psurl+="&productid="+productid;
 		psurl+="&plat="+plat;
 
+		// psurl="http://192.168.1.181:3000/ps.html?"+base64url(psurl);
+
 		psurl="http://bbx1.hongware.com:8084/sbmproject/ps.html?"+base64url(psurl);
 		return psurl;
 	};
@@ -95,27 +97,30 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		var orgname=getRequest2("orgName"),
 		shopname=getRequest2("shopName");
 
-		console.log(debase64url("b3JnTmFtZT1iYW5hbmEmc2hvcE5hbWU95a6P5beN6L2v5Lu2"));
-		console.log(base64url("orgName=banana&shopName=宏巍软件"));
+		// console.log(debase64url("b3JnTmFtZT1iYW5hbmEmc2hvcE5hbWU95a6P5beN6L2v5Lu2"));
+		// console.log(base64url("orgName=banana&shopName=宏巍软件"));
 		// console.log(orgname)
 		if($rootScope.istaobao===true||$rootScope.orgName){
 			//已知是淘宝 或者 已经登录并且结果logincheck
+			console.log("已知是淘宝 或者 已经登录并且结果logincheck");
 			return;
 		}else if(orgname&&shopname){
 			//淘宝版本
+			console.log("淘宝版本");
 			$rootScope.istaobao=true;
 			$rootScope.orgName=orgname;
 			$rootScope.plat="TAOBAO";
 			$rootScope.shopName=shopname;
-
 			console.log($rootScope.orgName,$rootScope.shopName);
 		}else if(myCookie.get("orgName")){
 			//非淘宝 有cookie记录
+			console.log("非淘宝 有cookie记录");
 			$rootScope.orgName=base64.decode(myCookie.get("orgName"));
 			$rootScope.userName=base64.decode(myCookie.get("userName"));
 			$rootScope.istaobao=false;
 		}else{
 			//非淘宝 没登录
+			console.log("非淘宝 没登录");
 			$rootScope.istaobao=false;
 			$state.go("login");
 		}
@@ -583,6 +588,19 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		}
 		var r = debase64url(wls).match(reg);
 		if (r !== null) return unescape(r[2]); return null;
+	};
+}])
+
+.factory('showadcheck', ['$rootScope','myCookie', function($rootScope,myCookie){
+	return function showadcheck(){
+		if(!$rootScope.istaobao&&!myCookie.get("youhaveredad")){
+			$rootScope.isthereshowad="showad";
+		}
+		console.log($rootScope.isthereshowad)
+		// else{
+
+		// 	myCookie.add("youhaveredad","yeah!youhaveredad",1/24/60)
+		// }
 	};
 }])
 ;

@@ -67,13 +67,13 @@ console.log(0);
 
 
 .controller('viewshowCtrl',[
-'$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow','creatpsurl',
-function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,creatpsurl){
+'$scope','$rootScope','$stateParams','$state','$ionicLoading','$state','creatShow','creatpsurl',
+function($scope,$rootScope,$stateParams,$state,$ionicLoading,$state,creatShow,creatpsurl){
 	
 
 	console.log(['lllll',creatpsurl($rootScope.orgName,$stateParams.showId,"0","0")])
 	var showurl=creatpsurl($rootScope.orgName,$stateParams.showId,"0","0")
-	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+'&templateview=2" frameborder="0"></iframe>');
+	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+'&templateview=2 frameborder="0"></iframe>');
 
 	// $(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
 	// 	'/ps.html?orgname='+$rootScope.orgName+
@@ -86,12 +86,18 @@ function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow,creatpsur
 	$scope.viewbtnneam="分享";
 	$scope.viewneam="宝贝秀预览";
 
+
+
+
 	$scope.viewbtn=function(){
-		$ionicLoading.show({
-			template:"跳转页面中",
-			duration:2000
-		});
+		// $ionicLoading.show({
+		// 	template:"跳转页面中",
+		// 	duration:2000
+		// });
 		// $ionicLoading.hide();
+		$state.go('share',{
+			showId:$stateParams.showId
+		})
 	};
 
 

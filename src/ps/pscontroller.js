@@ -105,7 +105,7 @@ console.log(wx);
 				}  
 				console.log(["flag",flag]);
 
-				if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag){
+				if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag&&getRequest("templateview")!=="2"){
 					url=url.replace("http","taobao");
 					location.href=url;
 				}else if(userAgentInfo.match("MicroMessenger")){

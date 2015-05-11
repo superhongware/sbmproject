@@ -44,7 +44,9 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		});
 	}
 
-
+	$scope.goandseead=function(){
+		alert(0)
+	}
 // alert(JSON.stringify(pageData.pageViewState));
 
 	pageFunc.init = function() {

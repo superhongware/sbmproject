@@ -191,11 +191,13 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/sharehelp.html",
 		controller:'sharehelpCtrl'
 	})
-
-
 	/*------------新建宝贝秀  end-----------*/
 
-
+	.state('appadone', {
+		url: "/appadone",
+		templateUrl: "templates/index/appad/appadone.html",
+		controller:'appadoneCtrl'
+	})
 	//sidebar测试  正式上线删除
 	.state('sidebartest',{
 		url:"/sidebartest",

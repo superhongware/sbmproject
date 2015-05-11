@@ -95,6 +95,8 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 
 		function dragmove(e){
 
+			e.gesture.srcEvent.preventDefault();
+
 			if(e.type==="drag"){
 				thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
 				thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
@@ -105,6 +107,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			setimgview();
 		}
 		function setimgview(){
+
 			thispsimg.find("img").css({
 				"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
 			});

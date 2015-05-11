@@ -1,6 +1,8 @@
 var starterctrl = angular.module('starter.controllers', []);
 
-starterctrl.controller('mainviewCtrl', ['$scope','$rootScope','$log', '$ionicLoading', 'getRequest', 'loginCheck', function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck) {
+starterctrl.controller('mainviewCtrl', [
+'$scope','$rootScope','$log', '$ionicLoading', 'getRequest', 'loginCheck','showadcheck',
+function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadcheck) {
 
 	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
 	// 	// console.log(toState.controller);
@@ -15,6 +17,7 @@ starterctrl.controller('mainviewCtrl', ['$scope','$rootScope','$log', '$ionicLoa
 	// });
 	
 	loginCheck();
+	showadcheck()
 	// $scope.show= function(){
 	// 	$ionicLoading.show({
 	// 		template:"loading...",
@@ -38,6 +41,16 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
 	
 }])
 
+
+.controller('appadoneCtrl', [
+'$scope','$rootScope','myCookie',
+function($scope,$rootScope,myCookie){
+
+	myCookie.add("youhaveredad","yeah!youhaveredad",24)
+	$rootScope.isthereshowad="";
+
+	
+}])
 
 .controller('contentCtrl',['$scope','$ionicSideMenuDelegate',function($scope,$ionicSideMenuDelegate){
 	$scope.toggleLeft=function(){

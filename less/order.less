@@ -279,6 +279,15 @@ a{
 	}
 }
 
+.openoptions{
+	width: 50px;
+	height: 86px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	// background-color: #ccc;
+}
+
 /*产品详情*/
 .warpProductDetail {
 	.wcontainer {
@@ -298,14 +307,6 @@ a{
 				}
 			}
 		}
-	}
-	.openoptions{
-		width: 50px;
-		height: 86px;
-		position: absolute;
-		right: 0px;
-		top: 0px;
-		// background-color: #ccc;
 	}
 	.detailList {
 		.subTitle {
@@ -399,5 +400,40 @@ a{
 .shops{
 	.shopsImg{
 		border-radius: 0px !important;
+	}
+}
+
+//我是你滴小呀小广告
+.wsndxyxgg{
+	.size(auto,30px);
+	background-color:#FF3D37;
+	position: absolute;
+	top:44px;
+	z-index: 1;
+	display: none;
+	.adtext{
+		white-space:nowrap;
+		color: #fff;
+		line-height: 30px;
+		-webkit-animation: wsndxyxgg 15s linear 0s infinite;
+	}
+}
+
+@-webkit-keyframes wsndxyxgg{
+	0%{-webkit-transform:translate3d(100%,0,0)}
+	100%{-webkit-transform:translate3d(-100%,0,0)}
+
+}
+
+.showad{
+	// padding-top: 118px;
+	.paddingtop44{
+		padding-top: 75px;
+	}
+	.bar-subheader{
+		top:74px;
+	}
+	.wsndxyxgg{
+		display: block;
 	}
 }

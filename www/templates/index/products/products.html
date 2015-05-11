@@ -5,9 +5,11 @@
     </button>
   </ion-nav-buttons>
 
+
   <ion-side-menus enable-menu-with-back-views-"true">
     <!-- Center content -->
-    <ion-side-menu-content class="paddingtop88">
+    <ion-side-menu-content class="paddingtop88" ng-class="isthereshowad">
+
 
       <div class="bar bar-subheader">
         <button class="button button-icon icon ion-navicon ng-hide" menu-toggle="left1" ng-show="!istaobao" ></button>
@@ -17,6 +19,10 @@
             <a class="button" ng-class="{'button-energized': !pageData.isOnsaleStatus}"  ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
           </div>
         </div>
+      </div>
+
+      <div class="wsndxyxgg" ui-sref="appadone">
+        <div class="adtext">我是你滴小丫小广告，怎么点我都不嫌多！！do~do~do~do~do~</div>
       </div>
 
       <ion-content class="paddingtop44">
@@ -30,7 +36,6 @@
           class="item-remove-animate item-avatar item-icon-right animate-repeat showlistitem"  
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
-          ng-href="javascripe:;"
           >
             <img ng-src="{{item.picUrl}}" class="imgProduct noradius">
             <ul 
