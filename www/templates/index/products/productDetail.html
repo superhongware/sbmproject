@@ -1,8 +1,12 @@
 <ion-view view-title="宝贝详情">
 	<ion-content class="warpProductDetail"  ng-show="pageData.isPageShow">
+	 <ion-refresher
+        pulling-text="下拉更新..."
+        on-refresh="refresh()">
+     </ion-refresher>
 		<div class="wcontainer">
 			<div class="sliders" id="sliders">
-				<a href="http://www.baidu.com" class="sliderlist" ng-repeat="item in pageData.orderDetail.picArr">
+				<a href="#" class="sliderlist" ng-repeat="item in pageData.orderDetail.picArr">
 					<img ng-src="{{item}}" alt="">
 				</a>
 			</div>
