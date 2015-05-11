@@ -42,6 +42,20 @@
 	};
 }])
 
+.factory('creatpsurl2', ['base64url', function(base64url){
+	return function creatpsurl2(orgname,detailid,productid,plat){
+		var psurl="orgname="+orgname;
+		psurl+="&detailid="+detailid;
+		psurl+="&productid="+productid;
+		psurl+="&plat="+plat;
+
+		// psurl="http://192.168.1.181:3000/ps.html?"+base64url(psurl);
+
+		psurl=location.origin+"/ps.html?"+base64url(psurl);
+		return psurl;
+	};
+}])
+
 .factory('base64url', ['base64', function(base64){
 	return function base64url(text){
 		// console.log(text)

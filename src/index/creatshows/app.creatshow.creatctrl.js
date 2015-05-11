@@ -67,12 +67,12 @@ console.log(0);
 
 
 .controller('viewshowCtrl',[
-'$scope','$rootScope','$stateParams','$state','$ionicLoading','$state','creatShow','creatpsurl',
-function($scope,$rootScope,$stateParams,$state,$ionicLoading,$state,creatShow,creatpsurl){
+'$scope','$rootScope','$stateParams','$state','$ionicLoading','$state','creatShow','creatpsurl2',
+function($scope,$rootScope,$stateParams,$state,$ionicLoading,$state,creatShow,creatpsurl2){
 	
 
-	console.log(['lllll',creatpsurl($rootScope.orgName,$stateParams.showId,"0","0")])
-	var showurl=creatpsurl($rootScope.orgName,$stateParams.showId,"0","0")
+	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")])
+	var showurl=creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")
 	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+'&templateview=2 frameborder="0"></iframe>');
 
 	// $(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
