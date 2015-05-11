@@ -35,14 +35,14 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	};
 
 	$scope.showediticon=function(index){
-		console.log($(".showlistitem").eq(index))
+		console.log($(".showlistitem").eq(index));
 		var thisitem=$(".showlistitem").eq(index);
 		var itemoptions=thisitem.find(".item-options");
 		itemoptions.removeClass("invisible");
 		thisitem.find(".item-content").css({
 			"-webkit-transform":" translate3d(-"+itemoptions.width()+"px, 0px, 0px)"
 		});
-	}
+	};
 
 
 // alert(JSON.stringify(pageData.pageViewState));

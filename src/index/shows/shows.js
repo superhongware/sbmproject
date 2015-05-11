@@ -19,7 +19,6 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 		isPostBack: false,
 		isHaveMoreData : false
 	};
-
 	function loadData(option){
 		$scope.showsList = {
 			orgName: option.orgName,
@@ -50,24 +49,25 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 				}
 
 				$scope.showsListData = $scope.showsListData.concat(data.details);
-
-				if (data.length === 0 && pageData.direction === 'up') {
+				pageData.isHaveMoreData = true;
+				if (data.details.length === 0 && pageData.direction === 'up') {
 					pageData.isHaveMoreData = false;
 					return;
 				}
 
-				if (pageData.isPostBack && (pageData.direction === 'up' || pageData.direction === '') && data.length > 0) {
+				if (pageData.isPostBack && (pageData.direction === 'up' || pageData.direction === '') && data.details.length > 0) {
 					pageData.isHaveMoreData = true;
 				}
 				pageData.isPostBack = true;
 				$scope.$broadcast('scroll.infiniteScrollComplete');
 
-		    console.log(["$getByHandle",$ionicListDelegate.$getByHandle()])
+		    console.log(["$getByHandle",$ionicListDelegate.$getByHandle()]);
 
 
 			})
 			.error(function(status,response){
 				console.log(status);
+				loadDataComplete();
 			});
 	}
 
@@ -150,14 +150,16 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 	};
 
 	$scope.showediticon=function(index){
-		console.log($(".showlistitem").eq(index))
+		console.log($(".showlistitem").eq(index));
 		var thisitem=$(".showlistitem").eq(index);
 		var itemoptions=thisitem.find(".item-options");
 		itemoptions.removeClass("invisible");
 		thisitem.find(".item-content").css({
 			"-webkit-transform":" translate3d(-"+itemoptions.width()+"px, 0px, 0px)"
 		});
-	}
+	};
+
+	$scope.pageData = pageData;
 
 }]);
 

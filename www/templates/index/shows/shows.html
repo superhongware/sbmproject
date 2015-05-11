@@ -52,11 +52,15 @@
             </ion-option-button>
           </ion-item>
         </ion-list>
-
-        <ion-infinite-scroll
-         on-infinite="loadMoreData()"
-         distance="1%">
-        </ion-infinite-scroll>
     </div>
+
+     <ion-infinite-scroll
+         ng-if="pageData.isHaveMoreData"
+         icon="ion-loading-c"
+         on-infinite="loadMoreData()"
+         distance="20%"
+         spinner="ios"
+         >
+     </ion-infinite-scroll>
   </ion-content>
 </ion-view>
