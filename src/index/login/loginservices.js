@@ -1,6 +1,6 @@
 loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup','SBMJSONP','myCookie','base64',function($rootScope,$http,$state,$ionicPopup,SBMJSONP,myCookie,base64){
 
-	return function loginSubmit(logindata){
+	return function loginSubmit(logindata,callback,errorcallback){
 
 		logindata.method = "softbanana.app.user.login";
 		var api = SBMJSONP("userLogin",logindata);
@@ -11,13 +11,9 @@ loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup',
 			.success(function(data) {
 				console.log(data);
 				if(data.isSuccess){
-					myCookie.add("orgName",base64.encode(logindata.orgName),720);
-					myCookie.add("userName",base64.encode(logindata.userName),720);
-					$rootScope.orgName=logindata.orgName;
-					$rootScope.orgCode=data.user.orgCode;
-					$state.go("home");
+					callback(data);
 				}else{
-
+					errorcallback(data.map.errorMsg);
 					// var mypopup=$ionicPopup.show({
 					// 	title: "登录失败",
 					// 	template: data.map.errorMsg,//对应的商家不存在  用户名不存在 密码错误
@@ -32,25 +28,6 @@ loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup',
 					// mypopup.then(function(res){
 					// 	console.log(res);
 					// })
-					if(data.map.errorMsg == "对应的商家不存在"){
-						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(0).show();
-					}else if(data.map.errorMsg == "商家名称不允许为空"){
-						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(0).show();
-					}else if(data.map.errorMsg == "用户名不允许为空"){
-						$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(1).show();
-					}else if(data.map.errorMsg == "用户名不存在"){
-						$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(1).show();
-					}else if(data.map.errorMsg == "密码不允许为空"){
-						$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(2).show();
-					}else if(data.map.errorMsg == "密码错误"){
-						$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(2).show();
-					}
 				}
 			})
 

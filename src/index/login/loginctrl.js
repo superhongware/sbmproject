@@ -4,7 +4,7 @@
  * 登录注册功能
  */
 var loginmodule = angular.module('loginmodule', ['ionic', 'starter.services', 'starter.directives']);
-loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', function($scope, $rootScope, loginSubmit) {
+loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myCookie', 'base64', '$state', function($scope, $rootScope, loginSubmit, myCookie, base64, $state) {
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.logindata = {
@@ -12,7 +12,49 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', func
 		userName: "admin",
 		password: "admin",
 	};
-	$scope.loginSubmit = loginSubmit;
+	$scope.loginSubmit = function(data){
+		if($scope.logindata.orgName===""){
+			$(".error-tip").eq(0).children(".rect").text("商家名称不允许为空");
+			$(".error-tip").eq(0).show();
+		}
+		if($scope.logindata.userName===""){
+			$(".error-tip").eq(1).children(".rect").text("用户名不允许为空");
+			$(".error-tip").eq(1).show();
+		}
+		if($scope.logindata.password===""){
+			$(".error-tip").eq(2).children(".rect").text("密码不允许为空");
+			$(".error-tip").eq(2).show();
+		}
+		loginSubmit(data,function(msg){
+			myCookie.add("orgName",base64.encode(data.orgName),720);
+			myCookie.add("userName",base64.encode(data.userName),720);
+			$rootScope.orgName=data.orgName;
+			$rootScope.orgCode=msg.user.orgCode;
+			// console.log(["$rootScope.orgName",$rootScope.orgName]);
+			// console.log(["$rootScope.orgCode",$rootScope.orgCode]);
+			// console.log(["myCookie.get orgName",base64.decode(myCookie.get('orgName'))]);
+			// console.log(["myCookie.get userName",base64.decode(myCookie.get('userName'))]);
+			$state.go("home");
+			console.log(["success",msg]);
+
+		},function(msg){
+			if(msg == "对应的商家不存在"){
+				$(".error-tip").eq(0).children(".rect").text(msg);
+				$(".error-tip").eq(0).show();
+			}else if(msg == "用户名不存在"){
+				$(".error-tip").eq(1).children(".rect").text(msg);
+				$(".error-tip").eq(1).show();
+			}else if(msg == "密码错误"){
+				$(".error-tip").eq(2).children(".rect").text(msg);
+				$(".error-tip").eq(2).show();
+			}
+			console.log(["erroe",msg]);
+
+		});
+	}
+
+
+
 	$scope.hidetip = function(){
 		$(".error-tip").hide();
 	};
