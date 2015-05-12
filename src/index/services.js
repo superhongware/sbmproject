@@ -42,15 +42,16 @@
 	};
 }])
 
+//手淘版会出域名限制，直接使用手淘地址浏览
 .factory('creatpsurl2', ['base64url', function(base64url){
 	return function creatpsurl2(orgname,detailid,productid,plat){
 		var psurl="orgname="+orgname;
 		psurl+="&detailid="+detailid;
 		psurl+="&productid="+productid;
 		psurl+="&plat="+plat;
-
 		// psurl="http://192.168.1.181:3000/ps.html?"+base64url(psurl);
-
+		//A: 为什么用location.origin？
+		//B: 因为手淘版 非jaeapp会出 域名提示，点确定后页面会直接跳转，SO直接使用jaeapp地址就没问题了
 		psurl=location.origin+"/ps.html?"+base64url(psurl);
 		return psurl;
 	};

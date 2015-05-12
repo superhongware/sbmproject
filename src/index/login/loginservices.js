@@ -1,12 +1,17 @@
 loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup','SBMJSONP','myCookie','base64',function($rootScope,$http,$state,$ionicPopup,SBMJSONP,myCookie,base64){
 
+
+// logindata = {
+// 		orgName: "work",
+// 		userName: "admin",
+// 		password: "admin",
+// 	}
 	return function loginSubmit(logindata,callback,errorcallback){
 
 		logindata.method = "softbanana.app.user.login";
 		var api = SBMJSONP("userLogin",logindata);
 		// console.dir(api);
 		$http.jsonp(api.url)
-
 
 			.success(function(data) {
 				console.log(data);

@@ -8,12 +8,10 @@
 var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 
 SBMPS.controller('spCtrl', [
-'$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm',
-function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm) {
+'$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm','openLink',
+function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLink) {
 
 console.log(wx);
-
-
 
 
 //微信分享
@@ -142,10 +140,7 @@ console.log(wx);
 					console.log(['baobeishuju',data]);
 					$scope.gotoproduct=function(){
 						var url=data.detailUrl
-						if(url.match("taobao.com")){
-							url=url.replace("http","taobao");
-						}
-						location.href = url;
+						openLink(url);
 					}
 				},function(){
 					alert("请检查网络是否问题");
@@ -183,8 +178,8 @@ console.log(wx);
 
 //三个点
 .directive('threePoints',[
-'$http','threePointData','getRequest2','SBMJSONP','debase64url',
-function($http, threePointData, getRequest2, SBMJSONP,debase64url) {
+'$http','threePointData','getRequest2','SBMJSONP','debase64url','openLink',
+function($http, threePointData, getRequest2, SBMJSONP,debase64url,openLink) {
 	// Runs during compile
 	return {
 		// name: '',
@@ -255,54 +250,60 @@ function($http, threePointData, getRequest2, SBMJSONP,debase64url) {
 
 			//购买按钮点击事件
 			$scope.buybuybuy=function(url){
-				if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
-					$(".screenforbiden").show();
-				} else if(url!==""){
-					url=url.replace("http","taobao");
-					location.href = url;
-				}
-			};
-			$scope.buywx=function(){
-				var getdata = {
-						orgName: getRequest2("orgname"),
-						numIid: getRequest2("productid"),
-						plat:getRequest2("plat"),
-						method: "softbanana.app.item.detail.search"
-				};
-				var api = SBMJSONP("searchItemDetail", getdata);
-				$http.jsonp(api.url)
-					.success(function(data) {
-						//宝贝秀删除后不执行后面代码
-						if(!data.isSuccess){
-							$scope.showmainbox = true;
-							$scope.shownoshowdata=true;
-							return; 
-
-						}
-						$scope.showdata = data;
-						var Url = data.item.detailUrl;
-						if (navigator.userAgent.match("MicroMessenger") && Url.match("taobao.com")) {
-							$(".screenforbiden").show();
-						} else if(Url!==""){
-							if(Url.match("taobao.com")){
-								Url=Url.replace("http","taobao");
-							}
-							location.href = Url;
-						}
-						// p_s.CreatDomtree(data);
-						$scope.$broadcast("showdataready");
-					})
-					.error(function(){
-						$scope.showmainbox = true;
-						$scope.shownoshowdata=true;
-					});
-				
+				openLink(url)
 				// if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
 				// 	$(".screenforbiden").show();
 				// } else if(url!==""){
+				// 	url=url.replace("http","taobao");
 				// 	location.href = url;
 				// }
 			};
+
+
+			// $scope.buywx=function(){
+			// 	var getdata = {
+			// 			orgName: getRequest2("orgname"),
+			// 			numIid: getRequest2("productid"),
+			// 			plat:getRequest2("plat"),
+			// 			method: "softbanana.app.item.detail.search"
+			// 	};
+			// 	var api = SBMJSONP("searchItemDetail", getdata);
+			// 	$http.jsonp(api.url)
+			// 		.success(function(data) {
+			// 			//宝贝秀删除后不执行后面代码
+			// 			if(!data.isSuccess){
+			// 				$scope.showmainbox = true;
+			// 				$scope.shownoshowdata=true;
+			// 				return; 
+
+			// 			}
+			// 			$scope.showdata = data;
+			// 			var url = data.item.detailUrl;
+
+			// 			openLink(url);
+			// 			// if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
+			// 			// 	$(".screenforbiden").show();
+			// 			// } else if(url!==""){
+			// 			// 	if(url.match("taobao.com")){
+			// 			// 		url=url.replace("http","taobao");
+			// 			// 	}
+			// 			// 	location.href = url;
+			// 			// }
+
+			// 			// p_s.CreatDomtree(data);
+			// 			$scope.$broadcast("showdataready");
+			// 		})
+			// 		.error(function(){
+			// 			$scope.showmainbox = true;
+			// 			$scope.shownoshowdata=true;
+			// 		});
+
+			// 	// if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
+			// 	// 	$(".screenforbiden").show();
+			// 	// } else if(url!==""){
+			// 	// 	location.href = url;
+			// 	// }
+			// };
 
 
 			$scope.igetitjustgobuynow=function(){
@@ -354,6 +355,19 @@ function($http, threePointData, getRequest2, SBMJSONP,debase64url) {
 	};
 }])
 
+//打开购买链接  微信不做跳转 只给提示  浏览器中打开手机淘宝
+.factory('openLink',function(){
+	return function openLink(url){
+		if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
+			$(".screenforbiden").show();
+		} else if(url!==""){
+			if(url.match("taobao.com")){
+				url=url.replace("http","taobao");
+			}
+			location.href = url;
+		}
+	};
+})
 // .directive('showBox', ['$http', 'p_s', function($http, p_s) {
 // 	// Runs during compile
 // 	return {

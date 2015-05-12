@@ -35,10 +35,20 @@ function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadch
 '$scope','$rootScope','loginCheck','getRequest','myCookie','base64',
 function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
 
-
 	loginCheck();
 
-	
+	//首页动画只登陆时显示一次
+	$rootScope.ishow = ($rootScope.ishow===undefined)?true:$rootScope.ishow;
+	$rootScope.ishows = ($rootScope.ishows===undefined)?true:$rootScope.ishows;
+	$rootScope.iup = ($rootScope.iup===undefined)?true:$rootScope.iup;
+	$rootScope.showpic = ($rootScope.showpic===undefined)?true:$rootScope.showpic;
+	setTimeout(function(){
+		$rootScope.showpic = false;
+		$rootScope.ishows = false;
+		$rootScope.ishow = false;
+		$rootScope.iup = false;
+	},2000);
+
 }])
 
 

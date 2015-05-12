@@ -281,15 +281,20 @@
 	z-index: 99;
 	background-image: url(../img/noshowdata.jpg);
 	background-repeat: no-repeat;
-	background-position: center 10%;
+	background-position: center 5%;
 	background-color: #fff;
 	background-size: 100%;
 	.button{
-		margin:350px auto 0;
+		position: absolute;
+		top:20%;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin:auto;
 		background: #ff9501;
-		height: 28px;
-		line-height: 28px;
-		width:130px;
+		height: 6vh;
+		line-height: 6vh;
+		width:50%;
 		text-align: center;
 		border-radius: 5px;
 		color:#fff;
@@ -298,4 +303,25 @@
 }
 .shownoshowdata{
 	display: block;
+}
+.softbanana{
+	position:fixed;
+	top: 0px;
+	left: 0px;
+	-webkit-transform:translate3d(0,0,1px);
+	.size(100%,20px);
+	background-color:#000; 
+	// rgba(0, 0, 0, 0.3);
+	opacity: 0.3;
+	color:#fff;
+	text-align: center;
+	font-size: 12px;
+	line-height: 20px;
+	z-index: 9;
+	// -webkit-animation: softbanana 3s linear 0s infinite;
+}
+
+@-webkit-keyframes softbanana{
+	0%{-webkit-transform:  translate3d(0px,1px,0px);}
+	100%{-webkit-transform:translate3d(0px,0px,1px);}
 }

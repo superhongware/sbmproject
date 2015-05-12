@@ -1,5 +1,5 @@
 //模板1
-.tmp1, .tmp2, .tmp3, .tmp4, .tmp6, .tmp8, .tmp9, .tmp10{
+.tmp1, .tmp2, .tmp3,.tmp6, .tmp4, .tmp8, .tmp9, .tmp10{
 	.ps_img1 {
 		&:extend(.backgroundpic);
 		opacity: 1;
@@ -7,6 +7,13 @@
 		background-size: auto 100%;
 	}
 }
+
+.rotation{
+	.ps_img1 {
+		background-size:100% auto;
+	}
+}
+
 .webkitBoxCenter {
 	display: -webkit-box;
 	-webkit-box-orient: horizontal;
@@ -184,6 +191,8 @@
 	.ps_img1 {
 		width: 100%;
 		height: 50%;
+		background-size:100% auto;
+
 	}
 	.ps_text1 {
 		line-height: 7vh;
@@ -195,7 +204,7 @@
 		// height: 8vh;
 		line-height: 4vh;
 		font-size: 16px;
-		bottom: 24%;
+		bottom: 23%;
 	}
 }
 
