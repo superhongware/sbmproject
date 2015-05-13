@@ -35,15 +35,7 @@ Copy text to clipboard with Javascript, html5 and Jquery :
 <br><br>
 and Paste here : <input />
 
-	<a
-	href='
-	fenxiang={
-	"titlle":"分享1",
-	"image":"http://img.alicdn.com/tps/i3/TB16SgbHpXXXXc7XFXXx67lOXXX-156-156.png",
-	"describe":"分享1描述描述描述描述描述描述描述描述描述描述",
-	"way":"weixin"}' 
-	target="_blank" 
-	class="btn btn-primary btn-lg btn-block">分享微信好友</a>
+	<div onclick="share1()" class="btn btn-primary btn-lg btn-block">分享微信好友</div>
 	<a 
 	href='
 	fenxiang={
@@ -79,6 +71,20 @@ and Paste here : <input />
 </html>
 <script src="http://davidwalsh.name/demo/ZeroClipboard.js"></script>
 <script type="text/javascript">
+
+function share1(){
+
+	var jsondata={
+		titlle:"分享1",
+		image:"http://img.alicdn.com/tps/i3/TB16SgbHpXXXXc7XFXXx67lOXXX-156-156.png",
+		describe:"分享1描述描述描述描述描述描述描述描述描述描述",
+		way:"weixin"
+	}
+
+	JavaScriptInterface.shareWithjson(JSON.stringify(jsondata))
+}
+
+
 $(document).ready(function(){
   
   ZeroClipboard.setMoviePath('http://davidwalsh.name/demo/ZeroClipboard.swf');
@@ -198,7 +204,7 @@ function alert2(data){
 	})
 
 
-	location.href="taobao://item.taobao.com/item.htm?id=45031625539&spm=2014.21758735.0.0";
+	// location.href="taobao://item.taobao.com/item.htm?id=45031625539&spm=2014.21758735.0.0";
 }]);
 
 

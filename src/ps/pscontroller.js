@@ -14,7 +14,7 @@ function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLi
 console.log(wx);
 
 
-//微信分享
+//========================微信分享=====================================
 	$http.jsonp("http://hongwei.comeoncloud.net/serv/wxapi.ashx?action=getjsapiconfig&callback=JSON_CALLBACK&url="+encodeURIComponent(location.href))
 	.success(function(wxapidata){
 		console.log(wxapidata);
@@ -53,10 +53,15 @@ console.log(wx);
 			}
 		});
 	});
+//========================微信分享======================================
+
 
 	$scope.showdata="";
 	$scope.shownoshowdata=false;
 	$scope.showmainbox = false;
+	//页面图片是否加载完成
+	$scope.loadover = false;
+
 
 
 
@@ -82,6 +87,8 @@ console.log(wx);
 		var api = SBMJSONP("searchDetail", getdata);
 		$http.jsonp(api.url)
 			.success(function(data) {
+
+				isloadover(data.pages);
 
 				console.log(data);
 				//宝贝秀删除后不执行后面代码
@@ -114,15 +121,12 @@ console.log(wx);
 				}
 
 
-
 				$scope.showdata = data;
 				// p_s.CreatDomtree(data);
 				$scope.$broadcast("showdataready");
 			})
 			.error(function(){
-
 				thereisnoshow();
-
 			});
 	}
 
@@ -149,10 +153,59 @@ console.log(wx);
 
 
 	$scope.$on("showdataready",function(){
-		setTimeout(function(){
-			p_s.init_animation();
-		},100);
+		setTimeout(startanimation,300);
+
+		function startanimation(){
+			//图片是否加载完  加载完运行动画
+			if($scope.loadover===true){
+				p_s.init_animation();
+			}else{
+				setTimeout(startanimation,300);
+			}		
+		}
 	});
+
+
+	function isloadover(pages){
+			var imgdata=[];
+			var loadnum=0;
+			for (var i = 0; i < pages.length; i++) {
+				for (var j = 0; j < pages[i].detailPageImage.length; j++) {
+					if(pages[i].detailPageImage[j].img!==""){
+						imgdata.push(pages[i].detailPageImage[j].img)
+					}
+				};
+			};
+
+			for (var i = 0;i<imgdata.length; i++) {
+				var newimg=new Image();
+
+				newimg.src=imgdata[i];
+
+				newimg.onload=function(){
+					loadnum++;
+					$(".laodpecent>.nowpencent").css({
+						"-webkit-transform":"translate3d(0,-"+loadnum/imgdata.length*100+"%,0)",
+						"-webkit-transition":"1s ease-in 0s"
+					})
+				};
+			}
+			$(".laodpecent>.nowpencent")[0].addEventListener("webkitTransitionEnd",loadover);
+			$(".loadingbox")[0].addEventListener("webkitTransitionEnd",loadingboxhided);
+			function loadingboxhided(){
+				$(".loadingbox").hide();
+			}
+
+			function loadover(){
+				if(loadnum/imgdata.length==1){
+					$scope.loadover=true;
+					$(".loadingbox").css({
+						"opacity":"0",
+						"-webkit-transition":"0.5s ease-in 0s"
+					})
+				}
+			}
+	}
 
 
 	$scope.hidePagemaStanda=function(){
@@ -162,17 +215,16 @@ console.log(wx);
 
 
 
-
-
 }])
 
-.controller('spCtrlpre', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
 
-		setTimeout(function(){
-			p_s.init_animation();
-		},100);
+// .controller('spCtrlpre', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
 
-}])
+// 		setTimeout(function(){
+// 			p_s.init_animation();
+// 		},100);
+
+// }])
 
 
 

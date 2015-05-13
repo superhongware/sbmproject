@@ -325,3 +325,107 @@
 	0%{-webkit-transform:  translate3d(0px,1px,0px);}
 	100%{-webkit-transform:translate3d(0px,0px,1px);}
 }
+
+.juzhong(){
+
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+		margin:auto;
+}
+
+
+@loadingmainbgcolor:#222;
+@loadinglogocolor:#515151;
+@loadingbgcolor:#a39372;
+@loadingbordercolor:#f3d392;
+@loadingboxtop:-20%;
+@loadingboxwidth1:2;
+@loadingboxwidth2:4;
+
+
+.loadingbox{
+	.square(100%);
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: @loadingmainbgcolor;
+	z-index: 99;
+	.text1,.text2{
+		.size(100%,30px);
+		.juzhong();
+		color:#fff;
+		text-align: center;
+		line-height: 30px;
+	}
+	.text1{
+		top:20%;
+	}
+	.text2{
+		top:28%;
+	}
+	.loadingoutbox1{
+			.square(40vw);
+			.juzhong();
+			top:@loadingboxtop;
+			border:2vw solid rgba(255, 255, 255, 0.1);
+			// background-origin: content-box;
+			border-radius: 100%;
+			// overflow: hidden;
+	}
+	.loadingoutbox2{
+			.square((40-8)vw);
+			.juzhong();
+			border:4vw solid rgba(255, 255, 255, 0.2);
+			border-radius: 100%;
+			// overflow: hidden;
+			// background-clip: padding-box;
+			// background-origin: content-box;
+			// border: 3vw solid rgba(255, 255, 255, 0.1);
+	}
+	.laoding{
+		.square(40-8vw);
+		.juzhong();
+		border-radius: 100%;
+		overflow: hidden;
+		border: 2px solid @loadingbordercolor;
+		box-sizing: border-box;
+		.softbananafont{
+			.juzhong();
+			top: 73%;
+			font-size: 3vw;
+			font-weight: bold;
+			color: @loadingmainbgcolor;
+			text-align: center;
+		}
+		.iconfont{
+			.juzhong();
+			.square(100%);
+			font-weight: bold;
+			color: @loadingmainbgcolor;
+			font-size:18vw;
+			line-height: 18vw;
+			top:30%;
+			box-sizing: border-box;
+			text-align: center;
+		}
+	}
+}
+.laodpecent{
+	.juzhong();
+	.square(40-8vw);
+	border-radius: 100%;
+	top:@loadingboxtop;
+	background-color: @loadingbgcolor;
+	// position: absolute;
+	// -webkit-transform:translate(0,10%);
+	.nowpencent{
+		.square(100%);
+		position: absolute;
+		top:0px;
+		left: 0px;
+		background-color: @loadingmainbgcolor;
+	}
+}

@@ -1,67 +1,71 @@
+	
 <!DOCTYPE html>
 <html ng-app="SBMPS">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-app-status-bar-style" content="white">
-    <meta name="format-detection" content="telephone=no">
-    <link href="css/ps.css?v=0.0.3" ver='0.0.3' rel="stylesheet">
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="lib/zepto/zepto.min.js"></script>
-    <!--<script src="cordova.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-animate/angular-animate.js"></script>
-    <script src="lib/angular-touch/angular-touch.js"></script>
-    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>-->
-    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
-    <script src="js/ps/app.js?v=0.0.3"></script>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title></title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-app-status-bar-style" content="white">
+	<meta name="format-detection" content="telephone=no">
+	<link href="css/ps.css?v=0.0.3" ver='0.0.3' rel="stylesheet">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script src="lib/zepto/zepto.min.js"></script>
+	<!--<script src="cordova.js"></script>
+	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular-animate/angular-animate.js"></script>
+	<script src="lib/angular-touch/angular-touch.js"></script>
+	<script src="lib/angular-ui-router/release/angular-ui-router.js"></script>-->
+	<script src="lib/ionic/js/ionic.bundle.min.js"></script>
+	<script src="js/ps/app.js?v=0.0.3"></script>
+</head>
 
-  </head>
-  <body ng-controller="spCtrl">
-  
+<body ng-controller="spCtrl">
+	<img class='shareimg' ng-src="{{showdata.detailImage}}">
+	<div id="mainbox" ng-class="{showmainbox:showmainbox}">
+		<div 
+		class="ps_page tmp{{page.templatePageId}}"
+		ng-click="hidePagemaStanda()"
+		ng-repeat="page in showdata.pages">
+			<span 
+			class="ps_img ps_img{{$index+1}}"
+			ng-repeat="img in page.detailPageImage track by $index"
+			imgsrc="{{img.img}}"
+			style="background-image:url({{img.img}})"></span>
+
+			<span 
+			class="ps_text ps_text{{$index+1}}" 
+			ng-repeat="text in page.detailPageText track by $index">{{text.txt}}</span>
+
+			<span class='tapuptip'></span>
+		</div>
+	</div>
+
+	<div class="loadingbox">
+
+		<span class="laodpecent">
+			<span class="nowpencent"></span>
+		</span>
+		<div class="loadingoutbox1">	
+			<div class="loadingoutbox2">
+				<div class="laoding">
+					<span class="iconfont icon-logo"></span>
+					<span class="softbananafont">SOFTBANANA</span>
+				</div>
+			</div>
+		</div>
+	
+		<span class="text1">拼了老命在给您加载,真的！</span>
+		<span class="text2">宝贝秀由软香蕉提供免费技术支持</span>
+	</div>
+
+	<div class="noshowdata" ng-class="{shownoshowdata:shownoshowdata}">
+		<div class="button" ng-click="gotoproduct()">直接浏览该宝贝</div>
+	</div>
+	<!-- <div class="softbanana"><span class="iconfont icon-logo"></span>由软香蕉提供免费技术支持</div> -->
+	<div three-points></div>
 
 
-<img class='shareimg' ng-src="{{showdata.detailImage}}">
 
-<!--   ng-class="{
-  current: $index==show.current, 
-  next: $index==show.current+1, 
-  prev: $index==show.current-1}"  -->
-  <div id="mainbox"  ng-class="{showmainbox:showmainbox}">
-    <div 
-    class="
-    ps_page 
-    tmp{{page.templatePageId}}"
-    ng-click="hidePagemaStanda()"
-    ng-repeat="page in showdata.pages">
-          <span 
-          class="
-          ps_img
-          ps_img{{$index+1}}"
-          ng-repeat="img in page.detailPageImage track by $index" 
-          style="background-image:url({{img.img}})"></span>
-
-          <span 
-          class="ps_text ps_text{{$index+1}}" 
-          ng-repeat="text in page.detailPageText track by $index">{{text.txt}}</span>
-
-          <span class='tapuptip'></span>
-    </div>  
-  </div>
-
-
-<div class="noshowdata" ng-class="{shownoshowdata:shownoshowdata}">
-  <div class="button" ng-click="gotoproduct()">直接浏览该宝贝</div>
-</div>
-  <!-- <div class="softbanana"><span class="iconfont icon-logo"></span>由软香蕉提供免费技术支持</div> -->
-  <div three-points></div>
-
-
-  <!-- {{show.pages}} -->
-
-  <!-- <input type="text" ng-model="show.current" class="verytop"> -->
-    <!-- <show-box></show-box> -->
-  </body>
+</body>
 </html>
