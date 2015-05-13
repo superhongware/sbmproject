@@ -86,11 +86,16 @@ function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SB
 // ui-sref="viewtemplate({templateId:pic_templteId,productId:pic_productId,productPlat:pic_productPlat})"
 
 
-    $ionicPopover.fromTemplateUrl('pageTplorderStatusfilterPopover', {
+    $ionicPopover.fromTemplateUrl('templates/index/creatshows/popoverPic.html', {
         scope: $scope,
     }).then(function(popover) {
         $scope.popover = popover;
     });
+
+
+    $scope.openPopover = function($event) {
+   		 $scope.popover.show($event);
+ 	};
 
 }])
 ;

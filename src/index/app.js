@@ -167,6 +167,11 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/remoteimg.html",
 		controller:'remoteimgCtrl'
 	})
+	.state('popoverPic', {
+		url: "/popoverPic",
+		templateUrl: "templates/index/creatshows/popoverPic.html",
+		controller:'remoteimgCtrl'
+	})
 	//添加页面
 	.state('addpage', {
 		url: "/addpage/:showId/:pageId",
