@@ -67,8 +67,8 @@ console.log(0);
 
 
 .controller('viewshowCtrl',[
-'$scope','$rootScope','$stateParams','$state','$ionicLoading','$state','creatShow','creatpsurl2',
-function($scope,$rootScope,$stateParams,$state,$ionicLoading,$state,creatShow,creatpsurl2){
+'$scope','$rootScope','$stateParams','$state','$ionicLoading','creatShow','creatpsurl2',
+function($scope,$rootScope,$stateParams,$state,$ionicLoading,creatShow,creatpsurl2){
 	
 
 	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")])
