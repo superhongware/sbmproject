@@ -18,14 +18,18 @@ ng-app="starter"
 	<script src="js/index/app.js"></script>
 	
 	<!--<script src="lib/ui-bootstrap-tpls-0.12.1.min.js"></script>
+	<script src="http://g.alicdn.com/tmapp/tida2/2.0.28/tida.js?appkey=23127299"></script>
 	<script src="cordova.js"></script>-->
 
 </head>
 <body ng-controller="mainviewCtrl">
 
-	<ion-nav-bar class="bar-energized i" ng-hide="navbarhide">
-		<ion-nav-back-button>
+	<ion-nav-bar class="bar-energized i" ng-hide="navbarhide" ng-controller="navbarCtrl">
+		<ion-nav-back-button  class="button-clear"
+    	ng-click="myGoBack()">
+			返回
 		</ion-nav-back-button>
+
 		<ion-button></ion-button>
 	</ion-nav-bar>
 	<ion-nav-view></ion-nav-view>

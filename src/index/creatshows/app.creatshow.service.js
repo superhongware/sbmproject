@@ -181,7 +181,10 @@ creatshowmodule.factory('changepagesize', function(){
 
 		//手机里的照片 数据读进来后 照片是横过来的  这边
 		var isphoto=0;
-		if(picdata.img.naturalWidth>picdata.img.naturalHeight){
+		// console.log(["pic",picdata.img.attributes.src.value])
+
+		// console.log(["pic",picdata.img.currentSrc])
+		if(!picdata.img.attributes.src.value.match("http:")&&picdata.img.naturalWidth>picdata.img.naturalHeight){
 			isphoto=1;
 			naturaw=picdata.img.naturalHeight;
 			naturah=picdata.img.naturalWidth;

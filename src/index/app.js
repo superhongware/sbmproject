@@ -145,6 +145,8 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/viewtemplate.html",
 		controller:'viewtemplateCtrl'
 	})
+
+
 	//编辑页
 	.state('editpages', {
 		url: "/editpages",
@@ -161,6 +163,8 @@ angular.module('starter',
 		},
 		controller:'editerCtrl'
 	})
+
+	
 	//选图片空间的图片
 	.state('remoteimg', {
 		url: "/remoteimg",

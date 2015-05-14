@@ -17,7 +17,34 @@ function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadch
 	// });
 	
 	loginCheck();
-	showadcheck()
+	showadcheck();
+
+	
+	if(typeof Tida !=="undefined"){
+		Tida.ready({
+			interactId:"", // 互动实列ID type string 若无抽奖模块，此参数无须传入。给错误的实例ID会走错误流程
+			module: ["device", "media", "server", "social", "widget", "sensor", "share","buy","draw","im"] // 应用所需要的模块。默认加载所有模块。支持的模块有draw:抽奖;sensor:传感器;buy:交易;device:基础设备接口 social:社交相关 widget:客户端UI
+		}, function(){
+			// alert(0);
+			// Tida.openClient("taobao://h5.m.taobao.com/awp/core/detail.htm?id=45031625539&spm=2014.21758735.0.0")
+			// alert(1);
+			// options=
+
+
+			// Tida.hideTitle();
+
+			// Tida.doAuth(function(data){
+			// 	alert(JSON.stringify(data));
+			// 	if(data.finish){
+			// 	// 授权成功 可以顺利调用需要授权的接口了
+
+			// 	}else {
+			// 	// 未能成功授权
+			// 	}
+			// });
+		})
+	}
+
 	// $scope.show= function(){
 	// 	$ionicLoading.show({
 	// 		template:"loading...",
@@ -32,8 +59,8 @@ function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadch
 
 //首页
 .controller('indexCtrl', [
-'$scope','$rootScope','loginCheck','getRequest','myCookie','base64',
-function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
+'$scope','$rootScope','loginCheck','getRequest','myCookie','base64','TBAPI',
+function($scope,$rootScope,loginCheck,getRequest,myCookie,base64,TBAPI){
 
 	loginCheck();
 
@@ -49,6 +76,9 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64){
 		$rootScope.iup = false;
 	},2000);
 
+	
+	TBAPI.showTitle();
+
 }])
 
 
@@ -60,6 +90,17 @@ function($scope,$rootScope,myCookie){
 	$rootScope.isthereshowad="";
 
 	
+}])
+
+//整个app的导航的controller
+.controller('navbarCtrl', ['$scope', '$ionicHistory', function($scope,$ionicHistory){
+	$scope.myGoBack = function() {
+		console.log("00000");
+		history.go(-1);
+		// $ionicHistory.goBack(-1);
+
+	};
+
 }])
 
 .controller('contentCtrl',['$scope','$ionicSideMenuDelegate',function($scope,$ionicSideMenuDelegate){

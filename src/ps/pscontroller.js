@@ -70,6 +70,8 @@ console.log(wx);
 
 		$http.get("testdata/template1.json")
 		.success(function(data){
+			// 图片加字统计
+			isloadover(data.pages);
 			$scope.showdata = data;
 			$scope.$broadcast("showdataready");
 		})
@@ -87,7 +89,10 @@ console.log(wx);
 		var api = SBMJSONP("searchDetail", getdata);
 		$http.jsonp(api.url)
 			.success(function(data) {
+	
 
+				// $scope.loadover = true;
+				// 图片加字统计
 				isloadover(data.pages);
 
 				console.log(data);
@@ -191,20 +196,33 @@ console.log(wx);
 				};
 			}
 			$(".laodpecent>.nowpencent")[0].addEventListener("webkitTransitionEnd",loadover);
-			$(".loadingbox")[0].addEventListener("webkitTransitionEnd",loadingboxhided);
-			function loadingboxhided(){
-				$(".loadingbox").hide();
-			}
+			
+			//
+
 
 			function loadover(){
+				console.log("loadover")
+
 				if(loadnum/imgdata.length==1){
-					$scope.loadover=true;
+
 					$(".loadingbox").css({
 						"opacity":"0",
-						"-webkit-transition":"0.5s ease-in 0s"
+						"-webkit-transition":"0.5s ease-in"
 					})
+					setTimeout(hideloadingbox,100);
+
 				}
 			}
+
+			function hideloadingbox(){
+					$(".loadingbox")[0].addEventListener("webkitTransitionEnd",loadingboxhided);
+					function loadingboxhided(){
+						console.log("loadingboxhided")
+						$scope.loadover=true;
+						$(".loadingbox").hide();
+					}
+			}
+
 	}
 
 

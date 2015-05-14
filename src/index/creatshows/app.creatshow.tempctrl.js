@@ -1,5 +1,25 @@
 creatshowmodule
 
+//整编辑页—图片文字编辑区
+.controller('editerCtrl', ['$scope','$rootScope','$http','$ionicLoading','$stateParams','changepagesize',function($scope,$rootScope,$http,$ionicLoading,$stateParams,changepagesize){
+
+	changepagesize();
+
+	$rootScope.editShowData.ddd="cccc";
+
+	console.log("editerCtrl");
+	// console.log(["bb",$rootScope.editShowData]);
+
+	$rootScope.editShowData.showId=$stateParams.showId;
+	$rootScope.editShowData.currentpage=parseInt($stateParams.pageId);
+	$scope.$emit("showdatachanged");
+
+	// console.log(["cc",$rootScope.editShowData]);
+	// console.log($rootScope.editShowData.currentpage);
+
+}])
+
+
 //整编辑页的controller
 .controller('editpagesCtrl',[
 	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl',

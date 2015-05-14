@@ -25,6 +25,8 @@ creatshowmodule
 	};
 }])
 
+
+//编辑页底部小页面
 .directive('pageEditor',[
 	'$rootScope','$state','$animate',"$timeout",'$ionicLoading','$ionicScrollDelegate',
 	function($rootScope,$state,$animate,$timeout,$ionicLoading,$ionicScrollDelegate){

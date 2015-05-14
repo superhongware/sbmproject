@@ -5,8 +5,12 @@
  */
 var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
 productsmodule.controller('productsCtrl', [
-'$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', 'loginCheck',
-function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,loginCheck) {
+'$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', 'loginCheck','TBAPI',
+function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,loginCheck,TBAPI) {
+
+	//隐藏淘宝标题栏
+	TBAPI.hideTitle();
+
 
 // console.log(loginCheck);
 
