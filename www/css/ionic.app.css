@@ -9,11 +9,13 @@
   Material Design Icons: https://github.com/google/material-design-icons
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
+  src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");
+  src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/ionicons.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg");
 */
 @font-face {
   font-family: "Ionicons";
-  src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");
-  src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/ionicons.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg");
+  src: url("http://baobeixiu.softbanana.com/lib/ionic/fonts/ionicons.eot?v=2.0.1");
+  src: url("http://baobeixiu.softbanana.com/lib/ionic/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("http://baobeixiu.softbanana.com/lib/ionic/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("http://baobeixiu.softbanana.com/lib/ionic/fonts/ionicons.woff?v=2.0.1") format("woff"), url("http://baobeixiu.softbanana.com/lib/ionic/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
 

@@ -51,7 +51,7 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myC
 			console.log(["erroe",msg]);
 
 		});
-	}
+	};
 
 
 

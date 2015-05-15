@@ -46,10 +46,10 @@ console.log(wx);
 			link: $scope.weixinsharedata.link, // 分享链接
 			imgUrl:$scope.weixinsharedata.imgUrl , // 分享图标
 			success: function() {
-				alert("分享成功");
+				// alert("分享成功");
 			},
 			cancel: function() {
-				alert("取消分享");
+				// alert("取消分享");
 			}
 		});
 	});
@@ -102,28 +102,8 @@ console.log(wx);
 					return;
 				}
 
-				// 自动打开淘宝跳转跳转
-				var userAgentInfo = navigator.userAgent;  
-				var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
-				var url=data.detailUrl;
-				var flag = false;  
-				for (var v = 0; v < Agents.length; v++) {  
-					if (userAgentInfo.indexOf(Agents[v]) > 0) { 
-						flag = true;
-						break; 
-					}
-				}  
-				console.log(["flag",flag]);
-
-				if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag&&getRequest("templateview")!=="2"){
-					url=url.replace("http","taobao");
-					location.href=url;
-				}else if(userAgentInfo.match("MicroMessenger")){
-					//微信分享内容
-					$scope.weixinsharedata.title=data.detailTitle;
-					$scope.weixinsharedata.desc=data.detailDesc;
-					$scope.weixinsharedata.imgUrl=data.detailImage;
-				}
+				//自动打开淘宝
+				autoopentaobao(data)
 
 
 				$scope.showdata = data;
@@ -137,23 +117,57 @@ console.log(wx);
 
 
 	function thereisnoshow(){
-				$scope.showmainbox = true;
-				$scope.shownoshowdata=true;
-				//没有宝贝秀数据 获取宝贝数据 跳转到宝贝页
-				console.log(["dasdadasdadad",getRequest2("plat")])
-				productComm.loadProductDetail({
-					orgName: getRequest2("orgname"),
-					numIid: getRequest2("productid"),
-					plat: getRequest2("plat")
-				},function(data){
-					console.log(['baobeishuju',data]);
-					$scope.gotoproduct=function(){
-						var url=data.detailUrl
-						openLink(url);
-					}
-				},function(){
-					alert("请检查网络是否问题");
-				});
+		$scope.showmainbox = true;
+		$scope.shownoshowdata=true;
+		//没有宝贝秀数据 获取宝贝数据 跳转到宝贝页
+		console.log(["dasdadasdadad",getRequest2("plat")]);
+		productComm.loadProductDetail({
+			orgName: getRequest2("orgname"),
+			numIid: getRequest2("productid"),
+			plat: getRequest2("plat")
+		},function(data){
+			console.log(['baobeishuju',data]);
+
+			$scope.gotoproduct=function(){
+				var url=data.detailUrl;
+				openLink(url);
+			};
+
+			autoopentaobao(data);
+
+		},function(){
+			alert("请检查网络是否问题");
+		});
+	}
+
+
+	function autoopentaobao(data){
+		// 自动打开淘宝跳转跳转
+		var userAgentInfo = navigator.userAgent;  
+		var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
+		var url=data.detailUrl;
+		var flag = false;  
+		for (var v = 0; v < Agents.length; v++) {  
+			if (userAgentInfo.indexOf(Agents[v]) > 0) { 
+				flag = true;
+				break; 
+			}
+		} 
+		console.log(["flag",flag]);
+
+		if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag&&getRequest("templateview")!=="2"){
+			url=url.replace("http","taobao");
+			location.href=url;
+		}else if(userAgentInfo.match("MicroMessenger")){
+			//有数据 设置微信分享数据
+			if (!$scope.shownoshowdata) {
+				//微信分享内容
+				$scope.weixinsharedata.title=data.detailTitle;
+				$scope.weixinsharedata.desc=data.detailDesc;
+				$scope.weixinsharedata.imgUrl=data.detailImage;
+			};
+
+		}
 	}
 
 
@@ -177,12 +191,12 @@ console.log(wx);
 			for (var i = 0; i < pages.length; i++) {
 				for (var j = 0; j < pages[i].detailPageImage.length; j++) {
 					if(pages[i].detailPageImage[j].img!==""){
-						imgdata.push(pages[i].detailPageImage[j].img)
+						imgdata.push(pages[i].detailPageImage[j].img);
 					}
-				};
-			};
+				}
+			}
 
-			for (var i = 0;i<imgdata.length; i++) {
+			for (i = 0;i<imgdata.length; i++) {
 				var newimg=new Image();
 
 				newimg.src=imgdata[i];
@@ -192,9 +206,10 @@ console.log(wx);
 					$(".laodpecent>.nowpencent").css({
 						"-webkit-transform":"translate3d(0,-"+loadnum/imgdata.length*100+"%,0)",
 						"-webkit-transition":"1s ease-in 0s"
-					})
+					});
 				};
 			}
+
 			$(".laodpecent>.nowpencent")[0].addEventListener("webkitTransitionEnd",loadover);
 			
 			//

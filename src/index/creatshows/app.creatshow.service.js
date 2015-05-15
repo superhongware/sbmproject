@@ -170,9 +170,12 @@ creatshowmodule.factory('changepagesize', function(){
 // var cvs=drawShowImg(thisimgdata);
 // compressShowImg(cvs,80);
 .factory('drawShowImg', function(){
-	return function drawShowImg(picdata){
+	return function drawShowImg(picdata,canvas){
 		// var cvs=document.getElementById('imgcanvas');
 		var cvs = document.createElement('canvas');
+		if(canvas){
+			cvs=canvas;
+		}
 		var ctx=cvs.getContext("2d");
 		//宽度以全屏640为基准 计算出图片压缩后尺寸
 		var finalwidthscal=640/picdata.imgbox.parents(".ps_page")[0].clientWidth;
@@ -184,10 +187,14 @@ creatshowmodule.factory('changepagesize', function(){
 		// console.log(["pic",picdata.img.attributes.src.value])
 
 		// console.log(["pic",picdata.img.currentSrc])
-		if(!picdata.img.attributes.src.value.match("http:")&&picdata.img.naturalWidth>picdata.img.naturalHeight){
+		// alert(picdata.img.attributes.src.value.match("http:"));
+		// alert(picdata.img.naturalWidth);
+
+		if(!picdata.img.attributes.src.value.match("http:")&&picdata.img.naturalWidth>1900){
 			isphoto=1;
 			naturaw=picdata.img.naturalHeight;
 			naturah=picdata.img.naturalWidth;
+			// alert(0)
 		}
 
 		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
@@ -197,11 +204,12 @@ creatshowmodule.factory('changepagesize', function(){
 		ctx.clearRect(0,0,cvs.width,cvs.height);
 		ctx.save();
 		
+
 		//把原图缩放 平铺canvas 
 		//手机里的照片读进来后是横过来的  以宽度计算缩放比例  必须用naturaHeight
 		if(isphoto){
 			ctx.rotate(90 * Math.PI/180);
-			ctx.translate(0,-640);
+			ctx.translate(0,-cvs.width);
 		}
 		var scale=cvs.width/naturaw;
 
@@ -219,6 +227,69 @@ creatshowmodule.factory('changepagesize', function(){
 
 	};
 })
+
+.factory('drawShowImg2', function(){
+	return function drawShowImg2(picdata,canvas){
+		// var cvs=document.getElementById('imgcanvas');
+		var cvs = document.createElement('canvas');
+		if(canvas){
+			cvs=canvas;
+		}
+		var ctx=cvs.getContext("2d");
+		//宽度以全屏640为基准 计算出图片压缩后尺寸
+		var finalwidthscal=640/picdata.imgbox.parents(".ps_page")[0].clientWidth;
+		var naturaw=picdata.img.naturalWidth;
+		var naturah=picdata.img.naturalHeight;
+
+		//手机里的照片 数据读进来后 照片是横过来的  这边
+		var isphoto=0;
+		// console.log(["pic",picdata.img.attributes.src.value])
+
+		// console.log(["pic",picdata.img.currentSrc])
+		// alert(picdata.img.attributes.src.value.match("http:"));
+		// alert(picdata.img.naturalWidth);
+
+		// if(!picdata.img.attributes.src.value.match("http:")&&picdata.img.naturalWidth>1900){
+		// 	isphoto=1;
+		// 	naturaw=picdata.img.naturalHeight;
+		// 	naturah=picdata.img.naturalWidth;
+		// 	// alert(naturaw+","+naturah)
+		// }
+
+		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
+		cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
+		
+		//清除画布 准备绘图
+		ctx.clearRect(0,0,cvs.width,cvs.height);
+		ctx.save();
+		
+		console.log(cvs.width,cvs.height,naturaw,naturah)
+
+		//把原图缩放 平铺canvas 
+		//手机里的照片读进来后是横过来的  以宽度计算缩放比例  必须用naturaHeight
+		// if(isphoto){
+		// 	ctx.rotate(90 * Math.PI/180);
+		// 	ctx.translate(0,-cvs.width);
+		// 	ctx.restore();
+		// 	ctx.save();
+		// }
+		var scale=cvs.width/naturaw;
+
+		ctx.scale(scale,scale);
+		//根据用户缩放比例，位移尺寸绘图  图片缩放原点为图片中心
+		// var translatex=picdata.point[0]*finalwidthscal/scale+naturaw/2;
+		// var translatey=picdata.point[1]*finalwidthscal/scale+naturah/2;
+		// ctx.translate(translatex,translatey);
+
+		// ctx.scale(picdata.scale[0],picdata.scale[0]);
+		// ctx.translate(-naturaw/2,-naturah/2);
+		ctx.drawImage(picdata.img,0,0);
+		ctx.restore();
+		return cvs;
+
+	};
+})
+
 .factory('compressShowImg', function(){
 	return function compressShowImg(cvs,quality,output_format){
 		var mime_type = "image/jpeg";
@@ -260,7 +331,7 @@ creatshowmodule.factory('changepagesize', function(){
 					//填充模板数据
 					tempdata.detailTitle = productdata.title;
 					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
-					tempdata.detailImage = "http://bbx1.hongware.com:8084/sbmproject/img/shareimg.jpg";
+					tempdata.detailImage = "http://baobeixiu.softbanana.com/img/shareimg.jpg";
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
 					tempdata.detailUrl = productdata.detailUrl;

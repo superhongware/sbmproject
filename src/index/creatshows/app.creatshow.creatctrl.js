@@ -71,8 +71,8 @@ console.log(0);
 function($scope,$rootScope,$stateParams,$state,$ionicLoading,creatShow,creatpsurl2){
 	
 
-	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")])
-	var showurl=creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")
+	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")]);
+	var showurl=creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0");
 	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+'&templateview=2 frameborder="0"></iframe>');
 
 	// $(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
@@ -97,7 +97,7 @@ function($scope,$rootScope,$stateParams,$state,$ionicLoading,creatShow,creatpsur
 		// $ionicLoading.hide();
 		$state.go('share',{
 			showId:$stateParams.showId
-		})
+		});
 	};
 
 

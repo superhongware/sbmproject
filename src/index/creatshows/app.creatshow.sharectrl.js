@@ -1,8 +1,8 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow){
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg2','compressShowImg','creatpsurl','saveShow',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg2,compressShowImg,creatpsurl,saveShow){
 
 	loginCheck();
 
@@ -105,6 +105,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			}
 			//更新图片位置
 			setimgview();
+			drawShowImg2($scope.shareimgdata,$("#testcanvas")[0])
 		}
 		function setimgview(){
 
@@ -114,13 +115,14 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			$(".backimgbox>img").css({
 				"-webkit-transform":"translate3d("+thisimgdata.point[0]+"px,"+thisimgdata.point[1]+"px,0px) scale("+thisimgdata.scale[0]+")"
 			});
-			
+			// console.log($scope.shareimgdata)
 		}
 	}
 
 	$scope.getthispic=function(){
-		var cvs=drawShowImg($scope.shareimgdata);
-		// console.log($scope.shareData);
+		//不会翻转图片
+		console.log($scope.shareimgdata);
+		var cvs=drawShowImg2($scope.shareimgdata);
 		// $scope.shareData={}
 		// $scope.shareData.detailImage=compressShowImg(cvs,80);
 		$(".editimg").hide();
@@ -156,7 +158,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			},function(){
 				console.log("宝贝秀数据保存失败");
 			});
-	}
+	};
 
 	$scope.dropthispic=function(){
 		// alert(0);

@@ -38,7 +38,7 @@
 		// psurl="http://192.168.1.181:3000/ps.html?"+base64url(psurl);
 
 		// psurl="http://bbx1.hongware.com:8084/sbmproject/ps.html?"+base64url(psurl);
-		psurl="http://baobeixiu.softbanana.com/sbmproject/ps.html?"+base64url(psurl);
+		psurl="http://baobeixiu.softbanana.com/ps.html?"+base64url(psurl);
 
 		return psurl;
 	};
@@ -613,7 +613,7 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		if(!$rootScope.istaobao&&!myCookie.get("youhaveredad")){
 			$rootScope.isthereshowad="showad";
 		}
-		console.log($rootScope.isthereshowad)
+		console.log($rootScope.isthereshowad);
 		// else{
 
 		// 	myCookie.add("youhaveredad","yeah!youhaveredad",1/24/60)
@@ -628,13 +628,13 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 			if(typeof Tida!=="undefined"&&typeof Tida.hideTitle!=="undefined"){
 				Tida.hideTitle();
 			}
-		}
+		};
 
 		this.showTitle=function(){
 			if(typeof Tida!=="undefined"&&typeof Tida.showTitle!=="undefined"){
 				Tida.showTitle();
 			}
-		}
+		};
 	};
 
 	return new TBAPI();
