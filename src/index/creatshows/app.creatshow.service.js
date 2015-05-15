@@ -541,4 +541,26 @@ creatshowmodule.factory('changepagesize', function(){
 	};
 })
 
+.factory('checklocalimg2', function(){
+	return function checklocalimg2(callback){
+			//选择本地图片
+			var fileinput;
+			if(!document.getElementById('fileImg')){
+				fileinput=document.createElement("input");
+				fileinput.id='fileImg';
+				fileinput.type='file';
+				fileinput.accept="image/*";
+				document.body.appendChild(fileinput);
+			}else{
+				fileinput=document.getElementById('fileImg');
+			}
+			fileinput.addEventListener('change', handleFileSelect, false);
+			fileinput.click();
+			function handleFileSelect (evt) {
+				fileinput.removeEventListener('change', handleFileSelect, false);
+				return evt.target.files[0];
+			}
+	};
+})
+
 ;

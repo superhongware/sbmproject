@@ -1,7 +1,7 @@
 creatshowmodule
 .controller('remoteimgCtrl',[
-'$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http',
-function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http){
+'$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http','saveShow',
+function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http,saveShow){
 
 	$scope.remoteimgcat=[];
 
@@ -76,11 +76,29 @@ function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SB
 
     $scope.uppic = function(picurl){
     	$rootScope.picurl = picurl;
-    	$state.go("editpages.editer",{
+
+
+    	//app.creatshow/creatctrl.pageadd.js  31行左右有相同代码
+		//此处保存只为了  修复添加页面后小页面无法拖动bug 重新加载showdata后小页面就可以拖动
+		//半夜三更的我真找不到是什么原因导致的  实在解决不了才出此对策
+		//你看到这个  如果想优化下，非常欢迎!!!
+		saveShow($rootScope.editShowData.mainData,function(data){
+			$rootScope.editShowData.mainData=undefined;
+			// $ionicLoading.hide();
+			$state.go("editpages.editer",{
 				showId:$rootScope.pic_showId,
 				pageId:$rootScope.pic_pageId,
 				pageTemp:$rootScope.pic_pageTemp
-			});
+					});
+		},function(){
+
+		});
+
+   //  	$state.go("editpages.editer",{
+			// 	showId:$rootScope.pic_showId,
+			// 	pageId:$rootScope.pic_pageId,
+			// 	pageTemp:$rootScope.pic_pageTemp
+			// });
     	
     };
 // ui-sref="viewtemplate({templateId:pic_templteId,productId:pic_productId,productPlat:pic_productPlat})"

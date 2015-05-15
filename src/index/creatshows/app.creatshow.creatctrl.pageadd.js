@@ -27,7 +27,7 @@ creatshowmodule
 		
 		pages.splice(pageposition,0,addpage);
 		
-
+    	//app.creatshow.remoteimgctrl.js 81行左右有相同代码
 		//此处保存只为了  修复添加页面后小页面无法拖动bug 重新加载showdata后小页面就可以拖动
 		//半夜三更的我真找不到是什么原因导致的  实在解决不了才出此对策
 		//你看到这个  如果想优化下，非常欢迎!!!

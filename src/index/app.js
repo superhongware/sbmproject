@@ -208,9 +208,10 @@ angular.module('starter',
 		controller:'appadoneCtrl'
 	})
 	//sidebar测试  正式上线删除
-	.state('sidebartest',{
-		url:"/sidebartest",
-		templateUrl:"templates/index/sidebartest.html"
+	.state('testpage',{
+		url:"/testpage",
+		templateUrl:"templates/index/testpage.html",
+		controller:"maintestCtrl"
 	});
 
 	$urlRouterProvider.otherwise('/home');

@@ -108,7 +108,25 @@ function($scope,$rootScope,myCookie){
 		$ionicSideMenuDelegate.toggleLeft();
 	};
 	$scope.toggleLeft();
-}]);
+}])
+
+
+
+//测试页面
+.controller('maintestCtrl', ['$scope', 'checklocalimg2',function($scope,checklocalimg2){
+	
+	$scope.checklocalimg=function(){
+		checklocalimg2(function(image){
+			EXIF.getData(e.target.files[0], function() {
+				alert(EXIF.pretty(this));
+			});
+		})
+	}
+	// console.log(EXIF.)
+
+
+}])
+;
 
 
 
