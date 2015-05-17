@@ -30,7 +30,6 @@ function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadch
 			// alert(1);
 			// options=
 
-
 			// Tida.hideTitle();
 
 			// Tida.doAuth(function(data){
@@ -116,13 +115,79 @@ function($scope,$rootScope,myCookie){
 .controller('maintestCtrl', ['$scope', 'checklocalimg2',function($scope,checklocalimg2){
 	
 	$scope.checklocalimg=function(){
-		checklocalimg2(function(image){
-			EXIF.getData(e.target.files[0], function() {
-				alert(EXIF.pretty(this));
+		checklocalimg2(function(file){
+
+			console.log("asd")
+			EXIF.getData(file, function() {
+				console.log(this);
+				// alert(EXIF.pretty(this));
+				var imginfo=(this.exifdata&&this.exifdata.Orientation)||1;
+				
+				console.log(imginfo)
+
+				// alert(JSON.stringify(this.exifdata))
+
+
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload=function(e){
+
+					// console.log(e.target.result);
+					var img=new Image();
+					img.src=e.target.result;
+					// var resCanvas2=document.createElement("canvas");
+					var resCanvas2=document.querySelector("#canvas2");
+
+					var mpImg = new MegaPixImage(img);
+
+					mpImg.render(resCanvas2, { maxWidth: 100, maxHeight: 100, orientation: imginfo },function(){
+						
+						var cvs=document.querySelector("#canvas");
+
+						cvs.width=resCanvas2.width;
+						cvs.height=resCanvas2.height;
+
+						var ctx=cvs.getContext("2d");
+
+						ctx.clearRect(0,0,cvs.width,cvs.height);
+						// ctx.save();
+						// ctx.scale(1,1);
+						ctx.drawImage(resCanvas2,0,0);
+						// ctx.restore();
+						console.log(resCanvas2.toDataURL("image/jpeg", 1)==cvs.toDataURL("image/jpeg", 1))
+						// alert("draw")
+
+						reader.onload=null;
+						// delete resCanvas2;
+					});
+
+					
+
+				}
+
 			});
+
+
+
 		})
 	}
-	// console.log(EXIF.)
+	
+	// // console.log(EXIF.)
+	// var image=document.querySelector("#myimage");
+	// image.onload=function(){
+
+	// 	var cvs=document.querySelector("#canvas");
+	// 	var ctx=cvs.getContext("2d");
+	// 	console.log(image)
+	// 	// cvs.width=1000;
+	// 	// cvs.height=1000;
+	// 	ctx.clearRect(0,0,cvs.width,cvs.height);
+	// 	ctx.save();
+	// 	// ctx.scale(0.1,0.1);
+	// 	ctx.drawImage(image,0,0,1300,1300,0,0,100,100);
+	// 	ctx.restore();
+		
+	// }
 
 
 }])

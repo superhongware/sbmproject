@@ -1,7 +1,10 @@
 var showsmodule = angular.module('showsmodule', ['ionic', 'starter.services', 'starter.directives']);
 showsmodule.controller('showsCtrl', [
-'$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading','$ionicListDelegate', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', 
-function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicListDelegate,productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
+'$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading','$ionicListDelegate', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', 'TBAPI','showedition',
+function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicListDelegate,productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP,TBAPI,showedition) {
+
+	//隐藏淘宝标题栏
+	TBAPI.hideTitle();
 
 //获取宝贝秀列表
 	$scope.showsListData = [];
@@ -150,22 +153,16 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 	};
 
 	$scope.showediticon=function(index){
-		console.log($(".showlistitem").eq(index));
-		var thisitem=$(".showlistitem").eq(index);
-		var itemoptions=thisitem.find(".item-options");
-		itemoptions.removeClass("invisible");
-		thisitem.find(".item-content").css({
-			"-webkit-transform":" translate3d(-"+itemoptions.width()+"px, 0px, 0px)"
-		});
+		showedition(index);
 	};
 
 	$scope.pageData = pageData;
 
-}]);
+}])
 
 
 
-showsmodule.controller('liuliangCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
+.controller('liuliangCtrl', ['$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
     $scope.showsInfo = {
     	orgName:$rootScope.orgName,
 		detailId:$stateParams.showId

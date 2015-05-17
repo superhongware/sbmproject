@@ -1,8 +1,8 @@
 
 
 productsmodule.controller('productDetailCtrl', [
-'$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', 
-function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP) {
+'$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', 'showedition',
+function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP,showedition) {
 
 	var pageFunc = {},
 		pageData = {};
@@ -136,6 +136,10 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, product
 
 	$scope.pageData = pageData;
 	pageFunc.init();
+
+	$scope.showediticon=function(index){
+		showedition(index);
+	};
 
 }])
 

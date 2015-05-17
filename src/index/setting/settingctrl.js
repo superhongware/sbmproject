@@ -4,7 +4,12 @@
  * 设置功能模块
  */
 var settingmodule = angular.module('settingmodule', ['ionic', 'starter.services', 'starter.directives']);
-settingmodule.controller('settingCtrl', ['$scope', '$ionicPopup', 'myCookie', 'loginCheck',function($scope, $ionicPopup, myCookie, loginCheck) {
+settingmodule.controller('settingCtrl', [
+'$scope', '$ionicPopup', 'myCookie', 'loginCheck','TBAPI',
+function($scope, $ionicPopup, myCookie, loginCheck,TBAPI) {
+
+	//隐藏淘宝标题栏
+	TBAPI.hideTitle();
 
 	$scope.logout = function() {
 		var myPopup = $ionicPopup.show({

@@ -3,18 +3,20 @@
     <div class="paddingtop44"></div>
 
   	<div class="shuoming">点击框框，修改文字和图片</div>
-  	<div class="content">
 
-  		<textarea  class="inputs" ng-change="saveshowadata()" ng-model="shareData.detailTitle"></textarea>
+  	<div class="sharecontent">
 
-  		<div class="inputs" ng-click="checkshareimg()">
+  		<textarea  class="shareinputs" ng-change="saveshowadata()" ng-model="shareData.detailTitle"></textarea>
+
+  		<div class="shareinputs" ng-click="checkshareimg()">
   			<img id="shareimg" ng-src="{{shareData.detailImage}}"/>
       </div>
-  		<textarea ng-change="saveshowadata()" class="inputs" ng-model="shareData.detailDesc"></textarea>
-  		<div class="Clear"></div>
-  	</div>
 
+  		<textarea ng-change="saveshowadata()" class="shareinputs" ng-model="shareData.detailDesc"></textarea>
 
+  		<!-- <div class="Clear"></div> -->
+  	
+    </div>
 
   	<div class="sharediv">
   		<div class="barwrap">
@@ -91,13 +93,13 @@
 
   <div class="editimg ps_page">
     <div class="backimgbox">
-      <img src="/img/shareimg.jpg" class="editcheckimg" alt="">
+      <img src="" class="editcheckimg"  alt="">
     </div>
     <div class="editbg"></div>
     <div class="imgbox" id="shareimgedit">
-      <img src="/img/shareimg.jpg" class="editcheckimg" alt="">
+      <img src="" class="editcheckimg"  alt="">
     </div>
-    <canvas style="width:150px;height:100px;position:absolute;top:44px;left:0px;z-index:999;background-color:#000;" id="testcanvas"></canvas>
+    <!-- <canvas style="width:100px;height:100px;position:absolute;top:44px;left:0px;z-index:999;background-color:#000;" id="testcanvas"></canvas> -->
     <div class="controldiv"></div>
     <div class="button button-energized shurebtn" ng-click="getthispic()">确定</div>
     <div class="button button-energized canclebtn" ng-click="dropthispic()">取消</div>

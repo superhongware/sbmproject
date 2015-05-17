@@ -70,6 +70,10 @@ console.log(0);
 '$scope','$rootScope','$stateParams','$state','$ionicLoading','creatShow','creatpsurl2',
 function($scope,$rootScope,$stateParams,$state,$ionicLoading,creatShow,creatpsurl2){
 	
+	if($rootScope.editShowData&&$rootScope.editShowData.mainData){
+		$rootScope.editShowData.mainData=undefined;
+	}
+
 
 	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")]);
 	var showurl=creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0");

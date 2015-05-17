@@ -182,20 +182,15 @@ creatshowmodule.factory('changepagesize', function(){
 		var naturaw=picdata.img.naturalWidth;
 		var naturah=picdata.img.naturalHeight;
 
-		//手机里的照片 数据读进来后 照片是横过来的  这边
-		var isphoto=0;
-		// console.log(["pic",picdata.img.attributes.src.value])
+		// //手机里的照片 数据读进来后 照片是横过来的  这边
+		// var isphoto=0;
 
-		// console.log(["pic",picdata.img.currentSrc])
-		// alert(picdata.img.attributes.src.value.match("http:"));
-		// alert(picdata.img.naturalWidth);
-
-		if(!picdata.img.attributes.src.value.match("http:")&&picdata.img.naturalWidth>1900){
-			isphoto=1;
-			naturaw=picdata.img.naturalHeight;
-			naturah=picdata.img.naturalWidth;
-			// alert(0)
-		}
+		// if(!picdata.img.attributes.src.value.match("http:")&&picdata.img.naturalWidth>1900){
+		// 	isphoto=1;
+		// 	naturaw=picdata.img.naturalHeight;
+		// 	naturah=picdata.img.naturalWidth;
+		// 	// alert(0)
+		// }
 
 		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
 		cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
@@ -206,11 +201,11 @@ creatshowmodule.factory('changepagesize', function(){
 		
 
 		//把原图缩放 平铺canvas 
-		//手机里的照片读进来后是横过来的  以宽度计算缩放比例  必须用naturaHeight
-		if(isphoto){
-			ctx.rotate(90 * Math.PI/180);
-			ctx.translate(0,-cvs.width);
-		}
+		// //手机里的照片读进来后是横过来的  以宽度计算缩放比例  必须用naturaHeight
+		// if(isphoto){
+		// 	ctx.rotate(90 * Math.PI/180);
+		// 	ctx.translate(0,-cvs.width);
+		// }
 		var scale=cvs.width/naturaw;
 
 		ctx.scale(scale,scale);
@@ -223,12 +218,13 @@ creatshowmodule.factory('changepagesize', function(){
 		ctx.translate(-naturaw/2,-naturah/2);
 		ctx.drawImage(picdata.img,0,0);
 		ctx.restore();
+		console.log(['图片绘制完成']);
 		return cvs;
 
 	};
 })
 
-.factory('drawShowImg2', function(){
+.factory('drawShowImg2',['compressShowImg', function(compressShowImg){
 	return function drawShowImg2(picdata,canvas){
 		// var cvs=document.getElementById('imgcanvas');
 		var cvs = document.createElement('canvas');
@@ -236,59 +232,57 @@ creatshowmodule.factory('changepagesize', function(){
 			cvs=canvas;
 		}
 		var ctx=cvs.getContext("2d");
-		//宽度以全屏640为基准 计算出图片压缩后尺寸
-		var finalwidthscal=640/picdata.imgbox.parents(".ps_page")[0].clientWidth;
-		var naturaw=picdata.img.naturalWidth;
-		var naturah=picdata.img.naturalHeight;
 
-		//手机里的照片 数据读进来后 照片是横过来的  这边
-		var isphoto=0;
-		// console.log(["pic",picdata.img.attributes.src.value])
 
-		// console.log(["pic",picdata.img.currentSrc])
-		// alert(picdata.img.attributes.src.value.match("http:"));
-		// alert(picdata.img.naturalWidth);
+		// EXIF.getData(picdata.img, function() {
+			// console.log(this);
+			// alert(EXIF.pretty(this));
+			// var imginfo=(this.exifdata&&this.exifdata.Orientation)||1;
+			// console.log(imginfo)
+			// alert(JSON.stringify(this.exifdata))
+			// var resCanvas2=document.querySelector("#canvas");
 
-		// if(!picdata.img.attributes.src.value.match("http:")&&picdata.img.naturalWidth>1900){
-		// 	isphoto=1;
-		// 	naturaw=picdata.img.naturalHeight;
-		// 	naturah=picdata.img.naturalWidth;
-		// 	// alert(naturaw+","+naturah)
-		// }
+			// var mpImg = new MegaPixImage(picdata.img);
 
-		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
-		cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
+			// mpImg.render(cvs, { maxWidth: 100, maxHeight: 200, orientation: imginfo });
+
+			// var newimg=new Image();
+			// newimg.src=compressShowImg(cvs,100);
+
+
+
+			// //宽度以全屏640为基准 计算出图片压缩后尺寸
+			// var finalwidthscal=640/picdata.imgbox.parents(".ps_page")[0].clientWidth;
+			// var naturaw=picdata.img.naturalWidth;
+			// var naturah=picdata.img.naturalHeight;
+
+			// cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
+			// cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
+			
+			// //清除画布 准备绘图
+			// ctx.clearRect(0,0,cvs.width,cvs.height);
+			// ctx.save();
+			
+			// console.log(cvs.width,cvs.height,naturaw,naturah)
+
+			// var scale=cvs.width/naturaw;
+
+			// ctx.scale(scale,scale);
+			// //根据用户缩放比例，位移尺寸绘图  图片缩放原点为图片中心
+			// var translatex=picdata.point[0]*finalwidthscal/scale+naturaw/2;
+			// var translatey=picdata.point[1]*finalwidthscal/scale+naturah/2;
+			// ctx.translate(translatex,translatey);
+
+			// ctx.scale(picdata.scale[0],picdata.scale[0]);
+			// ctx.translate(-naturaw/2,-naturah/2);
+			ctx.drawImage(picdata.img,0,0);
+			// ctx.restore();
+		// });
 		
-		//清除画布 准备绘图
-		ctx.clearRect(0,0,cvs.width,cvs.height);
-		ctx.save();
-		
-		console.log(cvs.width,cvs.height,naturaw,naturah)
-
-		//把原图缩放 平铺canvas 
-		//手机里的照片读进来后是横过来的  以宽度计算缩放比例  必须用naturaHeight
-		// if(isphoto){
-		// 	ctx.rotate(90 * Math.PI/180);
-		// 	ctx.translate(0,-cvs.width);
-		// 	ctx.restore();
-		// 	ctx.save();
-		// }
-		var scale=cvs.width/naturaw;
-
-		ctx.scale(scale,scale);
-		//根据用户缩放比例，位移尺寸绘图  图片缩放原点为图片中心
-		// var translatex=picdata.point[0]*finalwidthscal/scale+naturaw/2;
-		// var translatey=picdata.point[1]*finalwidthscal/scale+naturah/2;
-		// ctx.translate(translatex,translatey);
-
-		// ctx.scale(picdata.scale[0],picdata.scale[0]);
-		// ctx.translate(-naturaw/2,-naturah/2);
-		ctx.drawImage(picdata.img,0,0);
-		ctx.restore();
 		return cvs;
 
 	};
-})
+}])
 
 .factory('compressShowImg', function(){
 	return function compressShowImg(cvs,quality,output_format){
@@ -528,10 +522,67 @@ creatshowmodule.factory('changepagesize', function(){
 				if (!file.type.match('image.*')){
 					return;
 				}
+
+				//图片转换二进制 获取Orientation(图片的翻转型号)
+				EXIF.getData(file, function() {
+					console.log(["EXIF完成"])
+
+					//取出Orientation信息 pc上没有这个属性 为啥我也不清楚
+					var imginfo=(this.exifdata&&this.exifdata.Orientation)||1;
+					
+					//读取文件数据
+					var reader = new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload=function(e){
+						console.log(["reader 选择的图片加载完成"])
+
+						var img=new Image();
+						img.src=e.target.result;
+						// var resCanvas2=document.createElement("canvas");
+						// var resCanvas2=document.querySelector("#canvas2");
+
+						//图片超过1024*1024的 用mpImg压缩图片， 否者IOS大图显示有bug
+						var mpImg = new MegaPixImage(img);
+						mpImg.render(img, { maxWidth: 640, maxHeight: 1008,quality:1 ,orientation: imginfo },function(){
+							reader.onload=null;
+							callback(img);
+						});
+
+
+					}
+
+				});
+
+			}
+
+	};
+})
+
+.factory('checklocalimg3', function(){
+	return function checklocalimg3(callback){
+			//选择本地图片
+			var fileinput;
+			if(!document.getElementById('fileImg')){
+				fileinput=document.createElement("input");
+				fileinput.id='fileImg';
+				fileinput.type='file';
+				fileinput.accept="image/*";
+				document.body.appendChild(fileinput);
+			}else{
+				fileinput=document.getElementById('fileImg');
+			}
+			fileinput.addEventListener('change', handleFileSelect, false);
+			fileinput.click();
+			function handleFileSelect (evt) {
+				fileinput.removeEventListener('change', handleFileSelect, false);
+				var file = evt.target.files[0];
+				if (!file.type.match('image.*')){
+					return;
+				}
 				var reader = new FileReader();
 				reader.readAsDataURL(file);
 				reader.onload=function(e){
-					console.log(e.target.result);
+					// console.log(e.target.result);
 					var img=new Image();
 					img.src=e.target.result;
 					callback(img);
@@ -558,9 +609,46 @@ creatshowmodule.factory('changepagesize', function(){
 			fileinput.click();
 			function handleFileSelect (evt) {
 				fileinput.removeEventListener('change', handleFileSelect, false);
-				return evt.target.files[0];
+				callback(evt.target.files[0])
+				// return evt.target.files[0];
 			}
 	};
 })
 
+.factory('checkoutbaobei', ['$rootScope','$ionicPopup','productComm', function($rootScope,$ionicPopup,productComm){
+	return function checkoutbaobei(productId,plat){
+		productComm.loadProductDetail({
+			orgName: $rootScope.orgName,
+			numIid: productId,
+			plat: plat
+		},function(productdata){
+			console.log(["查这个宝贝是否下架",productdata]);
+			if(productdata.status!== "onsale"){
+
+				$ionicPopup.show({
+					title: "分享提示",
+					template: "该宝贝已下架,上架宝贝后分享才有效果哦！",
+					buttons: [{
+						text: "我知道了",
+						type: "button-energized",
+					}]
+				});
+			}
+
+		},function(msg){
+			console.log(msg)
+		})
+	};
+}])
+
 ;
+
+
+
+
+
+
+
+
+
+

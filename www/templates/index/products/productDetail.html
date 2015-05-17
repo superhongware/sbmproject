@@ -28,8 +28,8 @@
 				宝贝秀
 			</div>
 			<ion-list can-swipe="true">
-			 	<ion-item ng-repeat="item in pageData.orderDetail.appDetailCounts" ui-sref="viewshow({showId:item.detailId})">
-					<ul>
+			 	<ion-item class="showlistitem" ng-repeat="item in pageData.orderDetail.appDetailCounts" >
+					<ul ui-sref="viewshow({showId:item.detailId})">
 						<li>
 							<img ng-src="{{item.detailImg}}">
 						</li>
@@ -55,13 +55,15 @@
 						</li>
 					</ul>
 					<div class="Clear"></div>
-					<!-- <ion-option-button class="button-dark" ng-click="hrefGo('http://uedlink.com')">
-		              制作宝贝秀
-		            </ion-option-button> -->
+
+					<span class="openoptions" ng-click="showediticon($index)">
+						<i class="iconfont icon-points" ></i>
+					</span>
+
 	                <ion-option-button class="button-dark" ng-click="edit(item.detailId)">
             		<span class="text">编辑</span>
         		    </ion-option-button>
-		            <ion-option-button class="button-dark" ng-click="">
+		            <ion-option-button class="button-dark" ui-sref="share({showId:item.detailId})">
 		                <span class="text">分享</span>
 		            </ion-option-button>
 		            <ion-option-button class="button-dark" ng-click="dele(item.detailId)">
@@ -71,7 +73,7 @@
 		                <span class="text">流量</span>
 		            </ion-option-button>
 
-		            <i class="iconfont icon-points"></i>
+		            <!-- <i class="iconfont icon-points"></i> -->
 				</ion-item>
 			</ion-list>
 			<div ng-if="pageData.orderDetail.appDetailCounts.length == 0" class="detailListEmpty">

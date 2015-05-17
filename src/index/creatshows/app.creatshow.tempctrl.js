@@ -106,23 +106,21 @@ creatshowmodule
 
 
 	// var deletescopeon;
+
 	$scope.playthisshow=function(){
 		$rootScope.$broadcast("saveShowImg");
 		// if(typeof deletescopeon=="function"){
 		// 	deletescopeon();
 		// }
 		$scope.$on("saveShowImgOver", function() {
+			console.log(0)
+			$state.go("viewshow",{showId:$rootScope.editShowData.showId});
 
-			gohref=creatpsurl($rootScope.orgName,$rootScope.editShowData.showId,$rootScope.editShowData.mainData.numIid,$rootScope.editShowData.mainData.plat);
+			// gohref=creatpsurl($rootScope.orgName,$rootScope.editShowData.showId,$rootScope.editShowData.mainData.numIid,$rootScope.editShowData.mainData.plat);
 
-			// gohref = "/ps.html?orgname=" + $rootScope.orgName +
-			// 	"&detailid=" + $rootScope.editShowData.showId +
-			// 	"&productid=" + $rootScope.editShowData.mainData.numIid +
-			// 	"&plat=" + $rootScope.editShowData.mainData.plat;
+			// console.log(gohref);
 
-			console.log(gohref);
-
-			location.href = gohref;
+			// location.href = gohref;
 		});
 	};
 

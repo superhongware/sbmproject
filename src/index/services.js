@@ -640,6 +640,25 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 	return new TBAPI();
 
 })
+.factory('showedition',  function(){
+	return function showedition(index){
+		console.log($(".showlistitem").eq(index));
+		var thisitem=$(".showlistitem").eq(index);
+		var itemoptions=thisitem.find(".item-options");
+		if(itemoptions.hasClass("invisible")){		
+			itemoptions.removeClass("invisible");
+			thisitem.find(".item-content").css({
+				"-webkit-transform":" translate3d(-"+itemoptions.width()+"px, 0px, 0px)"
+			});
+		}else{
+			thisitem.find(".item-content").css({
+				"-webkit-transform":" translate3d(-"+0+"px, 0px, 0px)"
+			});
+			itemoptions.addClass("invisible");
+		}
+	
+	};
+})
 
 ;
 

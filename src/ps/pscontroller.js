@@ -92,8 +92,6 @@ console.log(wx);
 	
 
 				// $scope.loadover = true;
-				// 图片加字统计
-				isloadover(data.pages);
 
 				console.log(data);
 				//宝贝秀删除后不执行后面代码
@@ -101,6 +99,9 @@ console.log(wx);
 					thereisnoshow();
 					return;
 				}
+
+				// 图片加载统计
+				isloadover(data.pages);
 
 				//自动打开淘宝
 				autoopentaobao(data)

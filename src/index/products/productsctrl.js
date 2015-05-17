@@ -5,8 +5,8 @@
  */
 var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
 productsmodule.controller('productsCtrl', [
-'$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', 'loginCheck','TBAPI',
-function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,loginCheck,TBAPI) {
+'$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', 'loginCheck','TBAPI','showedition',
+function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,loginCheck,TBAPI,showedition) {
 
 	//隐藏淘宝标题栏
 	TBAPI.hideTitle();
@@ -39,13 +39,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	};
 
 	$scope.showediticon=function(index){
-		console.log($(".showlistitem").eq(index));
-		var thisitem=$(".showlistitem").eq(index);
-		var itemoptions=thisitem.find(".item-options");
-		itemoptions.removeClass("invisible");
-		thisitem.find(".item-content").css({
-			"-webkit-transform":" translate3d(-"+itemoptions.width()+"px, 0px, 0px)"
-		});
+		showedition(index);
 	};
 
 	// $scope.goandseead=function(){

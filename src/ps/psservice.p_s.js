@@ -101,6 +101,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 		//绑定touch控制
 		this.touchbind();
 
+
 		//开始
 		this.showstart();
 
@@ -166,6 +167,9 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 			$(".ps_page").addClass("rotation");
 		}
 		$(".beforestart").removeClass("beforestart");
+		
+		$("#mainbox").removeClass("nostart");
+
 
 	};
 

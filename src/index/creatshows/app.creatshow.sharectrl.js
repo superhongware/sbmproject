@@ -1,8 +1,9 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg2','compressShowImg','creatpsurl','saveShow',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg2,compressShowImg,creatpsurl,saveShow){
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei','productComm','$ionicPopup',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei,productComm,$ionicPopup){
+
 
 	loginCheck();
 
@@ -10,9 +11,10 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 
 	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
-			$scope.shareData = $rootScope.editShowData.mainData;
-			// setshareurl();
-			$scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
+			setshowdata($rootScope.editShowData.mainData);
+			// $scope.shareData = $rootScope.editShowData.mainData;
+			// // setshareurl();
+			// $scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
 
 		}else{
 
@@ -28,11 +30,9 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			$http.jsonp(api.url)
 				.success(function(data){
 					console.log(data);
-					$scope.shareData = data;
-					// setshareurl();
-			// console.log($rootScope.orgname)
 
-					$scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
+					setshowdata(data);
+
 				})
 				.error(function(status,response){
 					console.log("连接失败");
@@ -40,8 +40,37 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 		}
 
 
+
 	$scope.istaobao=$rootScope.istaobao;
 	console.log($rootScope.istaobao);
+
+	function setshowdata(data){
+		$scope.shareData = data;
+		$scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
+		//宝贝是否下架检测
+		// checkoutbaobei(data.numIid,data.plat);
+		productComm.loadProductDetail({
+			orgName: $rootScope.orgName,
+			numIid: data.numIid,
+			plat: data.plat
+		},function(productdata){
+			console.log(["查这个宝贝是否下架",productdata]);
+			if(productdata.status!== "onsale"){
+				$ionicPopup.show({
+					title: "分享提示",
+					template: "该宝贝已下架,上架宝贝后分享才有效果哦！",
+					buttons: [{
+						text: "我知道了",
+						type: "button-energized",
+					}]
+				});
+			}
+
+		},function(msg){
+			console.log(msg)
+		})
+
+	}
 
 	function setshareurl () {
 		$scope.shareurl+="orgname="+$rootScope.orgName;
@@ -56,6 +85,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			$(".editimg").show();
 			$(".editcheckimg").attr("src",img.src);
 			editimgctrl();
+
 		});
 	};
 
@@ -80,7 +110,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 		//更新图片位置
 		setimgview();
 
-		thisimgdata.img=thispsimg.find("img").show()[0];
+		thisimgdata.img=thispsimg.find("img")[0];
 		thisimgdata.imgbox=thispsimg;
 
 		function dragstart(e){
@@ -105,7 +135,8 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			}
 			//更新图片位置
 			setimgview();
-			drawShowImg2($scope.shareimgdata,$("#testcanvas")[0])
+			// drawShowImg($scope.shareimgdata,$("#testcanvas")[0])
+
 		}
 		function setimgview(){
 
@@ -122,7 +153,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 	$scope.getthispic=function(){
 		//不会翻转图片
 		console.log($scope.shareimgdata);
-		var cvs=drawShowImg2($scope.shareimgdata);
+		var cvs=drawShowImg($scope.shareimgdata);
 		// $scope.shareData={}
 		// $scope.shareData.detailImage=compressShowImg(cvs,80);
 		$(".editimg").hide();
