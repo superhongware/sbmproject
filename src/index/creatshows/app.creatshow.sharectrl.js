@@ -1,9 +1,8 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei','productComm','$ionicPopup',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei,productComm,$ionicPopup){
-
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei){
 
 	loginCheck();
 
@@ -48,28 +47,7 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 		$scope.shareData = data;
 		$scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
 		//宝贝是否下架检测
-		// checkoutbaobei(data.numIid,data.plat);
-		productComm.loadProductDetail({
-			orgName: $rootScope.orgName,
-			numIid: data.numIid,
-			plat: data.plat
-		},function(productdata){
-			console.log(["查这个宝贝是否下架",productdata]);
-			if(productdata.status!== "onsale"){
-				$ionicPopup.show({
-					title: "分享提示",
-					template: "该宝贝已下架,上架宝贝后分享才有效果哦！",
-					buttons: [{
-						text: "我知道了",
-						type: "button-energized",
-					}]
-				});
-			}
-
-		},function(msg){
-			console.log(msg)
-		})
-
+		checkoutbaobei(data.numIid,data.plat);
 	}
 
 	function setshareurl () {
