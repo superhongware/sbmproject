@@ -523,6 +523,8 @@ creatshowmodule.factory('changepagesize', function(){
 					return;
 				}
 
+				
+
 				//图片转换二进制 获取Orientation(图片的翻转型号)
 				EXIF.getData(file, function() {
 					console.log(["EXIF完成"])
@@ -552,6 +554,9 @@ creatshowmodule.factory('changepagesize', function(){
 					}
 
 				});
+
+
+
 
 			}
 

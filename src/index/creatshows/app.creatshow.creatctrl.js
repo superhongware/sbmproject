@@ -25,8 +25,11 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$statePa
 .controller('viewtemplateCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
 
-	$(".viewtemplate").append('<iframe class="viewbox" src='+location.origin+
+	$(".viewtemplate").append('<iframe class="viewbox" height='+($(window).height()-44)+' src='+location.origin+
 		'/ps.html?templateview=1 frameborder="0"></iframe>');
+	
+	
+
 console.log(0);
 	// $scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
 	$scope.viewbtnneam="应用";

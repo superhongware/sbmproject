@@ -55,7 +55,7 @@
               <span class="shareicon">
                 <span class="iconfont icon-pengyouquan"></span>
               </span>
-              微信朋友圈</span>
+              朋友圈</span>
             </div>
              <div class="zhu">
               <span class="shu">{{tabsBtn.weibo}}</span>
@@ -64,7 +64,7 @@
               <span class="shareicon">
                 <span class="iconfont icon-xinlang"></span>
               </span>
-              新浪微博</span>
+              待开放</span>
             </div>
              <div class="zhu">
               <span class="shu">{{tabsBtn.qq}}</span>
@@ -73,21 +73,22 @@
               <span class="shareicon">
                 <span class="iconfont icon-qq"></span>
               </span>
-              QQ</span>
+              待开放</span>
             </div>
              <div class="zhu">
               <span class="shu">{{tabsBtn.qzone}}</span>
               <div class="tiao"></div>
               <span class="ming">
               <span class="shareicon">
-                <span class="iconfont icon-qqkongjian"></span>
+                <!-- <span class="iconfont icon-qqkongjian"></span> -->
+                <span class="iconfont icon-fuzhilianjie"></span>
               </span>
-              QQ空间</span>
+              原始链接</span>
             </div>
         </div>
 
         <div class="padding">
-            <a class="button button-block button-energized" ng-click="logout()">再次分享</a>
+            <a class="button button-block button-energized" ui-sref="share({showId:showsInfo.detailId})">再次分享</a>
         </div>
     </div>
   </ion-content>

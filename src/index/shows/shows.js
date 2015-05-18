@@ -171,25 +171,25 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 	var api = SBMJSONP("searchReport",$scope.showsInfo);
 	$http.jsonp(api.url)
 		.success(function(data){
-			console.log(data);
+			console.log(["流量数据",data]);
 			/*模拟数据*/
-			 data.lldetail.wxFriend = 10;
-			 data.lldetail.wxFriends = 30;
-			 data.lldetail.weibo = 40;
-			 data.lldetail.qq = 50;
-			 data.lldetail.qzone = 100;
+			 // data.lldetail.wxFriend = 10;
+			 // data.lldetail.wxFriends = 30;
+			 // data.lldetail.weibo = 40;
+			 // data.lldetail.qq = 50;
+			 // data.lldetail.qzone = 120;
 
-			 data.dddetail.wxFriend = 100;
-			 data.dddetail.wxFriends = 80;
-			 data.dddetail.weibo = 50;
-			 data.dddetail.qq = 40;
-			 data.dddetail.qzone = 10;
+			 // data.dddetail.wxFriend = 120;
+			 // data.dddetail.wxFriends = 80;
+			 // data.dddetail.weibo = 50;
+			 // data.dddetail.qq = 40;
+			 // data.dddetail.qzone = 10;
 
-			 data.zfdetail.wxFriend = 50;
-			 data.zfdetail.wxFriends = 50;
-			 data.zfdetail.weibo = 60;
-			 data.zfdetail.qq = 50;
-			 data.zfdetail.qzone = 50;
+			 // data.zfdetail.wxFriend = 50;
+			 // data.zfdetail.wxFriends = 50;
+			 // data.zfdetail.weibo = 60;
+			 // data.zfdetail.qq = 50;
+			 // data.zfdetail.qzone = 50;
            /*模拟数据*/
 
 			$scope.showsInfoData = data;
