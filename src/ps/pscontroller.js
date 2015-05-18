@@ -47,6 +47,8 @@ console.log(wx);
 			imgUrl:$scope.weixinsharedata.imgUrl , // 分享图标
 			success: function() {
 				// alert("分享成功");
+				statistics($scope.showdata,"share");
+
 			},
 			cancel: function() {
 				// alert("取消分享");
@@ -100,14 +102,18 @@ console.log(wx);
 					return;
 				}
 
+				$scope.showdata = data;
+
 				// 图片加载统计
 				isloadover(data.pages);
+
+				//浏览量计数
+				statistics($scope.showdata);
 
 				//自动打开淘宝
 				autoopentaobao(data)
 
 
-				$scope.showdata = data;
 				// p_s.CreatDomtree(data);
 				$scope.$broadcast("showdataready");
 			})
@@ -116,6 +122,62 @@ console.log(wx);
 			});
 	}
 
+
+	function statistics(data,datatype,sharetype){
+
+		if(!data||!data.detailId){
+			return;
+		}
+
+		var statisticsdata={
+			count:1,
+			orgName: getRequest2("orgname"),
+			detailId: data.detailId,
+			shopName:data.shopName,
+			plat:data.plat,
+			shareType:sharetype?sharetype:getshareType(),
+			numIid:data.numIid
+		};
+
+		switch(datatype){
+			case "share":
+				statisticsdata.method="softbanana.app.share.save"
+				var api = SBMJSONP("saveShare", statisticsdata);
+				$http.jsonp(api.url)
+				.success(function(data){
+					console.log(["分享返回数据",data])
+				})
+				.error(function(msg){
+					console.log(["分享返回数据",msg])
+
+				})
+			break;
+			case "shop":
+				statisticsdata.method="softbanana.app.newshop.save"
+				var api = SBMJSONP("saveNewShop", statisticsdata);
+				$http.jsonp(api.url)
+				.success(function(data){
+					console.log(["到店返回数据",data])
+				})
+				.error(function(msg){
+					console.log(["到店返回数据",msg])
+
+				})
+			break;
+			default:
+				statisticsdata.method="softbanana.app.browse.save"
+				var api = SBMJSONP("saveBrowse", statisticsdata);
+				$http.jsonp(api.url)
+				.success(function(data){
+					console.log(["浏览返回数据",data])
+				})
+				.error(function(msg){
+					console.log(["浏览返回数据",msg])
+
+				})			
+			break;
+		}
+	}
 
 	function thereisnoshow(){
 		$scope.showmainbox = true;
@@ -139,8 +201,19 @@ console.log(wx);
 		},function(){
 			alert("请检查网络是否问题");
 		});
-	}
+	};
 
+	function getshareType(){
+
+		if(getRequest("from")==="groupmessage"){
+			return "WF";
+		}else if(getRequest("from")==="timeline"){
+			return "WC";
+		}else{
+			return "QZ";
+		}
+		
+	};
 
 	function autoopentaobao(data){
 		// 自动打开淘宝跳转跳转
@@ -157,8 +230,14 @@ console.log(wx);
 		console.log(["flag",flag]);
 
 		if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag&&getRequest("templateview")!=="2"){
+			
+			//统计到店数
+			statistics($scope.showdata,"shop");
+
+			//链接跳转
 			url=url.replace("http","taobao");
 			location.href=url;
+
 		}else if(userAgentInfo.match("MicroMessenger")){
 			//有数据 设置微信分享数据
 			if (!$scope.shownoshowdata) {

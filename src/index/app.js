@@ -125,6 +125,12 @@ angular.module('starter',
 		templateUrl: "templates/index/setting/set-expired.html",
 		controller:"shopManage"
 	})
+	//帮助页面
+	.state('set-help', {
+		url: "/set-help",
+		templateUrl: "templates/index/setting/set-help.html",
+		// controller:'helpCtrl'
+	})
 
 	/*------------新建宝贝秀-----------*/
 	//选择宝贝
@@ -201,6 +207,9 @@ angular.module('starter',
 		controller:'sharehelpCtrl'
 	})
 	/*------------新建宝贝秀  end-----------*/
+
+
+
 
 	.state('appadone', {
 		url: "/appadone",
