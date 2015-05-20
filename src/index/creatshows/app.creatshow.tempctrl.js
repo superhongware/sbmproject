@@ -87,7 +87,7 @@ creatshowmodule
 
 		    if(pageid<0){
 		    	$ionicLoading.show({
-					template:"第一页",
+					template:"已是第一张",
 				});
 				pageid = 0;
 		    }
@@ -115,7 +115,7 @@ creatshowmodule
 		var pageid=showdata.currentpage+1;
 			if(pageid>showdata.mainData.pages.length-1){
 				$ionicLoading.show({
-					template:"最后一页",
+					template:"已是最后一张",
 				});
 				pageid = showdata.mainData.pages.length-1;
 			}
@@ -172,7 +172,7 @@ creatshowmodule
 			addpagesaveshowdata();
 		}
 		addpagesaveshowdata=$scope.$on("saveShowImgOver", function() {
-			
+
 			if(showdata.mainData.pages.length>9){
 					$ionicLoading.show({
 						template:"最多十页",
