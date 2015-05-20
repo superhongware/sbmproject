@@ -84,13 +84,22 @@ creatshowmodule
 	$scope.goprev = function() {
 		// console.log($rootScope.editShowData.currentpage);
 		var pageid=showdata.currentpage-1;
-			pageid=pageid>0?pageid:0;
+
+		    if(pageid<0){
+		    	$ionicLoading.show({
+					template:"第一页",
+				});
+				pageid = 0;
+		    }
+		    setTimeout(function(){
+        		$ionicLoading.hide();
+       		},500)
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
 			pageTemp:showdata.mainData.pages[pageid].templatePageId
 		};
-
+      
 		if($rootScope.xychange === true){
 				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
 				$rootScope.SaveChange = true;
@@ -104,7 +113,15 @@ creatshowmodule
 	$scope.gonext = function() {
 		console.log(showdata.mainData);
 		var pageid=showdata.currentpage+1;
-			pageid=pageid<(showdata.mainData.pages.length-1)?pageid:(showdata.mainData.pages.length-1);
+			if(pageid>showdata.mainData.pages.length-1){
+				$ionicLoading.show({
+					template:"最后一页",
+				});
+				pageid = showdata.mainData.pages.length-1;
+			}
+			setTimeout(function(){
+        		$ionicLoading.hide();
+       		},500)
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
@@ -155,10 +172,22 @@ creatshowmodule
 			addpagesaveshowdata();
 		}
 		addpagesaveshowdata=$scope.$on("saveShowImgOver", function() {
-			$state.go("addpage",{
-				showId:$rootScope.editShowData.showId,
-				pageId:$rootScope.editShowData.currentpage
-			});
+			
+			if(showdata.mainData.pages.length>9){
+					$ionicLoading.show({
+						template:"最多十页",
+					});
+					setTimeout(function(){
+		        		$ionicLoading.hide();
+		       		},500)
+			}else{
+				$state.go("addpage",{
+					showId:$rootScope.editShowData.showId,
+					pageId:$rootScope.editShowData.currentpage
+				});
+			}
+			
+			
 		});
 	};
 
