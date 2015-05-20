@@ -22,11 +22,29 @@ creatshowmodule
 
 //整编辑页的controller
 .controller('editpagesCtrl',[
-	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl',
-	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow,creatpsurl){
-
-
+	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl','$ionicPopup',
+	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow,creatpsurl,$ionicPopup){
 	console.log("editpagesCtrl");
+	// $(".back-button").hide();
+	// $scope.popsave = function(){
+	// 	var myPopup = $ionicPopup.show({
+	// 				template: '当前模板已经修改，是否保存',
+	// 				// title: '提示',
+	// 				buttons: [{
+	// 					text: '不保存',
+	// 					onTap: function(e) {
+	// 						history.go(-1);
+	// 					}
+	// 				}, {
+	// 					text: '<b>保存</b>',
+	// 					type: 'button-energized',
+	// 					onTap: function(e) {
+	// 						$scope.$broadcast('saveShowImg');
+	// 						history.go(-1);
+	// 					}
+	// 				}]
+	// 			});
+	// };
 
 	$scope.saveShow=function(){
 		$ionicLoading.show({
