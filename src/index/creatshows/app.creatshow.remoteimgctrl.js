@@ -2,11 +2,8 @@ creatshowmodule
 .controller('remoteimgCtrl',[
 '$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http','saveShow',
 function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http,saveShow){
-
 	$scope.remoteimgcat=[];
-
 	$scope.remoteimg={};
-
 	$scope.goback=function(){
 		$ionicHistorsy.goBack();
 	};

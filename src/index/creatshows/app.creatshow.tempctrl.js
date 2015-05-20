@@ -22,11 +22,29 @@ creatshowmodule
 
 //整编辑页的controller
 .controller('editpagesCtrl',[
-	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl',
-	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow,creatpsurl){
-
-
+	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl','$ionicPopup',
+	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow,creatpsurl,$ionicPopup){
 	console.log("editpagesCtrl");
+	// $(".back-button").hide();
+	// $scope.popsave = function(){
+	// 	var myPopup = $ionicPopup.show({
+	// 				template: '当前模板已经修改，是否保存',
+	// 				// title: '提示',
+	// 				buttons: [{
+	// 					text: '不保存',
+	// 					onTap: function(e) {
+	// 						history.go(-1);
+	// 					}
+	// 				}, {
+	// 					text: '<b>保存</b>',
+	// 					type: 'button-energized',
+	// 					onTap: function(e) {
+	// 						$scope.$broadcast('saveShowImg');
+	// 						history.go(-1);
+	// 					}
+	// 				}]
+	// 			});
+	// };
 
 	$scope.saveShow=function(){
 		$ionicLoading.show({
@@ -66,13 +84,22 @@ creatshowmodule
 	$scope.goprev = function() {
 		// console.log($rootScope.editShowData.currentpage);
 		var pageid=showdata.currentpage-1;
-			pageid=pageid>0?pageid:0;
+
+		    if(pageid<0){
+		    	$ionicLoading.show({
+					template:"已是第一张",
+				});
+				pageid = 0;
+		    }
+		    setTimeout(function(){
+        		$ionicLoading.hide();
+       		},500)
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
 			pageTemp:showdata.mainData.pages[pageid].templatePageId
 		};
-
+      
 		if($rootScope.xychange === true){
 				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
 				$rootScope.SaveChange = true;
@@ -86,7 +113,15 @@ creatshowmodule
 	$scope.gonext = function() {
 		console.log(showdata.mainData);
 		var pageid=showdata.currentpage+1;
-			pageid=pageid<(showdata.mainData.pages.length-1)?pageid:(showdata.mainData.pages.length-1);
+			if(pageid>showdata.mainData.pages.length-1){
+				$ionicLoading.show({
+					template:"已是最后一张",
+				});
+				pageid = showdata.mainData.pages.length-1;
+			}
+			setTimeout(function(){
+        		$ionicLoading.hide();
+       		},500)
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
@@ -137,10 +172,22 @@ creatshowmodule
 			addpagesaveshowdata();
 		}
 		addpagesaveshowdata=$scope.$on("saveShowImgOver", function() {
-			$state.go("addpage",{
-				showId:$rootScope.editShowData.showId,
-				pageId:$rootScope.editShowData.currentpage
-			});
+
+			if(showdata.mainData.pages.length>9){
+					$ionicLoading.show({
+						template:"最多十页",
+					});
+					setTimeout(function(){
+		        		$ionicLoading.hide();
+		       		},500)
+			}else{
+				$state.go("addpage",{
+					showId:$rootScope.editShowData.showId,
+					pageId:$rootScope.editShowData.currentpage
+				});
+			}
+			
+			
 		});
 	};
 

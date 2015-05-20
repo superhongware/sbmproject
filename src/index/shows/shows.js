@@ -1,11 +1,10 @@
 var showsmodule = angular.module('showsmodule', ['ionic', 'starter.services', 'starter.directives']);
 showsmodule.controller('showsCtrl', [
-'$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading','$ionicListDelegate', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', 'TBAPI','showedition',
-function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicListDelegate,productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP,TBAPI,showedition) {
+'$rootScope', '$scope', '$http', '$state', '$stateParams', '$ionicLoading','$ionicListDelegate', 'productComm','$ionicSlideBoxDelegate','creatShow','SBMJSONP', 'TBAPI','showedition','$ionicPopup',
+function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicListDelegate,productComm,$ionicSlideBoxDelegate,creatShow,SBMJSONP,TBAPI,showedition,$ionicPopup) {
 
 	//隐藏淘宝标题栏
 	TBAPI.hideTitle();
-
 //获取宝贝秀列表
 	$scope.showsListData = [];
 	var pageFunc = {},
@@ -102,6 +101,22 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 
 	//删除
 	$scope.dele = function(detailid){
+				var myPopup = $ionicPopup.show({
+					template: '删除后已经分享过的详情将作废，无法浏览，您确定要删除吗？',
+					// title: '提示',
+					buttons: [{
+						text: '取消'
+					}, {
+						text: '<b>确定</b>',
+						type: 'button-energized',
+						onTap: function(e) {
+							$scope.delshow(detailid);
+						}
+					}]
+				});
+			};
+
+	$scope.delshow = function(detailid){
 		$scope.deldata = {
 			orgName:$rootScope.orgName,
 			detailId:detailid
