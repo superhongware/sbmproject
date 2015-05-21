@@ -444,3 +444,21 @@ a{
 		display: block;
 	}
 }
+
+.noshow,.noproduct{
+	position: absolute;
+	.square(100%);
+	left: 0px;
+	top: 0px;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 99;
+	background-position:5vw 44px;
+	background-repeat: no-repeat;
+	background-size:90%;
+}
+.noproduct{
+	background-image: url(../img/noproduct.png);
+}
+.noshow{
+	background-image: url(../img/noshow.png);
+}

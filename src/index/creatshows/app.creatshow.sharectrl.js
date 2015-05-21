@@ -67,6 +67,18 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 		});
 	};
 
+	$scope.sharethis=function(way){
+		var jsondata={
+			titlle:$scope.shareData.detailTitle,
+			image:$scope.shareData.detailImage,
+			describe:$scope.shareData.detailDesc,
+			url:$scope.shareurl,
+			way:way
+		};
+
+		JavaScriptInterface.shareWithjson(JSON.stringify(jsondata));
+	};
+
 
 	function editimgctrl(){
 		if(!$scope.shareimgdata){

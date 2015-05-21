@@ -93,7 +93,7 @@ creatshowmodule
 		    }
 		    setTimeout(function(){
         		$ionicLoading.hide();
-       		},500)
+       		},500);
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
@@ -121,7 +121,7 @@ creatshowmodule
 			}
 			setTimeout(function(){
         		$ionicLoading.hide();
-       		},500)
+       		},500);
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
@@ -148,7 +148,7 @@ creatshowmodule
 		// 	deletescopeon();
 		// }
 		$scope.$on("saveShowImgOver", function() {
-			console.log(0)
+			console.log(0);
 			$state.go("viewshow",{showId:$rootScope.editShowData.showId});
 
 			// gohref=creatpsurl($rootScope.orgName,$rootScope.editShowData.showId,$rootScope.editShowData.mainData.numIid,$rootScope.editShowData.mainData.plat);
@@ -179,7 +179,7 @@ creatshowmodule
 					});
 					setTimeout(function(){
 		        		$ionicLoading.hide();
-		       		},500)
+		       		},500);
 			}else{
 				$state.go("addpage",{
 					showId:$rootScope.editShowData.showId,

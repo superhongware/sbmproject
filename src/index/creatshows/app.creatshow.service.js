@@ -527,7 +527,7 @@ creatshowmodule.factory('changepagesize', function(){
 
 				//图片转换二进制 获取Orientation(图片的翻转型号)
 				EXIF.getData(file, function() {
-					console.log(["EXIF完成"])
+					console.log(["EXIF完成"]);
 
 					//取出Orientation信息 pc上没有这个属性 为啥我也不清楚
 					var imginfo=(this.exifdata&&this.exifdata.Orientation)||1;
@@ -536,7 +536,7 @@ creatshowmodule.factory('changepagesize', function(){
 					var reader = new FileReader();
 					reader.readAsDataURL(file);
 					reader.onload=function(e){
-						console.log(["reader 选择的图片加载完成"])
+						console.log(["reader 选择的图片加载完成"]);
 
 						var img=new Image();
 						img.src=e.target.result;
@@ -551,7 +551,7 @@ creatshowmodule.factory('changepagesize', function(){
 						});
 
 
-					}
+					};
 
 				});
 
@@ -614,7 +614,7 @@ creatshowmodule.factory('changepagesize', function(){
 			fileinput.click();
 			function handleFileSelect (evt) {
 				fileinput.removeEventListener('change', handleFileSelect, false);
-				callback(evt.target.files[0])
+				callback(evt.target.files[0]);
 				// return evt.target.files[0];
 			}
 	};
@@ -641,8 +641,8 @@ creatshowmodule.factory('changepagesize', function(){
 			}
 
 		},function(msg){
-			console.log(msg)
-		})
+			console.log(msg);
+		});
 	};
 }])
 

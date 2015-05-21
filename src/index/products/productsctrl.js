@@ -17,6 +17,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	var pageData = {},
 		pageFunc = {};
 
+	//是否有宝贝数据
+	$scope.thereisnoproduct="";
 
 
 	/**
@@ -49,8 +51,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 
 	pageFunc.init = function() {
 		// if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
-			console.log('pageData.pageViewState');
-			console.log(pageData.pageViewState);
+
+			console.log(['pageData.pageViewState',pageData.pageViewState]);
 			if (pageData.pageViewState) {
 				pageData.currShop = pageData.pageViewState.currShop;
 				pageData.currStatus = pageData.pageViewState.currStatus;
@@ -156,8 +158,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			shopName: pageData.currShop.shopName,
 			plat: pageData.currShop.plat,
 		}, function(data) {
-			console.log('refreshServer');
-			console.log(data);
+			// console.log();
+			console.log(['refreshServer',data]);
 			setTimeout(function() {
 				pageFunc.loadDataComplete();
 			}, 3000);
@@ -240,14 +242,23 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 
 		productComm.loadProductData(option, function(data) {
 
+
 			// alert(JSON.stringify(data))
 			console.log(['productComm.loadProductData',data]);
 
 			pageFunc.loadDataComplete();
 
 			if (data.length === 0 && pageData.direction === 'up') {
+
+				//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
+				if($scope.thereisnoproduct===""){
+					$scope.thereisnoproduct=true;
+				}
 				pageData.isHaveMoreData = false;
 				return;
+			}else{
+				//有数据  不提示同步宝贝
+				$scope.thereisnoproduct=false;
 			}
 
 			if (isClearCurrData) {

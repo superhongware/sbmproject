@@ -41,7 +41,7 @@ function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadch
 			// 	// 未能成功授权
 			// 	}
 			// });
-		})
+		});
 	}
 
 	// $scope.show= function(){
@@ -85,7 +85,7 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64,TBAPI){
 '$scope','$rootScope','myCookie',
 function($scope,$rootScope,myCookie){
 
-	myCookie.add("youhaveredad","yeah!youhaveredad",24)
+	myCookie.add("youhaveredad","yeah!youhaveredad",24);
 	$rootScope.isthereshowad="";
 
 	
@@ -117,13 +117,13 @@ function($scope,$rootScope,myCookie){
 	$scope.checklocalimg=function(){
 		checklocalimg2(function(file){
 
-			console.log("asd")
+			console.log("asd");
 			EXIF.getData(file, function() {
 				console.log(this);
 				// alert(EXIF.pretty(this));
 				var imginfo=(this.exifdata&&this.exifdata.Orientation)||1;
 				
-				console.log(imginfo)
+				console.log(imginfo);
 
 				// alert(JSON.stringify(this.exifdata))
 
@@ -154,7 +154,7 @@ function($scope,$rootScope,myCookie){
 						// ctx.scale(1,1);
 						ctx.drawImage(resCanvas2,0,0);
 						// ctx.restore();
-						console.log(resCanvas2.toDataURL("image/jpeg", 1)==cvs.toDataURL("image/jpeg", 1))
+						console.log(resCanvas2.toDataURL("image/jpeg", 1)==cvs.toDataURL("image/jpeg", 1));
 						// alert("draw")
 
 						reader.onload=null;
@@ -163,14 +163,14 @@ function($scope,$rootScope,myCookie){
 
 					
 
-				}
+				};
 
 			});
 
 
 
-		})
-	}
+		});
+	};
 	
 	// // console.log(EXIF.)
 	// var image=document.querySelector("#myimage");

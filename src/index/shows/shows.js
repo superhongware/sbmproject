@@ -7,6 +7,10 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 	TBAPI.hideTitle();
 //获取宝贝秀列表
 	$scope.showsListData = [];
+				
+	//是否有宝贝秀数据
+	$scope.thereisnoshow="";
+
 	var pageFunc = {},
 		pageData = {};
 	/**
@@ -34,8 +38,16 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 		var api = SBMJSONP("listDetail",$scope.showsList);
 		$http.jsonp(api.url)
 			.success(function(data){
-				console.log(0);
-				console.log(data);
+
+				console.log(["宝贝秀数据",data]);
+
+				//第一次没有数据  提示用户去添加新宝贝秀
+				if($scope.thereisnoshow===""&&data.details.length<=0){
+					$scope.thereisnoshow=true;
+				}else{
+					$scope.thereisnoshow=false;
+				}
+
 				loadDataComplete();
 				for(var i in data.details){
 					if(data.details[i].llCount === ""){

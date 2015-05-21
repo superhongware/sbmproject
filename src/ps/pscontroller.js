@@ -111,7 +111,7 @@ console.log(wx);
 				statistics($scope.showdata);
 
 				//自动打开淘宝
-				autoopentaobao(data)
+				autoopentaobao(data);
 
 
 				// p_s.CreatDomtree(data);
@@ -141,40 +141,40 @@ console.log(wx);
 
 		switch(datatype){
 			case "share":
-				statisticsdata.method="softbanana.app.share.save"
+				statisticsdata.method="softbanana.app.share.save";
 				var api = SBMJSONP("saveShare", statisticsdata);
 				$http.jsonp(api.url)
 				.success(function(data){
-					console.log(["分享返回数据",data])
+					console.log(["分享返回数据",data]);
 				})
 				.error(function(msg){
-					console.log(["分享返回数据",msg])
+					console.log(["分享返回数据",msg]);
 
-				})
+				});
 			break;
 			case "shop":
-				statisticsdata.method="softbanana.app.newshop.save"
+				statisticsdata.method="softbanana.app.newshop.save";
 				var api = SBMJSONP("saveNewShop", statisticsdata);
 				$http.jsonp(api.url)
 				.success(function(data){
-					console.log(["到店返回数据",data])
+					console.log(["到店返回数据",data]);
 				})
 				.error(function(msg){
-					console.log(["到店返回数据",msg])
+					console.log(["到店返回数据",msg]);
 
-				})
+				});
 			break;
 			default:
-				statisticsdata.method="softbanana.app.browse.save"
+				statisticsdata.method="softbanana.app.browse.save";
 				var api = SBMJSONP("saveBrowse", statisticsdata);
 				$http.jsonp(api.url)
 				.success(function(data){
-					console.log(["浏览返回数据",data])
+					console.log(["浏览返回数据",data]);
 				})
 				.error(function(msg){
-					console.log(["浏览返回数据",msg])
+					console.log(["浏览返回数据",msg]);
 
-				})			
+				});
 			break;
 		}
 	}
@@ -201,7 +201,7 @@ console.log(wx);
 		},function(){
 			alert("请检查网络是否问题");
 		});
-	};
+	}
 
 	function getshareType(){
 
@@ -213,7 +213,7 @@ console.log(wx);
 			return "QZ";
 		}
 		
-	};
+	}
 
 	function autoopentaobao(data){
 		// 自动打开淘宝跳转跳转
@@ -245,7 +245,7 @@ console.log(wx);
 				$scope.weixinsharedata.title=data.detailTitle;
 				$scope.weixinsharedata.desc=data.detailDesc;
 				$scope.weixinsharedata.imgUrl=data.detailImage;
-			};
+			}
 
 		}
 	}
@@ -296,14 +296,14 @@ console.log(wx);
 
 
 			function loadover(){
-				console.log("loadover")
+				console.log("loadover");
 
 				if(loadnum/imgdata.length==1){
 
 					$(".loadingbox").css({
 						"opacity":"0",
 						"-webkit-transition":"0.5s ease-in"
-					})
+					});
 					setTimeout(hideloadingbox,100);
 
 				}
@@ -312,7 +312,7 @@ console.log(wx);
 			function hideloadingbox(){
 					$(".loadingbox")[0].addEventListener("webkitTransitionEnd",loadingboxhided);
 					function loadingboxhided(){
-						console.log("loadingboxhided")
+						console.log("loadingboxhided");
 						$scope.loadover=true;
 						$(".loadingbox").hide();
 					}
@@ -415,7 +415,7 @@ function($http, threePointData, getRequest2, SBMJSONP,debase64url,openLink) {
 
 			//购买按钮点击事件
 			$scope.buybuybuy=function(url){
-				openLink(url)
+				openLink(url);
 				// if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
 				// 	$(".screenforbiden").show();
 				// } else if(url!==""){

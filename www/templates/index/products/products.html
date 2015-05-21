@@ -25,11 +25,16 @@
         <div class="adtext">我是你滴小丫小广告，怎么点我都不嫌多！！do~do~do~do~do~</div>
       </div>
 
+        
+      <div class="noproduct ng-hide" ng-show="thereisnoproduct"></div>
+
       <ion-content class="paddingtop44">
+
         <ion-refresher
         pulling-text="下拉更新..."
         on-refresh="pageFunc.refreshproductList()">
         </ion-refresher>
+
 
         <ion-list>
           <ion-item

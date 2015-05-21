@@ -635,7 +635,7 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 				Tida.showTitle();
 			}
 		};
-	};
+	}
 
 	return new TBAPI();
 

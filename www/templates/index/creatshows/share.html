@@ -48,41 +48,41 @@
         <div
         ng-show="!istaobao"
         class="sharebox ng-hide">        
-    			<span class="imgwrap">
+    			<span class="imgwrap" ng-click="sharethis('weixin')">
     				<i>
               <span class="iconfont icon-weixin"></span>    
             </i>
     				<p>微信好友</p>
     			</span>
-    			<span class="imgwrap">
+    			<span class="imgwrap" ng-click="sharethis('timeline')">
     				<i>
               <span class="iconfont icon-pengyouquan"></span>    
             </i>
-    				<p>微信朋友圈</p>
+    				<p>朋友圈</p>
     			</span>
-    			<span class="imgwrap">
+    			<span class="imgwrap" ng-click="sharethis('weibo')">
     				<i>
               <span class="iconfont icon-xinlang"></span>    
             </i>
-    				<p>微信好友</p>
+    				<p>微博</p>
     			</span>
-    			<span class="imgwrap">
+    			<span class="imgwrap" ng-click="sharethis('qq')">
     				<i>
               <span class="iconfont icon-qq"></span>    
             </i>
-    				<p>微信好友</p>
+    				<p>QQ</p>
     			</span>
-    			<span class="imgwrap">
+    			<span class="imgwrap" ng-click="sharethis('kongjian')">
     				<i>
               <span class="iconfont icon-qqkongjian"></span>    
             </i>
-    				<p>微信好友</p>
+    				<p>空间</p>
     			</span>
-    			<span class="imgwrap">
+    			<span class="imgwrap" ng-click="sharethis('copy')">
     				<i>
               <span class="iconfont icon-fuzhilianjie"></span>    
             </i>
-    				<p>微信好友</p>
+    				<p>复制链接</p>
     			</span>
         </div>
   			<div class="Clear"></div>
