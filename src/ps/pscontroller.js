@@ -7,7 +7,25 @@
 // var SBMPS = angular.module('SBMPS', ['ui.router', 'starter.services','ngTouch']);
 var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 
-SBMPS.controller('spCtrl', [
+SBMPS
+// .config(['$stateProvider',function($stateProvider) {
+
+// 	$stateProvider
+// 	.state('login',{
+// 		url:'/login',
+// 		templateUrl:'templates/index/login/login.html',
+// 		controller:'LoginCtrl'
+// 	})
+// 	.state('testpage',{
+// 		url:"/testpage",
+// 		templateUrl:"templates/index/testpage.html",
+// 		controller:"maintestCtrl"
+// 	});
+
+// 	$urlRouterProvider.otherwise('/home');
+
+// }])
+.controller('spCtrl', [
 '$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm','openLink',
 function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLink) {
 
