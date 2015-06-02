@@ -366,7 +366,7 @@ body{
 	.text1,.text2{
 		.size(100%,30px);
 		.juzhong();
-		color:#fff;
+		color:rgba(255, 255, 255, 0.8);
 		text-align: center;
 		line-height: 30px;
 	}
@@ -439,6 +439,50 @@ body{
 		background-color: @loadingmainbgcolor;
 	}
 }
+.helpme{
+	.square(100%);
+	position: absolute;
+	overflow:hidden;
+	background-color: #000;
+	top:0px;
+	left: 0px;
+	z-index: 9;
+	display: none;
+	img{
+		width: 100%;
+	}
+}
+.closehelpme{
+	.square(12vw);
+	border-radius: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 1px solid #fff;
+	position: fixed;
+	top:5px;
+	right: 5px;
+	text-align: center;
+	line-height:12vw;
+	.iconfont{
+		color:#fff;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

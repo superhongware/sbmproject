@@ -210,6 +210,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 						} else {
 							action = "pagenochange";
 						}
+
 						return action;
 					}
 				};
@@ -369,6 +370,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 				if (curr===0) {
 					pagemainbtnhide();
 				}
+		console.log(curr);
 				
 				animatemode(curr, 0, 0.5, 1);
 

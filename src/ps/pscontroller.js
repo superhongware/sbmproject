@@ -8,23 +8,24 @@
 var SBMPS = angular.module('SBMPS', ['ionic','starter.services']);
 
 SBMPS
-// .config(['$stateProvider',function($stateProvider) {
+// .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
 
 // 	$stateProvider
-// 	.state('login',{
-// 		url:'/login',
-// 		templateUrl:'templates/index/login/login.html',
-// 		controller:'LoginCtrl'
+// 	.state('show',{
+// 		url:'/show',
+// 		templateUrl:'templates/ps/homepage.html',
+// 		controller:'spCtrl'
 // 	})
-// 	.state('testpage',{
-// 		url:"/testpage",
-// 		templateUrl:"templates/index/testpage.html",
-// 		controller:"maintestCtrl"
+// 	.state('helpme',{
+// 		url:"/helpme",
+// 		templateUrl:"templates/ps/helpme.html",
+// 		// controller:"maintestCtrl"
 // 	});
 
-// 	$urlRouterProvider.otherwise('/home');
+// 	$urlRouterProvider.otherwise('/show');
 
 // }])
+
 .controller('spCtrl', [
 '$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm','openLink',
 function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLink) {
@@ -83,6 +84,44 @@ console.log(wx);
 	$scope.loadover = false;
 
 
+
+	//=================last-page=================
+	//再看一遍
+	$scope.playagain=function(){
+		// alert(0);
+		// history.go(0);
+		// alert(0);
+		p_s.pagemoving=1;
+		p_s.currpage = -1; 
+		p_s.pageIndexRefresh(+1);
+		p_s.pagemovemode("pagechange");
+
+	};
+
+	//我也要发宝贝秀
+	$scope.showhelpme=function(){
+		var state = {url:'#/helpme',title:'helpme'};
+		history.pushState(state,state.title,state.url);
+		history.go(1);
+		$(".helpme").show();
+	};
+	$scope.closehelpme=function(){
+		history.go(-1);
+		// var state = {url:'#/',title:'closehelpme'};
+		// history.pushState(state,state.title,state.url);
+	};
+
+	window.onpopstate=function(event){
+		// console.log(['event',event]);
+		if(event.state!==null&&event.state.url==="#/helpme"){
+			$(".helpme").show();
+		}else{
+			$(".helpme").hide();
+		}
+	};
+	//=================last-page=================
+
+	
 
 
 	console.log(["asdasdasd",getRequest("templateview")]);

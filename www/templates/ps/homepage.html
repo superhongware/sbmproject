@@ -1,0 +1,54 @@
+<div>
+	<img class='shareimg' ng-src="{{showdata.detailImage}}">
+
+	<!-- mainbox -->
+	<div id="mainbox" class="nostart" ng-class="{showmainbox:showmainbox}">
+		<div class="ps_page tmp0">
+			<div class="psbutton showmeagain">再看一遍</div>
+			<div class="psbutton iwantdoit" ui-sref="helpme">我也要制作宝贝秀</div>
+			<p class="softbananaad"><span class="iconfont icon-logo"></span>由软香蕉宝贝秀提供技术支持</p>
+		</div>
+		<div 
+		class="ps_page tmp{{page.templatePageId}}"
+		ng-click="hidePagemaStanda()"
+		ng-repeat="page in showdata.pages">
+			<span 
+			class="ps_img ps_img{{$index+1}}"
+			ng-repeat="img in page.detailPageImage track by $index"
+			imgsrc="{{img.img}}"
+			style="background-image:url({{img.img}})"></span>
+
+			<span 
+			class="ps_text ps_text{{$index+1}}" 
+			ng-repeat="text in page.detailPageText track by $index">{{text.txt}}</span>
+
+			<span class='tapuptip'></span>
+		</div>
+	</div>
+
+
+
+	<!-- loadingbox -->
+	<div class="loadingbox">
+		<span class="laodpecent">
+			<span class="nowpencent"></span>
+		</span>
+		<div class="loadingoutbox1">	
+			<div class="loadingoutbox2">
+				<div class="laoding">
+					<span class="iconfont icon-logo"></span>
+					<span class="softbananafont">SOFTBANANA</span>
+				</div>
+			</div>
+		</div>
+	
+		<span class="text1">软香蕉正在玩命加载中…</span>
+		<!-- <span class="text2">宝贝秀由软香蕉提供免费技术支持</span> -->
+	</div>
+
+	<div class="noshowdata" ng-class="{shownoshowdata:shownoshowdata}">
+		<div class="button" ng-click="gotoproduct()">直接浏览该宝贝</div>
+	</div>
+	<!-- <div class="softbanana"><span class="iconfont icon-logo"></span>由软香蕉提供免费技术支持</div> -->
+	<div three-points></div>
+</div>

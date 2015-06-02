@@ -31,7 +31,10 @@ var _hmt = _hmt || [];
 </head>
 
 <body ng-controller="spCtrl">
+
 	<img class='shareimg' ng-src="{{showdata.detailImage}}">
+
+	<!-- mainbox -->
 	<div id="mainbox" class="nostart" ng-class="{showmainbox:showmainbox}">
 		<div 
 		class="ps_page tmp{{page.templatePageId}}"
@@ -49,10 +52,23 @@ var _hmt = _hmt || [];
 
 			<span class='tapuptip'></span>
 		</div>
+		<!-- last page -->
+		<div class="ps_page tmp0">
+			<div class="psbutton showmeagain" ng-click="playagain()">再看一遍</div>
+			<div class="psbutton iwantdoit" ng-click="showhelpme()">我也要制作宝贝秀</div>
+			<p class="softbananaad"><span class="iconfont icon-logo"></span>由软香蕉宝贝秀提供技术支持</p>
+		</div>
 	</div>
 
-	<div class="loadingbox">
+	<ion-content class="helpme">
+		<div class="closehelpme" ng-click="closehelpme()">
+			<span class="iconfont icon-shanchu"></span>
+		</div>
+		<img src="img/pshelp/pshelp.jpg" alt="">
+	</ion-content >
 
+	<!-- loadingbox -->
+	<div class="loadingbox">
 		<span class="laodpecent">
 			<span class="nowpencent"></span>
 		</span>
@@ -65,8 +81,8 @@ var _hmt = _hmt || [];
 			</div>
 		</div>
 	
-		<span class="text1">拼了老命在给您加载,真的！</span>
-		<span class="text2">宝贝秀由软香蕉提供免费技术支持</span>
+		<span class="text1">软香蕉正在玩命加载中…</span>
+		<!-- <span class="text2">宝贝秀由软香蕉提供免费技术支持</span> -->
 	</div>
 
 	<div class="noshowdata" ng-class="{shownoshowdata:shownoshowdata}">
@@ -75,7 +91,7 @@ var _hmt = _hmt || [];
 	<!-- <div class="softbanana"><span class="iconfont icon-logo"></span>由软香蕉提供免费技术支持</div> -->
 	<div three-points></div>
 
-
+	
 
 </body>
 </html>
