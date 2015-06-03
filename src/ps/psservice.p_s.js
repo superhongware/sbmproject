@@ -367,10 +367,10 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 				});
 
 				//第一页不显示三个点 pagemainbtn  
-				if (curr===0) {
+				if (curr===0||curr===_.pagesize) {
 					pagemainbtnhide();
 				}
-		console.log(curr);
+				console.log(curr);
 				
 				animatemode(curr, 0, 0.5, 1);
 
@@ -380,7 +380,7 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 					$(".pagemainbtn").on("webkitTransitionEnd",function(){
 						$(".pagemainbtn").off("webkitTransitionEnd");
 						//加当前页处理  否则隐藏动画没完成就进入第二页，第二页的显示动画完成后会把.pagemainbtn隐藏掉
-						if(_.currpage===0){
+						if(_.currpage===0||curr===_.pagesize){
 							$(".pagemainbtn").addClass("pagemainbtnhide");
 						}
 					});
