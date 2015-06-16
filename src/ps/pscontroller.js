@@ -73,6 +73,19 @@ console.log(wx);
 				// alert("取消分享");
 			}
 		});
+
+		wx.onMenuShareTimeline({
+			title: $scope.weixinsharedata.title, // 分享标题
+			link: $scope.weixinsharedata.link, // 分享链接
+			imgUrl:$scope.weixinsharedata.imgUrl , // 分享图标
+			success: function() {
+				// alert("分享成功");
+				statistics($scope.showdata,"share");
+			},
+			cancel: function() {
+				// alert("取消分享");
+			}
+		});
 	});
 //========================微信分享======================================
 
