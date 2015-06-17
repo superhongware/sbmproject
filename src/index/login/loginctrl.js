@@ -8,10 +8,17 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myC
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.logindata = {
-		orgName: "work",
-		userName: "admin",
+		orgName: "banana",
+		userName: "sunnycao",
 		password: "admin",
 	};
+	
+	// $scope.logindata = {
+	// 	orgName: "",
+	// 	userName: "",
+	// 	password: "",
+	// };
+
 	$scope.loginSubmit = function(data){
 		if($scope.logindata.orgName===""){
 			$(".error-tip").eq(0).children(".rect").text("商家名称不允许为空");

@@ -505,6 +505,7 @@ creatshowmodule.factory('changepagesize', function(){
 	return function checklocalimg(callback){
 			//选择本地图片
 			var fileinput;
+			//没有fileinput 创建fileinput
 			if(!document.getElementById('fileImg')){
 				fileinput=document.createElement("input");
 				fileinput.id='fileImg';
@@ -524,7 +525,6 @@ creatshowmodule.factory('changepagesize', function(){
 				}
 
 				
-
 				//图片转换二进制 获取Orientation(图片的翻转型号)
 				EXIF.getData(file, function() {
 					console.log(["EXIF完成"]);
