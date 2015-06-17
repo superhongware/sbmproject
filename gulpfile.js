@@ -93,7 +93,7 @@ gulp.task("buildpsjs",function() {
       .pipe(concat('app.js'))
       .pipe(gulp.dest('www/js/ps'));
 });
-gulp.task("buildalljs",['buildjs','buildpsjs']);
+gulp.task("build",['buildjs','buildpsjs']);
 
 
 
@@ -138,6 +138,10 @@ gulp.task('watch', function() {
   // };
     gulp.watch(paths.psjs, ['psjs']);
 });
+
+
+gulp.task("serve",['browser-sync','watch']);
+
 
 
 
