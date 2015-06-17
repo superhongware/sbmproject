@@ -1,111 +1,113 @@
 <ion-view view-title="分享" class="share">
   <!-- <ion-content> -->
-    <div class="paddingtop44"></div>
+	<div class="paddingtop44"></div>
 
-  	<div class="shuoming">点击框框，修改文字和图片</div>
+	<div class="shuoming">点击框框，修改文字和图片</div>
 
-  	<div class="sharecontent">
+	<div class="sharecontent">
 
-  		<textarea  class="shareinputs" ng-change="saveshowadata()" ng-model="shareData.detailTitle"></textarea>
+		<textarea  class="shareinputs" ng-change="saveshowadata()" ng-model="shareData.detailTitle"></textarea>
 
-  		<div class="shareinputs" ng-click="checkshareimg()">
-  			<img id="shareimg" ng-src="{{shareData.detailImage}}"/>
-      </div>
+		<div class="shareinputs" ng-click="checkshareimg()">
+			<img id="shareimg" ng-src="{{shareData.detailImage}}"/>
+		</div>
 
-  		<textarea ng-change="saveshowadata()" class="shareinputs" ng-model="shareData.detailDesc"></textarea>
+		<textarea ng-change="saveshowadata()" class="shareinputs" ng-model="shareData.detailDesc"></textarea>
 
-  		<div class="Clear"></div>
-  	
-    </div>
+		<div class="Clear"></div>
+
+	</div>
 
   	<div class="sharediv">
-  		<div class="barwrap">
-  			<div class="barl"></div>
-  			<div class="bartext">分享</div>
-  			<div class="barl"></div>
-  			<div class="Clear"></div>
-  		</div>
+		<div class="barwrap">
+			<div class="barl"></div>
+			<div class="bartext">分享</div>
+			<div class="barl"></div>
+			<div class="Clear"></div>
+		</div>
 
-		  <div class="Clear"></div>
-      <span class="shareurlnote">宝贝秀链接地址</span>
-      <div  class="shareurlbox" rows="4" readonly ng-bind="shareurl">
-      </div>
-<!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
-<!-- <img src="img/testrqcode.jpg" alt=""> -->
-      <span class="shareurlnote">如何分享？</span><br/>
-      <span class="shareurlnote">①复制链接&nbsp;&nbsp;②发给微信好友&nbsp;&nbsp;③分享朋友圈</span>
-  		<div class="shareway">
+		<div class="Clear"></div>
+		<div ng-hide="!istaobao">
+			<span class="shareurlnote">宝贝秀链接地址</span>
+			<div  class="shareurlbox" rows="4" readonly ng-bind="shareurl"></div>
+			<span class="shareurlnote">如何分享？</span><br/>
+			<span class="shareurlnote">①复制链接&nbsp;&nbsp;②发给微信好友&nbsp;&nbsp;③分享朋友圈</span>
+		</div>
+		
+		<div class="shareway">
 
+			<div
+			ng-hide="!istaobao"
+			ui-sref="sharehelp"
+			class="button button-energized button-block">如何分享到微信</div>
 
-        <div
-        ng-hide="!istaobao"
-        ui-sref="sharehelp"
-        class="button button-energized button-block">如何分享到微信</div>
+				<!--         <div
+			ng-hide="!istaobao"
+			ng-click="sharetosomewhere()" 
+			class="button button-energized button-block">分享</div>
+			-->
+			<div
+			ng-show="!istaobao"
+			class="sharebox ng-hide">
+				<span class="imgwrap" ng-click="sharethis('weixin')"> <i><span class="iconfont icon-weixin"></span></i> 
+					<p>微信好友</p>
+				</span>
+				<span class="imgwrap" ng-click="sharethis('timeline')"> <i><span class="iconfont icon-pengyouquan"></span></i> 
+					<p>朋友圈</p>
+				</span>
+				<span class="imgwrap" ng-click="sharethis('weibo')">
+					<i>
+						<span class="iconfont icon-xinlang"></span>
+					</i>
+					<p>微博</p>
+				</span>
+				<span class="imgwrap" ng-click="sharethis('qq')">
+					<i>
+						<span class="iconfont icon-qq"></span>
+					</i>
+					<p>QQ</p>
+				</span>
+				<span class="imgwrap" ng-click="sharethis('kongjian')">
+					<i>
+						<span class="iconfont icon-qqkongjian"></span>
+					</i>
+					<p>空间</p>
+				</span>
+			</div>
+			<div class="Clear"></div>
 
-<!--         <div
-        ng-hide="!istaobao"
-        ng-click="sharetosomewhere()" 
-        class="button button-energized button-block">分享</div> -->
-
-        <div
-        ng-show="!istaobao"
-        class="sharebox ng-hide">        
-    			<span class="imgwrap" ng-click="sharethis('weixin')">
-    				<i>
-              <span class="iconfont icon-weixin"></span>    
-            </i>
-    				<p>微信好友</p>
-    			</span>
-    			<span class="imgwrap" ng-click="sharethis('timeline')">
-    				<i>
-              <span class="iconfont icon-pengyouquan"></span>    
-            </i>
-    				<p>朋友圈</p>
-    			</span>
-    			<span class="imgwrap" ng-click="sharethis('weibo')">
-    				<i>
-              <span class="iconfont icon-xinlang"></span>    
-            </i>
-    				<p>微博</p>
-    			</span>
-    			<span class="imgwrap" ng-click="sharethis('qq')">
-    				<i>
-              <span class="iconfont icon-qq"></span>    
-            </i>
-    				<p>QQ</p>
-    			</span>
-    			<span class="imgwrap" ng-click="sharethis('kongjian')">
-    				<i>
-              <span class="iconfont icon-qqkongjian"></span>    
-            </i>
-    				<p>空间</p>
-    			</span>
-    			<span class="imgwrap" ng-click="sharethis('copy')">
-    				<i>
-              <span class="iconfont icon-fuzhilianjie"></span>    
-            </i>
-    				<p>复制链接</p>
-    			</span>
-        </div>
-  			<div class="Clear"></div>
-  			
-  		</div>
+		</div>
   	</div>
-  <!-- </ion-content> -->
 
-  <div class="editimg ps_page">
-    <div class="backimgbox">
-      <img src="" class="editcheckimg"  alt="">
-    </div>
-    <div class="editbg"></div>
-    <div class="imgbox" id="shareimgedit">
-      <img src="" class="editcheckimg"  alt="">
-    </div>
-    <!-- <canvas style="width:100px;height:100px;position:absolute;top:44px;left:0px;z-index:999;background-color:#000;" id="testcanvas"></canvas> -->
-    <div class="controldiv"></div>
-    <div class="button button-energized shurebtn" ng-click="getthispic()">确定</div>
-    <div class="button button-energized canclebtn" ng-click="dropthispic()">取消</div>
-  </div>
+
+	<div class="editimg ps_page">
+		<div class="backimgbox">
+			<img src="" class="editcheckimg"  alt=""></div>
+		<div class="editbg"></div>
+		<div class="imgbox" id="shareimgedit">
+			<img src="" class="editcheckimg"  alt=""></div>
+		<div class="controldiv"></div>
+		<div class="button button-energized shurebtn" ng-click="getthispic()">确定</div>
+		<div class="button button-energized canclebtn" ng-click="dropthispic()">取消</div>
+	</div>
 
 
 </ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
