@@ -13,7 +13,7 @@ creatshowmodule
 	$rootScope.editShowData.showId=$stateParams.showId;
 	$rootScope.editShowData.currentpage=parseInt($stateParams.pageId);
 	$scope.$emit("showdatachanged");
-
+   
 	// console.log(["cc",$rootScope.editShowData]);
 	// console.log($rootScope.editShowData.currentpage);
 

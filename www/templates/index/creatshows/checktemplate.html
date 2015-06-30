@@ -2,16 +2,18 @@
 	<ion-content>
 		<ion-list>
 			<!-- ng-click="creatShow(templateId)" -->
+			
 			<div 
 			class="template" 
-			ui-sref="viewtemplate({templateId:templateId,productId:productId,productPlat:productPlat})">
+			ui-sref="viewtemplate({templateId:x.id,productId:productId,productPlat:productPlat})" ng-repeat="x in viewsarr">
 				<span class="image">
-					<img src="/img/template.jpg" alt="" width="100%">
+					<img ng-src="{{x.im}}" alt="" width="100%">
 				</span>
 				<span class="text">
-					默认模板
+					{{x.text}}
 				</span>
 			</div>
+			
 			<div class="template">
 				<span class="image">
 					<img src="/img/template2.jpg" alt="" width="100%">

@@ -15,21 +15,22 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$statePa
 	//点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为退出
 
 	$rootScope.SaveChange = undefined;
-	$scope.templateId=1;
+	
 	$scope.productId=$stateParams.productId;
 	$scope.productPlat=$stateParams.productPlat;
+	$scope.viewsarr=[{"id":"1","im":"/img/template.jpg","text":"默认模板1"},{"id":"2","im":"/img/template.jpg","text":"默认模板2"},{"id":"3","im":"/img/template.jpg","text":"默认模板3"},{"id":"4","im":"/img/template.jpg","text":"默认模板4"},{"id":"5","im":"/img/template.jpg","text":"默认模板5"},{"id":"6","im":"/img/template.jpg","text":"默认模板6"}]
 
 }])
 
 
 .controller('viewtemplateCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
-
+  
 	$(".viewtemplate").append('<iframe class="viewbox" height='+($(window).height()-44)+' src='+location.origin+
-		'/ps.html?templateview=1 frameborder="0"></iframe>');
-	
-	
+		'/ps.html?templateview='+$stateParams.templateId+' frameborder="0"></iframe>');
+			url: "/checktemplate/:productId/:productPlat",
 
+	
 console.log(0);
 	// $scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
 	$scope.viewbtnneam="应用";
@@ -47,10 +48,10 @@ console.log(0);
 			productPlat:$stateParams.productPlat,//所属平台
 		};
 		creatShow(creatdata,function(data){
-
+          
 			//隐藏“创建中,请稍等...”
 			$ionicLoading.hide();
-
+            
 			//创建成功跳转到编辑页
 			$state.go("editpages.editer",{
 				showId:data.detailId,

@@ -1,0 +1,49 @@
+{
+	"templateId": 3,
+	"detailTitle":"标题",
+	"detailDesc": "描述",
+	"detailImage":"详情图片",
+	"shopName":"店铺名称",
+	"numIid": "宝贝ID",
+	"detailUrl": "购买链接",
+	"plat": "平台",
+	"pages": [
+	{
+		"detailPageIndex":"1",
+		"templatePageId":13,
+		"detailPageImage": [
+			{"img":"img/picx.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"软香蕉宝贝秀"},
+			{"txt":"开启宝贝展示新时代"}
+		
+
+		]
+	},
+	{
+		"detailPageIndex":"2",
+		"templatePageId": 7,
+		"detailPageImage": [
+			{"img":"img/picx_1.jpg"},
+			{"img":"img/picx_2.jpg"},
+			{"img":"img/picx_3.jpg"}
+		],
+		"detailPageText": [
+			{"txt":""}
+		]
+	},
+	
+	{
+		"detailPageIndex":"3",
+		"templatePageId": 3,
+		"detailPageImage": [
+			{"img":"img/picx_4.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"软香蕉宝贝秀"},
+			{"txt":"软香蕉——秀出宝贝精彩"}
+		]
+	}
+	]
+}

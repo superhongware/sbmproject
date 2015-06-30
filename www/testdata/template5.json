@@ -1,0 +1,52 @@
+{
+	"templateId": 5,
+	"detailTitle":"标题",
+	"detailDesc": "描述",
+	"detailImage":"详情图片",
+	"shopName":"店铺名称",
+	"numIid": "宝贝ID",
+	"detailUrl": "购买链接",
+	"plat": "平台",
+	"pages": [
+	{
+		"detailPageIndex":"1",
+		"templatePageId":15,
+		"detailPageImage": [
+			{"img":"img/picx2-1.jpg"}
+		],
+		"detailPageText": [
+			{"txt":""},
+			{"txt":""},
+			{"txt":"SOFTBANANA"},
+			{"txt":"开启手机详情新时代"},
+			{"txt":""}
+		
+
+		]
+	},
+	{
+		"detailPageIndex":"2",
+		"templatePageId": 6,
+		"detailPageImage": [
+			{"img":"img/picx2-2.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"流量入口,一键到店成交"},
+			{"txt":"买家只需点击宝贝秀中的购买即可立即打开宝贝页面，即看即买！"}
+		]
+	},
+	
+	{
+		"detailPageIndex":"3",
+		"templatePageId": 2,
+		"detailPageImage": [
+			{"img":"img/picx2-3.jpg"}
+		],
+		"detailPageText": [
+		
+			{"txt":""}
+
+		]
+	}
+	]
+}
