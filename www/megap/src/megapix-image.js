@@ -107,6 +107,7 @@
     }
     ctx.restore();
     tmpCanvas = tmpCtx = null;
+    
   }
 
   /**

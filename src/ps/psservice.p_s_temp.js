@@ -11,9 +11,11 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 		}
 		switch(temp){
 			case 0:
+			    var a="";
+			    p_s_text(temp,".ps_text1")?a="psanimate2":a="psanimateno";
 				p_s_anination(page, ".ps_img1", "psanimate2", function() {
 					p_s_anination(page, ".ps_img2", "psanimate15");
-					p_s_anination(page, ".ps_text1", "psanimate2");
+					p_s_anination(page, ".ps_text1", a);
 					
 					allpageanimate();
 				});
@@ -24,35 +26,51 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 				});
 				break;
 			case 2:
-
+		      
+                var a="";
+			    p_s_text(temp,".ps_text3")?a="psanimate2":a="psanimateno";
 				p_s_anination(page, ".ps_text1", "psanimate18");
 				p_s_anination(page, ".ps_text2", "psanimate18", function() {
-					p_s_anination(page, ".ps_text3", "psanimate2");
+					p_s_anination(page, ".ps_text3", a);
 
 					allpageanimate();
 
 				});
 				break;
 			case 3:
-				p_s_anination(page, ".ps_text1", "psanimate8_1", function() {
-					p_s_anination(page, ".ps_text2", "psanimate8_1");
+				
+			    var a=b="";
+			    p_s_text(temp,".ps_text1")?a="psanimate8_1":a="psanimateno";
+			    p_s_text(temp,".ps_text2")?b="psanimate8_1":b="psanimateno";
+			    console.log(a)
+				p_s_anination(page, ".ps_text1", a, function() {
+					p_s_anination(page, ".ps_text2", b);
 					
 					allpageanimate();
 				});
 				break;
 			case 4:
-				p_s_anination(page, ".ps_text1", "psanimateFadeInDown", function() {
-					p_s_anination(page, ".ps_text2", "psanimateFadeInDown");
+			    var a=b="";
+			    p_s_text(temp,".ps_text1")?a="psanimateFadeInDown":a="psanimateno";
+			    p_s_text(temp,".ps_text2")?b="psanimateFadeInDown":b="psanimateno";
+				p_s_anination(page, ".ps_text1", a, function() {
+					p_s_anination(page, ".ps_text2", b);
 					
 					allpageanimate();
 				});
 				break;
 			case 5:
+			
+			    var a=b="";
+			    p_s_text(temp,".ps_text1")?a="psanimateFadeInDown":a="psanimateno";
+			    p_s_text(temp,".ps_text2")?b="psanimateFadeInDown_1":b="psanimateno";
+			  
 				p_s_anination(page, ".ps_img1", "psanimateFadeInDown_f", function() {
+					  console.log(6666666)
 					p_s_anination(page, ".ps_img2", "psanimateFadeInLeft_f",function(){
 						p_s_anination(page, ".ps_img3", "psanimateFadeInRight_f",function(){
-							p_s_anination(page, ".ps_text1", "psanimateFadeInDown");
-							p_s_anination(page, ".ps_text2", "psanimateFadeInDown_1");
+							p_s_anination(page, ".ps_text1", a);
+							p_s_anination(page, ".ps_text2", b);
 							
 							allpageanimate();
 						});
@@ -60,8 +78,11 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 				});
 				break;
 			case 6:
-				p_s_anination(page, ".ps_text1", "psanimateFadeInDown", function() {
-					p_s_anination(page, ".ps_text2", "psanimateFadeInDown");
+			    var a=b="";
+			    p_s_text(temp,".ps_text1")?a="psanimateFadeInDown":a="psanimateno";
+			    p_s_text(temp,".ps_text2")?b="psanimateFadeInDown":b="psanimateno";
+				p_s_anination(page, ".ps_text1", a, function() {
+					p_s_anination(page, ".ps_text2",b);
 					
 					allpageanimate();
 				});
@@ -112,8 +133,8 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 				break;
 			 case 12:
 			    var a=b=d=e="";
-			    p_s_text(".ps_text1")||p_s_text(".ps_text2")?a="psanimateFadeInUpfix":a="psanimateno";
-				p_s_text(".ps_text3")?b="psanimateFadeInUpfix":b="psanimateno";
+			    p_s_text(temp,".ps_text1")||p_s_text(temp,".ps_text2")?a="psanimateFadeInUpfix":a="psanimateno";
+				p_s_text(temp,".ps_text3")?b="psanimateFadeInUpfix":b="psanimateno";
 			    var c=function(){
 			    	p_s_anination(page, ".ps_text1", "psanimateFadeInshow_f");
 					p_s_anination(page, ".ps_text2", "psanimateFadeInshow_f");
@@ -136,7 +157,7 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 				break;
 			 case 14:
 			    var a="";
-				p_s_text(".ps_text1")||p_s_text(".ps_text2")||p_s_text(".ps_text3")?a="psanimateFadeInLeft":a="psanimateno";
+				p_s_text(temp,".ps_text1")||p_s_text(temp,".ps_text2")||p_s_text(temp,".ps_text3")?a="psanimateFadeInLeft":a="psanimateno";
 				
 			 	p_s_anination(page, ".ps_img2", "psanimateFadeInRight", function() {
 			 		
@@ -155,7 +176,7 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 				break;	
 		    case 15:
 			    var a="";
-				p_s_text(".ps_text4")||p_s_text(".ps_text3")?a="1":a="0";
+				p_s_text(temp,".ps_text4")||p_s_text(temp,".ps_text3")?a="1":a="0";
 				if(a=="1"){
 					p_s_anination(page, ".ps_text2", "psanimate18",function(){
 				     p_s_anination(page, ".ps_text3", "psanimateFadeInUp_f");
@@ -173,8 +194,8 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 				break;	
 				case 16:
 				var a=b="";
-				p_s_text(".ps_text1")?a="psanimate8_1":a="psanimateno";
-				p_s_text(".ps_text2")||p_s_text(".ps_text3")?b="psanimate8_1":b="psanimateno";
+				p_s_text(temp,".ps_text1")?a="psanimate8_1":a="psanimateno";
+				p_s_text(temp,".ps_text2")||p_s_text(temp,".ps_text3")?b="psanimate8_1":b="psanimateno";
 				var c=function() {
 				    p_s_anination(page, ".ps_text1", "psanimateFadeInDown_f",function(){
 				     p_s_anination(page, ".ps_text2", "psanimateFadeInUp_f");
@@ -224,14 +245,16 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 	var p_s_anination = function(page, classname, animate, callback) {
 
 		page.children(classname).addClass(animate);
+		
         if(animate=="psanimateno"){
 			if (typeof callback === "function") {
 				callback();
 			}
 		}
         else{
-		page.children(classname).on("webkitAnimationEnd", function() {
 
+		page.children(classname).on("webkitAnimationEnd", function() {
+            
 			$(this).off("webkitAnimationEnd");
 			$(this).addClass(animate + "end");
 			if (typeof callback === "function") {
@@ -243,8 +266,9 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 	};
 	return p_s_anination;
 }).factory('p_s_text', function() {
-	var p_s_text=function(class){
-		if($(class).text().trim()==""){
+	var p_s_text=function(tmp,class){
+	
+		if($(".tmp"+tmp).find(class).text()==""){
 			return false
 		}
 		return true

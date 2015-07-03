@@ -12,8 +12,8 @@
 		"detailPageIndex":"1",
 		"templatePageId": 2,
 		"detailPageImage": [
-			{"img":"img/pic2.jpg"},
 			{"img":"img/pic2.jpg"}
+			
 		],
 		"detailPageText": [
 			{"txt":"SOFTBANANA"},
