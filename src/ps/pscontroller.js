@@ -138,9 +138,10 @@ console.log(wx);
 
 
 	console.log(["asdasdasd",getRequest("templateview")]);
-	if(getRequest("templateview")==="1"){
 
-		$http.get("testdata/template1.json")
+	if(getRequest("templateview")){
+         
+		$http.get("testdata/template"+getRequest("templateview")+".json")
 		.success(function(data){
 			// 图片加字统计
 			isloadover(data.pages);
@@ -269,6 +270,7 @@ console.log(wx);
 			autoopentaobao(data);
 
 		},function(){
+		
 			alert("请检查网络是否问题");
 		});
 	}

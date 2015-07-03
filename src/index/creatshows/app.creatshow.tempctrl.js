@@ -1,10 +1,10 @@
 creatshowmodule
 
 //整编辑页—图片文字编辑区
-.controller('editerCtrl', ['$scope','$rootScope','$http','$ionicLoading','$stateParams','changepagesize',function($scope,$rootScope,$http,$ionicLoading,$stateParams,changepagesize){
+.controller('editerCtrl', ['$scope','$rootScope','$http','$ionicLoading','$stateParams','$location','$cacheFactory','changepagesize',function($scope,$rootScope,$http,$ionicLoading,$stateParams,$location,$cacheFactory,changepagesize){
 
 	changepagesize();
-
+   
 	$rootScope.editShowData.ddd="cccc";
 
 	console.log("editerCtrl");
@@ -13,7 +13,26 @@ creatshowmodule
 	$rootScope.editShowData.showId=$stateParams.showId;
 	$rootScope.editShowData.currentpage=parseInt($stateParams.pageId);
 	$scope.$emit("showdatachanged");
+	var newurl=$location.absUrl();
+	if($cacheFactory.get('cacheback'))
+   {
+   	var cacheback=$cacheFactory.get('cacheback');
+   	var cacheurl=cacheback.get('url');
+    var cachecount=cacheback.get('count');
+        console.log(cacheurl)
+     console.log(newurl)
+    if(cacheurl!="1"){
+    	cachecount+=1;
+    	cacheback.put('count',cachecount);
+    	console.log("点击次数"+cachecount)
+    }
+   }
+    
 
+//    console.log(cachecount)
+
+	
+   
 	// console.log(["cc",$rootScope.editShowData]);
 	// console.log($rootScope.editShowData.currentpage);
 
@@ -212,7 +231,7 @@ creatshowmodule
 			// $scope.pagelistwidth={"width":$rootScope.editShowData.mainData.pages.length*71+"px"};
 			// $scope.$emit('scroll.infiniteScrollComplete');
 		}
-
+   
 		if(!$rootScope.editShowData.mainData||$rootScope.editShowData.showId!==$rootScope.editShowData.mainData.detailId){
 
 			console.log("开始更新宝贝秀数据");

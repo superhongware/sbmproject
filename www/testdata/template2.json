@@ -1,0 +1,52 @@
+{
+	"templateId": 2,
+	"detailTitle":"标题",
+	"detailDesc": "描述",
+	"detailImage":"详情图片",
+	"shopName":"店铺名称",
+	"numIid": "宝贝ID",
+	"detailUrl": "购买链接",
+	"plat": "平台",
+	"pages": [
+	{
+		"detailPageIndex":"1",
+		"templatePageId":12,
+		"detailPageImage": [
+			{"img":"img/pic8.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"SOFTBANANA"},
+			{"txt":"宝贝秀制作助手"},
+			{"txt":"开启手机详情新时代"},
+			{"txt":""},
+			{"txt":""}
+
+		]
+	},
+	{
+		"detailPageIndex":"2",
+		"templatePageId": 3,
+		"detailPageImage": [
+			{"img":"img/pic9.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"软香蕉宝贝秀"},
+			{"txt":"软香蕉——秀出宝贝精彩"}
+		]
+	},
+	
+	{
+		"detailPageIndex":"3",
+		"templatePageId": 5,
+		"detailPageImage": [
+			{"img":"img/pic9-1.jpg"},
+			{"img":"img/pic9-2.jpg"},
+			{"img":"img/pic9-3.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"软香蕉宝贝秀"},
+			{"txt":"软香蕉——秀出宝贝精彩"}
+		]
+	}
+	]
+}

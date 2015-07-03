@@ -2,8 +2,8 @@ creatshowmodule
 
 //整编辑页—图片文字编辑区模板1
 .controller('pagetempht1Ctrl',[
-	'$scope','$rootScope','$state','$stateParams','$ionicLoading','$ionicActionSheet',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow','checklocalimg',
-	function($scope,$rootScope,$state,$stateParams,$ionicLoading,$ionicActionSheet,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow,checklocalimg){
+	'$scope','$rootScope','$state','$stateParams','$ionicLoading','$location','$ionicActionSheet',"setShowImg",'drawShowImg','compressShowImg','sendShowImg','saveShow','checklocalimg',
+	function($scope,$rootScope,$state,$stateParams,$ionicLoading,$location,$ionicActionSheet,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow,checklocalimg){
 
 
 	console.log("pagetempht1Ctrl");
@@ -11,7 +11,7 @@ creatshowmodule
 	$scope.imgviewinfo=[];
 
 	$scope.showdata=$rootScope.editShowData;
-
+   
 	$scope.$on('$destroy', function() {
 		tempImgngRepeatFinished();
 		saveShowImg();
@@ -90,6 +90,7 @@ creatshowmodule
 			function dragmove(e){
 				if(!changimage){
 					if(e.type==="drag"){
+						
 						thisimgdata.point[0]=parseInt(e.gesture.deltaX)+thisimgdata.startpoint[0];
 						thisimgdata.point[1]=parseInt(e.gesture.deltaY)+thisimgdata.startpoint[1];
 					}else if(!changimage){
@@ -186,8 +187,10 @@ creatshowmodule
 
 		if(sendnum.length>0){
 			sendimg();
+			
 		}else{
 			saveshowdata();
+			
 			// $ionicLoading.hide();
 			// console.log("保存图片回调");
 			// $scope.$emit('saveShowImgOver');
@@ -228,7 +231,7 @@ creatshowmodule
 				console.log(["资料保存失败",data]);
 			});
 		}
-
+     
 	});
 
 

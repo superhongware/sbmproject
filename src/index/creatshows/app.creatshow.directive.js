@@ -3,9 +3,11 @@ creatshowmodule
 	return {
 		restrict: 'A',
 		link: function(scope, element, attr) {
+			
 			if (scope.$last === true) {
 				$timeout(function() {
 					scope.$emit('ngRepeatFinished');
+				
 				});
 			}
 		}
@@ -28,8 +30,8 @@ creatshowmodule
 
 //编辑页底部小页面
 .directive('pageEditor',[
-	'$rootScope','$state','$animate',"$timeout",'$ionicLoading','$ionicScrollDelegate',
-	function($rootScope,$state,$animate,$timeout,$ionicLoading,$ionicScrollDelegate){
+	'$rootScope','$state','$animate',"$timeout",'$ionicLoading','$ionicScrollDelegate','$location','$cacheFactory',
+	function($rootScope,$state,$animate,$timeout,$ionicLoading,$ionicScrollDelegate,$location,$cacheFactory){
 	// Runs during compile
 	return {
 		// name: '',
@@ -64,7 +66,7 @@ creatshowmodule
 
 			//小页页面DOME渲染完成够出发
 			$scope.$on("ngRepeatFinished",function() {
-
+              	
 				var pages=$rootScope.editShowData.mainData.pages;
 				console.log("小页页面DOME渲染完成");
 
@@ -213,8 +215,24 @@ creatshowmodule
 
 			//当前页面
 			var turnpageindex=$rootScope.editShowData.currentpage;
+			$rootScope.itemclickcount=0;
 			$scope.pageitemclick=function(index){
-				console.log("点击");
+				var oldurl=$location.absUrl();
+				if($cacheFactory.get('cacheback')){
+					
+					cacheback=$cacheFactory.get('cacheback');
+                    var cachecount=cacheback.get('count');
+                    cacheback.put('url',oldurl);
+                    cacheback.put('count',cachecount);
+				}
+				else{
+				var cacheback=$cacheFactory('cacheback');
+                cacheback.put('url',oldurl);
+                cacheback.put('count',0);
+				}
+				
+				
+				console.log("点击pageitemclick");
 				if($scope.editpages){
 					$scope.editpages=0;
 					return;
@@ -224,6 +242,7 @@ creatshowmodule
 				$scope.$broadcast('saveShowImg');
 				//点击保存以后要重新加载服务器数据，否则用改变后的缓存
 				$rootScope.SaveChange = true;
+				
 			};
 			//scope删除 取消事件侦听
 			$scope.$on('$destroy', function() {
@@ -232,7 +251,8 @@ creatshowmodule
 			//图片保存完成 跳转页面
 			//图片保存在编辑页面中  所以此处添加侦听事件
 			var saveShowImgOver=$scope.$on("saveShowImgOver",function(){
-				console.log("保存图片完成,这是回调函数");
+				console.log("保存图片完成,这是回调函数saveShowImgOver");
+				
 				if(turnpageindex!==$rootScope.editShowData.currentpage){
 					$state.go("editpages.editer",{
 						showId:$rootScope.editShowData.showId,

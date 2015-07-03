@@ -5,7 +5,7 @@
  */
 var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.services', 'starter.directives']);
 
-creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($rootScope,$scope,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
+creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($rootScope,$scope,$http,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
 
 	//假设取到的模板信息
 
@@ -15,21 +15,24 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$statePa
 	//点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为退出
 
 	$rootScope.SaveChange = undefined;
-	$scope.templateId=1;
+	
 	$scope.productId=$stateParams.productId;
 	$scope.productPlat=$stateParams.productPlat;
-
+	$http.get('testdata/views.json').success(function(data){
+		$scope.viewsarr=data
+	})
+	
 }])
 
 
 .controller('viewtemplateCtrl',['$scope','$rootScope','$stateParams','$ionicLoading','$state','creatShow', function($scope,$rootScope,$stateParams,$ionicLoading,$state,creatShow){
 	
-
+  
 	$(".viewtemplate").append('<iframe class="viewbox" height='+($(window).height()-44)+' src='+location.origin+
-		'/ps.html?templateview=1 frameborder="0"></iframe>');
-	
-	
+		'/ps.html?templateview='+$stateParams.templateId+' frameborder="0"></iframe>');
+			url: "/checktemplate/:productId/:productPlat",
 
+	
 console.log(0);
 	// $scope.iframesrc=location.origin+"/ps.html?orgname=work&detailid=987883&templateview=1";
 	$scope.viewbtnneam="应用";
@@ -37,8 +40,9 @@ console.log(0);
 
 	//根据模板创建宝贝秀
 	$scope.viewbtn=function(){
+		
 		$ionicLoading.show({
-			template:"创建中,请稍等...",
+			template:"正在提取宝贝数据到模板,请稍等...",
 		});
 
 		var creatdata={
@@ -47,10 +51,10 @@ console.log(0);
 			productPlat:$stateParams.productPlat,//所属平台
 		};
 		creatShow(creatdata,function(data){
-
+          
 			//隐藏“创建中,请稍等...”
 			$ionicLoading.hide();
-
+            
 			//创建成功跳转到编辑页
 			$state.go("editpages.editer",{
 				showId:data.detailId,
@@ -80,7 +84,7 @@ function($scope,$rootScope,$stateParams,$state,$ionicLoading,creatShow,creatpsur
 
 	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")]);
 	var showurl=creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0");
-	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+'&templateview=2 frameborder="0"></iframe>');
+	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+' frameborder="0"></iframe>');
 
 	// $(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
 	// 	'/ps.html?orgname='+$rootScope.orgName+

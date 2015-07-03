@@ -1,0 +1,54 @@
+{
+	"templateId": 4,
+	"detailTitle":"标题",
+	"detailDesc": "描述",
+	"detailImage":"详情图片",
+	"shopName":"店铺名称",
+	"numIid": "宝贝ID",
+	"detailUrl": "购买链接",
+	"plat": "平台",
+	"pages": [
+	{
+		"detailPageIndex":"1",
+		"templatePageId":14,
+		"detailPageImage": [
+			{"img":"img/picx1-1.jpg"},
+			{"img":"img/picx1-2.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"SOFTBANANA"},
+			{"txt":"软香蕉宝贝秀"},
+			{"txt":"开启宝贝展示新时代"},
+			{"txt":""},
+			{"txt":"面料柔软，吸汗不闷"}
+		
+
+		]
+	},
+	{
+		"detailPageIndex":"2",
+		"templatePageId": 6,
+		"detailPageImage": [
+			{"img":"img/picx1-3.jpg"}
+		],
+		"detailPageText": [
+			{"txt":"流量入口,一键到店成交"},
+			{"txt":"买家只需点击宝贝秀中的购买即可立即打开宝贝页面，即看即买！"}
+		]
+	},
+	
+	{
+		"detailPageIndex":"3",
+		"templatePageId": 7,
+		"detailPageImage": [
+			
+			{"img":"img/picx1-4.jpg"},
+			{"img":"img/picx1-5.jpg"},
+			{"img":"img/picx1-6.jpg"}
+		],
+		"detailPageText": [
+			{"txt":""}
+		]
+	}
+	]
+}

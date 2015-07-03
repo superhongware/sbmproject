@@ -1,4 +1,4 @@
-SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
+SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s_text) {
 	var p_s_temp = function(page,callback) {
 		var temp = parseInt(page[0].className.match(/tmp\w*\s?/)[0].replace(/tmp/,''));
 
@@ -110,6 +110,82 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 					});
 				});
 				break;
+			 case 12:
+			    var a=b=d=e="";
+			    p_s_text(".ps_text1")||p_s_text(".ps_text2")?a="psanimateFadeInUpfix":a="psanimateno";
+				p_s_text(".ps_text3")?b="psanimateFadeInUpfix":b="psanimateno";
+			    var c=function(){
+			    	p_s_anination(page, ".ps_text1", "psanimateFadeInshow_f");
+					p_s_anination(page, ".ps_text2", "psanimateFadeInshow_f");
+					p_s_anination(page, ".ps_text3", "psanimateFadeInshow_f");
+					allpageanimate();
+			    }
+			    a=="psanimateno"?d="":d=c;
+			    b=="psanimateno"?e="":e=c;
+			    p_s_anination(page, ".ps_text5", b,e);
+			 	p_s_anination(page, ".ps_text4", a,d);
+			
+			 break;
+			 case 13:
+			
+			 	p_s_anination(page, ".ps_text1", "psanimateFadeInDown", function() {
+				    p_s_anination(page, ".ps_text2", "psanimateFadeInUp_f");
+					allpageanimate();
+			
+			      });
+				break;
+			 case 14:
+			    var a="";
+				p_s_text(".ps_text1")||p_s_text(".ps_text2")||p_s_text(".ps_text3")?a="psanimateFadeInLeft":a="psanimateno";
+				
+			 	p_s_anination(page, ".ps_img2", "psanimateFadeInRight", function() {
+			 		
+				    p_s_anination(page, ".ps_text4", a,function(){
+				     p_s_anination(page, ".ps_text1", "psanimateFadeInUp_f");
+				     p_s_anination(page, ".ps_text2", "psanimateFadeInUp_f");
+				     p_s_anination(page, ".ps_text3", "psanimateFadeInUp_f",function(){
+				     	p_s_anination(page, ".ps_text5", "psanimateFadeInDown");
+				     	allpageanimate();
+				     });
+				     
+				    });
+					
+			
+			      });
+				break;	
+		    case 15:
+			    var a="";
+				p_s_text(".ps_text4")||p_s_text(".ps_text3")?a="1":a="0";
+				if(a=="1"){
+					p_s_anination(page, ".ps_text2", "psanimate18",function(){
+				     p_s_anination(page, ".ps_text3", "psanimateFadeInUp_f");
+				     p_s_anination(page, ".ps_text4", "psanimateFadeInDown_f",function(){
+				     	p_s_anination(page, ".ps_text1", "psanimatelineWidth");
+				     	p_s_anination(page, ".ps_text5", "psanimatelineWidth")
+				     	allpageanimate();
+				     });
+				     
+				   
+					
+			
+			      });
+				} 
+				break;	
+				case 16:
+				var a=b="";
+				p_s_text(".ps_text1")?a="psanimate8_1":a="psanimateno";
+				p_s_text(".ps_text2")||p_s_text(".ps_text3")?b="psanimate8_1":b="psanimateno";
+				var c=function() {
+				    p_s_anination(page, ".ps_text1", "psanimateFadeInDown_f",function(){
+				     p_s_anination(page, ".ps_text2", "psanimateFadeInUp_f");
+				     p_s_anination(page, ".ps_text3", "psanimateFadeInUp_f");	   
+				     allpageanimate();
+				    });
+			     };
+				
+			    p_s_anination(page, ".ps_text4", a,c)
+			 	p_s_anination(page, ".ps_text5", b,c);
+				break;	
 			default:
 				console.log("default"+temp);
 				break;
@@ -121,7 +197,13 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 
 		var $dom = $(classname);
 		$dom.addClass(animate);
-		$dom.on("webkitAnimationEnd", function() {
+		if(animate=="psanimateno"){
+			if (typeof callback === "function") {
+				callback();
+			}
+		}
+		else{
+			$dom.on("webkitAnimationEnd", function() {
 
 			var $this = $(this);
 			$this.off("webkitAnimationEnd");
@@ -131,6 +213,8 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 			}
 
 		});
+		}
+		
 	};
 
 	return p_s_temp;
@@ -140,7 +224,12 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 	var p_s_anination = function(page, classname, animate, callback) {
 
 		page.children(classname).addClass(animate);
-
+        if(animate=="psanimateno"){
+			if (typeof callback === "function") {
+				callback();
+			}
+		}
+        else{
 		page.children(classname).on("webkitAnimationEnd", function() {
 
 			$(this).off("webkitAnimationEnd");
@@ -150,6 +239,16 @@ SBMPS.factory('p_s_temp', ['p_s_anination', function(p_s_anination) {
 			}
 
 		});
+		 }
 	};
 	return p_s_anination;
+}).factory('p_s_text', function() {
+	var p_s_text=function(class){
+		if($(class).text().trim()==""){
+			return false
+		}
+		return true
+		
+	}
+	return p_s_text;
 });
