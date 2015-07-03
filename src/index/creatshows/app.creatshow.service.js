@@ -323,6 +323,7 @@ creatshowmodule.factory('changepagesize', function(){
 					console.log(["获取模板数据",tempdata]);
 
 					var imgurls=productdata.picUrl.split(",");
+					console.log(imgurls)
 					//填充模板数据
 					tempdata.detailTitle = productdata.title;
 					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
@@ -335,7 +336,7 @@ creatshowmodule.factory('changepagesize', function(){
 
 					//自动导入宝贝图片
 					tempdata=setProductImg(imgurls,tempdata);
-
+console.log(tempdata)
 					//第三步 保存宝贝秀
 					saveShow(tempdata,function(data){
 						data.firstPageTemp=tempdata.pages[0].templatePageId;
