@@ -151,13 +151,14 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 		$ionicLoading.show({
 			template:"正在保存,请稍等...",
 		});
-
+        
 		//隐藏编辑区域
-
+        
 		// 上传图片dat 获取图片url
 		sendShowImg(compressShowImg(cvs,80),function(imgurl){
 			//更新宝贝秀分享图片的url
 			$scope.shareData.detailImage=imgurl;
+			console.log($scope.shareData)
 			//保存宝贝秀数据
 			saveShow($scope.shareData,function(data){
 				console.log("分享图片保存成功");

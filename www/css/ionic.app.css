@@ -2962,7 +2962,7 @@ a.subdued {
 .platform-android .action-sheet {
   margin: 0; }
   .platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
-    text-align: left;
+    text-align: center;
     border-color: transparent;
     font-size: 16px;
     color: inherit; }
@@ -7589,3 +7589,5 @@ body {
 
 .textcenter {
   text-align: center; }
+    .sbm_products .item-options .button{padding-top:20px}
+  .sbm_products .item-options .button:nth-child(1):after{display:block;height:24px;width:40px;content:"+";font-size:22px;color:#Fff;position:absolute;left:50%;top:18px;margin-left:-20px;border:1px solid #fff;line-height:22px;border-radius:6px}

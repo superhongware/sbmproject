@@ -266,6 +266,7 @@ creatshowmodule
 						imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
 						//点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为改变缓存
 						$rootScope.editShowData.mainData.pages[$rootScope.pic_pageId].detailPageImage[$rootScope.Index].img = $scope.imgviewinfo[index].img.src;
+					    $scope.$broadcast('saveShowImg');
 					});
 				}else{
 					//选择图片空间图片

@@ -553,7 +553,9 @@ creatshowmodule.factory('changepagesize', function(){
 						mpImg.render(img, { maxWidth: 640, maxHeight: 1008,quality:1 ,orientation: imginfo },function(){
 							reader.onload=null;
 							callback(img);
-							
+							console.log("22");
+							//调用保存图片功能  pagetempht1Ctrl中有方法
+				          
 						});
                     
 					};
