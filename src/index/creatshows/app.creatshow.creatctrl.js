@@ -5,7 +5,7 @@
  */
 var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.services', 'starter.directives']);
 
-creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($rootScope,$scope,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
+creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($rootScope,$scope,$http,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
 
 	//假设取到的模板信息
 
@@ -18,7 +18,11 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$statePa
 	
 	$scope.productId=$stateParams.productId;
 	$scope.productPlat=$stateParams.productPlat;
-	$scope.viewsarr=[{"id":"1","im":"/img/template.jpg","text":"默认模板1"},{"id":"2","im":"/img/template.jpg","text":"默认模板2"},{"id":"3","im":"/img/template.jpg","text":"默认模板3"},{"id":"4","im":"/img/template.jpg","text":"默认模板4"},{"id":"5","im":"/img/template.jpg","text":"默认模板5"},{"id":"6","im":"/img/template.jpg","text":"默认模板6"}]
+
+	$http.get('testdata/views.json').success(function(data){
+		$scope.viewsarr=data
+	})
+	
 
 }])
 
@@ -38,8 +42,9 @@ console.log(0);
 
 	//根据模板创建宝贝秀
 	$scope.viewbtn=function(){
+		
 		$ionicLoading.show({
-			template:"创建中,请稍等...",
+			template:"正在提取宝贝数据到模板,请稍等...",
 		});
 
 		var creatdata={
@@ -81,7 +86,7 @@ function($scope,$rootScope,$stateParams,$state,$ionicLoading,creatShow,creatpsur
 
 	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")]);
 	var showurl=creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0");
-	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+'&templateview=2 frameborder="0"></iframe>');
+	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+' frameborder="0"></iframe>');
 
 	// $(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+
 	// 	'/ps.html?orgname='+$rootScope.orgName+

@@ -178,6 +178,7 @@ creatshowmodule.factory('changepagesize', function(){
 		}
 		var ctx=cvs.getContext("2d");
 		//宽度以全屏640为基准 计算出图片压缩后尺寸
+		
 		var finalwidthscal=640/picdata.imgbox.parents(".ps_page")[0].clientWidth;
 		var naturaw=picdata.img.naturalWidth;
 		var naturah=picdata.img.naturalHeight;
@@ -191,7 +192,7 @@ creatshowmodule.factory('changepagesize', function(){
 		// 	naturah=picdata.img.naturalWidth;
 		// 	// alert(0)
 		// }
-
+  
 		cvs.width=picdata.imgbox[0].clientWidth*finalwidthscal;
 		cvs.height=picdata.imgbox[0].clientHeight*finalwidthscal;
 		
@@ -399,9 +400,10 @@ creatshowmodule.factory('changepagesize', function(){
  * @param  {[fun]} errorCallBack [失败返回]
  * @return {[obj]}               [description]
  */
-.factory('saveShow', ['$rootScope','$http','SBMJSONP','SBMPOST','productComm',function($rootScope,$http,SBMJSONP,SBMPOST,productComm){
+.factory('saveShow', ['$rootScope','$http','$location','SBMJSONP','SBMPOST','productComm',function($rootScope,$http,$location,SBMJSONP,SBMPOST,productComm){
 	return function saveShow(saveshowdata,callback,errorcallback){
 			// saveshowdata.detailUrl=saveshowdata.detailUrl.replace(/&/g,"%26");
+			console.log("saveShow方法");
 			var showdata={
 				orgName:$rootScope.orgName,
 				detailId:saveshowdata.detailId,
@@ -414,12 +416,14 @@ creatshowmodule.factory('changepagesize', function(){
 			// $http.jsonp(api.url)
 			var api=SBMPOST("saveOrUpdateDetail",showdata);
 			api.data+=("&detailData="+encodeURIComponent(JSON.stringify(saveshowdata)));
+			
 			$http.post(api.url,api.data)
 
 			.success(function(data){
 				console.log(["保存宝贝秀-保存后数据",data]);
 				if(data.isSuccess){
 					callback(data);
+					
 				}else{
 					errorcallback(data.map.errorMsg);
 				}
@@ -482,6 +486,7 @@ creatshowmodule.factory('changepagesize', function(){
 
 .factory('sendShowImg', ['$rootScope','$http','SBMJSONP','SBMPOST',function($rootScope,$http,SBMJSONP,SBMPOST){
 	return function sendShowImg(imgdata,callback){
+		
 			var senddata={
 					orgName:$rootScope.orgName,
 					method:"softbanana.app.image.upload",
@@ -548,9 +553,9 @@ creatshowmodule.factory('changepagesize', function(){
 						mpImg.render(img, { maxWidth: 640, maxHeight: 1008,quality:1 ,orientation: imginfo },function(){
 							reader.onload=null;
 							callback(img);
+							
 						});
-
-
+                    
 					};
 
 				});

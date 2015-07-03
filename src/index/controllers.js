@@ -92,10 +92,34 @@ function($scope,$rootScope,myCookie){
 }])
 
 //整个app的导航的controller
-.controller('navbarCtrl', ['$scope', '$ionicHistory', function($scope,$ionicHistory){
+.controller('navbarCtrl', ['$scope','$rootScope','$ionicHistory','$location','$cacheFactory', function($scope,$rootScope,$ionicHistory,$location,$cacheFactory){
 	$scope.myGoBack = function() {
 		console.log("00000");
-		history.go(-1);
+		
+		if($cacheFactory.get('cacheback'))
+   {
+   	var cacheback=$cacheFactory.get('cacheback');
+    var cachecount=cacheback.get('count')+1;
+    var c="-"+cachecount;
+      history.go(c);
+     cacheback.removeAll();
+     cacheback.put('url',"1");
+     cacheback.put('count',0);
+     
+   }
+   else{
+  history.go("-1")
+   	
+   }
+	
+//		if($location.absUrl().indexOf("editer")>0&&$rootScope.prevurl){
+//			window.location=$rootScope.prevurl;
+//		}
+//		else{
+//			
+//		}
+		
+        
 		// $ionicHistory.goBack(-1);
 
 	};
@@ -107,6 +131,7 @@ function($scope,$rootScope,myCookie){
 		$ionicSideMenuDelegate.toggleLeft();
 	};
 	$scope.toggleLeft();
+	
 }])
 
 
