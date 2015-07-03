@@ -60,10 +60,13 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 				});
 				break;
 			case 5:
+			
 			    var a=b="";
 			    p_s_text(temp,".ps_text1")?a="psanimateFadeInDown":a="psanimateno";
 			    p_s_text(temp,".ps_text2")?b="psanimateFadeInDown_1":b="psanimateno";
+			  
 				p_s_anination(page, ".ps_img1", "psanimateFadeInDown_f", function() {
+					  console.log(6666666)
 					p_s_anination(page, ".ps_img2", "psanimateFadeInLeft_f",function(){
 						p_s_anination(page, ".ps_img3", "psanimateFadeInRight_f",function(){
 							p_s_anination(page, ".ps_text1", a);
@@ -242,14 +245,16 @@ SBMPS.factory('p_s_temp', ['p_s_anination','p_s_text',function(p_s_anination,p_s
 	var p_s_anination = function(page, classname, animate, callback) {
 
 		page.children(classname).addClass(animate);
+		
         if(animate=="psanimateno"){
 			if (typeof callback === "function") {
 				callback();
 			}
 		}
         else{
-		page.children(classname).on("webkitAnimationEnd", function() {
 
+		page.children(classname).on("webkitAnimationEnd", function() {
+            
 			$(this).off("webkitAnimationEnd");
 			$(this).addClass(animate + "end");
 			if (typeof callback === "function") {
