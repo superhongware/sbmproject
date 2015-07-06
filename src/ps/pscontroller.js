@@ -151,8 +151,8 @@ console.log(wx);
 		isloadover(data.template.pages);
 			$scope.showdata = data.template;
 			for(var i=0;i<$scope.showdata.pages.length;i++){
-				var img=$scope.showdata.pages[i].templateDetailImage.split(",")||$scope.showdata.pages[i].templateDetailImage;
-				var text=$scope.showdata.pages[i].templateDetailText.split(">>")||$scope.showdata.pages[i].templateDetailText;
+				var img=$scope.showdata.pages[i].detailPageImage.split(",")||$scope.showdata.pages[i].detailPageImage;
+				var text=$scope.showdata.pages[i].detailPageText.split(">>")||$scope.showdata.pages[i].detailPageText;
                 $scope.showdata.pages[i].detailPageImage=img
                 $scope.showdata.pages[i].detailPageText=text
 			}
@@ -362,8 +362,8 @@ console.log(wx);
 			
 			for (var i = 0; i < pages.length; i++) {
 				var simg='';
-				if(pages[i].templateDetailImage.indexOf(",")>0){
-                   simg=pages[i].templateDetailImage.split(",");
+				if(pages[i].detailPageImage.indexOf(",")>0){
+                   simg=pages[i].detailPageImage.split(",");
                    for (var j = 0; j < simg.length; j++) {
 					if(simg[j]!==""){
 						imgdata.push(simg[j]);
@@ -371,7 +371,7 @@ console.log(wx);
 				}
 				}
 				else{
-                  imgdata.push(pages[i].templateDetailImage);
+                  imgdata.push(pages[i].detailPageImage);
 				}
 				
 			}
