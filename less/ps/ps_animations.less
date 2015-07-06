@@ -154,6 +154,13 @@
 	0% {opacity: 0;-webkit-transform: translate3d(0, -100%, 0);transform: translate3d(0, -100%, 0);}
 	100% {opacity: 1;-webkit-transform: none;transform: none;}
 }
+.psanimateFadeInUp_fstart {opacity: 0;-webkit-transform: translate3d(0, 100%, 0);transform: translate3d(0, 100%, 0);}
+.psanimateFadeInUp_f {-webkit-animation: psanimateFadeInUp 0.5s ease-out 0s;}
+.psanimateFadeInUp_fend {-webkit-transform: none;transform: none;opacity: 1;}
+@-webkit-keyframes psanimateFadeInUp {
+    0% {opacity: 0;-webkit-transform: translate3d(0, 100%, 0);transform: translate3d(0, 100%, 0);}
+    100% {opacity: 1;-webkit-transform: none;transform: none;}
+}
 // 上 下长距离
 .psanimateFadeInDown_1start {opacity: 0;-webkit-transform: translate3d(0, -100%, 0);transform: translate3d(0, -100%, 0);}
 .psanimateFadeInDown_1 {-webkit-animation: psanimateFadeInDown_1 1s ease-out 0s;}

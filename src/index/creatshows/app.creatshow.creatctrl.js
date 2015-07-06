@@ -5,7 +5,7 @@
  */
 var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.services', 'starter.directives']);
 
-creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','$stateParams','$ionicLoading','$state','getTemplate','creatShow', function($rootScope,$scope,$http,$stateParams,$ionicLoading,$state,getTemplate,creatShow){
+creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','$stateParams','$ionicLoading','$state','getTemplate','creatShow','myloadover', function($rootScope,$scope,$http,$stateParams,$ionicLoading,$state,getTemplate,creatShow,myloadover){
 
 	//假设取到的模板信息
 
@@ -20,6 +20,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','
 	$scope.productPlat=$stateParams.productPlat;
 
 	$http.get('testdata/views.json').success(function(data){
+		myloadover(data);
 		$scope.viewsarr=data
 	})
 	
