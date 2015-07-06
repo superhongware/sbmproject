@@ -305,7 +305,7 @@ creatshowmodule.factory('changepagesize', function(){
  * @param  {[fun]} errorCallBack [失败返回]
  * @return {[obj]}               [description]
  */
-.factory('creatShow', ['$rootScope','$http','SBMJSONP','productComm','saveShow','setProductImg',function($rootScope,$http,SBMJSONP,productComm,saveShow,setProductImg){
+.factory('creatShow', ['$rootScope','$http','SBMJSONP','productComm','saveShow','setProductImg','HERJSONP',function($rootScope,$http,SBMJSONP,productComm,saveShow,setProductImg,HERJSONP){
 	return function creatShow(creatshowdata,callback,errorcallback){
 		//第一步，取宝贝信息
 		productComm.loadProductDetail({
@@ -318,9 +318,36 @@ creatshowmodule.factory('changepagesize', function(){
 			console.log(["创建宝贝秀-获取宝贝信息",productdata]);
 
 			//第二步 取模板数据
-			$http.get("testdata/template"+creatshowdata.templateId+".json")
-				.success(function(tempdata) {
-					console.log(["获取模板数据",tempdata]);
+			var templatesdetail = {
+			orgName: 'work',
+			method:"softbanana.app.template.detail",
+			templateId:parseInt(creatshowdata.templateId)
+		    };
+		    var api = HERJSONP('detailTemplate',templatesdetail);
+
+
+	        $http.jsonp(api.url)
+	        .success(function(tempdata){
+	        	
+	        	tempdata=tempdata.template;
+                console.log(tempdata)
+			for(var i=0;i<tempdata.pages.length;i++){
+				var img=tempdata.pages[i].detailPageImage.split(",");
+				var returnimg=[];
+				for (var m in img) {
+					returnimg.push({img:img[i]});
+				}
+				var text=tempdata.pages[i].detailPageText.split(">>");
+				var returntxt=[];
+				for (var t in text) {
+					returntxt.push({txt:text[t]});
+				}
+
+                tempdata.pages[i].detailPageImage=returnimg
+                tempdata.pages[i].detailPageText=returntxt;
+
+			}
+		            console.log(["获取模板数据",tempdata]);
 
 					var imgurls=productdata.picUrl.split(",");
 					console.log(imgurls)
@@ -333,12 +360,16 @@ creatshowmodule.factory('changepagesize', function(){
 					tempdata.detailUrl = productdata.detailUrl;
 					tempdata.plat = creatshowdata.productPlat;
 					tempdata.detailId="";
-
+					console.log(['创建宝贝系数据',tempdata])
+					// return;
 					//自动导入宝贝图片
 					tempdata=setProductImg(imgurls,tempdata);
-console.log(tempdata.detailImage)
+
+
 					//第三步 保存宝贝秀
 					saveShow(tempdata,function(data){
+					console.log(['ccccccccccccccccccccccccc',data])
+
 						data.firstPageTemp=tempdata.pages[0].templatePageId;
 						callback(data);
 
@@ -410,14 +441,14 @@ console.log(tempdata.detailImage)
 				detailId:saveshowdata.detailId,
 				method:"softbanana.app.detail.saveOrUpdate"
 			};
-
+            console.log(saveshowdata)
 			// 此处使用POST
 			// var api=SBMJSONP("saveOrUpdateDetail",showdata);
 			// api.url+=("&detailData="+encodeURIComponent(JSON.stringify(saveshowdata)));
 			// $http.jsonp(api.url)
 			var api=SBMPOST("saveOrUpdateDetail",showdata);
 			api.data+=("&detailData="+encodeURIComponent(JSON.stringify(saveshowdata)));
-			
+			console.log(saveshowdata)
 			$http.post(api.url,api.data)
 
 			.success(function(data){
