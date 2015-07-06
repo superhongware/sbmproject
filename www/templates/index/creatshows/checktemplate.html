@@ -5,12 +5,12 @@
 			
 			<div 
 			class="template" 
-			ui-sref="viewtemplate({templateId:x.id,productId:productId,productPlat:productPlat})" ng-repeat="x in viewsarr">
+			ui-sref="viewtemplate({templateId:x.templateId,productId:productId,productPlat:productPlat})" ng-repeat="x in viewsarr">
 				<span class="image">
-					<img ng-src="{{x.im}}" alt="" width="100%">
+					<img ng-src="{{x.url}}" alt="" width="100%">
 				</span>
 				<span class="text">
-					{{x.text}}
+					{{x.templateTitle}}
 				</span>
 			</div>
 			

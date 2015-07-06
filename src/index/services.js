@@ -218,7 +218,18 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		return {url:lasturl,data:lastdata};
 	};
 }])
-
+//Herman接口
+.factory('HERJSONP', ['jsonpURL','systemdata',function(jsonpURL,systemdata){
+	return function HERJSONP(url,data){
+		var lastdata=systemdata(data);
+		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		// if(location.host.match("192.168.51")){
+		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		// }
+		return {url:jsonpURL(lasturl,lastdata)};
+	};
+}])
 /** 
 	接口方法
 	拼接jsonp的url
@@ -229,6 +240,7 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		for (var i in obj) {
 			url+=i+"="+obj[i]+"&";
 		}
+		
 		return url+"callBack=JSON_CALLBACK";
 	};
 })
@@ -254,6 +266,7 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 */
 .factory('systemdata', ['hex_md5','base64', function(hex_md5,base64){
 	return function(obj){
+		
 		if(typeof obj.method === "undefined"){
 			throw "SBMJSONP或SBMPOST的data参数里没有method,赶紧查下接口文档";
 		}
@@ -269,7 +282,9 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		};
 		var tempStr = base64.encode(urldata.nick)+ base64.encode(obj.method) + base64.encode(urldata.timestamp) + base64.encode(urldata.name) + base64.encode(urldata.format);
 		urldata.sign=hex_md5(tempStr);
+		console.log($.extend(urldata,obj))
 		return $.extend(urldata,obj);
+		
 	};
 
 }])

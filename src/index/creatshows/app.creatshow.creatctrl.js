@@ -5,7 +5,7 @@
  */
 var creatshowmodule = angular.module('creatshowmodule', ['ionic', 'starter.services', 'starter.directives']);
 
-creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','$stateParams','$ionicLoading','$state','getTemplate','creatShow','myloadover', function($rootScope,$scope,$http,$stateParams,$ionicLoading,$state,getTemplate,creatShow,myloadover){
+creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','$stateParams','$ionicLoading','$state','getTemplate','creatShow','myloadover','HERJSONP', function($rootScope,$scope,$http,$stateParams,$ionicLoading,$state,getTemplate,creatShow,myloadover,HERJSONP){
 
 	//假设取到的模板信息
 
@@ -18,10 +18,17 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','
 	
 	$scope.productId=$stateParams.productId;
 	$scope.productPlat=$stateParams.productPlat;
-
-	$http.get('testdata/views.json').success(function(data){
-		myloadover(data);
-		$scope.viewsarr=data
+    var templateslist = {
+			orgName: 'work',
+			pageSize:"50",
+			method:"softbanana.app.template.list"
+		};
+		var api = HERJSONP('listTemplate',templateslist);
+	console.log(api.url)
+	$http.jsonp(api.url).success(function(data){
+		console.log(data)
+		myloadover(data.templates);
+		$scope.viewsarr=data.templates
 	})
 	
 
