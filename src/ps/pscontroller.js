@@ -27,8 +27,8 @@ SBMPS
 // }])
 
 .controller('spCtrl', [
-'$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm','openLink',
-function($scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLink) {
+'$rootScope','$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm','openLink','HERJSONP',
+function($rootScope,$scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLink,HERJSONP) {
 
 console.log(wx);
 
@@ -140,17 +140,36 @@ console.log(wx);
 	console.log(["asdasdasd",getRequest("templateview")]);
 
 	if(getRequest("templateview")){
-         
-		$http.get("testdata/template"+getRequest("templateview")+".json")
-		.success(function(data){
-			// 图片加字统计
-			isloadover(data.pages);
-			$scope.showdata = data;
+    var templatesdetail = {
+			orgName: 'work',
+			method:"softbanana.app.template.detail",
+			templateId:parseInt(getRequest("templateview"))
+		};
+		var api = HERJSONP('detailTemplate',templatesdetail);
+	$http.jsonp(api.url).success(function(data){
+		console.log(data);
+		isloadover(data.template.pages);
+			$scope.showdata = data.template;
+			for(var i=0;i<$scope.showdata.pages.length;i++){
+				var img=$scope.showdata.pages[i].templateDetailImage.split(",")||$scope.showdata.pages[i].templateDetailImage;
+				var text=$scope.showdata.pages[i].templateDetailText.split(">>")||$scope.showdata.pages[i].templateDetailText;
+                $scope.showdata.pages[i].detailPageImage=img
+                $scope.showdata.pages[i].detailPageText=text
+			}
+			console.log($scope.showdata.pages)
 			$scope.$broadcast("showdataready");
-		})
-		.error(function(msg){
-			console.log(msg);
-		});
+		
+	})
+//		$http.get("testdata/template"+getRequest("templateview")+".json")
+//		.success(function(data){
+//			// 图片加字统计
+//			isloadover(data.pages);
+//			$scope.showdata = data;
+//			$scope.$broadcast("showdataready");
+//		})
+//		.error(function(msg){
+//			console.log(msg);
+//		});
 
 	}else{
 		//获取宝贝秀数据
@@ -340,14 +359,23 @@ console.log(wx);
 	function isloadover(pages){
 			var imgdata=[];
 			var loadnum=0;
+			
 			for (var i = 0; i < pages.length; i++) {
-				for (var j = 0; j < pages[i].detailPageImage.length; j++) {
-					if(pages[i].detailPageImage[j].img!==""){
-						imgdata.push(pages[i].detailPageImage[j].img);
+				var simg='';
+				if(pages[i].templateDetailImage.indexOf(",")>0){
+                   simg=pages[i].templateDetailImage.split(",");
+                   for (var j = 0; j < simg.length; j++) {
+					if(simg[j]!==""){
+						imgdata.push(simg[j]);
 					}
 				}
+				}
+				else{
+                  imgdata.push(pages[i].templateDetailImage);
+				}
+				
 			}
-
+            console.log(imgdata)
 			for (i = 0;i<imgdata.length; i++) {
 				var newimg=new Image();
 

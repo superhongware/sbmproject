@@ -327,7 +327,7 @@ creatshowmodule.factory('changepagesize', function(){
 					//填充模板数据
 					tempdata.detailTitle = productdata.title;
 					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
-					tempdata.detailImage = "http://baobeixiu.softbanana.com/img/shareimg.jpg";
+					tempdata.detailImage = tempdata.pages[0].detailPageImage[0].img;
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
 					tempdata.detailUrl = productdata.detailUrl;
@@ -336,7 +336,7 @@ creatshowmodule.factory('changepagesize', function(){
 
 					//自动导入宝贝图片
 					tempdata=setProductImg(imgurls,tempdata);
-console.log(tempdata)
+console.log(tempdata.detailImage)
 					//第三步 保存宝贝秀
 					saveShow(tempdata,function(data){
 						data.firstPageTemp=tempdata.pages[0].templatePageId;
@@ -507,7 +507,7 @@ console.log(tempdata)
 	};
 }])
 
-.factory('checklocalimg', function(){
+.factory('checklocalimg', ['$ionicLoading',function($ionicLoading){
 	return function checklocalimg(callback){
 			//选择本地图片
 			var fileinput;
@@ -524,6 +524,9 @@ console.log(tempdata)
 			fileinput.addEventListener('change', handleFileSelect, false);
 			fileinput.click();
 			function handleFileSelect (evt) {
+				$ionicLoading.show({
+			template:"请稍等...",
+		});
 				fileinput.removeEventListener('change', handleFileSelect, false);
 				var file = evt.target.files[0];
 				if (!file.type.match('image.*')){
@@ -555,6 +558,7 @@ console.log(tempdata)
 							reader.onload=null;
 							callback(img);
 							console.log("22");
+							$ionicLoading.hide();
 							//调用保存图片功能  pagetempht1Ctrl中有方法
 				          
 						});
@@ -569,7 +573,7 @@ console.log(tempdata)
 			}
 
 	};
-})
+}])
 
 .factory('checklocalimg3', function(){
 	return function checklocalimg3(callback){
@@ -653,7 +657,69 @@ console.log(tempdata)
 		});
 	};
 }])
+.factory('myloadover', ['$rootScope',function($rootScope){
+	return function myloadover(pages){
+//		    var loadhtml='<div class="loadingbox"><span class="laodpecent"><span class="nowpencent"></span></span><div class="loadingoutbox1"><div class="loadingoutbox2"><div class="laoding"><span class="iconfont icon-logo"></span><span class="softbananafont">SOFTBANANA</span></div></div></div><span class="text1">软香蕉正在玩命加载中…</span></div>'
+//			$(".loadingbox").length<=0&&$(loadhtml).appendTo("body");
+          
+			var imgdata=[];
+			var loadnum=0;
+			for (var i = 0; i < pages.length; i++) {
+			
+					if(pages[i].url!==""){
+						imgdata.push(pages[i].url);
+				
+				}
+			}
+            
+			for (i = 0;i<imgdata.length; i++) {
+				var newimg=new Image();
 
+				newimg.src=imgdata[i];
+
+				newimg.onload=function(){
+					loadnum++;
+					$(".laodpecent>.nowpencent").css({
+						"-webkit-transform":"translate3d(0,-"+loadnum/imgdata.length*100+"%,0)",
+						"-webkit-transition":"1s ease-in 0s"
+					});
+				};
+			}
+
+			$(".laodpecent>.nowpencent")[0].addEventListener("webkitTransitionEnd",loadover);
+			
+			//
+
+
+			function loadover(){
+				console.log("loadover");
+
+				if(loadnum/imgdata.length==1){
+
+					$(".loadingbox").css({
+						"opacity":"0",
+						"-webkit-transition":"0.5s ease-in"
+					});
+					setTimeout(hideloadingbox,100);
+
+				}
+			}
+
+			function hideloadingbox(){
+					$(".loadingbox")[0].addEventListener("webkitTransitionEnd",loadingboxhided);
+					function loadingboxhided(){
+						console.log("loadingboxhided");
+					
+						$(".loadingbox").hide();
+					}
+			
+
+	}
+
+
+		
+	};
+}])
 ;
 
 
