@@ -71,6 +71,9 @@ function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SB
 		$scope.popover.hide();
     };
 
+
+
+
     $scope.uppic = function(picurl){
     	$rootScope.picurl = picurl;
 

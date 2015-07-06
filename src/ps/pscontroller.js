@@ -27,8 +27,8 @@ SBMPS
 // }])
 
 .controller('spCtrl', [
-'$rootScope','$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm','openLink','HERJSONP',
-function($rootScope,$scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLink,HERJSONP) {
+'$rootScope','$scope', '$http', 'getRequest', 'getRequest2','SBMJSONP', 'p_s', 'productComm','openLink',
+function($rootScope,$scope, $http, getRequest, getRequest2,SBMJSONP, p_s,productComm,openLink) {
 
 console.log(wx);
 
@@ -145,7 +145,7 @@ console.log(wx);
 			method:"softbanana.app.template.detail",
 			templateId:parseInt(getRequest("templateview"))
 		};
-		var api = HERJSONP('detailTemplate',templatesdetail);
+		var api = SBMJSONP('detailTemplate',templatesdetail);
 	$http.jsonp(api.url).success(function(data){
 		console.log(data);
 		isloadover(data.template.pages);

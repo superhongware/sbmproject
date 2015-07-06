@@ -305,7 +305,8 @@ creatshowmodule.factory('changepagesize', function(){
  * @param  {[fun]} errorCallBack [失败返回]
  * @return {[obj]}               [description]
  */
-.factory('creatShow', ['$rootScope','$http','SBMJSONP','productComm','saveShow','setProductImg','HERJSONP',function($rootScope,$http,SBMJSONP,productComm,saveShow,setProductImg,HERJSONP){
+.factory('creatShow', ['$rootScope','$http','SBMJSONP','productComm','saveShow','setProductImg',
+	function($rootScope,$http,SBMJSONP,productComm,saveShow,setProductImg){
 	return function creatShow(creatshowdata,callback,errorcallback){
 		//第一步，取宝贝信息
 		productComm.loadProductDetail({
@@ -323,7 +324,7 @@ creatshowmodule.factory('changepagesize', function(){
 			method:"softbanana.app.template.detail",
 			templateId:parseInt(creatshowdata.templateId)
 		    };
-		    var api = HERJSONP('detailTemplate',templatesdetail);
+		    var api = SBMJSONP('detailTemplate',templatesdetail);
 
 
 	        $http.jsonp(api.url)
