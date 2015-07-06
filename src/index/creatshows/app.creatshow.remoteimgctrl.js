@@ -82,11 +82,12 @@ function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SB
 		saveShow($rootScope.editShowData.mainData,function(data){
 			$rootScope.editShowData.mainData=undefined;
 			// $ionicLoading.hide();
-			$state.go("editpages.editer",{
-				showId:$rootScope.pic_showId,
-				pageId:$rootScope.pic_pageId,
-				pageTemp:$rootScope.pic_pageTemp
-					});
+			history.go(-1);
+			// $state.go("editpages.editer",{
+			// 	showId:$rootScope.pic_showId,
+			// 	pageId:$rootScope.pic_pageId,
+			// 	pageTemp:$rootScope.pic_pageTemp
+			// 		});
 		},function(){
 
 		});

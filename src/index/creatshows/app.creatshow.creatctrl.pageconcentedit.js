@@ -20,6 +20,13 @@ creatshowmodule
 	//初始化页面
 	var tempImgngRepeatFinished=$scope.$on("tempImgngRepeatFinished",function(){
 
+	   	//选图片空间需要的参数
+		$rootScope.REMOTEIMGINFO={
+			shopName:$rootScope.editShowData.mainData.shopName,
+			plat:$rootScope.editShowData.mainData.plat
+		};
+
+
 		//图片空间选择图片
 		if($rootScope.picurl!==undefined){
 			var i = parseInt($rootScope.Index)+1;

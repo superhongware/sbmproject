@@ -1,13 +1,13 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei){
+['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','$ionicActionSheet','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei',
+function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionSheet,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei){
 
 	loginCheck();
 
 	$scope.shareurl="";
-
+	//检测页面是否有宝贝秀数据，有的话直接setshowdata  没有的话先加载宝贝秀数据再setshowdata
 	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
 			setshowdata($rootScope.editShowData.mainData);
@@ -29,7 +29,10 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 			$http.jsonp(api.url)
 				.success(function(data){
 					console.log(data);
-
+					//直接进入分享也 要把宝贝秀数据给$rootScope.editShowData.mainData  否则无法取图片空间图片
+					$rootScope.editShowData={
+						mainData:data
+					};
 					setshowdata(data);
 
 				})
@@ -39,9 +42,17 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 		}
 
 
-
+	//是否淘小铺版
 	$scope.istaobao=$rootScope.istaobao;
 	console.log($rootScope.istaobao);
+
+	//图片空间选择图片
+	if($rootScope.picurl!==undefined){
+		console.log($rootScope.picurl)
+		editimgctrl($rootScope.picurl);
+		$rootScope.picurl=undefined;
+	}
+
 
 	function setshowdata(data){
 		$scope.shareData = data;
@@ -57,15 +68,47 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 		$scope.shareurl+="&plat="+$scope.shareData.plat;
 	}
 
-	$scope.checkshareimg=function(){
-		checklocalimg(function(img){
-			console.log(img);
-			$(".editimg").show();
-			$(".editcheckimg").attr("src",img.src);
-			editimgctrl();
+	// $scope.checkshareimg=function(){
+	// 	checklocalimg(function(img){
+	// 		console.log(img);
+	// 		$(".editimg").show();
+	// 		$(".editcheckimg").attr("src",img.src);
+	// 		editimgctrl();
 
+	// 	});
+	// };
+
+
+
+	$scope.checkshareimg=function(index){
+
+		$ionicActionSheet.show({
+			buttons: [{
+				text: '本机图片'
+			}, {
+				text: '店铺图片空间'
+			}],
+			// destructiveText: 'Delete',
+			titleText: '选择图片源',
+			cancelText: '取消',
+			cancel: function() {
+				// add cancel code..
+			},
+			buttonClicked: function(indexl) {
+				if(indexl===0){		
+					checklocalimg(function(img){
+						editimgctrl(img.src);
+					});
+				}else{
+					//选择图片空间图片
+					$state.go("remoteimg");
+
+				}
+				return true;
+			}
 		});
 	};
+
 
 	$scope.sharethis=function(way){
 		var jsondata={
@@ -80,7 +123,9 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,sendShowImg,S
 	};
 
 
-	function editimgctrl(){
+	function editimgctrl(imgsrc){
+		$(".editimg").show();
+		$(".editcheckimg").attr("src",imgsrc);
 		if(!$scope.shareimgdata){
 			$scope.shareimgdata={};
 			// thisimgdata.dragstart=
