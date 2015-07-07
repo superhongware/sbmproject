@@ -351,11 +351,11 @@ creatshowmodule.factory('changepagesize', function(){
 		            console.log(["获取模板数据",tempdata]);
 
 					var imgurls=productdata.picUrl.split(",");
-					console.log(imgurls)
+					console.log(imgurls[0])
 					//填充模板数据
 					tempdata.detailTitle = productdata.title;
 					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
-					tempdata.detailImage = tempdata.pages[0].detailPageImage[0].img;
+					tempdata.detailImage = imgurls[0];
 					tempdata.shopName = productdata.shopName;
 					tempdata.numIid = productdata.numIid;
 					tempdata.detailUrl = productdata.detailUrl;
@@ -691,9 +691,7 @@ creatshowmodule.factory('changepagesize', function(){
 }])
 .factory('myloadover', ['$rootScope',function($rootScope){
 	return function myloadover(pages){
-//		    var loadhtml='<div class="loadingbox"><span class="laodpecent"><span class="nowpencent"></span></span><div class="loadingoutbox1"><div class="loadingoutbox2"><div class="laoding"><span class="iconfont icon-logo"></span><span class="softbananafont">SOFTBANANA</span></div></div></div><span class="text1">软香蕉正在玩命加载中…</span></div>'
-//			$(".loadingbox").length<=0&&$(loadhtml).appendTo("body");
-          
+
 			var imgdata=[];
 			var loadnum=0;
 			for (var i = 0; i < pages.length; i++) {

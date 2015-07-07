@@ -179,7 +179,6 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
 		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
 		// var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
-		
 		// if(location.host.match("192.168.51")){
 		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		// }
@@ -221,18 +220,7 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 		return {url:lasturl,data:lastdata};
 	};
 }])
-// //Herman接口
-// .factory('HERJSONP', ['jsonpURL','systemdata',function(jsonpURL,systemdata){
-// 	return function HERJSONP(url,data){
-// 		var lastdata=systemdata(data);
-// 		var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-// 		// var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
-// 		// if(location.host.match("192.168.51")){
-// 		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
-// 		// }
-// 		return {url:jsonpURL(lasturl,lastdata)};
-// 	};
-// }])
+
 /** 
 	接口方法
 	拼接jsonp的url
