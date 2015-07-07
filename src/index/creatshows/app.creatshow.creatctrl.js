@@ -29,7 +29,8 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','
 	$http.jsonp(api.url).success(function(data){
 		console.log(['listTemplate',data])
 		myloadover(data.templates);
-		$scope.viewsarr=data.templates
+		$scope.viewsarr=data.templates;
+		console.log($scope.viewsarr)
 	})
 	
 
