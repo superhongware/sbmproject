@@ -177,8 +177,8 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 	return function SBMJSONP(url,data){
 		var lastdata=systemdata(data);
 		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		// var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
-		var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
+		// var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		
 		// if(location.host.match("192.168.51")){
 		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
@@ -213,8 +213,8 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 			//服务器端不接收json格式的数据，必须拼接成类似a=1&b=2&c=3格式
 			lastdata=postURL(lastdata);
 		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		// var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
-		var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
+		// var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		// if(location.host.match("192.168.51")){
 		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		// }

@@ -5,8 +5,8 @@
  */
 var settingmodule = angular.module('settingmodule', ['ionic', 'starter.services', 'starter.directives']);
 settingmodule.controller('settingCtrl', [
-'$scope', '$ionicPopup', 'myCookie', 'loginCheck','TBAPI',
-function($scope, $ionicPopup, myCookie, loginCheck,TBAPI) {
+'$scope', '$ionicPopup','$state', 'myCookie', 'loginCheck','TBAPI',
+function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 	//隐藏淘宝标题栏
 	TBAPI.hideTitle();
@@ -22,7 +22,8 @@ function($scope, $ionicPopup, myCookie, loginCheck,TBAPI) {
 				type: 'button-energized',
 				onTap: function(e) {
 					myCookie.delete("orgName");
-					loginCheck();
+					$state.go("login");
+					// loginCheck();
 				}
 			}]
 		});

@@ -4,13 +4,14 @@
  * 登录注册功能
  */
 var loginmodule = angular.module('loginmodule', ['ionic', 'starter.services', 'starter.directives']);
-loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myCookie', 'base64', '$state', function($scope, $rootScope, loginSubmit, myCookie, base64, $state) {
+loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmit', 'myCookie', 'base64', '$state','SBMJSONP',
+ function($scope, $rootScope,$http, loginSubmit, myCookie, base64, $state,SBMJSONP) {
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.logindata = {
-		orgName: "banana",
-		userName: "sunnycao",
-		password: "admin",
+		orgName: "",
+		userName: "",
+		password: "",
 	};
 	
 	// $scope.logindata = {
@@ -18,6 +19,18 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myC
 	// 	userName: "",
 	// 	password: "",
 	// };
+
+			var searchshopdata={
+				orgName:$rootScope.orgName,
+				status:0,
+				pageSize:50,
+				method:'softbanana.app.shop.search'
+			}
+			var api=SBMJSONP('searchShop',searchshopdata)
+			$http.jsonp(api.url).success(function(data){
+				console.log(['商店详情',data])
+			})
+
 
 	$scope.loginSubmit = function(data){
 		if($scope.logindata.orgName===""){
@@ -32,6 +45,7 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myC
 			$(".error-tip").eq(2).children(".rect").text("密码不允许为空");
 			$(".error-tip").eq(2).show();
 		}
+
 		loginSubmit(data,function(msg){
 			myCookie.add("orgName",base64.encode(data.orgName),720);
 			myCookie.add("userName",base64.encode(data.userName),720);
@@ -41,6 +55,11 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myC
 			// console.log(["$rootScope.orgCode",$rootScope.orgCode]);
 			// console.log(["myCookie.get orgName",base64.decode(myCookie.get('orgName'))]);
 			// console.log(["myCookie.get userName",base64.decode(myCookie.get('userName'))]);
+
+
+
+
+
 			$state.go("home");
 			console.log(["success",msg]);
 
@@ -74,7 +93,8 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myC
 		userName: "",
 		password: "",
 		phone: "",
-		email: ""
+		email: "",
+		channel:"app"
 	};
 	$scope.sign_up = function() {
 		if(($scope.yourdata.password!=="")&&($scope.yourdata.password!==$scope.yourdata.password1)){
@@ -104,7 +124,7 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', 'loginSubmit', 'myC
 						}]
 					});
 				}else{
-					console.log(data.map.errorMsg);
+					console.log(data);
 					if(data.map.errorMsg === "商家名称不允许为空"){
 						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(0).show();

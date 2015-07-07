@@ -1,7 +1,7 @@
 creatshowmodule
 .controller('remoteimgCtrl',[
-'$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http','saveShow',
-function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http,saveShow){
+'$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http','saveShow','SBMPOST',
+function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http,saveShow,SBMPOST){
 	$scope.remoteimgcat=[];
 	$scope.remoteimg={};
 	$scope.goback=function(){
@@ -10,67 +10,79 @@ function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SB
 	$scope.refreshimg=function(){
 
 	};
-	getremoteimgcat(function(data){
-		console.log(["图片分类",data]);
-		$scope.remoteimgcat=data.pictureCategorys;
-		// $scope.$apply();
-	});
+	// getremoteimgcat(function(data){
+	// 	console.log(["图片分类",data]);
+	// 	$scope.remoteimgcat=data.pictureCategorys;
+	// 	// $scope.$apply();
+	// });
 
   
 
 
 
+getreomteimg();
 
-//获取分类的图片
-    $scope.loadPicsByStatusFilter=function(categoryid){
+	//获取分类的图片
+    function getreomteimg(){
     	var categorydata={
 				orgName:$rootScope.orgName,
-				shopName:$rootScope.editShowData.mainData.shopName,
-				plat:$rootScope.editShowData.mainData.plat,
-				pictureCategoryId:categoryid,
+				wayId:$rootScope.editShowData.mainData.plat,
+				// plat:$rootScope.editShowData.mainData.plat,
+				// shopName:$rootScope.editShowData.mainData.shopName,
+				numIid:$rootScope.editShowData.mainData.numIid,
 				method:"softbanana.app.picture.category.search"
 			};
-
+		// var api=SBMPOST("searchPictureCategory",categorydata);
 		var api=SBMJSONP("searchPictureCategory",categorydata);
-		$http.jsonp(api.url)
-		.success(function(data){
+
+		// $http.post(api.url,api.data).success(function(data){
+		$http.jsonp(api.url).success(function(data){
 			console.log(["获取空间图片成功",data]);
-			$scope.pics=data.pictureCategorys[0].pictures;
+
+			var img=data.images.pictureUrl.split(',');
+			var returnimg=[];
+
+			for(var m in img){
+				if(img[m]!==''){
+					returnimg.push({URL:img[m]});
+				}
+			}
+			$scope.pics=returnimg;
+
 			if(data.isSuccess){
-				for (var i = 0; i <data.pictureCategorys[0].pictures.length; i++) {
+				for (var i = 0; i <$scope.pics.length; i++) {
 					if(categorydata.plat === "TAOBAO"){
-						$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"_100x100.jpg";
+						$scope.pics[i].URL2 = $scope.pics[i].URL+"_100x100.jpg";
 					}
 					else if(categorydata.plat === "TMALL"){
-						$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"_100x100.jpg";
+						$scope.pics[i].URL2 = $scope.pics[i].URL+"_100x100.jpg";
 					}
 					else if(categorydata.plat === "JINGD"){
 						var arr=[];
-						arr = data.pictureCategorys[0].pictures[i].URL.split('/');
+						arr = $scope.pics[i].URL.split('/');
 						arr[3]='n4';
 						arr = arr.join('/');
 						$scope.pics[i].URL2 = arr;
 					}
 					// else if(categorydata.plat === "PAIPAI"){
-					// 	$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+".100x100.jpg";
+					// 	$scope.pics[i].URL2 = $scope.pics[i].URL+".100x100.jpg";
 					// }
 					// else if(categorydata.plat === "KDT"){
-					// 	$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"!100x100.jpg";
+					// 	$scope.pics[i].URL2 = $scope.pics[i].URL+"!100x100.jpg";
 					// }
 					else{
-						$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL;
+						$scope.pics[i].URL2 = $scope.pics[i].URL;
 					}
 					
 				}
 			}
-			console.log($scope.pics);
+			// console.log($scope.pics);
 		})
 		.error(function(data){
 			console.log(["获取空间图片失败",data]);
 		});
-		$scope.popover.hide();
+		// $scope.popover.hide();
     };
-
 
 
 
@@ -115,6 +127,57 @@ function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SB
     $scope.openPopover = function($event) {
    		 $scope.popover.show($event);
  	};
+
+//获取分类的图片
+  //   $scope.loadPicsByStatusFilter=function(categoryid){
+  //   	var categorydata={
+		// 		orgName:$rootScope.orgName,
+		// 		shopName:$rootScope.editShowData.mainData.shopName,
+		// 		plat:$rootScope.editShowData.mainData.plat,
+		// 		pictureCategoryId:categoryid,
+		// 		method:"softbanana.app.picture.category.search"
+		// 	};
+
+		// var api=SBMJSONP("searchPictureCategory",categorydata);
+		// $http.jsonp(api.url)
+		// .success(function(data){
+		// 	console.log(["获取空间图片成功",data]);
+		// 	$scope.pics=data.pictureCategorys[0].pictures;
+		// 	if(data.isSuccess){
+		// 		for (var i = 0; i <data.pictureCategorys[0].pictures.length; i++) {
+		// 			if(categorydata.plat === "TAOBAO"){
+		// 				$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"_100x100.jpg";
+		// 			}
+		// 			else if(categorydata.plat === "TMALL"){
+		// 				$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"_100x100.jpg";
+		// 			}
+		// 			else if(categorydata.plat === "JINGD"){
+		// 				var arr=[];
+		// 				arr = data.pictureCategorys[0].pictures[i].URL.split('/');
+		// 				arr[3]='n4';
+		// 				arr = arr.join('/');
+		// 				$scope.pics[i].URL2 = arr;
+		// 			}
+		// 			// else if(categorydata.plat === "PAIPAI"){
+		// 			// 	$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+".100x100.jpg";
+		// 			// }
+		// 			// else if(categorydata.plat === "KDT"){
+		// 			// 	$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL+"!100x100.jpg";
+		// 			// }
+		// 			else{
+		// 				$scope.pics[i].URL2 = data.pictureCategorys[0].pictures[i].URL;
+		// 			}
+					
+		// 		}
+		// 	}
+		// 	console.log($scope.pics);
+		// })
+		// .error(function(data){
+		// 	console.log(["获取空间图片失败",data]);
+		// });
+		// $scope.popover.hide();
+  //   };
+
 
 }])
 ;

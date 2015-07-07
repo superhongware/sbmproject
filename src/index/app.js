@@ -44,6 +44,11 @@ angular.module('starter',
 		templateUrl: "templates/index/login/sign_up.html",
 		controller:'sign_upCtrl'
 	})
+	//淘小铺授权
+	.state('taoxiaopu', {
+		url: "/taoxiaopu",
+		templateUrl: "templates/index/login/taoxiaopu.html",
+	})
 	.state('home', {
 		url: "/home",
 		templateUrl: "templates/index/home.html",
