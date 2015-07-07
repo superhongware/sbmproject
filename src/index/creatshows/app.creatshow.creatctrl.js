@@ -95,6 +95,7 @@ function($scope,$rootScope,$stateParams,$state,$ionicLoading,creatShow,creatpsur
 
 	console.log(['lllll',creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0")]);
 	var showurl=creatpsurl2($rootScope.orgName,$stateParams.showId,"0","0");
+	showurl+='&showview=true'
 	$(".viewtemplate").append('<iframe class="viewbox" src='+showurl+' frameborder="0"></iframe>');
 
 	// $(".viewtemplate").append('<iframe class="viewbox" src="'+location.origin+

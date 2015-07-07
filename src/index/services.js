@@ -53,7 +53,7 @@
 		psurl+="&plat="+plat;
 		// psurl="http://192.168.1.181:3000/ps.html?"+base64url(psurl);
 		//A: 为什么用location.origin？
-		//B: 因为手淘版 非jaeapp会出 域名提示，点确定后页面会直接跳转，SO直接使用jaeapp地址就没问题了
+		//B: 因为手淘版 非jaeapp会出 域名提示，点确定后页面会直接跳转，所以直接使用jaeapp地址就没问题了
 		psurl=location.origin+"/ps.html?"+base64url(psurl);
 		return psurl;
 	};
@@ -177,8 +177,8 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 	return function SBMJSONP(url,data){
 		var lastdata=systemdata(data);
 		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
-		// var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		// var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		
 		// if(location.host.match("192.168.51")){
 		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
@@ -213,8 +213,8 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 			//服务器端不接收json格式的数据，必须拼接成类似a=1&b=2&c=3格式
 			lastdata=postURL(lastdata);
 		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
-		// var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		// var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		// if(location.host.match("192.168.51")){
 		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		// }

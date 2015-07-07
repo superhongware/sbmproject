@@ -139,39 +139,52 @@ console.log(wx);
 
 	console.log(["asdasdasd",getRequest("templateview")]);
 
-	if(getRequest("templateview")){
-    var templatesdetail = {
+	//模板预览
+	if (getRequest("templateview")) {
+		var templatesdetail = {
 			orgName: 'work',
-			method:"softbanana.app.template.detail",
-			templateId:parseInt(getRequest("templateview"))
+			method: "softbanana.app.template.detail",
+			templateId: parseInt(getRequest("templateview"))
 		};
-		var api = SBMJSONP('detailTemplate',templatesdetail);
-	$http.jsonp(api.url).success(function(data){
-		console.log(data);
-		isloadover(data.template.pages);
-			$scope.showdata = data.template;
-			for(var i=0;i<$scope.showdata.pages.length;i++){
-				var img=$scope.showdata.pages[i].detailPageImage.split(",")||$scope.showdata.pages[i].detailPageImage;
-				var text=$scope.showdata.pages[i].detailPageText.split(">>")||$scope.showdata.pages[i].detailPageText;
-                $scope.showdata.pages[i].detailPageImage=img
-                $scope.showdata.pages[i].detailPageText=text
-			}
-			console.log($scope.showdata.pages)
-			$scope.$broadcast("showdataready");
-		
-	})
-//		$http.get("testdata/template"+getRequest("templateview")+".json")
-//		.success(function(data){
-//			// 图片加字统计
-//			isloadover(data.pages);
-//			$scope.showdata = data;
-//			$scope.$broadcast("showdataready");
-//		})
-//		.error(function(msg){
-//			console.log(msg);
-//		});
+		var api = SBMJSONP('detailTemplate', templatesdetail);
+		$http.jsonp(api.url).success(function(data) {
+				console.log(['模板数据',data]);
+				$scope.showdata = data.template;
 
-	}else{
+				//处理模板数据
+				for (var i = 0; i < $scope.showdata.pages.length; i++) {
+					var img = $scope.showdata.pages[i].detailPageImage.split(",") || $scope.showdata.pages[i].detailPageImage;
+					var returnimg=[];
+					var text = $scope.showdata.pages[i].detailPageText.split(">>") || $scope.showdata.pages[i].detailPageText;
+					var returntext=[];
+					for(m in img){
+						returnimg.push({img:img[m]})
+					}
+					for(t in text){
+						returntext.push({txt:text[t]})
+					}
+					$scope.showdata.pages[i].detailPageImage = returnimg
+					$scope.showdata.pages[i].detailPageText = returntext
+				}
+
+				isloadover(data.template.pages);
+
+				console.log(['模板页面',$scope.showdata.pages])
+				$scope.$broadcast("showdataready");
+
+			})
+			//		$http.get("testdata/template"+getRequest("templateview")+".json")
+			//		.success(function(data){
+			//			// 图片加字统计
+			//			isloadover(data.pages);
+			//			$scope.showdata = data;
+			//			$scope.$broadcast("showdataready");
+			//		})
+			//		.error(function(msg){
+			//			console.log(msg);
+			//		});
+
+	} else {
 		//获取宝贝秀数据
 		var getdata = {
 			orgName: getRequest2("orgname"),
@@ -181,13 +194,13 @@ console.log(wx);
 		var api = SBMJSONP("searchDetail", getdata);
 		$http.jsonp(api.url)
 			.success(function(data) {
-	
+
 
 				// $scope.loadover = true;
 
 				console.log(data);
 				//宝贝秀删除后不执行后面代码
-				if(!data.isSuccess){
+				if (!data.isSuccess) {
 					thereisnoshow();
 					return;
 				}
@@ -207,7 +220,7 @@ console.log(wx);
 				// p_s.CreatDomtree(data);
 				$scope.$broadcast("showdataready");
 			})
-			.error(function(){
+			.error(function() {
 				thereisnoshow();
 			});
 	}
@@ -307,6 +320,7 @@ console.log(wx);
 	}
 
 	function autoopentaobao(data){
+		// alert(navigator.userAgent)
 		// 自动打开淘宝跳转跳转
 		var userAgentInfo = navigator.userAgent;  
 		var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
@@ -320,7 +334,8 @@ console.log(wx);
 		} 
 		console.log(["flag",flag]);
 
-		if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag&&getRequest("templateview")!=="2"){
+		//若不在微信中 且是淘宝链接  且不是show预览（showview=true）  直接跳转淘宝
+		if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag && getRequest("showview")!=="true"){
 			
 			//统计到店数
 			statistics($scope.showdata,"shop");
@@ -360,21 +375,31 @@ console.log(wx);
 			var imgdata=[];
 			var loadnum=0;
 			
+			// for (var i = 0; i < pages.length; i++) {
+			// 	var simg='';
+			// 	if(pages[i].detailPageImage.indexOf(",")>0){
+   //                 simg=pages[i].detailPageImage.split(",");
+   //                 for (var j = 0; j < simg.length; j++) {
+			// 		if(simg[j]!==""){
+			// 			imgdata.push(simg[j]);
+			// 		}
+			// 	}
+			// 	}
+			// 	else{
+   //                imgdata.push(pages[i].detailPageImage);
+			// 	}
+				
+			// }
+
 			for (var i = 0; i < pages.length; i++) {
-				var simg='';
-				if(pages[i].detailPageImage.indexOf(",")>0){
-                   simg=pages[i].detailPageImage.split(",");
-                   for (var j = 0; j < simg.length; j++) {
-					if(simg[j]!==""){
-						imgdata.push(simg[j]);
+				for (var j = 0; j < pages[i].detailPageImage.length; j++) {
+					if(pages[i].detailPageImage[j].img!==""){
+						imgdata.push(pages[i].detailPageImage[j].img);
 					}
 				}
-				}
-				else{
-                  imgdata.push(pages[i].detailPageImage);
-				}
-				
 			}
+
+
             console.log(imgdata)
 			for (i = 0;i<imgdata.length; i++) {
 				var newimg=new Image();

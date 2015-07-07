@@ -43,12 +43,12 @@ var _hmt = _hmt || [];
 			<span 
 			class="ps_img ps_img{{$index+1}}"
 			ng-repeat="img in page.detailPageImage track by $index"
-			imgsrc="{{img}}"
-			style="background-image:url({{img}})"></span>
+			imgsrc="{{img.img}}"
+			style="background-image:url({{img.img}})"></span>
 
 			<span 
 			class="ps_text ps_text{{$index+1}}" 
-			ng-repeat="text in page.detailPageText track by $index">{{text}}</span>
+			ng-repeat="text in page.detailPageText track by $index">{{text.txt}}</span>
 
 			<span class='tapuptip'></span>
 		</div>
