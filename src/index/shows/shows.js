@@ -63,6 +63,7 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 				}
 
 				$scope.showsListData = $scope.showsListData.concat(data.details);
+
 				pageData.isHaveMoreData = true;
 				if (data.details.length === 0 && pageData.direction === 'up') {
 					pageData.isHaveMoreData = false;
@@ -244,10 +245,13 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 		    		$scope.tabsBtn[m] = $scope.showsInfoData.lldetail[m];
 		    		maxarray.push($scope.tabsBtn[m]);
 		    	}
+
 		    	max = Math.max.apply(null, maxarray);
+		    	console.log(max)
 		    	for(var i in maxarray){
-		    		$(".zhu").eq(i).css("height",(maxarray[i]/max*160+36));
-		    		$(".tiao").eq(i).css("height",maxarray[i]/max*160);
+		    		var pct=max==0?0:maxarray[i]/max*160;
+		    		$(".zhu").eq(i).css("height",(pct+36));
+		    		$(".tiao").eq(i).css("height",pct);
 		    	}	
 
 		    }
@@ -284,9 +288,12 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 		    	}
 
 		    	max = Math.max.apply(null, maxarray);
+
 		    	for(var i in maxarray){
-		    		$(".zhu").eq(i).css("height",(maxarray[i]/max*160+36));
-		    		$(".tiao").eq(i).css("height",maxarray[i]/max*160);
+		    		var pct=max==0?0:maxarray[i]/max*160;
+		    		$(".zhu").eq(i).css("height",(pct+36));
+		    		$(".tiao").eq(i).css("height",pct);
+
 		    	}
 		    	
 		    };
