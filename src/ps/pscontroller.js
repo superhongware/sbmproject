@@ -142,11 +142,14 @@ console.log(wx);
 	//模板预览
 	if (getRequest("templateview")) {
 		var templatesdetail = {
-			orgName: 'work',
+			orgName:  getRequest("orgname"),
 			method: "softbanana.app.template.detail",
 			templateId: parseInt(getRequest("templateview"))
 		};
 		var api = SBMJSONP('detailTemplate', templatesdetail);
+
+		console.log(['asas,,,,',api.url])
+		
 		$http.jsonp(api.url).success(function(data) {
 				console.log(['模板数据',data]);
 				$scope.showdata = data.template;

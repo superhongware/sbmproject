@@ -320,7 +320,7 @@ creatshowmodule.factory('changepagesize', function(){
 
 			//第二步 取模板数据
 			var templatesdetail = {
-			orgName: 'work',
+			orgName: $rootScope.orgName,
 			method:"softbanana.app.template.detail",
 			templateId:parseInt(creatshowdata.templateId)
 		    };

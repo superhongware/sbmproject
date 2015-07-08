@@ -81,6 +81,8 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64,TBAPI){
 }])
 
 
+
+
 .controller('appadoneCtrl', [
 '$scope','$rootScope','myCookie',
 function($scope,$rootScope,myCookie){

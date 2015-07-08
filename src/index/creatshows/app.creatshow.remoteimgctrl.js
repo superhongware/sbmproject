@@ -47,35 +47,36 @@ getreomteimg();
 					returnimg.push({URL:img[m]});
 				}
 			}
-			$scope.pics=returnimg;
+
 
 			if(data.isSuccess){
-				for (var i = 0; i <$scope.pics.length; i++) {
-					if(categorydata.plat === "TAOBAO"){
-						$scope.pics[i].URL2 = $scope.pics[i].URL+"_100x100.jpg";
+				for (var i = 0; i <returnimg.length; i++) {
+					if(categorydata.wayId === "TAOBAO"){
+						returnimg[i].URL2 = returnimg[i].URL+"_100x100.jpg";
 					}
-					else if(categorydata.plat === "TMALL"){
-						$scope.pics[i].URL2 = $scope.pics[i].URL+"_100x100.jpg";
+					else if(categorydata.wayId === "TMALL"){
+						returnimg[i].URL2 = returnimg[i].URL+"_100x100.jpg";
 					}
-					else if(categorydata.plat === "JINGD"){
+					else if(categorydata.wayId === "JINGD"){
 						var arr=[];
-						arr = $scope.pics[i].URL.split('/');
+						arr = returnimg[i].URL.split('/');
 						arr[3]='n4';
 						arr = arr.join('/');
-						$scope.pics[i].URL2 = arr;
+						returnimg[i].URL2 = arr;
 					}
-					// else if(categorydata.plat === "PAIPAI"){
-					// 	$scope.pics[i].URL2 = $scope.pics[i].URL+".100x100.jpg";
+					// else if(categorydata.wayId === "PAIPAI"){
+					// 	returnimg[i].URL2 = returnimg[i].URL+".100x100.jpg";
 					// }
-					// else if(categorydata.plat === "KDT"){
-					// 	$scope.pics[i].URL2 = $scope.pics[i].URL+"!100x100.jpg";
+					// else if(categorydata.wayId === "KDT"){
+					// 	returnimg[i].URL2 = returnimg[i].URL+"!100x100.jpg";
 					// }
 					else{
-						$scope.pics[i].URL2 = $scope.pics[i].URL;
+						returnimg[i].URL2 = returnimg[i].URL;
 					}
 					
 				}
 			}
+			$scope.pics=returnimg;
 			// console.log($scope.pics);
 		})
 		.error(function(data){

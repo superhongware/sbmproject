@@ -41,7 +41,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope','$scope','$http','
 	
   
 	$(".viewtemplate").append('<iframe class="viewbox" height='+($(window).height()-44)+' src='+location.origin+
-		'/ps.html?templateview='+$stateParams.templateId+' frameborder="0"></iframe>');
+		'/ps.html?templateview='+$stateParams.templateId+'&orgname='+$rootScope.orgName+' frameborder="0"></iframe>');
 			url: "/checktemplate/:productId/:productPlat",
 
 	
