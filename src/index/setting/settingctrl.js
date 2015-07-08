@@ -180,17 +180,56 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 .controller('shopsCtrl', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup', function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup){
 		console.log(["orgcode",$rootScope.orgCode]);
-		$scope.youzan = "http://open.koudaitong.com/oauth/authorize?client_id=2c436c071a453a55&response_type=code&state=softbanana&redirect_uri=http://api.softbanana.com/openApi/kdtback/"+$rootScope.orgCode+"/kdt";
+		$scope.youzan = "https://open.koudaitong.com/oauth/authorize?client_id=2c436c071a453a55&response_type=code&state=softbanana&redirect_uri=http://api.softbanana.com/openApi/kdtback/"+$rootScope.orgCode+"/kdt";
 		$scope.weidian = "https://api.vdian.com/oauth2/authorize?appkey=617938&redirect_uri="+encodeURI("http://api.softbanana.com/openApi/wdback/"+$rootScope.orgCode+"/kdgw")+"&response_type=code&state=STATE";
 		// $scope.taobao = "http://fuwu.taobao.com/ser/detail.htm?spm=a1z13.1113643.1113643.15.0AwLbu&service_code=FW_GOODS-1933759&tracelog=search&scm=&ppath=&labels=&qq-pf-to=pcqq.c2c";
 		$scope.taobao = "http://fuwu.taobao.com/ser/detail.html?spm=a1z13.1113643.0.0.Wp7gXJ&service_code=FW_GOODS-1000049183&tracelog=search";
 		
 		$scope.jingdong = "http://fw.jd.com/94404.html";
 		$scope.paipai = "http://fw.paipai.com/193744.html";
+		//一号店
+		$scope.yihaodian="http://fuwu.yhd.com/application/gotoAppDetail.do?appId=3753";
+		//当当
+		$scope.dangdang="http://fuwu.dangdang.com/appdetail?app_id=2100003535";
+		//亚马逊
+		$scope.yamaxun="";
 }])
+
+.controller('viewshopCtrl', ['$scope','$state','$stateParams',function($scope,$state,$stateParams){
+	//店铺授权
+	$(".viewtemplate").append('<iframe class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
+	$scope.viewbtnneam="首页";
+	$scope.viewneam="店铺授权";
+	$scope.viewbtn=function(){
+		$state.go('home');
+	};
+
+}])
+
 
 .controller('showCtrl', ['$scope','$state', '$ionicPopup', 'myCookie', 'loginCheck',function($scope, $state, $ionicPopup, myCookie, loginCheck) {
 
 	alert(1234);
 
 }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

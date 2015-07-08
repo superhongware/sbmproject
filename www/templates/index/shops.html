@@ -1,7 +1,7 @@
 <ion-view view-title="店铺授权" class="shops">
   <ion-content>
     <ion-list>
-      <a href="{{youzan}}" class="ng-hide" ng-show="!istaobao">
+      <div  ui-sref="viewshop({url:youzan})" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/youzan.jpg">
             有赞商城（口袋通）
@@ -9,8 +9,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="{{weidian}}" class="ng-hide" ng-show="!istaobao">
+      </div>
+      <div  ui-sref="viewshop({url:weidian})" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/weidian.jpg">
             微店（口袋购物）
@@ -18,8 +18,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="{{taobao}}">
+      </div>
+      <div ui-sref="viewshop({url:taobao})" href="{{taobao}}">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/taobao.jpg">
             淘宝网
@@ -27,8 +27,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="{{taobao}}" class="ng-hide" ng-show="!istaobao">
+      </div>
+      <div ui-sref="viewshop({url:taobao})" href="{{taobao}}" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/tianmao.jpg">
             天猫商城
@@ -36,8 +36,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="#" class="ng-hide" ng-show="!istaobao">
+      </div>
+<!--       <div ui-sref="viewshop({url:yamaxun})" href="#" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/amazon.jpg">
             亚马逊商城
@@ -45,8 +45,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="{{paipai}}" class="ng-hide" ng-show="!istaobao">
+      </div> -->
+      <div ui-sref="viewshop({url:paipai})" href="{{paipai}}" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/paipai.jpg">
             拍拍商城
@@ -54,8 +54,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="#" class="ng-hide" ng-show="!istaobao">
+      </div>
+      <div ui-sref="viewshop({url:dangdang})" href="#" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/dangdang.jpg">
             当当商城
@@ -63,8 +63,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="{{jingdong}}" class="ng-hide" ng-show="!istaobao">
+      </div>
+      <div ui-sref="viewshop({url:jingdong})" href="{{jingdong}}" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/jingdong.jpg">
             京东商城
@@ -72,8 +72,8 @@
             立即授权
           </button>
         </div>
-      </a>
-      <a href="#" class="ng-hide" ng-show="!istaobao">
+      </div>
+      <div ui-sref="viewshop({url:yihaodian})" href="#" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/yihaodian.jpg">
             一号店
@@ -81,7 +81,7 @@
             立即授权
           </button>
         </div>
-      </a>
+      </div>
      <!--  <ion-item class="item-remove-animate item-avatar item-icon-right"  type="item-text-wrap" >
         <img ng-src="{{chat.face}}">
         <h2>{{chat.name}}</h2>
