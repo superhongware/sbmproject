@@ -58,11 +58,12 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 			// console.log(["myCookie.get orgName",base64.decode(myCookie.get('orgName'))]);
 			// console.log(["myCookie.get userName",base64.decode(myCookie.get('userName'))]);
 
-
-
-
-
-			$state.go("home");
+			//在preview.html中有gomainpage方法 为了让用户在登录页跳到主页
+			if(typeof window.parent.gomainpage!=="undefined"){
+				window.parent.gomainpage();
+			}else{
+				$state.go("home");
+			}
 			console.log(["success",msg]);
 
 		},function(msg){
@@ -89,7 +90,8 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 }])
 
 //注册页
-.controller('sign_upCtrl', ['$scope', '$state', '$ionicPopup', "$http", "SBMJSONP", function($scope, $state, $ionicPopup, $http, SBMJSONP) {
+.controller('sign_upCtrl', ['$scope', '$state', '$ionicPopup', "$http", "SBMJSONP", 'loginSubmit',
+function($scope, $state, $ionicPopup, $http, SBMJSONP,loginSubmit) {
 	$scope.yourdata = {
 		orgName: "",
 		userName: "",
@@ -106,19 +108,23 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 	
 		if(!reg0.test($scope.yourdata.phone)&&($scope.yourdata.phone!=="")){
 			$(".error-tip").eq(4).show();
+			return;
 		}
 		var  reg= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
 		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!=="")){
 			$(".error-tip").eq(5).show();
+			return;
 		}
 		var restring= /^[\u4e00-\u9fa5a-z0-9_.@]+$/gi;//只能输入汉字和英文字母
 		if(!reg.test($scope.yourdata.orgName)){
 			$(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
 			$(".error-tip").eq(0).show();
+			return;
 		}
 		if(!reg.test($scope.yourdata.userName)){
 			$(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
 			$(".error-tip").eq(1).show();
+			return;
 		}
 		$scope.yourdata.method = "softbanana.app.user.regist";
 		var api = SBMJSONP("registUser", $scope.yourdata);
@@ -134,6 +140,12 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 							type: "button-energized",
 						}]
 					});
+
+
+					$state.go('login');
+					
+
+
 				}else{
 					console.log(data);
 					if(data.map.errorMsg === "商家名称不允许为空"){
