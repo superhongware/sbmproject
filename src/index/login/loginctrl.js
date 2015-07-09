@@ -49,7 +49,9 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 		loginSubmit(data,function(msg){
 			myCookie.add("orgName",base64.encode(data.orgName),720);
 			myCookie.add("userName",base64.encode(data.userName),720);
+
 			$rootScope.orgName=data.orgName;
+			$rootScope.userName=data.userName;
 			$rootScope.orgCode=msg.user.orgCode;
 			// console.log(["$rootScope.orgName",$rootScope.orgName]);
 			// console.log(["$rootScope.orgCode",$rootScope.orgCode]);
@@ -108,6 +110,15 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 		var  reg= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
 		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!=="")){
 			$(".error-tip").eq(5).show();
+		}
+		var restring= /^[\u4e00-\u9fa5a-z0-9_.@]+$/gi;//只能输入汉字和英文字母
+		if(!reg.test($scope.yourdata.orgName)){
+			$(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
+			$(".error-tip").eq(0).show();
+		}
+		if(!reg.test($scope.yourdata.userName)){
+			$(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
+			$(".error-tip").eq(1).show();
 		}
 		$scope.yourdata.method = "softbanana.app.user.regist";
 		var api = SBMJSONP("registUser", $scope.yourdata);

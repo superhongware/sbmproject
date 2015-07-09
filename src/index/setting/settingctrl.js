@@ -32,6 +32,7 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 }])
 //设置密码
 .controller('setPassword', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', function($rootScope, $scope, $state, $http, SBMJSONP){
+	console.log($rootScope.orgName+","+$rootScope.userName)
 	$scope.setdata = {
 		orgName:$rootScope.orgName,
 		userName:$rootScope.userName,
