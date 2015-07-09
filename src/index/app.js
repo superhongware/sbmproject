@@ -59,7 +59,12 @@ angular.module('starter',
 		templateUrl: "templates/index/shops.html",
 		controller:'shopsCtrl'
 	})
-	
+	//授权页面
+	.state('viewshop', {
+		url: "/viewshop/:url",
+		templateUrl: "templates/index/creatshows/viewtemplate.html",
+		controller:'viewshopCtrl'
+	})
 
 
 	//我的宝贝
@@ -156,6 +161,7 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/viewtemplate.html",
 		controller:'viewtemplateCtrl'
 	})
+
 
 
 	//编辑页
