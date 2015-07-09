@@ -459,7 +459,7 @@ console.log(wx);
 }])
 
 
-.controller('spCtrlpre', ['$scope', '$http', 'getRequest', 'SBMJSONP', 'p_s',  function($scope, $http, getRequest, SBMJSONP, p_s) {
+.controller('spCtrlpre', ['p_s',  function(p_s) {
 
 		setTimeout(function(){
 			p_s.init_animation();

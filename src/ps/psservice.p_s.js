@@ -198,12 +198,17 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 						});
 					},
 					animateclearing: function() {
-						if (_.endY - _.startY > 40 && _.currpage > 0) {
+						//禁止下翻
+						var nodown=$(".ps_page").eq(_.currpage).attr('nodown');
+						// 禁止上翻
+						var notop=$(".ps_page").eq(_.currpage).attr('notop');
+
+						if (_.endY - _.startY > 40 && _.currpage > 0 && !nodown) {
 							_.pageIndexRefresh(-1);
 							// _.currpage--;
 
 							action = "pagechange";
-						} else if (_.endY - _.startY < -40 && _.currpage < _.pagesize) {
+						} else if (_.endY - _.startY < -40 && _.currpage < _.pagesize  && !notop) {
 							_.pageIndexRefresh(+1);
 							// _.currpage++;
 							action = "pagechange";
@@ -296,21 +301,32 @@ SBMPS.factory('p_s',['p_s_temp', function(p_s_temp) {
 					$(".centerround").removeClass("current");
 				}
 
-					//第一页 禁止向上翻
-				if(curr !== 0){
+				//禁止下翻
+				var nodown=$(".ps_page").eq(curr).attr('nodown');
+				// 禁止上翻
+				var notop=$(".ps_page").eq(curr).attr('notop');
+
+				//非第一页 且 不禁上翻  可翻上一页(禁止第一页翻上一页)
+				if(curr !== 0 && !notop){
 					animatemode(prev, d - unit, 0, 1);
 				}
 
 				animatemode(curr, 0, 0, 0);
 
-				//最后一页 禁止向下翻 
-				if(curr !== _.pagesize){
-					animatemode(next, d + unit, 0, 1);
-				}else{
-					if(d<0){
-						this.currpage = -1; 
-					}
+				//非最后一页 不可翻下一页(禁止最后一页翻下一页)
+				// if(curr !== _.pagesize){
+				// 	animatemode(next, d + unit, 0, 1);
+				// }
+
+				//当前是最后一页时，下一页设置为第一页
+				if(curr == _.pagesize && d<0 && !nodown){
+					this.currpage = -1; 
 				}
+				//不禁下翻  可翻下一页
+				if(!nodown){
+					animatemode(next, d + unit, 0, 1);
+				}
+
 
 				break;
 			case "pageinit":

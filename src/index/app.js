@@ -17,8 +17,8 @@ angular.module('starter',
 	$rootScope.viewanimate="gogogo";
 
 	//用户第一次打开跳到preview页面  预览宝贝秀功能
-	if(!myCookie.get("preview")){
-		myCookie.add("preview","preview",2160);
+	if(myCookie.get("preview")!=="preview1"){
+		myCookie.add("preview","preview1",2160);
 		location.href=location.origin+"/preview.html";
 		return;
 	};

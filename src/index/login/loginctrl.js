@@ -58,12 +58,9 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 			// console.log(["myCookie.get orgName",base64.decode(myCookie.get('orgName'))]);
 			// console.log(["myCookie.get userName",base64.decode(myCookie.get('userName'))]);
 
-			//在preview.html中有gomainpage方法 为了让用户在登录页跳到主页
-			if(typeof window.parent.gomainpage!=="undefined"){
-				window.parent.gomainpage();
-			}else{
-				$state.go("home");
-			}
+
+			$state.go("home");
+			
 			console.log(["success",msg]);
 
 		},function(msg){
