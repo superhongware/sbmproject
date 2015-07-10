@@ -13,8 +13,16 @@ angular.module('starter',
 	'starter.controllers',
 	'starter.services',
 	'starter.directives'])
-.run(['$ionicPlatform','$rootScope','loginCheck', function($ionicPlatform,$rootScope,loginCheck){
+.run(['$ionicPlatform','$rootScope','myCookie', function($ionicPlatform,$rootScope,myCookie){
 	$rootScope.viewanimate="gogogo";
+
+	//用户第一次打开跳到preview页面  预览宝贝秀功能
+	if(myCookie.get("preview")!=="preview1"){
+		myCookie.add("preview","preview1",2160);
+		location.href=location.origin+"/preview.html";
+		return;
+	};
+
   	$ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
