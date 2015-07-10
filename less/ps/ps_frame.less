@@ -377,10 +377,10 @@ body{
 		top:28%;
 	}
 	.loadingoutbox1{
-			.square(40vw);
+			.square(10em);
 			.juzhong();
 			top:@loadingboxtop;
-			border:2vw solid rgba(255, 255, 255, 0.1);
+			border:.7em solid rgba(255, 255, 255, 0.1);
 			// background-origin: content-box;
 			border-radius: 100%;
 			// overflow: hidden;
@@ -388,17 +388,18 @@ body{
 			-webkit-box-sizing:initial;
 	}
 	.loadingoutbox2{
-			.square((40-8)vw);
+			.square(10em);
 			.juzhong();
-			border:4vw solid rgba(255, 255, 255, 0.2);
+			border:1em solid rgba(255, 255, 255, 0.2);
 			border-radius: 100%;
+			box-sizing: border-box
 			// overflow: hidden;
 			// background-clip: padding-box;
 			// background-origin: content-box;
 			// border: 3vw solid rgba(255, 255, 255, 0.1);
 	}
 	.laoding{
-		.square(40-8vw);
+		.square(8em);
 		.juzhong();
 		border-radius: 100%;
 		overflow: hidden;
@@ -417,8 +418,8 @@ body{
 			.square(100%);
 			font-weight: bold;
 			color: @loadingmainbgcolor;
-			font-size:18vw;
-			line-height: 18vw;
+			font-size:4em;
+			line-height:1em;
 			top:30%;
 			box-sizing: border-box;
 			text-align: center;
@@ -427,7 +428,7 @@ body{
 }
 .laodpecent{
 	.juzhong();
-	.square(40-8vw);
+	.square(8em);
 	border-radius: 100%;
 	top:@loadingboxtop;
 	background-color: @loadingbgcolor;
