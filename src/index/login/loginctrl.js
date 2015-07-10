@@ -59,8 +59,10 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 			// console.log(["myCookie.get userName",base64.decode(myCookie.get('userName'))]);
 
 
+
+
+
 			$state.go("home");
-			
 			console.log(["success",msg]);
 
 		},function(msg){
@@ -87,8 +89,7 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 }])
 
 //注册页
-.controller('sign_upCtrl', ['$scope', '$state', '$ionicPopup', "$http", "SBMJSONP", 'loginSubmit',
-function($scope, $state, $ionicPopup, $http, SBMJSONP,loginSubmit) {
+.controller('sign_upCtrl', ['$scope', '$state', '$ionicPopup', "$http", "SBMJSONP", function($scope, $state, $ionicPopup, $http, SBMJSONP) {
 	$scope.yourdata = {
 		orgName: "",
 		userName: "",
@@ -105,23 +106,23 @@ function($scope, $state, $ionicPopup, $http, SBMJSONP,loginSubmit) {
 	
 		if(!reg0.test($scope.yourdata.phone)&&($scope.yourdata.phone!=="")){
 			$(".error-tip").eq(4).show();
-			return;
 		}
 		var  reg= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
 		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!=="")){
 			$(".error-tip").eq(5).show();
-			return;
 		}
 		var restring= /^[\u4e00-\u9fa5a-z0-9_.@]+$/gi;//只能输入汉字和英文字母
-		if(!reg.test($scope.yourdata.orgName)){
+		
+		if(!restring.test($scope.yourdata.orgName)){
+			alert(1)
 			$(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
 			$(".error-tip").eq(0).show();
-			return;
 		}
-		if(!reg.test($scope.yourdata.userName)){
+	var restring2= /^[\u4e00-\u9fa5a-z0-9_.@]+$/gi;//只能输入汉字和英文字母
+		if(!restring2.test($scope.yourdata.userName)){
+
 			$(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
 			$(".error-tip").eq(1).show();
-			return;
 		}
 		$scope.yourdata.method = "softbanana.app.user.regist";
 		var api = SBMJSONP("registUser", $scope.yourdata);
@@ -137,12 +138,6 @@ function($scope, $state, $ionicPopup, $http, SBMJSONP,loginSubmit) {
 							type: "button-energized",
 						}]
 					});
-
-
-					$state.go('login');
-					
-
-
 				}else{
 					console.log(data);
 					if(data.map.errorMsg === "商家名称不允许为空"){
