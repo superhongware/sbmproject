@@ -111,11 +111,20 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 
 
 	$scope.sharethis=function(way){
+
+		//统计
+		var form="&from=";
+		if(way==='weixin'){
+			form+="groupmessage";
+		}else{
+			form+=way;
+		};
+
 		var jsondata={
 			titlle:$scope.shareData.detailTitle,
 			image:$scope.shareData.detailImage,
 			describe:$scope.shareData.detailDesc,
-			url:$scope.shareurl,
+			url:$scope.shareurl+form,
 			way:way
 		};
 

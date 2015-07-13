@@ -229,7 +229,7 @@ console.log(wx);
 	}
 
 
-	function statistics(data,datatype,sharetype){
+	function statistics(data,datatype,callback){
 
 		if(!data||!data.detailId){
 			return;
@@ -241,7 +241,7 @@ console.log(wx);
 			detailId: data.detailId,
 			shopName:data.shopName,
 			plat:data.plat,
-			shareType:sharetype?sharetype:getshareType(),
+			shareType:getshareType(),
 			numIid:data.numIid
 		};
 
@@ -264,6 +264,10 @@ console.log(wx);
 				$http.jsonp(api.url)
 				.success(function(data){
 					console.log(["到店返回数据",data]);
+					// alert(0)
+					if(callback){
+						callback();
+					}
 				})
 				.error(function(msg){
 					console.log(["到店返回数据",msg]);
@@ -312,10 +316,16 @@ console.log(wx);
 
 	function getshareType(){
 
-		if(getRequest("from")==="groupmessage"){
+		if(getRequest("from")==="groupmessage"||getRequest("from")==="singlemessage"){
 			return "WF";
 		}else if(getRequest("from")==="timeline"){
 			return "WC";
+		}else if(getRequest("from")==="weibo"){
+			return "WB";
+		}else if(getRequest("from")==="qq"){
+			return "QC";
+		}else if(getRequest("from")==="kongjian"){
+			return "QC";
 		}else{
 			return "QZ";
 		}
