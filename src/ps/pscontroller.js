@@ -32,7 +32,6 @@ function($rootScope,$scope, $http, getRequest, getRequest2,SBMJSONP, p_s,product
 
 console.log(wx);
 
-
 //========================微信分享=====================================
 	$http.jsonp("http://hongwei.comeoncloud.net/serv/wxapi.ashx?action=getjsapiconfig&callback=JSON_CALLBACK&url="+encodeURIComponent(location.href))
 	.success(function(wxapidata){
@@ -344,11 +343,19 @@ console.log(wx);
 				flag = true;
 				break; 
 			}
-		} 
+		}
+
+
+
 		console.log(["flag",flag]);
 
 		//若不在微信中 且是淘宝链接  且不是show预览（showview=true）  直接跳转淘宝
-		if(!userAgentInfo.match("MicroMessenger") && url.match("taobao.com") && flag && getRequest("showview")!=="true"){
+		if(!userAgentInfo.match("MicroMessenger")&&
+			url.match("taobao.com")&&
+			flag&&
+			getRequest("showview")!=="true"&&
+			!userAgentInfo.match("QQ")
+			){
 			
 			//统计到店数
 			statistics($scope.showdata,"shop");
@@ -661,7 +668,7 @@ function($http, threePointData, getRequest2, SBMJSONP,debase64url,openLink) {
 //打开购买链接  微信不做跳转 只给提示  浏览器中打开手机淘宝
 .factory('openLink',function(){
 	return function openLink(url){
-		if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")) {
+		if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")&&navigator.userAgent.match("QQ")) {
 			$(".screenforbiden").show();
 		} else if(url!==""){
 			if(url.match("taobao.com")){

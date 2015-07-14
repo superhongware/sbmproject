@@ -126,8 +126,9 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 			};
 
 			$scope.goon = function(shopplat,shopname){
+					$state.go("shouquanhelp")
 
-					$state.go("viewshop",{url:shouquan[shopplat]})
+					// $state.go("viewshop",{url:shouquan[shopplat]})
 
 			};
 			$scope.delshop = function(shopplat,shopname){
@@ -183,7 +184,6 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 }])
 
 .controller('shopsCtrl', ['$rootScope', '$scope', '$state','shouquan', function($rootScope, $scope, $state,shouquan){
-		console.log(["orgcode",$rootScope.orgCode]);
 		//有赞
 		$scope.youzan = shouquan.KDT;
 		//微店
@@ -204,7 +204,7 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 .controller('viewshopCtrl', ['$scope','$state','$stateParams',function($scope,$state,$stateParams){
 	//店铺授权
-	$(".viewtemplate").append('<iframe class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
+	$(".viewtemplate").append('<iframe style="overflow-x:auto;overflow-y:auto;" class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
 	$scope.viewbtnneam="首页";
 	$scope.viewneam="店铺授权";
 	$scope.viewbtn=function(){
@@ -218,7 +218,15 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 	alert(1234);
 
-}]);
+}])
+.controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state',function($scope, $rootScope,$state) {
+	$scope.gotaoxiaopu=function(){
+		var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
+		$state.go('viewshop',{url:url});
+	}
+
+}])
+;
 
 
 

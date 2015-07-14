@@ -1,7 +1,10 @@
 <ion-view view-title="店铺授权" class="shops">
+  <ion-nav-buttons side="right">
+    <button class="button" sref="home">首页</button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <div  ui-sref="viewshop({url:youzan})" class="ng-hide" ng-show="!istaobao">
+      <div  ui-sref="shouquanhelp" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/youzan.jpg">
             有赞商城（口袋通）
@@ -10,7 +13,7 @@
           </button>
         </div>
       </div>
-      <div  ui-sref="viewshop({url:weidian})" class="ng-hide" ng-show="!istaobao">
+      <div  ui-sref="shouquanhelp" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/weidian.jpg">
             微店（口袋购物）
@@ -19,7 +22,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="viewshop({url:taobao})" >
+      <div ui-sref="shouquanhelp" >
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/taobao.jpg">
             淘宝网
@@ -28,7 +31,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="viewshop({url:taobao})"  class="ng-hide" ng-show="!istaobao">
+      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/tianmao.jpg">
             天猫商城
@@ -37,7 +40,7 @@
           </button>
         </div>
       </div>
-<!--       <div ui-sref="viewshop({url:yamaxun})"  class="ng-hide" ng-show="!istaobao">
+<!--       <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/amazon.jpg">
             亚马逊商城
@@ -46,7 +49,7 @@
           </button>
         </div>
       </div> -->
-      <div ui-sref="viewshop({url:paipai})"  class="ng-hide" ng-show="!istaobao">
+      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/paipai.jpg">
             拍拍商城
@@ -55,7 +58,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="viewshop({url:dangdang})"  class="ng-hide" ng-show="!istaobao">
+      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/dangdang.jpg">
             当当商城
@@ -64,7 +67,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="viewshop({url:jingdong})"  class="ng-hide" ng-show="!istaobao">
+      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/jingdong.jpg">
             京东商城
@@ -73,7 +76,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="viewshop({url:yihaodian})"  class="ng-hide" ng-show="!istaobao">
+      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/yihaodian.jpg">
             一号店

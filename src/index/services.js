@@ -229,7 +229,7 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 	return function jsonpURL(url,obj){
 		url+="?";
 		for (var i in obj) {
-			url+=i+"="+obj[i]+"&";
+			url+=i+"="+encodeURIComponent(obj[i])+"&";
 		}
 		
 		return url+"callBack=JSON_CALLBACK";
