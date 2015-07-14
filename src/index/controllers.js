@@ -101,13 +101,17 @@ function($scope,$rootScope,myCookie){
 		if($cacheFactory.get('cacheback'))
    {
    	var cacheback=$cacheFactory.get('cacheback');
-    var cachecount=cacheback.get('count')+1;
+    var cachecount=cacheback.get('count')+2;
     var c="-"+cachecount;
       history.go(c);
      cacheback.removeAll();
      cacheback.put('url',"1");
      cacheback.put('count',0);
      
+   }
+   else if($(".addpage").length>0){
+ history.go("-2")
+
    }
    else{
   history.go("-1")

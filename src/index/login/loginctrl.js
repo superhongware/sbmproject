@@ -84,6 +84,7 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 
 
 	$scope.hidetip = function(){
+	
 		$(".error-tip").hide();
 	};
 }])
