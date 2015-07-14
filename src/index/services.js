@@ -665,7 +665,19 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 	
 	};
 })
-
+.factory('shouquan', ['$rootScope', function($rootScope){
+	var shouquan={
+			TMALL:"http://fuwu.taobao.com/ser/detail.html?spm=a1z13.1113643.0.0.Wp7gXJ&service_code=FW_GOODS-1000049183&tracelog=search",
+			TAOBAO:"http://fuwu.taobao.com/ser/detail.html?spm=a1z13.1113643.0.0.Wp7gXJ&service_code=FW_GOODS-1000049183&tracelog=search",
+			KDT:"https://open.koudaitong.com/oauth/authorize?client_id=2c436c071a453a55&response_type=code&state=softbanana&redirect_uri=http://api.softbanana.com/openApi/kdtback/"+$rootScope.orgCode+"/kdt",
+			JINGD:"http://fw.jd.com/94404.html",
+			PAIPAI:"http://fw.paipai.com/193744.html",
+			WD:"https://api.vdian.com/oauth2/authorize?appkey=617938&redirect_uri="+encodeURI("http://api.softbanana.com/openApi/wdback/"+$rootScope.orgCode+"/kdgw")+"&response_type=code&state=STATE",
+			DANGDANG:"http://fuwu.dangdang.com/appdetail?app_id=2100003535",
+			YHD:"http://fuwu.yhd.com/application/gotoAppDetail.do?appId=3753",
+	}
+	return shouquan;
+}])
 ;
 
 
