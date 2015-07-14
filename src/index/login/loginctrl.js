@@ -112,24 +112,36 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 			return;
 		}
 
-		var  reg= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+		var  reg= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!=="")){
 			$(".error-tip").eq(5).show();
 			return;
 		}
-
-
+        
+        var res1 = /^[\u4e00-\u9fa5a-z]+$/gi;
 		if($scope.yourdata.orgName===''){
 			// alert(1)
 			$(".error-tip").eq(0).children(".rect").text("请输入商家名称");
 			$(".error-tip").eq(0).show();
 			return;
 		}
+		else if(!res1.test($scope.yourdata.orgName)){
+$(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
+			$(".error-tip").eq(0).show();
+			return;
+
+		}
 
 		if($scope.yourdata.userName===''){
 			$(".error-tip").eq(1).children(".rect").text("请输入用户名");
 			$(".error-tip").eq(1).show();
 			return;
+		}
+		else if(!res1.test($scope.yourdata.userName)){
+$(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
+			$(".error-tip").eq(1).show();
+			return;
+
 		}
 
 		// var restring= /^[\u4e00-\u9fa5a-z0-9_.@]+$/gi;//只能输入汉字和英文字母		
