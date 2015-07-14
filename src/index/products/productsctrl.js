@@ -136,7 +136,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		for (var i in pageData.shopList) {
 			pageData.shopList[i].checked = pageData.shopList[i].id === item.id;
 		}
-		pageData.currShop = item;
+		
+		console.log(pageData.pageViewState.currStatus)
 		pageFunc.setCurrPageViewState(
 			pageData.currShop,
 			pageData.pageViewState.currStatus === null ? 'onsale' : pageData.pageViewState.currStatus
