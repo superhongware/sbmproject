@@ -100,10 +100,21 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 		channel:"app"
 	};
 	$scope.sign_up = function() {
-		
+		if($scope.yourdata.password.length<6||$scope.yourdata.password.length>24){
+$(".error-tip").eq(2).children(".rect").text("密码长度为6-24");
+			$(".error-tip").eq(2).show();
+			return;
+
+		}
 		if(($scope.yourdata.password!=="")&&($scope.yourdata.password!==$scope.yourdata.password1)){
 			$(".error-tip").eq(3).show();
 			return;
+		}
+		if($scope.yourdata.password.length<6){
+$(".error-tip").eq(2).children(".rect").text("密码长度为6-12");
+			$(".error-tip").eq(2).show();
+			return;
+
 		}
 
 		var reg0 =  /^1\d{10}$/;
