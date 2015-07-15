@@ -31,7 +31,7 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 }])
 //设置密码
-.controller('setPassword', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', function($rootScope, $scope, $state, $http, SBMJSONP){
+.controller('setPassword', ['$rootScope', '$scope', '$state', '$http','$ionicLoading' ,'SBMJSONP', function($rootScope, $scope, $state, $http,$ionicLoading, SBMJSONP){
 	console.log($rootScope.orgName+","+$rootScope.userName)
 	$scope.setdata = {
 		orgName:$rootScope.orgName,
@@ -52,6 +52,13 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 			.success(function(data){
 				console.log(data)
 				if(data.isSuccess){
+                $ionicLoading.show({
+			     template:"修改成功",
+		         });
+                setTimeout(function(){
+                	 $ionicLoading.hide();
+                	 $state.go("home");
+                },1400)
 
 				}else{
 					console.log(data.map.errorMsg);

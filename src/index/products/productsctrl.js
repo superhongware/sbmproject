@@ -192,7 +192,9 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		pageData.direction = 'next';
 		if (pageData.productList.length > 0) {
 			pageData.lastId = pageData.productList[0].id;
+		
 		}
+		
 		pageFunc.loadData();
 	};
 
@@ -233,12 +235,13 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	 * @return {[type]}                  [description]
 	 */
 	pageFunc.loadData = function(isClearCurrData) {
-
+        console.log("Asdadadadadasdaaaaaaaaaaaa")
 		if (pageData.direction != 'up') {
 			$ionicLoading.show({
 				template: "正在加载...",
 				duration:2000
 			});
+
 		}
 
 		var option = {
@@ -262,10 +265,12 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			pageFunc.loadDataComplete();
 
 			if (data.length === 0 && pageData.direction === 'up') {
-
+               
 				//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
 				if($scope.thereisnoproduct===""){
 					$scope.thereisnoproduct=true;
+					 $(".noproduct-bg").show()
+
 				}
 				pageData.isHaveMoreData = false;
 				return;
