@@ -560,6 +560,7 @@ creatshowmodule.factory('changepagesize', function(){
 			template:"请稍等...",
 		});
 				fileinput.removeEventListener('change', handleFileSelect, false);
+				console.log(evt.target.files[0])
 				var file = evt.target.files[0];
 				if (!file.type.match('image.*')){
 					return;
@@ -581,6 +582,7 @@ creatshowmodule.factory('changepagesize', function(){
 
 						var img=new Image();
 						img.src=e.target.result;
+						console.log(img)
 						// var resCanvas2=document.createElement("canvas");
 						// var resCanvas2=document.querySelector("#canvas2");
 
