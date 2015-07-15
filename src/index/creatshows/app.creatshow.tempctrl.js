@@ -114,7 +114,7 @@ creatshowmodule
 		    }
 		    setTimeout(function(){
         		$ionicLoading.hide();
-       		},500);
+       		},2000);
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
@@ -142,7 +142,7 @@ creatshowmodule
 			}
 			setTimeout(function(){
         		$ionicLoading.hide();
-       		},500);
+       		},2000);
 		var params={
 			showId:showdata.showId,
 			pageId:pageid,
@@ -188,6 +188,7 @@ creatshowmodule
 		}
 	});
 	$scope.addpage=function(){
+		console.log(showdata.mainData.pages.length)
 		$rootScope.$broadcast("saveShowImg");
 		if(typeof addpagesaveshowdata ==="function"){
 			addpagesaveshowdata();

@@ -136,7 +136,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		for (var i in pageData.shopList) {
 			pageData.shopList[i].checked = pageData.shopList[i].id === item.id;
 		}
-		pageData.currShop = item;
+		
+		console.log(pageData.pageViewState.currStatus)
 		pageFunc.setCurrPageViewState(
 			pageData.currShop,
 			pageData.pageViewState.currStatus === null ? 'onsale' : pageData.pageViewState.currStatus
@@ -149,7 +150,15 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	 * @return {[type]}
 	 */
 	pageFunc.refreshServer = function() {
-		console.log('refreshServer');
+		// alert(0)
+		if(!pageData.currShop){
+			$ionicLoading.show({
+				template: "没有店铺，无法同步",
+				duration:2000,
+			});
+			return;
+		}
+
 		$ionicLoading.show({
 			template: "正在同步..."
 		});
@@ -160,13 +169,16 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		}, function(data) {
 			// console.log();
 			console.log(['refreshServer',data]);
-			setTimeout(function() {
-				pageFunc.loadDataComplete();
-			}, 3000);
 		}, function(data) {
 			pageFunc.loadDataComplete();
 			console.log('数据查询连接失败');
 		});
+			alert(1)
+
+		setTimeout(function() {
+			alert(0)
+			pageFunc.loadDataComplete();
+		}, 3000);
 
 	};
 
@@ -224,7 +236,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 
 		if (pageData.direction != 'up') {
 			$ionicLoading.show({
-				template: "正在加载..."
+				template: "正在加载...",
+				duration:2000
 			});
 		}
 

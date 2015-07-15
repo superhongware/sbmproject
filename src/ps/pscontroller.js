@@ -112,7 +112,27 @@ console.log(wx);
 
 	//我也要发宝贝秀
 	$scope.showhelpme=function(){
+		console.log($scope.showdata)
+         var data=$scope.showdata;
+		 var helpmedetail = {
+		    count:1,
+			orgName: getRequest2("orgname"),
+			detailId: data.detailId,
+			shopName:data.shopName,
+			plat:data.plat,
+			shareType:getshareType(),
+			method: "softbanana.app.create.show.save",
+			numIid:data.numIid
+
+		};
+		var api = SBMJSONP('saveCreateShow', helpmedetail);
+
+		$http.jsonp(api.url).success(function(data) {
+        console.log(data)
+
+		})
 		var state = {url:'#/helpme',title:'helpme'};
+
 		history.pushState(state,state.title,state.url);
 		history.go(1);
 		$(".helpme").show();
@@ -214,7 +234,7 @@ console.log(wx);
 
 				//浏览量计数
 				statistics($scope.showdata);
-
+          
 				//自动打开淘宝
 				autoopentaobao(data);
 

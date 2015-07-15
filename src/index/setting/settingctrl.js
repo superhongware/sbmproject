@@ -46,10 +46,13 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 			return;
 		}
 		$scope.setdata.method = "softbanana.app.password.update";
+		console.log($scope.setdata)
 		var api = SBMJSONP("updatePassword",$scope.setdata);
 		$http.jsonp(api.url)
 			.success(function(data){
+				console.log(data)
 				if(data.isSuccess){
+
 				}else{
 					console.log(data.map.errorMsg);
 					if(data.map.errorMsg === "旧密码不允许为空"){
