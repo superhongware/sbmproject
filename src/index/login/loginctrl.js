@@ -131,13 +131,14 @@ $(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
 			return;
 
 		}
-
+          var res2 = /^[\u4e00-\u9fa5a-z]+$/gi;
+         
 		if($scope.yourdata.userName===''){
 			$(".error-tip").eq(1).children(".rect").text("请输入用户名");
 			$(".error-tip").eq(1).show();
 			return;
 		}
-		else if(!res1.test($scope.yourdata.userName)){
+		else if(!res2.test($scope.yourdata.userName)){
 $(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
 			$(".error-tip").eq(1).show();
 			return;
