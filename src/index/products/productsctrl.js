@@ -37,7 +37,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		currShop: null,
 		isHaveMoreData: false,
 		isPostBack: false,
-		pageViewState: JSON.parse(localStorage.getItem('productListPageViewState')) //{currShop,currStatus}
+		// pageViewState: JSON.parse(localStorage.getItem('productListPageViewState')) //{currShop,currStatus}
 	};
 
 	$scope.showediticon=function(index){
@@ -48,6 +48,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	// 	alert(0);
 	// };
 	// alert(JSON.stringify(pageData.pageViewState));
+			// debugger;
 
 	pageFunc.init = function() {
 		// if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
@@ -73,11 +74,12 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 				};
 				pageFunc.loadData();
 				return;
-
 			}
 
 
 			getDataComm.loadShopList(function(data) {
+				console.log(['店铺数据1',data]);
+
 				if (data && data.length > 0) {
 					for(var a in data){
 						var b = data[a].plat;
@@ -93,8 +95,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 				} else {
 					//alert('');
 				}
-			}, function() {
-				console.log('数据查询连接失败');
+			}, function(data) {
+				console.log(['店铺数据',data]);
 			});
 		// } else {
 		// 	$state.go("home");
@@ -104,7 +106,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	pageFunc.setCurrPageViewState = function(currShop, currStatus) {
 		pageData.pageViewState.currShop = currShop;
 		pageData.pageViewState.currStatus = currStatus;
-		localStorage.setItem('productListPageViewState', JSON.stringify(pageData.pageViewState));
+		// localStorage.setItem('productListPageViewState', JSON.stringify(pageData.pageViewState));
 	};
 
 	pageFunc.loadDataComplete = function() {
@@ -130,18 +132,24 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 
 		pageFunc.loadData(true);
 
+
 	};
 
 	pageFunc.setSelectShop = function(item){
 		for (var i in pageData.shopList) {
-			pageData.shopList[i].checked = pageData.shopList[i].id === item.id;
+			if(pageData.shopList[i].id === item.id){
+				pageData.shopList[i].checked = true;
+				pageData.currShop=pageData.shopList[i];
+			}else{
+				pageData.shopList[i].checked=false;
+			}
 		}
 		
-		console.log(pageData.pageViewState.currStatus)
 		pageFunc.setCurrPageViewState(
 			pageData.currShop,
 			pageData.pageViewState.currStatus === null ? 'onsale' : pageData.pageViewState.currStatus
 		);
+		console.log(["设置店铺",pageData.currShop])
 	};
 
 
@@ -236,7 +244,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	 * @return {[type]}                  [description]
 	 */
 	pageFunc.loadData = function(isClearCurrData) {
-        console.log("Asdadadadadasdaaaaaaaaaaaa")
+
 		if (pageData.direction != 'up') {
 			$ionicLoading.show({
 				template: "正在加载...",
@@ -244,6 +252,9 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			});
 
 		}
+
+
+		console.log(['pageData',pageData])
 
 		var option = {
 			shopName: pageData.currShop.shopName,
@@ -253,8 +264,9 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			pageSize: pageData.pageSize,
 			plat: pageData.currShop.plat
 		};
-		console.log('pageFunc.loadData option');
-		console.log(option);
+
+		console.log(['pageFunc.loadData option',option]);
+		// console.log(option);
 
 
 		productComm.loadProductData(option, function(data) {
@@ -311,7 +323,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			numIid: item.numIid,
 			plat: item.plat
 		};
-		localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
+		// localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
 		$state.go("productDetail");
 	};
 
