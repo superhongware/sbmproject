@@ -5,11 +5,9 @@
     </button>
   </ion-nav-buttons>
 
-
   <ion-side-menus enable-menu-with-back-views-"true">
     <!-- Center content -->
     <ion-side-menu-content class="paddingtop88" ng-class="isthereshowad">
-
 
       <div class="bar bar-subheader">
         <button class="button button-icon icon ion-navicon ng-hide" menu-toggle="left1" ng-show="!istaobao" ></button>
@@ -28,25 +26,21 @@
       </div>
         
       <div class="noproduct ng-hide" ng-show="thereisnoproduct"></div>
-
       <ion-content class="paddingtop44">
-
         <ion-refresher
         pulling-text="下拉更新..."
         on-refresh="pageFunc.refreshproductList()">
         </ion-refresher>
-
 
         <ion-list>
           <ion-item
           class="item-remove-animate item-avatar item-icon-right animate-repeat showlistitem"  
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
+
           >
             <img ng-src="{{item.picUrl}}" class="imgProduct noradius">
-            <ul 
-            ng-click="pageFunc.showDetail(item)"
-            class="productInfo">
+            <ul class="productInfo" ng-click="pageFunc.showDetail(item)">
               <li class="floatL">
                 <div class="mTop6 mBottom9">
                   <span  class="floatL productName">{{item.title}}</span>
@@ -65,24 +59,23 @@
             <span class="openoptions" ng-click="showediticon($index)">
               <i class="iconfont icon-points" ></i>
             </span>
-
             <!-- <i class="iconfont icon-points"></i> -->
-
             <ion-option-button class="button-dark" ui-sref="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})">
               制作宝贝秀
             </ion-option-button>
+
           </ion-item>
           <div class="warpNoData" ng-if="pageData.productList.length == 0"><i class="iconfont icon-logo"></i>该店铺没有上架的宝贝</div>
         </ion-list>
 
-      <ion-infinite-scroll
-        ng-if="pageData.isHaveMoreData"
-        icon="ion-loading-c"
-        on-infinite="pageFunc.loadMoreData()"
-        distance="20%"
-        spinner="ios"
-        >
-      </ion-infinite-scroll>
+        <ion-infinite-scroll
+          ng-if="pageData.isHaveMoreData"
+          icon="ion-loading-c"
+          on-infinite="pageFunc.loadMoreData()"
+          distance="20%"
+          spinner="ios"
+          >
+        </ion-infinite-scroll>
       </ion-content>
 
     </ion-side-menu-content>
