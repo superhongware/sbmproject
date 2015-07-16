@@ -31,7 +31,8 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 }])
 //设置密码
-.controller('setPassword', ['$rootScope', '$scope', '$state', '$http','$ionicLoading' ,'SBMJSONP', function($rootScope, $scope, $state, $http,$ionicLoading, SBMJSONP){
+.controller('setPassword', ['$rootScope', '$scope', '$state', '$http','$ionicLoading' ,'$ionicPopup','SBMJSONP', 
+function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
 	console.log($rootScope.orgName+","+$rootScope.userName)
 	$scope.setdata = {
 		orgName:$rootScope.orgName,
@@ -48,17 +49,29 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 		$scope.setdata.method = "softbanana.app.password.update";
 		console.log($scope.setdata)
 		var api = SBMJSONP("updatePassword",$scope.setdata);
+
+		$ionicLoading.show({
+			template:"正在修改请稍等..."
+		});
+		
 		$http.jsonp(api.url)
 			.success(function(data){
 				console.log(data)
+                $ionicLoading.hide();
+				
 				if(data.isSuccess){
-                $ionicLoading.show({
-			     template:"修改成功",
-		         });
-                setTimeout(function(){
-                	 $ionicLoading.hide();
-                	 $state.go("home");
-                },1400)
+
+					var loginsuccess=$ionicPopup.show({
+						title: "提示信息",
+						template: "密码修改成功,请重新登录",
+						buttons: [{
+							text: '好的',
+							type: "button-energized",
+						}]
+					});
+					loginsuccess.then(function(res){
+						$state.go("login");
+					})
 
 				}else{
 					console.log(data.map.errorMsg);
