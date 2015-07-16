@@ -112,6 +112,15 @@ creatshowmodule
 				});
 				pageid = 0;
 		    }
+		   var  width=$(".pagelist").parent().width()-65;
+           var  curpos=$(".pagelist").find(".current").offset().left;
+           if(curpos<=65){
+           	$(".pagelist").parent().css({"-webkit-transform":"translate3d(0px, 0px, 0px) scale(1)","transition":".3s all"})
+           }
+           else if(curpos>=width){
+           	$(".pagelist").parent().css({"-webkit-transform":"translate3d(-"+width+"px, 0px, 0px) scale(1)","transition":".3s all"})
+           }
+
 		    setTimeout(function(){
         		$ionicLoading.hide();
        		},2000);
@@ -140,6 +149,14 @@ creatshowmodule
 				});
 				pageid = showdata.mainData.pages.length-1;
 			}
+			 var  width=$(".pagelist").parent().width()-65;
+			 var  curpos=$(".pagelist").find(".current").offset().left;
+           if(curpos>=width){
+           	$(".pagelist").parent().css({"-webkit-transform":"translate3d(-"+width+"px, 0px, 0px) scale(1)","transition":".3s all"})
+           }
+           else  if(curpos<=65){
+           	$(".pagelist").parent().css({"-webkit-transform":"translate3d(0px, 0px, 0px) scale(1)","transition":".3s all"})
+           }
 			setTimeout(function(){
         		$ionicLoading.hide();
        		},2000);
