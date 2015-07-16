@@ -4,8 +4,8 @@
  * 登录注册功能
  */
 var loginmodule = angular.module('loginmodule', ['ionic', 'starter.services', 'starter.directives']);
-loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoading','loginSubmit', 'myCookie', 'base64', '$state','SBMJSONP',
- function($scope, $rootScope,$http,$ionicLoading, loginSubmit, myCookie, base64, $state,SBMJSONP) {
+loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoading','$ionicPopup','loginSubmit', 'myCookie', 'base64', '$state','SBMJSONP',
+ function($scope, $rootScope,$http,$ionicLoading,$ionicPopup, loginSubmit, myCookie, base64, $state,SBMJSONP) {
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.logindata = {
@@ -36,14 +36,17 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoad
 		if($scope.logindata.orgName===""){
 			$(".error-tip").eq(0).children(".rect").text("商家名称不允许为空");
 			$(".error-tip").eq(0).show();
+			return;
 		}
 		if($scope.logindata.userName===""){
 			$(".error-tip").eq(1).children(".rect").text("用户名不允许为空");
 			$(".error-tip").eq(1).show();
+			return;
 		}
 		if($scope.logindata.password===""){
 			$(".error-tip").eq(2).children(".rect").text("密码不允许为空");
 			$(".error-tip").eq(2).show();
+			return;
 		}
 		$ionicLoading.show({
 			template:"正在登陆,请稍后..."
@@ -76,6 +79,15 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoad
 			}else if(msg == "密码错误"){
 				$(".error-tip").eq(2).children(".rect").text(msg);
 				$(".error-tip").eq(2).show();
+			}else{
+				$ionicPopup.show({
+					title: "登录失败",
+					template: msg,
+					buttons: [{
+						text: "再试一次",
+						type: "button-energized",
+					}]
+				});
 			}
 			console.log(["erroe",msg]);
 		});
