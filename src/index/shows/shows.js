@@ -160,11 +160,13 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 			orgName:$rootScope.orgName,
 			detailId:detailId
 		};
+
 		$scope.detaildata.method = "softbanana.app.detail.search";
 		var api = SBMJSONP("searchDetail",$scope.detaildata);
 		$http.jsonp(api.url)
 			.success(function(data){
 				if(data.isSuccess){
+					$rootScope.editz=true;
 					$state.go("editpages.editer",{
 						showId:detailId,
 						pageId:0,

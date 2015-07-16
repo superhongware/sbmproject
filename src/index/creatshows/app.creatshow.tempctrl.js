@@ -213,12 +213,15 @@ creatshowmodule
 		addpagesaveshowdata=$scope.$on("saveShowImgOver", function() {
 
 			if(showdata.mainData.pages.length>9){
-					$ionicLoading.show({
-						template:"最多十页",
+				$ionicPopup.show({
+						
+						template: "最多十页",
+						buttons: [{
+							text: "我知道了",
+							type: "button-energized",
+						}]
 					});
-					setTimeout(function(){
-		        		$ionicLoading.hide();
-		       		},500);
+				
 			}else{
 				$state.go("addpage",{
 					showId:$rootScope.editShowData.showId,

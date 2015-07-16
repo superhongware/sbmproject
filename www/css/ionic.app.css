@@ -4523,7 +4523,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
 
 .popup-body {
   padding: 10px;
-  overflow: scroll; }
+  overflow: scroll;text-align:center; }
 
 .popup-buttons {
   display: -webkit-box;
