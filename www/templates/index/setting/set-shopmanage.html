@@ -1,19 +1,21 @@
-<ion-view view-title="店铺管理">
+<ion-view view-title="店铺管理" class="warpProductList">
   <ion-content>
     <ion-list>     
       <ion-item 
-      class="item-remove-animate item-avatar item-icon-right lineHeight40" 
+      class="item-remove-animate item-avatar item-icon-right lineHeight40 showlistitem" 
       type="item-text-wrap" 
       ng-repeat="shop in shopList.shops">
           <img ng-src="{{shop.imgsrc}}">
           <span class="shopname">{{shop.shopName}}</span>
           <span class="rightwrap">
             <span class="expired">授权过期</span>
-            <span class="more">...</span>
           </span>
-        <ion-option-button class="button-dark" ng-click="del(shop.plat,shop.shopName)">
+          <span class="openoptions" ng-click="showediticon($index)">
+            <i class="iconfont icon-points" ></i>
+          </span>
+<!--         <ion-option-button class="button-dark" ng-click="del(shop.plat,shop.shopName)">
           删除
-        </ion-option-button>
+        </ion-option-button> -->
         <ion-option-button class="button-dark" ng-click="goon(shop.plat,shop.shopName)">
           续订
         </ion-option-button>

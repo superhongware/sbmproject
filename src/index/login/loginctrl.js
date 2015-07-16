@@ -20,16 +20,16 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 	// 	password: "",
 	// };
 
-			var searchshopdata={
-				orgName:$rootScope.orgName,
-				status:0,
-				pageSize:50,
-				method:'softbanana.app.shop.search'
-			}
-			var api=SBMJSONP('searchShop',searchshopdata)
-			$http.jsonp(api.url).success(function(data){
-				console.log(['商店详情',data])
-			})
+	var searchshopdata={
+		orgName:$rootScope.orgName,
+		status:0,
+		pageSize:50,
+		method:'softbanana.app.shop.search'
+	}
+	var api=SBMJSONP('searchShop',searchshopdata)
+	$http.jsonp(api.url).success(function(data){
+		console.log(['商店详情',data])
+	})
 
 
 	$scope.loginSubmit = function(data){
@@ -57,9 +57,6 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 			// console.log(["$rootScope.orgCode",$rootScope.orgCode]);
 			// console.log(["myCookie.get orgName",base64.decode(myCookie.get('orgName'))]);
 			// console.log(["myCookie.get userName",base64.decode(myCookie.get('userName'))]);
-
-
-
 
 
 			$state.go("home");
@@ -90,7 +87,8 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 }])
 
 //注册页
-.controller('sign_upCtrl', ['$scope', '$state', '$ionicPopup', "$http", "SBMJSONP", function($scope, $state, $ionicPopup, $http, SBMJSONP) {
+.controller('sign_upCtrl', ['$rootScope','$scope', '$state', '$ionicPopup', "$http", "SBMJSONP",'myCookie','base64',
+function($rootScope,$scope, $state, $ionicPopup, $http, SBMJSONP,myCookie,base64) {
 	$scope.yourdata = {
 		orgName: "",
 		userName: "",
@@ -99,37 +97,33 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 		email: "",
 		channel:"app"
 	};
+	$scope.password={
+		password:''
+	};
+
+	//取之前缓存的资料
+	// var logininfo=window.sessionStorage.getItem("logininfo");
+	// if(logininfo!=="null"){
+	// 	$scope.yourdata=JSON.parse(logininfo);
+	// }
+
 	$scope.sign_up = function() {
-		if($scope.yourdata.password.length<6||$scope.yourdata.password.length>24){
-$(".error-tip").eq(2).children(".rect").text("密码长度为6-24");
-			$(".error-tip").eq(2).show();
-			return;
 
-		}
-		if(($scope.yourdata.password!=="")&&($scope.yourdata.password!==$scope.yourdata.password1)){
-			$(".error-tip").eq(3).show();
-			return;
-		}
-		if($scope.yourdata.password.length<6){
-$(".error-tip").eq(2).children(".rect").text("密码长度为6-12");
-			$(".error-tip").eq(2).show();
-			return;
-
-		}
-
-		var reg0 =  /^1\d{10}$/;
-		if(!reg0.test($scope.yourdata.phone)&&($scope.yourdata.phone!=="")){
-			$(".error-tip").eq(4).show();
+		if($scope.yourdata.orgName===''){
+			// alert(1)
+			$(".error-tip").eq(0).children(".rect").text("请输入商家名称");
+			$(".error-tip").eq(0).show();
 			return;
 		}
 
-		var  reg= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!=="")){
-			$(".error-tip").eq(5).show();
+		if($scope.yourdata.userName===''){
+			$(".error-tip").eq(1).children(".rect").text("请输入用户名");
+			$(".error-tip").eq(1).show();
 			return;
 		}
-        
-        var res1 = /^[\u4e00-\u9fa5a-z]+$/gi;
+
+        // var res1 = /^[\u4e00-\u9fa5a-z]+$/gi;
+        var res1 =/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\\/`\|])*)$/;
 		if($scope.yourdata.orgName===''){
 			// alert(1)
 			$(".error-tip").eq(0).children(".rect").text("请输入商家名称");
@@ -137,10 +131,9 @@ $(".error-tip").eq(2).children(".rect").text("密码长度为6-12");
 			return;
 		}
 		else if(!res1.test($scope.yourdata.orgName)){
-$(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
+			$(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
 			$(".error-tip").eq(0).show();
 			return;
-
 		}
           var res2 = /^[\u4e00-\u9fa5a-z]+$/gi;
          
@@ -150,11 +143,49 @@ $(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
 			return;
 		}
 		else if(!res2.test($scope.yourdata.userName)){
-$(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
+			$(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
+
 			$(".error-tip").eq(1).show();
 			return;
-
 		}
+
+		if($scope.yourdata.password===""){
+
+			$(".error-tip").eq(2).children(".rect").text("请输入密码");
+			$(".error-tip").eq(2).show();
+			return;
+
+		}else if($scope.yourdata.password.length<6||$scope.yourdata.password.length>12){
+			$(".error-tip").eq(2).children(".rect").text("密码请再6~12位之间");
+			$(".error-tip").eq(2).show();
+			return;
+		}
+		if($scope.yourdata.password!==$scope.password.password){
+			$(".error-tip").eq(3).children(".rect").text("两次输入的密码不一致");
+			$(".error-tip").eq(3).show();
+			return;
+		}
+		// alert(0)
+
+		// if($scope.yourdata.password)
+
+		var reg0 =  /^1\d{10}$/;
+		if(!reg0.test($scope.yourdata.phone)&&($scope.yourdata.phone!=="")){
+			$(".error-tip").eq(4).show();
+			return;
+		}
+
+		var  reg= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+		// var  reg= /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+
+		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!=="")){
+			$(".error-tip").eq(5).show();
+			return;
+		}
+
+        
+
 
 		// var restring= /^[\u4e00-\u9fa5a-z0-9_.@]+$/gi;//只能输入汉字和英文字母		
 		// if(!restring.test($scope.yourdata.orgName)){
@@ -171,9 +202,10 @@ $(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
 		// 	return;
 		// }
 
+
 		$scope.yourdata.method = "softbanana.app.user.regist";
 		var api = SBMJSONP("registUser", $scope.yourdata);
-		console.log(api);
+		console.log($scope.yourdata);
 		$http.jsonp(api.url)
 			.success(function(data) {
 				if(data.isSuccess){
@@ -186,7 +218,11 @@ $(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
 						}]
 					});
 					siginsuccess.then(function(res){
-						$state.go("login");
+						myCookie.add("orgName",base64.encode($scope.yourdata.orgName),720);
+						myCookie.add("userName",base64.encode($scope.yourdata.userName),720);
+						$rootScope.orgName=$scope.yourdata.orgName;
+						$rootScope.userName=$scope.yourdata.userName;
+						$state.go("taoxiaopu");
 					})
 				}else{
 					console.log(data);
@@ -228,10 +264,13 @@ $(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
 				
 			})
 			.error(function(status, response) {
+
 				console.log("连接失败");
 
 			});
 
+		//缓存之前填的资料
+		// window.sessionStorage.setItem("logininfo",JSON.stringify($scope.yourdata));
 	};
 
 	$scope.hidetip = function(){

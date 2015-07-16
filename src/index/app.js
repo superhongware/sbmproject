@@ -56,6 +56,8 @@ angular.module('starter',
 	.state('taoxiaopu', {
 		url: "/taoxiaopu",
 		templateUrl: "templates/index/login/taoxiaopu.html",
+		controller:'taoxiaopuCtrl'
+
 	})
 	.state('home', {
 		url: "/home",
@@ -73,7 +75,10 @@ angular.module('starter',
 		templateUrl: "templates/index/creatshows/viewtemplate.html",
 		controller:'viewshopCtrl'
 	})
-
+	.state('shouquanhelp', {
+		url: "/shouquanhelp",
+		templateUrl: "templates/index/setting/shouquanhelp.html",
+	})
 
 	//我的宝贝
 	.state('products', {
@@ -142,6 +147,16 @@ angular.module('starter',
 		url: "/set-expired",
 		templateUrl: "templates/index/setting/set-expired.html",
 		controller:"shopManage"
+	})
+	.state('sqsuccess', {
+		url: "/sqsuccess",
+		templateUrl: "templates/index/setting/sqsuccess.html",
+
+	})
+	.state('sqerror', {
+		url: "/sqerror",
+		templateUrl: "templates/index/setting/sqerror.html",
+
 	})
 	//帮助页面
 	.state('set-help', {

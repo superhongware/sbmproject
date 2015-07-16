@@ -89,7 +89,8 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 }])
 
 //商户管理
-.controller('shopManage', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup', function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup){
+.controller('shopManage', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup','showedition','shouquan',
+ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup,showedition,shouquan){
 		$scope.orgdatas = {
 			orgName: $rootScope.orgName,
 			pageNo: 1,
@@ -112,6 +113,12 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 				console.log("连接失败");
 			});
 
+
+			$scope.showediticon=function(index){
+				showedition(index);
+			};
+			
+
 			$scope.del = function(shopplat,shopname){
 				var myPopup = $ionicPopup.show({
 					template: '删除店铺将无法获取宝贝、订单也无法分享店铺中的宝贝详情，您确定要删除吗？',
@@ -129,13 +136,10 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 			};
 
 			$scope.goon = function(shopplat,shopname){
-				if(shopplat=="TAOBAO"){
-					location.href = "http://fuwu.taobao.com/ser/detail.htm?spm=a1z13.1113643.1113643.15.0AwLbu&service_code=FW_GOODS-1933759&tracelog=search&scm=&ppath=&labels=&qq-pf-to=pcqq.c2c";
-				}else if(shopplat=="JINGD"){
-					location.href = "http://fw.jd.com/94404.html";
-				}else if(shopplat=="PAIPAI"){
-					location.href = "http://fuwu.paipai.com/appstore/ui/my/app/appdetail.xhtml?appId=331404&PTAG=40012.5.1&LOGINTAG=1";
-				}
+					$state.go("shouquanhelp")
+
+					// $state.go("viewshop",{url:shouquan[shopplat]})
+
 			};
 			$scope.delshop = function(shopplat,shopname){
 				$scope.delshopinfo = {
@@ -189,26 +193,28 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 			};
 }])
 
-.controller('shopsCtrl', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup', function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup){
-		console.log(["orgcode",$rootScope.orgCode]);
-		$scope.youzan = "https://open.koudaitong.com/oauth/authorize?client_id=2c436c071a453a55&response_type=code&state=softbanana&redirect_uri=http://api.softbanana.com/openApi/kdtback/"+$rootScope.orgCode+"/kdt";
-		$scope.weidian = "https://api.vdian.com/oauth2/authorize?appkey=617938&redirect_uri="+encodeURI("http://api.softbanana.com/openApi/wdback/"+$rootScope.orgCode+"/kdgw")+"&response_type=code&state=STATE";
-		// $scope.taobao = "http://fuwu.taobao.com/ser/detail.htm?spm=a1z13.1113643.1113643.15.0AwLbu&service_code=FW_GOODS-1933759&tracelog=search&scm=&ppath=&labels=&qq-pf-to=pcqq.c2c";
-		$scope.taobao = "http://fuwu.taobao.com/ser/detail.html?spm=a1z13.1113643.0.0.Wp7gXJ&service_code=FW_GOODS-1000049183&tracelog=search";
-		
-		$scope.jingdong = "http://fw.jd.com/94404.html";
-		$scope.paipai = "http://fw.paipai.com/193744.html";
+.controller('shopsCtrl', ['$rootScope', '$scope', '$state','shouquan', function($rootScope, $scope, $state,shouquan){
+		//有赞
+		$scope.youzan = shouquan.KDT;
+		//微店
+		$scope.weidian = shouquan.WD;
+		//淘宝
+		$scope.taobao = shouquan.TAOBAO;
+		//京东
+		$scope.jingdong = shouquan.JINGD;
+		//拍拍
+		$scope.paipai = shouquan.PAIPAI;
 		//一号店
-		$scope.yihaodian="http://fuwu.yhd.com/application/gotoAppDetail.do?appId=3753";
+		$scope.yihaodian = shouquan.YHD;
 		//当当
-		$scope.dangdang="http://fuwu.dangdang.com/appdetail?app_id=2100003535";
-		//亚马逊
-		$scope.yamaxun="";
+		$scope.dangdang = shouquan.DANGDANG;
+
+
 }])
 
 .controller('viewshopCtrl', ['$scope','$state','$stateParams',function($scope,$state,$stateParams){
 	//店铺授权
-	$(".viewtemplate").append('<iframe class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
+	$(".viewtemplate").append('<iframe style="overflow-x:auto;overflow-y:auto;" class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
 	$scope.viewbtnneam="首页";
 	$scope.viewneam="店铺授权";
 	$scope.viewbtn=function(){
@@ -222,7 +228,15 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 	alert(1234);
 
-}]);
+}])
+.controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state',function($scope, $rootScope,$state) {
+	$scope.gotaoxiaopu=function(){
+		var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
+		$state.go('viewshop',{url:url});
+	}
+
+}])
+;
 
 
 
