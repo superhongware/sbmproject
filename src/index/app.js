@@ -44,12 +44,12 @@ angular.module('starter',
 	$stateProvider
 	.state('login',{
 		url:'/login',
-		templateUrl:'templates/index/login/login.html',
+		templateUrl:'templates/index/login/login.html?v=0.0.1',
 		controller:'LoginCtrl'
 	})
 	.state('sign_up', {
 		url: "/sign_up",
-		templateUrl: "templates/index/login/sign_up.html",
+		templateUrl: "templates/index/login/sign_up.html?v=0.0.1",
 		controller:'sign_upCtrl'
 	})
 	//淘小铺授权

@@ -167,16 +167,17 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			shopName: pageData.currShop.shopName,
 			plat: pageData.currShop.plat,
 		}, function(data) {
+			$ionicLoading.hide();
 			// console.log();
 			console.log(['refreshServer',data]);
 		}, function(data) {
 			pageFunc.loadDataComplete();
 			console.log('数据查询连接失败');
 		});
-			alert(1)
+			// alert(1)
 
 		setTimeout(function() {
-			alert(0)
+			// alert(0)
 			pageFunc.loadDataComplete();
 		}, 3000);
 

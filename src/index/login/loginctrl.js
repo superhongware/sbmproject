@@ -4,8 +4,8 @@
  * 登录注册功能
  */
 var loginmodule = angular.module('loginmodule', ['ionic', 'starter.services', 'starter.directives']);
-loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmit', 'myCookie', 'base64', '$state','SBMJSONP',
- function($scope, $rootScope,$http, loginSubmit, myCookie, base64, $state,SBMJSONP) {
+loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoading','loginSubmit', 'myCookie', 'base64', '$state','SBMJSONP',
+ function($scope, $rootScope,$http,$ionicLoading, loginSubmit, myCookie, base64, $state,SBMJSONP) {
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.logindata = {
@@ -45,8 +45,11 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 			$(".error-tip").eq(2).children(".rect").text("密码不允许为空");
 			$(".error-tip").eq(2).show();
 		}
-
+		$ionicLoading.show({
+			template:"正在登陆,请稍后..."
+		})
 		loginSubmit(data,function(msg){
+			$ionicLoading.hide();
 			myCookie.add("orgName",base64.encode(data.orgName),720);
 			myCookie.add("userName",base64.encode(data.userName),720);
 
@@ -63,6 +66,7 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 			console.log(["success",msg]);
 
 		},function(msg){
+			$ionicLoading.hide();
 			if(msg == "对应的商家不存在"){
 				$(".error-tip").eq(0).children(".rect").text(msg);
 				$(".error-tip").eq(0).show();
@@ -74,7 +78,6 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 				$(".error-tip").eq(2).show();
 			}
 			console.log(["erroe",msg]);
-
 		});
 	};
 
@@ -87,8 +90,8 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','loginSubmi
 }])
 
 //注册页
-.controller('sign_upCtrl', ['$rootScope','$scope', '$state', '$ionicPopup', "$http", "SBMJSONP",'myCookie','base64',
-function($rootScope,$scope, $state, $ionicPopup, $http, SBMJSONP,myCookie,base64) {
+.controller('sign_upCtrl', ['$rootScope','$scope', '$state', '$ionicPopup', "$http",'$ionicLoading', "SBMJSONP",'myCookie','base64',
+function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,myCookie,base64) {
 	$scope.yourdata = {
 		orgName: "",
 		userName: "",
@@ -206,8 +209,12 @@ function($rootScope,$scope, $state, $ionicPopup, $http, SBMJSONP,myCookie,base64
 		$scope.yourdata.method = "softbanana.app.user.regist";
 		var api = SBMJSONP("registUser", $scope.yourdata);
 		console.log($scope.yourdata);
+		$ionicLoading.show({
+			template:"正在注册信息，请稍等..."
+		})
 		$http.jsonp(api.url)
 			.success(function(data) {
+				$ionicLoading.hide();
 				if(data.isSuccess){
 					var siginsuccess=$ionicPopup.show({
 						title: "注册成功",
@@ -264,7 +271,7 @@ function($rootScope,$scope, $state, $ionicPopup, $http, SBMJSONP,myCookie,base64
 				
 			})
 			.error(function(status, response) {
-
+				$ionicLoading.hide();
 				console.log("连接失败");
 
 			});

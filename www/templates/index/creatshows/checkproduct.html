@@ -1,13 +1,13 @@
 <ion-view view-title="第1步:选择宝贝" class="sbm_products warpProductList">
   <ion-nav-buttons side="right">
-    <button class="button" ng-click="show()">
+    <button class="button" ng-click="pageFunc.refreshServer()">
     同步
     </button>
   </ion-nav-buttons>
 
   <ion-side-menus enable-menu-with-back-views-"true">
     <!-- Center content -->
-    <ion-side-menu-content class="paddingtop88">
+    <ion-side-menu-content class="paddingtop88" ng-class="isthereshowad">
 
       <div class="bar bar-subheader">
         <button class="button button-icon icon ion-navicon ng-hide" menu-toggle="left1" ng-show="!istaobao" ></button>
@@ -19,6 +19,13 @@
         </div>
       </div>
 
+      <div class="wsndxyxgg ion-volume-high" ui-sref="appadone">
+         <div style="overflow:hidden;width:calc(100%-26px);height:30px;left:26px;position:absolute;top:0">
+        <div class="adtext">【宝贝复制】主图、详情轻松复制。 <span class="smalltext">了解更多>></span></div>
+         </div>
+      </div>
+
+      <div class="noproduct ng-hide" ng-show="thereisnoproduct"></div>
       <ion-content class="paddingtop44">
         <ion-refresher
         pulling-text="下拉更新..."
@@ -48,6 +55,15 @@
                 </div>
               </li>
             </ul>
+
+
+
+
+
+
+
+
+            
           </ion-item>
           <div class="warpNoData" ng-if="pageData.productList.length == 0"><i class="iconfont icon-logo"></i>该店铺没有上架的宝贝</div>
         </ion-list>
