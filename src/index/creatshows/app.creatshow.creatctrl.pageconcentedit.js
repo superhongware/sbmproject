@@ -6,42 +6,42 @@ creatshowmodule
 	function($scope,$rootScope,$state,$stateParams,$ionicLoading,$location,$ionicActionSheet,setShowImg,drawShowImg,compressShowImg,sendShowImg,saveShow,checklocalimg){
 
 
-	console.log("pagetempht1Ctrl");
+		console.log("pagetempht1Ctrl");
 
-	$scope.imgviewinfo=[];
+		$scope.imgviewinfo=[];
 
-	$scope.showdata=$rootScope.editShowData;
-   
-	$scope.$on('$destroy', function() {
-		tempImgngRepeatFinished();
-		saveShowImg();
-	});
+		$scope.showdata=$rootScope.editShowData;
+
+		$scope.$on('$destroy', function() {
+			tempImgngRepeatFinished();
+			saveShowImg();
+		});
 
 	//初始化页面
 	var tempImgngRepeatFinished=$scope.$on("tempImgngRepeatFinished",function(){
 
 	   	//选图片空间需要的参数
-		$rootScope.REMOTEIMGINFO={
-			shopName:$rootScope.editShowData.mainData.shopName,
-			plat:$rootScope.editShowData.mainData.plat
-		};
+	   	$rootScope.REMOTEIMGINFO={
+	   		shopName:$rootScope.editShowData.mainData.shopName,
+	   		plat:$rootScope.editShowData.mainData.plat
+	   	};
 
 
 		//图片空间选择图片
 		if($rootScope.picurl!==undefined){
 			var i = parseInt($rootScope.Index)+1;
 			var imgbox=$(".ps_img"+ i);
-			    imgbox.find(".innerimg").attr("src",$rootScope.picurl).show();
+			imgbox.find(".innerimg").attr("src",$rootScope.picurl).show();
 			    //点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为改变缓存
 			    $rootScope.editShowData.mainData.pages[$rootScope.pic_pageId].detailPageImage[$rootScope.Index].img = $rootScope.picurl;
 			    $rootScope.picurl=undefined;
-		}
+			}
+		
 
+			$(".editplace").find(".ps_img").each(function(index){
 
-		$(".editplace").find(".ps_img").each(function(index){
-
-			var thispsimg=$(this);
-			var thisimgdata=$scope.imgviewinfo[index];
+				var thispsimg=$(this);
+				var thisimgdata=$scope.imgviewinfo[index];
 			// console.log($scope.imgviewinfo[index]);
 			thisimgdata.startpoint=[0,0];
 			thisimgdata.point=[0,0];
@@ -117,7 +117,7 @@ creatshowmodule
 				if(changimage){
 					console.log(thisimgdata.holdpoint[0]+e.gesture.deltaX,thisimgdata.holdpoint[1]+e.gesture.deltaY);
 					var x=thisimgdata.holdpoint[0]+e.gesture.deltaX,
-						y=thisimgdata.holdpoint[1]+e.gesture.deltaY;
+					y=thisimgdata.holdpoint[1]+e.gesture.deltaY;
 					changimage=0;
 
 					var imageindex="";
@@ -168,7 +168,7 @@ creatshowmodule
 			}
 
 		});
-	});
+		});
 
 	//切换页面  左右翻页按钮  都会触发图片上传保存事件，完成后再回调翻页
 	//此功能在directive跟controller中互相回调
@@ -178,7 +178,7 @@ creatshowmodule
 		});
 		console.log(['saveShowImg-保存图片']);
 		var imgnum=0,
-			sendnum=[];
+		sendnum=[];
 		if($rootScope.Index!==undefined){
 			$scope.imgviewinfo[$rootScope.Index].changed=1;
 			$rootScope.Index=undefined;
@@ -230,15 +230,15 @@ creatshowmodule
 		//保存资料
 		function saveshowdata(){
 			saveShow($rootScope.editShowData.mainData,
-			function(data){
-				console.log(["资料保存成功",data]);
-				$ionicLoading.hide();
-				$scope.$emit('saveShowImgOver');
-			},function(data){
-				console.log(["资料保存失败",data]);
-			});
+				function(data){
+					console.log(["资料保存成功",data]);
+					$ionicLoading.hide();
+					$scope.$emit('saveShowImgOver');
+				},function(data){
+					console.log(["资料保存失败",data]);
+				});
 		}
-     
+
 	});
 
 
@@ -273,7 +273,7 @@ creatshowmodule
 						imgbox.find(".innerimg").attr("src",$scope.imgviewinfo[index].img.src).show();
 						//点击保存以后要重新加载服务器数据，否则用改变后的缓存,此处为改变缓存
 						$rootScope.editShowData.mainData.pages[$rootScope.pic_pageId].detailPageImage[$rootScope.Index].img = $scope.imgviewinfo[index].img.src;
-					    $scope.$broadcast('saveShowImg');
+						$scope.$broadcast('saveShowImg');
 					});
 				}else{
 					//选择图片空间图片
