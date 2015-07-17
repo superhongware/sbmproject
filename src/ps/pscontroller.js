@@ -688,7 +688,7 @@ function($http, threePointData, getRequest2, SBMJSONP,debase64url,openLink) {
 //打开购买链接  微信不做跳转 只给提示  浏览器中打开手机淘宝
 .factory('openLink',function(){
 	return function openLink(url){
-		if (navigator.userAgent.match("MicroMessenger") && url.match("taobao.com")&&navigator.userAgent.match("QQ")) {
+		if ((navigator.userAgent.match("MicroMessenger")||navigator.userAgent.match("QQ")) && url.match("taobao.com")) {
 			$(".screenforbiden").show();
 		} else if(url!==""){
 			if(url.match("taobao.com")){
