@@ -11,6 +11,10 @@ creatshowmodule.factory('changepagesize', function(){
 			"top":pagtop
 		});
 
+		$(".pagelistbox").css({
+			"top":(pagtop+pageheight+23)
+		}); 
+
 	};
 })
 .factory('setShowImg', ['$rootScope','$http','SBMJSONP','SBMPOST', function($rootScope,$http,SBMJSONP,SBMPOST){
