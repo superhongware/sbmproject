@@ -258,7 +258,8 @@
 .controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state',function($scope, $rootScope,$state) {
 	$scope.gotaoxiaopu=function(){
 		var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
-		$state.go('viewshop',{url:url});
+		JavaScriptInterface.openWebWith(url);
+		// $state.go('viewshop',{url:url});
 	}
 
 }])

@@ -323,7 +323,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			numIid: item.numIid,
 			plat: item.plat
 		};
-		// localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
+		localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
 		$state.go("productDetail");
 	};
 
