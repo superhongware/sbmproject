@@ -3,10 +3,10 @@
  *
  * 设置功能模块
  */
-var settingmodule = angular.module('settingmodule', ['ionic', 'starter.services', 'starter.directives']);
-settingmodule.controller('settingCtrl', [
-'$scope', '$ionicPopup','$state', 'myCookie', 'loginCheck','TBAPI',
-function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
+ var settingmodule = angular.module('settingmodule', ['ionic', 'starter.services', 'starter.directives']);
+ settingmodule.controller('settingCtrl', [
+ 	'$scope', '$ionicPopup','$state', 'myCookie', 'loginCheck','TBAPI',
+ 	function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 
 	//隐藏淘宝标题栏
 	TBAPI.hideTitle();
@@ -32,32 +32,32 @@ function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
 }])
 //设置密码
 .controller('setPassword', ['$rootScope', '$scope', '$state', '$http','$ionicLoading' ,'$ionicPopup','SBMJSONP', 
-function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
-	console.log($rootScope.orgName+","+$rootScope.userName)
-	$scope.setdata = {
-		orgName:$rootScope.orgName,
-		userName:$rootScope.userName,
-		oldPassword:"",
-		newPassword:""
-	};
-	$scope.setPw = function(){
+	function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
+		console.log($rootScope.orgName+","+$rootScope.userName)
+		$scope.setdata = {
+			orgName:$rootScope.orgName,
+			userName:$rootScope.userName,
+			oldPassword:"",
+			newPassword:""
+		};
+		$scope.setPw = function(){
 
-		if(($scope.setdata.newPassword!=$scope.setdata.newPassword1)&&($scope.setdata.newPassword!=="")){
-			$(".error-tip").eq(2).show();
-			return;
-		}
-		$scope.setdata.method = "softbanana.app.password.update";
-		console.log($scope.setdata)
-		var api = SBMJSONP("updatePassword",$scope.setdata);
+			if(($scope.setdata.newPassword!=$scope.setdata.newPassword1)&&($scope.setdata.newPassword!=="")){
+				$(".error-tip").eq(2).show();
+				return;
+			}
+			$scope.setdata.method = "softbanana.app.password.update";
+			console.log($scope.setdata)
+			var api = SBMJSONP("updatePassword",$scope.setdata);
 
-		$ionicLoading.show({
-			template:"正在修改请稍等..."
-		});
-		
-		$http.jsonp(api.url)
+			$ionicLoading.show({
+				template:"正在修改请稍等..."
+			});
+			
+			$http.jsonp(api.url)
 			.success(function(data){
 				console.log(data)
-                $ionicLoading.hide();
+				$ionicLoading.hide();
 				
 				if(data.isSuccess){
 
@@ -94,16 +94,16 @@ function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
 				console.log("连接失败");
 			});
 
-	};
-	$scope.hidetip = function(){
-		$(".error-tip").hide();
-	};
+		};
+		$scope.hidetip = function(){
+			$(".error-tip").hide();
+		};
 
-}])
+	}])
 
 //商户管理
 .controller('shopManage', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup','showedition','shouquan',
- function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup,showedition,shouquan){
+	function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup,showedition,shouquan){
 		$scope.orgdatas = {
 			orgName: $rootScope.orgName,
 			pageNo: 1,
@@ -113,28 +113,28 @@ function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
 		var api = SBMJSONP("searchShop",$scope.orgdatas);
 		// $scope.datacomm = getDataComm;
 		$http.jsonp(api.url)
-			.success(function(data){
-				console.log(0);
-				console.log(data);
-				$scope.shopList = data;
-				for (var i in $scope.shopList.shops){
-					var iplat = $scope.shopList.shops[i].plat;
-					$scope.shopList.shops[i].imgsrc = getDataComm.platObj[iplat].imgSrc;
-				}
-			})
-			.error(function(status,response){
-				console.log("连接失败");
-			});
+		.success(function(data){
+			console.log(0);
+			console.log(data);
+			$scope.shopList = data;
+			for (var i in $scope.shopList.shops){
+				var iplat = $scope.shopList.shops[i].plat;
+				$scope.shopList.shops[i].imgsrc = getDataComm.platObj[iplat].imgSrc;
+			}
+		})
+		.error(function(status,response){
+			console.log("连接失败");
+		});
 
 
-			$scope.showediticon=function(index){
-				showedition(index);
-			};
-			
+		$scope.showediticon=function(index){
+			showedition(index);
+		};
+		
 
-			$scope.del = function(shopplat,shopname){
-				var myPopup = $ionicPopup.show({
-					template: '删除店铺将无法获取宝贝、订单也无法分享店铺中的宝贝详情，您确定要删除吗？',
+		$scope.del = function(shopplat,shopname){
+			var myPopup = $ionicPopup.show({
+				template: '删除店铺将无法获取宝贝、订单也无法分享店铺中的宝贝详情，您确定要删除吗？',
 					// title: '提示',
 					buttons: [{
 						text: '取消'
@@ -146,23 +146,23 @@ function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
 						}
 					}]
 				});
-			};
+		};
 
-			$scope.goon = function(shopplat,shopname){
-					$state.go("shouquanhelp")
+		$scope.goon = function(shopplat,shopname){
+			$state.go("shouquanhelp")
 
 					// $state.go("viewshop",{url:shouquan[shopplat]})
 
-			};
-			$scope.delshop = function(shopplat,shopname){
-				$scope.delshopinfo = {
-					orgName:$rootScope.orgName,
-					plat:shopplat,
-					shopName:shopname
 				};
-				$scope.delshopinfo.method = "softbanana.app.shop.delete";
-				var api = SBMJSONP("deleteShop",$scope.delshopinfo);
-				$http.jsonp(api.url)
+				$scope.delshop = function(shopplat,shopname){
+					$scope.delshopinfo = {
+						orgName:$rootScope.orgName,
+						plat:shopplat,
+						shopName:shopname
+					};
+					$scope.delshopinfo.method = "softbanana.app.shop.delete";
+					var api = SBMJSONP("deleteShop",$scope.delshopinfo);
+					$http.jsonp(api.url)
 					.success(function(data){
 						if(data.isSuccess){
 							for(var i in $scope.shopList.shops){
@@ -177,33 +177,46 @@ function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
 					.error(function(status,response){
 						console.log("连接失败");
 					});
-			};
-}])
+				};
+			}])
 
 //用户反馈
 .controller('feedBack', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup', function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup){
-		$scope.feeddata = {
-				orgName: $rootScope.orgName,
-				terminalInfo: navigator.userAgent,
-				text: ""
-			};
-		$scope.feedback = function(){
+	$scope.feeddata = {
+		orgName: $rootScope.orgName,
+		terminalInfo: navigator.userAgent,
+		text: ""
+	};
+	$scope.feedback = function(){
+		var text=$(".feedbacktext").val();
+		if(text.length>0){
 			$scope.feeddata.method = "softbanana.app.feedback.save";
 			var api = SBMJSONP("saveFeedBack",$scope.feeddata);
 			$http.jsonp(api.url)
-				.success(function(data){
-					$ionicPopup.show({
-						template: "已收录，感谢您的反馈。",
-						buttons: [{
-							text: "确定",
-							type: "button-energized",
-						}]
-					});
-				})
-				.error(function(status,response){
-					console.log("连接失败");
+			.success(function(data){
+				$ionicPopup.show({
+					template: "已收录，感谢您的反馈。",
+					buttons: [{
+						text: "确定",
+						type: "button-energized",
+					}]
 				});
-			};
+			})
+			.error(function(status,response){
+				console.log("连接失败");
+			});
+		}
+		else{
+			$ionicPopup.show({
+				template: "请输入反馈信息",
+				buttons: [{
+					text: "确定",
+					type: "button-energized",
+				}]
+			});
+		}
+		
+	};
 }])
 
 .controller('shopsCtrl', ['$rootScope', '$scope', '$state','shouquan', function($rootScope, $scope, $state,shouquan){
@@ -223,7 +236,7 @@ function($rootScope, $scope, $state, $http,$ionicLoading, $ionicPopup,SBMJSONP){
 		$scope.dangdang = shouquan.DANGDANG;
 
 
-}])
+	}])
 
 .controller('viewshopCtrl', ['$scope','$state','$stateParams',function($scope,$state,$stateParams){
 	//店铺授权
