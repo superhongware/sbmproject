@@ -1,7 +1,7 @@
 <ion-view view-title="我的宝贝秀">
   <ion-nav-buttons side="right">
-    <button class="button" ui-sref="checkproduct">
-    添加
+    <button class="button ion-plus-round" ui-sref="checkproduct">
+  
     </button>
   </ion-nav-buttons>
       
@@ -46,16 +46,16 @@
             <span class="openoptions" ng-click="showediticon($index)">
               <i class="iconfont icon-points" ></i>
             </span>
-            <ion-option-button class="button-dark" ng-click="edit(item.detailId)">
+            <ion-option-button class="button-dark ion-clipboard" ng-click="edit(item.detailId)">
                 <span class="text">编辑</span>
             </ion-option-button>
-            <ion-option-button class="button-dark" ui-sref="share({showId:item.detailId})">
+            <ion-option-button class="button-dark ion-share" ui-sref="share({showId:item.detailId})">
                 <span class="text">分享</span>
             </ion-option-button>
-            <ion-option-button class="button-dark" ng-click="dele(item.detailId)">
+            <ion-option-button class="button-dark ion-trash-a" ng-click="dele(item.detailId)">
                 <span class="text">删除</span>
             </ion-option-button>
-            <ion-option-button class="button-dark" ui-sref="liuliang({showId:item.detailId})">
+            <ion-option-button class="button-dark ion-stats-bars" ui-sref="liuliang({showId:item.detailId})">
                 <span class="text">流量</span>
             </ion-option-button>
           </ion-item>

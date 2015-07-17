@@ -97,7 +97,7 @@ function($scope,$rootScope,myCookie){
 .controller('navbarCtrl', ['$scope','$rootScope','$ionicHistory','$location','$cacheFactory', function($scope,$rootScope,$ionicHistory,$location,$cacheFactory){
 	$scope.myGoBack = function() {
 		console.log("00000");
-		alert(2)
+		
 		if($cacheFactory.get('cacheback'))
    {
    	var cacheback=$cacheFactory.get('cacheback');
@@ -107,7 +107,7 @@ function($scope,$rootScope,myCookie){
      cacheback.removeAll();
      cacheback.put('url',"1");
      cacheback.put('count',0);
-     
+        
    }
    else if($(".addpage").length>0){
  history.go("-2")
@@ -117,28 +117,6 @@ function($scope,$rootScope,myCookie){
   history.go("-1")
    	
    }
-//  if($rootScope.editz){
-//			
-//			$ionicPopup.show({
-//               $rootScope.editz=false;
-//				template: "当前模板已修改，是否保存",
-//				buttons: [{
-//					text: "不保存",
-//					type: "button-positive",
-//					onTap: function() {
-//						history.go("-1")
-//              }
-//				},{
-//					text: "保存",
-//					type: "button-energized",
-//					onTap: function() {
-//						$rootScope.editz=true;
-//						$scope.$broadcast('saveShowImg');
-//              }
-//          }]
-//});
-//}
-
 	
 //		if($location.absUrl().indexOf("editer")>0&&$rootScope.prevurl){
 //			window.location=$rootScope.prevurl;
