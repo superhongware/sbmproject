@@ -283,7 +283,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			console.log(['productComm.loadProductData',data]);
 
 			pageFunc.loadDataComplete();
-
+           
 			if (data.length === 0 && pageData.direction === 'up') {
                
 				//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
