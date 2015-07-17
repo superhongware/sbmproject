@@ -43,8 +43,8 @@ creatshowmodule
 
 //整编辑页的controller
 .controller('editpagesCtrl',[
-	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl','$ionicPopup',
-	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow,creatpsurl,$ionicPopup){
+	'$scope','$rootScope','$state','$http','$ionicLoading','$ionicScrollDelegate','$stateParams','SBMJSONP','saveShow','creatpsurl','$ionicPopup','changepagesize',
+	function($scope,$rootScope,$state,$http,$ionicLoading,$ionicScrollDelegate,$stateParams,SBMJSONP,saveShow,creatpsurl,$ionicPopup,changepagesize){
 	console.log("editpagesCtrl");
 	// $(".back-button").hide();
 	// $scope.popsave = function(){
@@ -290,7 +290,7 @@ creatshowmodule
 				
 				/*======================================改=改=改=改=改=改=改=改=改=改=改===================================*/
 
-				
+				changepagesize();
 				console.log(["改变宽度啊111！！"]);
 				// $scope.pagelistwidth={"width":data.pages.length*71+"px"};
 				//
