@@ -1,8 +1,8 @@
 var starterctrl = angular.module('starter.controllers', []);
 
 starterctrl.controller('mainviewCtrl', [
-'$scope','$rootScope','$log', '$ionicLoading', 'getRequest', 'loginCheck','showadcheck',
-function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadcheck) {
+	'$scope','$rootScope','$log', '$ionicLoading', 'getRequest', 'loginCheck','showadcheck',
+	function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadcheck) {
 
 	// $scope.$on('$stateChangeStart',function(evt, toState, toParams, fromState, fromParams) {
 	// 	// console.log(toState.controller);
@@ -58,10 +58,10 @@ function ($scope, $rootScope,$log,$ionicLoading, getRequest, loginCheck,showadch
 
 //首页
 .controller('indexCtrl', [
-'$scope','$rootScope','loginCheck','getRequest','myCookie','base64','TBAPI',
-function($scope,$rootScope,loginCheck,getRequest,myCookie,base64,TBAPI){
+	'$scope','$rootScope','loginCheck','getRequest','myCookie','base64','TBAPI',
+	function($scope,$rootScope,loginCheck,getRequest,myCookie,base64,TBAPI){
 
-	loginCheck();
+		loginCheck();
 
 	//首页动画只登陆时显示一次
 	$rootScope.ishow = ($rootScope.ishow===undefined)?true:$rootScope.ishow;
@@ -84,48 +84,58 @@ function($scope,$rootScope,loginCheck,getRequest,myCookie,base64,TBAPI){
 
 
 .controller('appadoneCtrl', [
-'$scope','$rootScope','myCookie',
-function($scope,$rootScope,myCookie){
+	'$scope','$rootScope','myCookie',
+	function($scope,$rootScope,myCookie){
 
-	myCookie.add("youhaveredad","yeah!youhaveredad",24);
-	$rootScope.isthereshowad="";
+		myCookie.add("youhaveredad","yeah!youhaveredad",24);
+		$rootScope.isthereshowad="";
 
-	
-}])
+
+	}])
 
 //整个app的导航的controller
-.controller('navbarCtrl', ['$scope','$rootScope','$ionicHistory','$location','$cacheFactory', function($scope,$rootScope,$ionicHistory,$location,$cacheFactory){
+.controller('navbarCtrl', ['$scope','$rootScope','$ionicHistory','$location','$cacheFactory','$ionicPopup', function($scope,$rootScope,$ionicHistory,$location,$cacheFactory,$ionicPopup){
 	$scope.myGoBack = function() {
 		console.log("00000");
 		
 		if($cacheFactory.get('cacheback'))
-   {
-   	var cacheback=$cacheFactory.get('cacheback');
-    var cachecount=cacheback.get('count')+2;
-    var c="-"+cachecount;
-      history.go(c);
-     cacheback.removeAll();
-     cacheback.put('url',"1");
-     cacheback.put('count',0);
-        
-   }
-   else if($(".addpage").length>0){
- history.go("-2")
+		{
+			    $scope.$broadcast('saveShowImg');
+				var cacheback=$cacheFactory.get('cacheback');
+				var cachecount=cacheback.get('count')+2;
+				var c="-"+cachecount;
+				history.go(c);
+				cacheback.removeAll();
+				cacheback.put('url',"1");
+				cacheback.put('count',0);
+		
+			
 
-   }
-   else{
-  history.go("-1")
-   	
-   }
-	
+		}
+		else if($(".addpage").length>0&&!$rootScope.editz){
+			$scope.$broadcast('saveShowImg');
+			history.go("-2")
+
+		}
+		else if($rootScope.editz){
+			$scope.$broadcast('saveShowImg');
+			history.go("-1")
+		}
+		else{
+			history.go("-1")
+
+		}
+
+		
+
 //		if($location.absUrl().indexOf("editer")>0&&$rootScope.prevurl){
 //			window.location=$rootScope.prevurl;
 //		}
 //		else{
 //			
 //		}
-		
-        
+
+
 		// $ionicHistory.goBack(-1);
 
 	};
@@ -217,7 +227,7 @@ function($scope,$rootScope,myCookie){
 	// 	// ctx.scale(0.1,0.1);
 	// 	ctx.drawImage(image,0,0,1300,1300,0,0,100,100);
 	// 	ctx.restore();
-		
+
 	// }
 
 

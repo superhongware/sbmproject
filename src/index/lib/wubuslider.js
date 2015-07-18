@@ -99,14 +99,11 @@
 				"width": pointlistwidth,
 				"height": pointlistw,
 				"position": "absolute",
-				"transform": "translate3d(0," + (sheight / 2 - args.sliderpointwidth) + "px,1px)",
-				"-webkit-transform": "translate3d(0," + (sheight / 2 - args.sliderpointwidth) + "px,1px)",
 				"padding": 0,
-				"top": 0,
-				"left": 0,
-				"right": 0,
-				"bottom": 0,
-				"margin": "auto",
+				"bottom": "10px",
+				"left":"50%",
+				"margin-left":-pointlistwidth/2
+				
 			});
 			pointlistli.css({
 				"list-style": "none",

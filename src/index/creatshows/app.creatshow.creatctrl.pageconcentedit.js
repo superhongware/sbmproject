@@ -222,6 +222,7 @@ creatshowmodule
 					sendimg();
 				}else{
 					saveshowdata();
+					
 				}
 
 			});

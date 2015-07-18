@@ -678,8 +678,9 @@ creatshowmodule.factory('changepagesize', function(){
 			plat: plat
 		},function(productdata){
 			console.log(["查这个宝贝是否下架",productdata]);
-			if(productdata.status!== "onsale"){
 
+			if(productdata.status!== "onsale"){
+                $rootScope.zmyOnsale=false;
 				$ionicPopup.show({
 					title: "分享提示",
 					template: "该宝贝已下架,上架宝贝后分享才有效果哦！",
@@ -688,6 +689,9 @@ creatshowmodule.factory('changepagesize', function(){
 						type: "button-energized",
 					}]
 				});
+			}
+			else{
+				$rootScope.zmyOnsale=true;
 			}
 
 		},function(msg){

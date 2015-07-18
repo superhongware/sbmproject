@@ -3,9 +3,9 @@
  *
  * 登录注册功能
  */
-var loginmodule = angular.module('loginmodule', ['ionic', 'starter.services', 'starter.directives']);
-loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoading','$ionicPopup','loginSubmit', 'myCookie', 'base64', '$state','SBMJSONP',
- function($scope, $rootScope,$http,$ionicLoading,$ionicPopup, loginSubmit, myCookie, base64, $state,SBMJSONP) {
+ var loginmodule = angular.module('loginmodule', ['ionic', 'starter.services', 'starter.directives']);
+ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoading','$ionicPopup','loginSubmit', 'myCookie', 'base64', '$state','SBMJSONP',
+ 	function($scope, $rootScope,$http,$ionicLoading,$ionicPopup, loginSubmit, myCookie, base64, $state,SBMJSONP) {
 	// $rootScope.viewanimate="gogogo";
 	// $scope.urldata=loginSubmit();
 	$scope.logindata = {
@@ -96,33 +96,79 @@ loginmodule.controller('LoginCtrl', ['$scope', '$rootScope', '$http','$ionicLoad
 
 
 	$scope.hidetip = function(){
-	
+
 		$(".error-tip").hide();
 	};
 }])
 
 //注册页
 .controller('sign_upCtrl', ['$rootScope','$scope', '$state', '$ionicPopup', "$http",'$ionicLoading', "SBMJSONP",'myCookie','base64',
-function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,myCookie,base64) {
-	$scope.yourdata = {
-		orgName: "",
-		userName: "",
-		password: "",
-		phone: "",
-		email: "",
-		channel:"app"
-	};
-	$scope.password={
-		password:''
-	};
+	function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,myCookie,base64) {
+		$scope.yourdata = {
+			orgName: "",
+			userName: "",
+			password: "",
+			phone: "",
+			email: "",
+			channel:"app"
+		};
+		$scope.password={
+			password:''
+		};
 
 	//取之前缓存的资料
 	// var logininfo=window.sessionStorage.getItem("logininfo");
 	// if(logininfo!=="null"){
 	// 	$scope.yourdata=JSON.parse(logininfo);
 	// }
+	// 
+	$scope.orgblur=function(e){ 
+		console.log(1111)
+		$scope.orgexist=false;
+		$scope.orgnameAr={
+			method:"softbanana.app.check.orgname",
+			orgName:$scope.yourdata.orgName
+		}
+		var api = SBMJSONP("checkOrgName", $scope.orgnameAr);
+		
+		$http.jsonp(api.url)
+		.success(function(data) {
+		console.log(data)
+			if(!data.isSuccess&&data.map.errorCode=="999"){
+				
+				
+			}else if(data.isSuccess){
+				if($(".popup-container").length<=0){
+				$ionicPopup.show({
+					title: "温馨提示",
+					template: "商家名已存在，请重新输入！",
+					buttons: [{
+						text: "我知道了",
+						type: "button-energized",
+					}]
+				});
+		
+				
+				$scope.yourdata.orgName="";
+				
+				}
+			}
 
+		})
+		.error(function(status, response) {
+		
+			console.log("连接失败");
+
+		});
+
+	}
+
+	function strToJson(str){ 
+		var json = eval('(' + str + ')'); 
+		return json; 
+	} 
 	$scope.sign_up = function() {
+		
 
 		if($scope.yourdata.orgName===''){
 			// alert(1)
@@ -138,8 +184,8 @@ function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,m
 		}
 
         // var res1 = /^[\u4e00-\u9fa5a-z]+$/gi;
-        var res1 =/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\\/`\|])*)$/;
-		if($scope.yourdata.orgName===''){
+        var res1 =/^(([\u4e00-\u9fa5]|[a-zA-Z0-9])+)$/;
+if($scope.yourdata.orgName===''){
 			// alert(1)
 			$(".error-tip").eq(0).children(".rect").text("请输入商家名称");
 			$(".error-tip").eq(0).show();
@@ -150,8 +196,8 @@ function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,m
 			$(".error-tip").eq(0).show();
 			return;
 		}
-          var res2 = /^[\u4e00-\u9fa5a-z]+$/gi;
-         
+		var res2 = /^(([\u4e00-\u9fa5]|[a-zA-Z0-9])+)$/;
+
 		if($scope.yourdata.userName===''){
 			$(".error-tip").eq(1).children(".rect").text("请输入用户名");
 			$(".error-tip").eq(1).show();
@@ -199,7 +245,7 @@ function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,m
 			return;
 		}
 
-        
+
 
 
 		// var restring= /^[\u4e00-\u9fa5a-z0-9_.@]+$/gi;//只能输入汉字和英文字母		
@@ -225,68 +271,44 @@ function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,m
 			template:"正在注册信息，请稍等..."
 		})
 		$http.jsonp(api.url)
-			.success(function(data) {
-				$ionicLoading.hide();
-				if(data.isSuccess){
-					var siginsuccess=$ionicPopup.show({
-						title: "注册成功",
-						template: "注册消息已发送到邮箱，请妥善保管！",
-						buttons: [{
-							text: "我知道了",
-							type: "button-energized",
-						}]
-					});
-					siginsuccess.then(function(res){
-						myCookie.add("orgName",base64.encode($scope.yourdata.orgName),720);
-						myCookie.add("userName",base64.encode($scope.yourdata.userName),720);
-						$rootScope.orgName=$scope.yourdata.orgName;
-						$rootScope.userName=$scope.yourdata.userName;
-						$state.go("taoxiaopu");
-					})
-				}else{
-					console.log(data);
+		.success(function(data) {
+			$ionicLoading.hide();
+			if(data.isSuccess){
+				var siginsuccess=$ionicPopup.show({
+					title: "注册成功",
+					template: "注册消息已发送到邮箱，请妥善保管！",
+					buttons: [{
+						text: "我知道了",
+						type: "button-energized",
+					}]
+				});
+				siginsuccess.then(function(res){
+					myCookie.add("orgName",base64.encode($scope.yourdata.orgName),720);
+					myCookie.add("userName",base64.encode($scope.yourdata.userName),720);
+					$rootScope.orgName=$scope.yourdata.orgName;
+					$rootScope.userName=$scope.yourdata.userName;
+					$state.go("taoxiaopu");
+				})
+			}else{
+				console.log(data);
 
-					$ionicPopup.show({
-						title: "注册失败",
-						template: data.map.errorMsg,
-						buttons: [{
-							text: '去改下资料',
-							type: "button-energized",
-						}]
-					});
-					// if(data.map.errorMsg === "商家名称不允许为空"){
-					// 	$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(0).show();
-					// }else if(data.map.errorMsg==="商家名称重复！"){
-					// 	$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(0).show();
-					// }else if(data.map.errorMsg === "该商家名称已注册"){
-					// 	$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(0).show();
-					// }else if(data.map.errorMsg === "用户名不允许为空"){
-					// 	$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(1).show();
-					// }else if(data.map.errorMsg === "该商家名称下已注册该用户名"){
-					// 	$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(1).show();
-					// }else if(data.map.errorMsg === "密码不允许为空"){
-					// 	$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(2).show();
-					// }else if(data.map.errorMsg === "手机号不允许为空"){
-					// 	$(".error-tip").eq(4).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(4).show();
-					// }else if(data.map.errorMsg === "Email不允许为空"){
-					// 	$(".error-tip").eq(5).children(".rect").text(data.map.errorMsg);
-					// 	$(".error-tip").eq(5).show();
-					// }
-				}
+				$ionicPopup.show({
+					title: "注册失败",
+					template: data.map.errorMsg,
+					buttons: [{
+						text: '去改下资料',
+						type: "button-energized",
+					}]
+				});
 				
-			})
-			.error(function(status, response) {
-				$ionicLoading.hide();
-				console.log("连接失败");
+			}
 
-			});
+		})
+		.error(function(status, response) {
+			$ionicLoading.hide();
+			console.log("连接失败");
+
+		});
 
 		//缓存之前填的资料
 		// window.sessionStorage.setItem("logininfo",JSON.stringify($scope.yourdata));

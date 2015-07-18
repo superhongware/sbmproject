@@ -1,16 +1,16 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','$ionicActionSheet','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei',
-function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionSheet,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei){
+	['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','$ionicActionSheet','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei',
+	function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionSheet,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei){
 
-	loginCheck();
+		loginCheck();
 
-	$scope.shareurl="";
+		$scope.shareurl="";
 	//检测页面是否有宝贝秀数据，有的话直接setshowdata  没有的话先加载宝贝秀数据再setshowdata
 	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
-			setshowdata($rootScope.editShowData.mainData);
+		setshowdata($rootScope.editShowData.mainData);
 			// $scope.shareData = $rootScope.editShowData.mainData;
 			// // setshareurl();
 			// $scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
@@ -27,8 +27,8 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 			var api = SBMJSONP("searchDetail",$scope.shareInfo);
 
 			$http.jsonp(api.url)
-				.success(function(data){
-					console.log(data);
+			.success(function(data){
+				console.log(data);
 					//直接进入分享也 要把宝贝秀数据给$rootScope.editShowData.mainData  否则无法取图片空间图片
 					$rootScope.editShowData={
 						mainData:data
@@ -36,9 +36,9 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 					setshowdata(data);
 
 				})
-				.error(function(status,response){
-					console.log("连接失败");
-				});
+			.error(function(status,response){
+				console.log("连接失败");
+			});
 		}
 
 
@@ -111,32 +111,35 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 
 
 	$scope.sharethis=function(way){
+		if($rootScope.zmyOnsale){
+         	//统计
+         	var form="&from=";
+         	if(way==='weixin'){
+         		form+="groupmessage";
+         	}else{
+         		form+=way;
+         	};
 
-		//统计
-		var form="&from=";
-		if(way==='weixin'){
-			form+="groupmessage";
-		}else{
-			form+=way;
-		};
+         	var jsondata={
+         		titlle:$scope.shareData.detailTitle,
+         		image:$scope.shareData.detailImage,
+         		describe:$scope.shareData.detailDesc,
+         		url:$scope.shareurl+form,
+         		way:way
+         	};
 
-		var jsondata={
-			titlle:$scope.shareData.detailTitle,
-			image:$scope.shareData.detailImage,
-			describe:$scope.shareData.detailDesc,
-			url:$scope.shareurl+form,
-			way:way
-		};
-
-		JavaScriptInterface.shareWithjson(JSON.stringify(jsondata));
-	};
+         	JavaScriptInterface.shareWithjson(JSON.stringify(jsondata));
+         }
+         
+         
+     };
 
 
-	function editimgctrl(imgsrc){
-		$(".editimg").show();
-		$(".editcheckimg").attr("src",imgsrc);
-		if(!$scope.shareimgdata){
-			$scope.shareimgdata={};
+     function editimgctrl(imgsrc){
+     	$(".editimg").show();
+     	$(".editcheckimg").attr("src",imgsrc);
+     	if(!$scope.shareimgdata){
+     		$scope.shareimgdata={};
 			// thisimgdata.dragstart=
 			ionic.onGesture("dragstart",dragstart,$(".editimg")[0]);
 			// thisimgdata.drag=
@@ -205,9 +208,9 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 		$ionicLoading.show({
 			template:"正在保存,请稍等...",
 		});
-        
+		
 		//隐藏编辑区域
-        
+		
 		// 上传图片dat 获取图片url
 		sendShowImg(compressShowImg(cvs,80),function(imgurl){
 			//更新宝贝秀分享图片的url
@@ -234,9 +237,9 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 			},function(){
 				console.log("宝贝秀数据保存失败");
 			});
-	};
+		};
 
-	$scope.dropthispic=function(){
+		$scope.dropthispic=function(){
 		// alert(0);
 		$(".editimg").hide();
 	};
@@ -254,10 +257,10 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 // 	}
 // 	$scope.showjuhua=-$scope.showjuhua;
 // }
-	$scope.share=function(){
+$scope.share=function(){
 
 
-	        Tida.share({
+	Tida.share({
 	            title:"分享的标题", // 分享标题 在来往和微信好友中有标题显示
 	            content: "分享内容", //分享的内容
 	            url: "http://192.168.1.213/sbmproject/ps.html?orgname=work&detailid=987984&productid=44296753642&plat=TAOBAO", // 跳转地址，分享的内容跳转的url
@@ -271,11 +274,11 @@ function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionS
 				'weixinAppId' : "wxf475808481f0620a",//微信分享appId
 				'weixinMsgType':"webpage",//微信分享方式：text文案分享（title必传）、image图片分享（image必传）、webpage图文分享（title、content、image、url必传）
 
-	        }, function(data){
+			}, function(data){
 	        // data.errorCode 为0时分享成功
-	        });
-		
-	}
+	    });
+	
+}
 
 
 
