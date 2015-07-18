@@ -115,11 +115,12 @@
 		$http.jsonp(api.url)
 		.success(function(data){
 			console.log(0);
-			console.log(data);
+			console.log(['店铺',data]);
 			$scope.shopList = data;
 			for (var i in $scope.shopList.shops){
 				var iplat = $scope.shopList.shops[i].plat;
 				$scope.shopList.shops[i].imgsrc = getDataComm.platObj[iplat].imgSrc;
+				$scope.shopList.shops[i].isInvalid=($scope.shopList.shops[i].isInvalid==="1");
 			}
 		})
 		.error(function(status,response){

@@ -8,14 +8,12 @@ creatshowmodule
 
 		$scope.shareurl="";
 	//检测页面是否有宝贝秀数据，有的话直接setshowdata  没有的话先加载宝贝秀数据再setshowdata
-	if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
+	// if ($rootScope.editShowData&&$rootScope.editShowData.mainData) {
 
-		setshowdata($rootScope.editShowData.mainData);
-			// $scope.shareData = $rootScope.editShowData.mainData;
-			// // setshareurl();
-			// $scope.shareurl=creatpsurl($rootScope.orgName,$scope.shareData.detailId,$scope.shareData.numIid,$scope.shareData.plat);
+	// 	setshowdata($rootScope.editShowData.mainData);
 
-		}else{
+
+	// 	}else{
 
 			$scope.shareInfo = {
 				orgName:$rootScope.orgName,
@@ -39,7 +37,7 @@ creatshowmodule
 			.error(function(status,response){
 				console.log("连接失败");
 			});
-		}
+		// }
 
 
 	//是否淘小铺版

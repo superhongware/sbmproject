@@ -36,17 +36,20 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 			method : "softbanana.app.detail.list"
 		};
 		var api = SBMJSONP("listDetail",$scope.showsList);
+
+
 		$http.jsonp(api.url)
 			.success(function(data){
 
-				console.log(["宝贝秀数据",data]);
+
 
 				//第一次没有数据  提示用户去添加新宝贝秀
-				if($scope.thereisnoshow===""&&data.details.length<=0){
+				if(($scope.thereisnoshow===""||$scope.thereisnoshow===true)&&data.details.length<=0){
 					$scope.thereisnoshow=true;
 				}else{
 					$scope.thereisnoshow=false;
 				}
+				console.log(["宝贝秀数据",data,$scope.thereisnoshow]);
 
 				loadDataComplete();
 				for(var i in data.details){
