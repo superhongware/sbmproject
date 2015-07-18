@@ -58,8 +58,8 @@ starterctrl.controller('mainviewCtrl', [
 
 //首页
 .controller('indexCtrl', [
-	'$scope','$rootScope','loginCheck','getRequest','myCookie','base64','TBAPI',
-	function($scope,$rootScope,loginCheck,getRequest,myCookie,base64,TBAPI){
+	'$scope','$rootScope','loginCheck','getRequest','$http','base64','TBAPI','SBMJSONP',
+	function($scope,$rootScope,loginCheck,getRequest,$http,base64,TBAPI,SBMJSONP){
 
 		loginCheck();
 
@@ -76,6 +76,34 @@ starterctrl.controller('mainviewCtrl', [
 	},2000);
 
 	
+	//该账号有没有店铺
+	$scope.thereisnoshops=false;
+
+	var getshopdata = {
+		orgName: $rootScope.orgName,
+		pageNo: 1,
+		pageSize: 50
+	};
+	getshopdata.method = "softbanana.app.shop.search";
+	var api = SBMJSONP("searchShop",getshopdata);
+	// $scope.datacomm = getDataComm;
+	$http.jsonp(api.url)
+	.success(function(data){
+		console.log(0);
+		console.log(['店铺',data]);
+		if(data.shops.length==0){
+			$scope.thereisnoshops=true;
+		}else{
+			$scope.thereisnoshops=false;
+		}
+		// $scope.shopList = data;
+		// for (var i in $scope.shopList.shops){
+		// 	var iplat = $scope.shopList.shops[i].plat;
+		// 	$scope.shopList.shops[i].imgsrc = getDataComm.platObj[iplat].imgSrc;
+		// 	$scope.shopList.shops[i].isInvalid=($scope.shopList.shops[i].isInvalid==="1");
+		// }
+	})
+
 	TBAPI.showTitle();
 
 }])
