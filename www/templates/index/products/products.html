@@ -26,7 +26,7 @@
       </div>
         
       <div class="noproduct ng-hide" ng-show="thereisnoproduct"></div>
-      <ion-content class="paddingtop44">
+      <ion-content class="paddingtop44" delegate-handle="mainScroll">
         <ion-refresher
         pulling-text="下拉更新..."
         on-refresh="pageFunc.refreshproductList()">
