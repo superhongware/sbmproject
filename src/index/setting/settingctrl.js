@@ -194,6 +194,7 @@
 			var api = SBMJSONP("saveFeedBack",$scope.feeddata);
 			$http.jsonp(api.url)
 			.success(function(data){
+				console.log(data)
 				$ionicPopup.show({
 					template: "已收录，感谢您的反馈。",
 					buttons: [{

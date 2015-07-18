@@ -5,8 +5,8 @@
  */
 var productsmodule = angular.module('productsmodule', ['ionic', 'starter.services', 'starter.directives']);
 productsmodule.controller('productsCtrl', [
-'$scope', '$ionicLoading', '$rootScope', '$state', 'productComm', 'getDataComm', 'loginCheck','TBAPI','showedition',
-function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,loginCheck,TBAPI,showedition) {
+'$scope', '$ionicLoading', '$rootScope', '$state','$ionicScrollDelegate', 'productComm', 'getDataComm', 'loginCheck','TBAPI','showedition',
+function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, productComm, getDataComm,loginCheck,TBAPI,showedition) {
 
 	//隐藏淘宝标题栏
 	TBAPI.hideTitle();
@@ -120,6 +120,24 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		$scope.$broadcast('scroll.refreshComplete');
 		$scope.$broadcast('scroll.infiniteScrollComplete');
 		pageData.isPostBack = true;
+      
+		setTimeout(function(){
+			
+			if($rootScope.zmyscrollTop&&$rootScope.zmyscrollTop>0){
+				
+				$ionicScrollDelegate.$getByHandle('mainScroll').scrollTo(0,$rootScope.zmyscrollTop);$rootScope.zmyscrollTop=0
+			}
+			else{
+				$rootScope.zmyscrollTop=0
+			}
+			
+			
+		})
+
+
+		
+		
+		
 	};
 
 
@@ -278,7 +296,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 
 		productComm.loadProductData(option, function(data) {
 
-
+ 
 			// alert(JSON.stringify(data))
 			console.log(['productComm.loadProductData',data]);
 
@@ -313,7 +331,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			}
 
 			pageData.isPostBack = true;
-
+          
 			console.log('pageData.productList');
 			console.log(pageData.productList);
 
@@ -330,6 +348,8 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 			numIid: item.numIid,
 			plat: item.plat
 		};
+		$rootScope.zmyscrollTop = $ionicScrollDelegate.getScrollPosition().top;
+		
 		localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
 		$state.go("productDetail");
 	};

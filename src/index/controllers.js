@@ -94,7 +94,7 @@ starterctrl.controller('mainviewCtrl', [
 	}])
 
 //整个app的导航的controller
-.controller('navbarCtrl', ['$scope','$rootScope','$ionicHistory','$location','$cacheFactory','$ionicPopup', function($scope,$rootScope,$ionicHistory,$location,$cacheFactory,$ionicPopup){
+.controller('navbarCtrl', ['$scope','$rootScope','$ionicHistory','$location','$cacheFactory','$ionicPopup','$ionicScrollDelegate', function($scope,$rootScope,$ionicHistory,$location,$cacheFactory,$ionicPopup,$ionicScrollDelegate){
 	$scope.myGoBack = function() {
 		console.log("00000");
 		
@@ -122,6 +122,7 @@ starterctrl.controller('mainviewCtrl', [
 			history.go("-1")
 		}
 		else{
+		
 			history.go("-1")
 
 		}
