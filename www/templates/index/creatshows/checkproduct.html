@@ -63,9 +63,14 @@
 
 
 
+
             
           </ion-item>
-          <div class="warpNoData" ng-if="pageData.productList.length == 0"><i class="iconfont icon-logo"></i>该店铺没有上架的宝贝</div>
+          <div class="warpNoData" ng-if="pageData.productList.length == 0">
+            <i class="iconfont icon-logo"></i>
+            <span ng-if="pageData.isOnsaleStatus">该店铺没有上架的宝贝</span>
+            <span ng-if="!pageData.isOnsaleStatus">该店铺没有下架的宝贝</span>
+          </div>
         </ion-list>
 
         <ion-infinite-scroll

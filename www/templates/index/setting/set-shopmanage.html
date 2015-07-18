@@ -12,7 +12,7 @@
       ng-repeat="shop in shopList.shops">
           <img ng-src="{{shop.imgsrc}}">
           <span class="shopname">{{shop.shopName}}</span>
-          <span class="rightwrap">
+          <span class="rightwrap" ng-if="!shop.isInvalid">
             <span class="expired">授权过期</span>
           </span>
           <span class="openoptions" ng-click="showediticon($index)">
