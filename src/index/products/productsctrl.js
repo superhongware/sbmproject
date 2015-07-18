@@ -21,6 +21,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	$scope.thereisnoproduct="";
 
 
+// alert(sessionStorage.getItem('productListPageViewState'))
 	/**
 	 * [pageData 模块数据]
 	 * @type {Object}
@@ -37,7 +38,7 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		currShop: null,
 		isHaveMoreData: false,
 		isPostBack: false,
-		// pageViewState: JSON.parse(localStorage.getItem('productListPageViewState')) //{currShop,currStatus}
+		pageViewState: JSON.parse(sessionStorage.getItem('productListPageViewState')) //{currShop,currStatus}
 	};
 
 	$scope.showediticon=function(index){
@@ -106,7 +107,12 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 	pageFunc.setCurrPageViewState = function(currShop, currStatus) {
 		pageData.pageViewState.currShop = currShop;
 		pageData.pageViewState.currStatus = currStatus;
-		// localStorage.setItem('productListPageViewState', JSON.stringify(pageData.pageViewState));
+		//更新上下架状态
+		pageData.currStatus = currStatus;
+		//更新上下架按钮样式
+		pageData.isOnsaleStatus = currStatus == 'onsale';
+
+		sessionStorage.setItem('productListPageViewState', JSON.stringify(pageData.pageViewState));
 	};
 
 	pageFunc.loadDataComplete = function() {
@@ -144,10 +150,12 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 				pageData.shopList[i].checked=false;
 			}
 		}
-		
+		//设置 当前上下架状态 跟 当前门店
 		pageFunc.setCurrPageViewState(
 			pageData.currShop,
-			pageData.pageViewState.currStatus === null ? 'onsale' : pageData.pageViewState.currStatus
+			// pageData.pageViewState.currStatus === null ? 'onsale' : pageData.pageViewState.currStatus
+			'onsale'
+
 		);
 		console.log(["设置店铺",pageData.currShop])
 	};
@@ -230,7 +238,6 @@ function($scope, $ionicLoading, $rootScope, $state, productComm, getDataComm,log
 		pageData.lastId = '';
 		pageData.direction = '';
 		pageData.currStatus = status;
-		pageData.isOnsaleStatus = status == 'onsale';
 		pageFunc.setCurrPageViewState(
 			pageData.pageViewState.currShop === null ? pageData.shopList[0] : pageData.pageViewState.currShop,
 			pageData.currStatus
