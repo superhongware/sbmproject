@@ -151,7 +151,7 @@ angular.module('starter',
 	.state('sqsuccess', {
 		url: "/sqsuccess",
 		templateUrl: "templates/index/setting/sqsuccess.html",
-
+		controller:'sqsuccessCtrl'
 	})
 	.state('sqerror', {
 		url: "/sqerror",

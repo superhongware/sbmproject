@@ -242,7 +242,7 @@
 
 .controller('viewshopCtrl', ['$scope','$state','$stateParams',function($scope,$state,$stateParams){
 	//店铺授权
-	$(".viewtemplate").append('<iframe style="overflow-x:auto;overflow-y:auto;" class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
+	$(".viewtemplate").append('<iframe style="overflow-x:auto;overflow-y:auto;" height='+($(window).height()-44)+' class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
 	$scope.viewbtnneam="首页";
 	$scope.viewneam="店铺授权";
 	$scope.viewbtn=function(){
@@ -260,10 +260,17 @@
 .controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state',function($scope, $rootScope,$state) {
 	$scope.gotaoxiaopu=function(){
 		var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
-		JavaScriptInterface.openWebWith(url);
-		// $state.go('viewshop',{url:url});
+		var url=location.origin+"/#sqsuccess";
+
+		// JavaScriptInterface.openWebWith(url);
+		$state.go('viewshop',{url:url});
 	}
 
+}])
+.controller('sqsuccessCtrl', ['$scope', function($scope){
+	$scope.letsgohome=function(){
+		console.log(window.parent.location)
+	}
 }])
 ;
 
