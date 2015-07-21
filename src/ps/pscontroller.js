@@ -686,18 +686,28 @@ function($http, threePointData, getRequest2, SBMJSONP,debase64url,openLink) {
 }])
 
 //打开购买链接  微信不做跳转 只给提示  浏览器中打开手机淘宝
-.factory('openLink',function(){
+.factory('openLink',['getRequest',function(getRequest){
 	return function openLink(url){
+		if (getRequest("templateview")||getRequest("showview")) {
+			// 模板预览不跳转
+			return;
+		}
+
+			// alert(navigator.userAgent)
 		if ((navigator.userAgent.match("MicroMessenger")||navigator.userAgent.match("QQ")) && url.match("taobao.com")) {
 			$(".screenforbiden").show();
 		} else if(url!==""){
-			if(url.match("taobao.com")){
-				url=url.replace("http","taobao");
+
+			var cc=setTimeout(function(){
+				location.href = url;
+			},200)
+			if(url.match("taobao.com")）//&&(navigator.userAgent.match('iPhone')||navigator.userAgent.match('iPad')||navigator.userAgent.match('iPod')||navigator.userAgent.match('MI'))){
+				var url2=url.replace("http","taobao");
+				location.href = url2;
 			}
-			location.href = url;
 		}
 	};
-})
+}])
 // .directive('showBox', ['$http', 'p_s', function($http, p_s) {
 // 	// Runs during compile
 // 	return {

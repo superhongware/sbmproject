@@ -254,7 +254,7 @@
 
 .controller('showCtrl', ['$scope','$state', '$ionicPopup', 'myCookie', 'loginCheck',function($scope, $state, $ionicPopup, myCookie, loginCheck) {
 
-	alert(1234);
+
 
 }])
 .controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state',function($scope, $rootScope,$state) {
@@ -267,9 +267,11 @@
 	}
 
 }])
-.controller('sqsuccessCtrl', ['$scope', function($scope){
+.controller('sqsuccessCtrl', ['$scope','$state', function($scope,$state){
+	// $state.go("home")
+
 	$scope.letsgohome=function(){
-		console.log(window.parent.location)
+		window.parent.location.href=window.location.href.split("#")[0]+"#/home";
 	}
 }])
 ;

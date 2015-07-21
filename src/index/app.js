@@ -156,7 +156,7 @@ angular.module('starter',
 	.state('sqerror', {
 		url: "/sqerror",
 		templateUrl: "templates/index/setting/sqerror.html",
-
+		controller:"sqsuccessCtrl"
 	})
 	//帮助页面
 	.state('set-help', {
