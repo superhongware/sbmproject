@@ -95,9 +95,14 @@ creatshowmodule
 			buttonClicked: function(indexl) {
 				if(indexl===0){		
 					checklocalimg(function(img){
+						//本地图片不用加 crossorigin="anonymous"  否则导出是黑色的
+     					$("#shareimgedit").html('<img src="" class="editcheckimg" alt="">')
+
 						editimgctrl(img.src);
 					});
 				}else{
+					//网络图片需要 crossorigin="anonymous"  否则导出无效
+     				$("#shareimgedit").html('<img src="" class="editcheckimg"  crossorigin="anonymous" alt="">')
 					//选择图片空间图片
 					$state.go("remoteimg");
 
@@ -134,6 +139,7 @@ creatshowmodule
 
 
      function editimgctrl(imgsrc){
+
      	$(".editimg").show();
      	$(".editcheckimg").attr("src",imgsrc);
      	if(!$scope.shareimgdata){
@@ -197,6 +203,7 @@ creatshowmodule
 
 	$scope.getthispic=function(){
 		//不会翻转图片
+		console.log("shareimgdata");
 		console.log($scope.shareimgdata);
 		var cvs=drawShowImg($scope.shareimgdata);
 		// $scope.shareData={}
@@ -277,8 +284,6 @@ $scope.share=function(){
 	    });
 	
 }
-
-
 
 
 

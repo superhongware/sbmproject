@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <div  ui-sref="shouquanhelp" class="ng-hide shouquandiv" ng-show="!istaobao">
+      <div  ng-click="shouquanclick('KDT')" class="ng-hide shouquanclickdiv" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/youzan.jpg">
             <p>有赞商城（口袋通）</p>
@@ -13,7 +13,7 @@
           </button>
         </div>
       </div>
-      <div  ui-sref="shouquanhelp" class="ng-hide" ng-show="!istaobao">
+<!--       <div  ng-click="shouquanclick('WD')" class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/weidian.jpg">
             <p> 微店（口袋购物）</p>
@@ -21,8 +21,8 @@
             立即授权
           </button>
         </div>
-      </div>
-      <div ui-sref="shouquanhelp" >
+      </div> -->
+      <div ng-click="shouquanclick('TAOBAO')" >
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="img/plat/taobao.jpg">
              <p>淘宝网</p>
@@ -31,7 +31,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
+      <div ng-click="shouquanclick('TAOBAO')"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/tianmao.jpg">
              <p>天猫商城</p>
@@ -40,7 +40,7 @@
           </button>
         </div>
       </div>
-<!--       <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
+<!--       <div ng-click="shouquanclick()"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/amazon.jpg">
             亚马逊商城
@@ -49,7 +49,7 @@
           </button>
         </div>
       </div> -->
-      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
+      <div ng-click="shouquanclick('PAIPAI')"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/paipai.jpg">
             <p> 拍拍商城</p>
@@ -58,7 +58,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
+<!--       <div ng-click="shouquanclick('DANGDANG')"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/dangdang.jpg">
              <p>当当商城</p>
@@ -66,8 +66,8 @@
             立即授权
           </button>
         </div>
-      </div>
-      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
+      </div> -->
+      <div ng-click="shouquanclick('JINGD')"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/jingdong.jpg">
              <p>京东商城</p>
@@ -76,7 +76,7 @@
           </button>
         </div>
       </div>
-      <div ui-sref="shouquanhelp"  class="ng-hide" ng-show="!istaobao">
+<!--       <div ng-click="shouquanclick('YHD')"  class="ng-hide" ng-show="!istaobao">
         <div class="item item-avatar item-button-right">
           <img class="shopsImg" src="/img/plat/yihaodian.jpg">
             <p> 一号店</p>
@@ -84,7 +84,7 @@
             立即授权
           </button>
         </div>
-      </div>
+      </div> -->
      <!--  <ion-item class="item-remove-animate item-avatar item-icon-right"  type="item-text-wrap" >
         <img ng-src="{{chat.face}}">
         <h2>{{chat.name}}</h2>

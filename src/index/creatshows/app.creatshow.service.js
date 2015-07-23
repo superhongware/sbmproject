@@ -292,16 +292,34 @@ creatshowmodule.factory('changepagesize', function(){
 .factory('compressShowImg', function(){
 	return function compressShowImg(cvs,quality,output_format){
 		var mime_type = "image/jpeg";
+
+
 		if(output_format!==undefined && output_format=="png"){
 			mime_type = "image/png";
 		}
-		
-		var newImageData = cvs.toDataURL(mime_type, quality/100);
+
+		var newImageData='';
+		try{
+			newImageData = cvs.toDataURL(mime_type, quality/100);
+		}catch(e){
+			alert(e)
+		}
+
+		if(newImageData=='' || newImageData.slice(0,"data:image/jpeg".length) !== "data:image/jpeg" ){
+			console.log("安卓不给力,转不了JPEG,用JPEGEncoder重新转")
+			try{
+				var encoder = new JPEGEncoder();
+				var ctx=cvs.getContext("2d");
+				newImageData= encoder.encode(ctx.getImageData(0,0,cvs.width,cvs.height),100);
+			}catch(e){ 
+				alert(e); 
+			}
+		}
+
 		console.log(newImageData);
 		return newImageData;
 	};
 })
-
 /**
  * [creatShow 创建宝贝秀]
  * @param  {[obj]} creatshowdata [参数选项{templateId、productId、productPlat}]
@@ -522,7 +540,7 @@ creatshowmodule.factory('changepagesize', function(){
 }])
 
 .factory('sendShowImg', ['$rootScope','$http','SBMJSONP','SBMPOST',function($rootScope,$http,SBMJSONP,SBMPOST){
-	return function sendShowImg(imgdata,callback){
+	return function sendShowImg(imgdata,callback,errorCallBack){
 		
 			var senddata={
 					orgName:$rootScope.orgName,
@@ -539,6 +557,9 @@ creatshowmodule.factory('changepagesize', function(){
 			})
 			.error(function(data){
 				console.log(["图片上传失败",data]);
+				if(errorCallBack){
+					errorCallBack(data)
+				}
 			});
 	};
 }])

@@ -61,7 +61,7 @@ starterctrl.controller('mainviewCtrl', [
 	'$scope','$rootScope','loginCheck','getRequest','$http','base64','TBAPI','SBMJSONP',
 	function($scope,$rootScope,loginCheck,getRequest,$http,base64,TBAPI,SBMJSONP){
 
-		loginCheck();
+	loginCheck();
 
 	//首页动画只登陆时显示一次
 	$rootScope.ishow = ($rootScope.ishow===undefined)?true:$rootScope.ishow;
@@ -91,10 +91,10 @@ starterctrl.controller('mainviewCtrl', [
 	.success(function(data){
 		console.log(0);
 		console.log(['店铺',data]);
-		if(data.shops.length==0){
-			$scope.thereisnoshops=true;
-		}else{
+		if(data.shops&&!data.shops.length==0){
 			$scope.thereisnoshops=false;
+		}else{
+			$scope.thereisnoshops=true;
 		}
 		// $scope.shopList = data;
 		// for (var i in $scope.shopList.shops){

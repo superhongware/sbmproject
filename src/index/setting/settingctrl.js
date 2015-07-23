@@ -222,20 +222,37 @@
 }])
 
 .controller('shopsCtrl', ['$rootScope', '$scope', '$state','shouquan', function($rootScope, $scope, $state,shouquan){
-		//有赞
-		$scope.youzan = shouquan.KDT;
-		//微店
-		$scope.weidian = shouquan.WD;
-		//淘宝
-		$scope.taobao = shouquan.TAOBAO;
-		//京东
-		$scope.jingdong = shouquan.JINGD;
-		//拍拍
-		$scope.paipai = shouquan.PAIPAI;
-		//一号店
-		$scope.yihaodian = shouquan.YHD;
-		//当当
-		$scope.dangdang = shouquan.DANGDANG;
+		// //有赞
+		// $scope.youzan = shouquan.KDT;
+		// //微店
+		// $scope.weidian = shouquan.WD;
+		// //淘宝
+		// $scope.taobao = shouquan.TAOBAO;
+		// //京东
+		// $scope.jingdong = shouquan.JINGD;
+		// //拍拍
+		// $scope.paipai = shouquan.PAIPAI;
+		// //一号店
+		// $scope.yihaodian = shouquan.YHD;
+		// //当当
+		// $scope.dangdang = shouquan.DANGDANG;
+
+		$scope.shouquanclick=function(plat){
+			if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
+
+				// $state.go('viewshop',{url:shouquan[plat]});
+				try{
+					JavaScriptInterface.openWebWith(shouquan[plat]);
+				}catch(e){
+
+				};
+				$state.go('home');
+
+				
+			}else{
+				$state.go('shouquanhelp');
+			}
+		}
 
 
 	}])
@@ -260,7 +277,7 @@
 .controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state',function($scope, $rootScope,$state) {
 	$scope.gotaoxiaopu=function(){
 		var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
-		var url=location.origin+"/#sqsuccess";
+		// var url=location.origin+"/#sqsuccess";
 
 		// JavaScriptInterface.openWebWith(url);
 		$state.go('viewshop',{url:url});
