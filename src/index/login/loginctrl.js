@@ -109,7 +109,7 @@
 			userName: "",
 			password: "",
 			phone: "",
-			email: "",
+			email: "xingyu@softbanana.com",
 			channel:"app"
 		};
 		$scope.password={
@@ -290,8 +290,8 @@ if($scope.yourdata.orgName===''){
 			$ionicLoading.hide();
 			if(data.isSuccess){
 				var siginsuccess=$ionicPopup.show({
-					title: "注册成功",
-					template: "注册消息已发送到邮箱，请妥善保管！",
+					title: "注册提示",
+					template: "恭喜你注册成功",
 					buttons: [{
 						text: "我知道了",
 						type: "button-energized",

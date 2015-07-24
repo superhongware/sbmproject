@@ -221,7 +221,7 @@ creatshowmodule
 
 				sendShowImg(imgdata, function(imgsrc) {
 					console.log(["图片上传成功", imgsrc]);
-					alert("app.creatshow.creatctrl.pageconcentedit.js 224 sendShowImg成功")
+					// alert("app.creatshow.creatctrl.pageconcentedit.js 224 sendShowImg成功")
 					$rootScope.editShowData.mainData
 						.pages[$scope.showdata.currentpage]
 						.detailPageImage[sendnum[imgnum]]
@@ -237,7 +237,7 @@ creatshowmodule
 					}
 
 				},function(data){
-					alert("app.creatshow.creatctrl.pageconcentedit.js 240 sendShowImg失败"+JSON.stringify(data))
+					// alert("app.creatshow.creatctrl.pageconcentedit.js 240 sendShowImg失败"+JSON.stringify(data))
 
 
 				});

@@ -238,7 +238,13 @@
 		// $scope.dangdang = shouquan.DANGDANG;
 
 		$scope.shouquanclick=function(plat){
-			if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
+
+			if (plat==='KDT'||plat==='WD'){
+
+				$state.go('viewshop',{url:shouquan[plat]});
+
+
+			}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
 
 				// $state.go('viewshop',{url:shouquan[plat]});
 				try{
@@ -248,7 +254,6 @@
 				};
 				$state.go('home');
 
-				
 			}else{
 				$state.go('shouquanhelp');
 			}

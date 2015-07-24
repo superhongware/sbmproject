@@ -158,6 +158,7 @@ console.log(wx);
 
 	console.log(["asdasdasd",getRequest("templateview")]);
 
+
 	//模板预览
 	if (getRequest("templateview")) {
 		var templatesdetail = {
@@ -168,7 +169,6 @@ console.log(wx);
 		var api = SBMJSONP('detailTemplate', templatesdetail);
 
 		console.log(['asas,,,,',api.url])
-		
 		$http.jsonp(api.url).success(function(data) {
 				console.log(['模板数据',data]);
 				$scope.showdata = data.template;
@@ -414,7 +414,6 @@ console.log(wx);
 	function isloadover(pages){
 			var imgdata=[];
 			var loadnum=0;
-			
 			// for (var i = 0; i < pages.length; i++) {
 			// 	var simg='';
 			// 	if(pages[i].detailPageImage.indexOf(",")>0){
@@ -461,6 +460,7 @@ console.log(wx);
 
 
 			function loadover(){
+
 				console.log("loadover");
 
 				if(loadnum/imgdata.length==1){
@@ -695,7 +695,7 @@ function($http, threePointData, getRequest2, SBMJSONP,debase64url,openLink) {
 		}
 
 			// alert(navigator.userAgent)
-		if ((navigator.userAgent.match("MicroMessenger")||navigator.userAgent.match("QQ")) && url.match("taobao.com")&&!navigator.userAgent.match("MQQBrowser")) {
+		if ((navigator.userAgent.match("MicroMessenger")||navigator.userAgent.match("[^M]QQ")) && url.match("taobao.com")) {
 			$(".screenforbiden").show();
 		} else if(url!==""){
 
