@@ -1,0 +1,74 @@
+.sign_up {
+  background: #222222 url(../../../img/login.jpg) no-repeat;
+  background-size: 100%;
+  padding: 0 4%;
+}
+.sign_up .colorcb {
+  color: #cbcbcb;
+}
+.sign_up .font16 {
+  font-size: 16px;
+}
+.sign_up .list .list-inset {
+  margin: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.sign_up .list .list-inset .item {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.sign_up .list .list-inset .item .placeholder-icon {
+  color: #fff;
+  font-size: 18px;
+}
+.sign_up .list .list-inset .item .v-bar {
+  width: 1px;
+  background: #919499;
+  height: 20px;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.sign_up .list .list-inset .item input {
+  color: #a2a6a9;
+  font-size: 16px;
+}
+.sign_up .list .list-inset .item input:focus {
+  color: #fff;
+}
+.sign_up .error-tip {
+  position: relative;
+  z-index: 999;
+  margin: -15px 11px -24px 11px;
+  display: none;
+}
+.sign_up .error-tip .triangle {
+  width: 10px;
+  height: 10px;
+  background: #fe9900;
+  -webkit-transform: rotate(45deg);
+  margin-left: 36px;
+}
+.sign_up .error-tip .rect {
+  margin-top: -5px;
+  background: #fe9900;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  font-size: 15px;
+  text-indent: 17px;
+}
+.sign_up .logintitle {
+  padding-top: 30px;
+  padding-bottom: 5px;
+}
+.sign_up .logintitle h3 {
+  color: #fff;
+}
+.sign_up .forget-password {
+  padding-right: 10px;
+  text-align: right;
+}
+.sign_up .forget-password a {
+  text-decoration: none;
+  color: #a2a6a9;
+}

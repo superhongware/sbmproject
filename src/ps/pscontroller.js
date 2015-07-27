@@ -133,16 +133,31 @@ console.log(wx);
 		})
 		var state = {url:'#/helpme',title:'helpme'};
 
-		history.pushState(state,state.title,state.url);
-		history.go(1);
+		// history.pushState(state,state.title,state.url);
+		// history.go(1);
 		$(".helpme").show();
 	};
 	$scope.closehelpme=function(){
-		history.go(-1);
+		$(".helpme").hide();
+		//history.go(-1);
 		// var state = {url:'#/',title:'closehelpme'};
 		// history.pushState(state,state.title,state.url);
 	};
 
+   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.jpg',"txt":"来源文字","link":"http://www.baidu.com"},
+	{
+		"lastPageIndex":"2",
+		"img":'img/pagetemp1.jpg',
+		"txt":"来源文字",
+		"link":"http://www.baidu.com"
+		
+	},{
+		"lastPageIndex":"3",
+		"img":'img/pagetemp1.jpg',
+		"txt":"来源文字",
+		"link":"http://www.baidu.com"
+	}
+	];
 	window.onpopstate=function(event){
 		// console.log(['event',event]);
 		if(event.state!==null&&event.state.url==="#/helpme"){
