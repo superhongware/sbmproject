@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="Clear"></div>
-		<div ng-hide="!istaobao">
+		<div ng-show="istaobao" class="ng-hide">
 			<span class="shareurlnote">宝贝秀链接地址</span>
 			<div  class="shareurlbox" rows="4" readonly ng-bind="shareurl"></div>
 			<span class="shareurlnote">如何分享？</span><br/>
@@ -43,9 +43,9 @@
 		<div class="shareway">
 
 			<div
-			ng-hide="!istaobao"
+			ng-show="istaobao"
 			ui-sref="sharehelp"
-			class="button button-energized button-block">如何分享到微信</div>
+			class="button button-energized button-block ng-hide">如何分享到微信</div>
 
 				<!--         <div
 			ng-hide="!istaobao"

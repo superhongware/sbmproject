@@ -180,18 +180,9 @@
 				
 			}else if(data.isSuccess){
 				if($(".popup-container").length<=0){
-				$ionicPopup.show({
-					title: "温馨提示",
-					template: "商家名已存在，请重新输入！",
-					buttons: [{
-						text: "我知道了",
-						type: "button-energized",
-					}]
-				});
-		
-				
-				$scope.yourdata.orgName="";
-				
+					$(".error-tip").eq(0).children(".rect").text("该商家名称已注册");
+					$(".error-tip").eq(0).show();
+					$scope.yourdata.orgName="";
 				}
 			}
 
