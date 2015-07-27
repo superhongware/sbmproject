@@ -1,96 +1,22 @@
 {
-	"templateId": 1,
-	"detailTitle":"标题",
-	"detailDesc": "描述",
-	"detailImage":"详情图片",
-	"shopName":"店铺名称",
-	"numIid": "宝贝ID",
-	"detailUrl": "购买链接",
-	"plat": "平台",
-	"pages": [
+	"lastpage": [
 	{
-		"detailPageIndex":"1",
-		"templatePageId": 2,
-		"detailPageImage": [
-			{"img":"img/pic2.jpg"}
-			
-		],
-		"detailPageText": [
-			{"txt":"SOFTBANANA"},
-			{"txt":"宝贝秀制作助手"},
-			{"txt":"开启手机详情新时代"},
-			{"txt":""}
-
-		]
+		"lastPageIndex":"1",
+		"img":'img/pagetemp1.jpg',
+		"txt":"来源文字",
+		"link":"www.baidu.com"
 	},
 	{
-		"detailPageIndex":"2",
-		"templatePageId": 3,
-		"detailPageImage": [
-			{"img":"img/pic3.jpg"}
-		],
-		"detailPageText": [
-			{"txt":"高清大图"},
-			{"txt":"全屏设计，充分展示宝贝，引人入胜"}
-		]
-	},
-	{
-		"detailPageIndex":"3",
-		"templatePageId": 7,
-		"detailPageImage": [
-			{"img":"img/pic4_1.jpg"},
-			{"img":"img/pic4_2.jpg"},
-			{"img":"img/pic4_3.jpg"}
-		],
-		"detailPageText": [
-			{"txt":""}
-		]
-	},
-	{
-		"detailPageIndex":"4",
-		"templatePageId": 5,
-		"detailPageImage": [
-			{"img":"img/pic5_1.jpg"},
-			{"img":"img/pic5_2.jpg"},
-			{"img":"img/pic5_3.jpg"}
-		],
-		"detailPageText": [
-			{"txt":"多图结合"},
-			{"txt":"添加多张图片拼接展示更多亮点"}
-		]
-	},
-	{
-		"detailPageIndex":"5",
-		"templatePageId": 3,
-		"detailPageImage": [
-			{"img":"img/pic5_2.jpg"}
-		],
-		"detailPageText": [
-			{"txt":"自动获取宝贝数据"},
-			{"txt":"宝贝参数、规格属性自动生成，买家更多选择"}
-		]
-	},
-	{
-		"detailPageIndex":"6",
-		"templatePageId": 6,
-		"detailPageImage": [
-			{"img":"img/pic7.jpg"}
-		],
-		"detailPageText": [
-			{"txt":"流量入口,一键到店成交"},
-			{"txt":"买家只需点击宝贝秀中的购买即可立即打开宝贝页面，即看即买！"}
-		]
-	},
-	{
-		"detailPageIndex":"7",
-		"templatePageId": 4,
-		"detailPageImage": [
-			{"img":"img/pic3.jpg"}
-		],
-		"detailPageText": [
-			{"txt":"一键分享"},
-			{"txt":"支持各大社交平台分享手机详情,让流量爆棚"}
-		]
+		"lastPageIndex":"2",
+		"img":'img/pagetemp1.jpg',
+		"txt":"来源文字",
+		"link":"www.baidu.com"
+		
+	},{
+		"lastPageIndex":"3",
+		"img":'img/pagetemp1.jpg',
+		"txt":"来源文字",
+		"link":"www.baidu.com"
 	}
 	]
 }
