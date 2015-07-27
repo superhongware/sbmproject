@@ -54,11 +54,12 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, product
 			pageData.isPageShow = true;
 
 			setTimeout(function(){
+				$("#sliders").css({"height":$("#sliders").width()});
 				$("#sliders").touchSlider({
 					animatetime:300,
-					automatic:!0,
-					timeinterval:4e3,
-					sliderpoint:!0,
+					automatic:false,
+					timeinterval:3000,
+					sliderpoint:true,
 					sliderpointwidth:8,
 					sliderpointcolor:"#fa9d00"
 				});

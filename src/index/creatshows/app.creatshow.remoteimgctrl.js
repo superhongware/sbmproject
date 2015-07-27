@@ -1,7 +1,7 @@
 creatshowmodule
 .controller('remoteimgCtrl',[
-'$rootScope','$scope','$state','$ionicHistory','getremoteimgcat', '$ionicPopover','SBMJSONP','$http','saveShow','SBMPOST',
-function($rootScope,$scope,$state,$ionicHistory,getremoteimgcat,$ionicPopover,SBMJSONP,$http,saveShow,SBMPOST){
+'$rootScope','$scope','$state','$ionicHistory','$ionicLoading','getremoteimgcat', '$ionicPopover','SBMJSONP','$http','saveShow','SBMPOST',
+function($rootScope,$scope,$state,$ionicHistory,$ionicLoading,getremoteimgcat,$ionicPopover,SBMJSONP,$http,saveShow,SBMPOST){
 	$scope.remoteimgcat=[];
 	$scope.remoteimg={};
 	$scope.goback=function(){
@@ -90,15 +90,17 @@ getreomteimg();
     $scope.uppic = function(picurl){
     	$rootScope.picurl = picurl;
 
-
+    	$ionicLoading.show({
+    		template:"正在保存,请稍后"
+    	})
     	//app.creatshow/creatctrl.pageadd.js  31行左右有相同代码
 		//此处保存只为了  修复添加页面后小页面无法拖动bug 重新加载showdata后小页面就可以拖动
 		//半夜三更的我真找不到是什么原因导致的  实在解决不了才出此对策
 		//你看到这个  如果想优化下，非常欢迎!!!
 		saveShow($rootScope.editShowData.mainData,function(data){
 			$rootScope.editShowData.mainData=undefined;
-			// $ionicLoading.hide();
 			history.go(-1);
+			$ionicLoading.hide();
 			// $state.go("editpages.editer",{
 			// 	showId:$rootScope.pic_showId,
 			// 	pageId:$rootScope.pic_pageId,

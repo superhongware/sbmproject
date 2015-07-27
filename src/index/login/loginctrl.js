@@ -32,6 +32,7 @@
 	})
 
 
+
 	$scope.loginSubmit = function(data){
 		if($scope.logindata.orgName===""){
 			$(".error-tip").eq(0).children(".rect").text("商家名称不允许为空");
@@ -64,9 +65,9 @@
 			// console.log(["myCookie.get orgName",base64.decode(myCookie.get('orgName'))]);
 			// console.log(["myCookie.get userName",base64.decode(myCookie.get('userName'))]);
 
+			loginsuccess();
 
-			$state.go("home");
-			console.log(["success",msg]);
+
 
 		},function(msg){
 			$ionicLoading.hide();
@@ -94,6 +95,46 @@
 	};
 
 
+	function loginsuccess(){
+		//检测店铺状况
+		var orgdatas = {
+			orgName: $rootScope.orgName,
+			pageNo: 1,
+			pageSize: 50
+		};
+		orgdatas.method = "softbanana.app.shop.search";
+		var api = SBMJSONP("searchShop", orgdatas);
+		$http.jsonp(api.url)
+			.success(function(data) {
+
+				console.log(['店铺', data]);
+				if(data.shops.length>0){
+					//有店铺
+					var shopisInvalid=true;
+					for(var i in data.shops){
+						if(data.shops[i].isInvalid==false){
+							shopisInvalid=false;
+						}
+					}
+					if(shopisInvalid){
+						//无未授权直接进首页
+						$state.go("home");
+					}else{
+						//有店铺未授权 跳到授权页面
+						$state.go("set-expired");
+					}
+
+				}else{
+					//无店铺
+					$state.go("home");
+				}
+
+			})
+			.error(function(status, response) {
+				console.log("连接失败");
+				$state.go("home");
+			});
+	}
 
 	$scope.hidetip = function(){
 

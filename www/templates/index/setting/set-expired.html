@@ -1,6 +1,6 @@
 <ion-view view-title="以下店铺授权过期">
   <ion-nav-buttons side="right">
-    <button class="button">跳过</button>
+    <button ui-sref="home" class="button">跳过</button>
   </ion-nav-buttons>
   <ion-content>
     <ion-list>     
@@ -12,7 +12,7 @@
           <span class="shopname">{{shop.shopName}}</span>
           <span class="rightwrap">
             <span class="expired">授权过期</span>
-            <span class="xuding" ng-click="goon(shop.plat,shop.shopName)">续订</span>
+            <span class="xuding" ng-click="goon(shop.plat)">续订</span>
           </span>
       </ion-item>
     </ion-list>

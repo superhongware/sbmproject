@@ -102,84 +102,80 @@
 	}])
 
 //商户管理
-.controller('shopManage', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup','showedition','shouquan',
-	function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup,showedition,shouquan){
-		$scope.orgdatas = {
-			orgName: $rootScope.orgName,
-			pageNo: 1,
-			pageSize: 50
-		};
-		$scope.orgdatas.method = "softbanana.app.shop.search";
-		var api = SBMJSONP("searchShop",$scope.orgdatas);
-		// $scope.datacomm = getDataComm;
-		$http.jsonp(api.url)
-		.success(function(data){
+.controller('shopManage', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup', 'showedition', 'shouquan','shouquanClick',
+function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, showedition, shouquan,shouquanClick) {
+	$scope.orgdatas = {
+		orgName: $rootScope.orgName,
+		pageNo: 1,
+		pageSize: 50
+	};
+	$scope.orgdatas.method = "softbanana.app.shop.search";
+	var api = SBMJSONP("searchShop", $scope.orgdatas);
+	// $scope.datacomm = getDataComm;
+	$http.jsonp(api.url)
+		.success(function(data) {
 			console.log(0);
-			console.log(['店铺',data]);
+			console.log(['店铺', data]);
 			$scope.shopList = data;
-			for (var i in $scope.shopList.shops){
+			for (var i in $scope.shopList.shops) {
 				var iplat = $scope.shopList.shops[i].plat;
 				$scope.shopList.shops[i].imgsrc = getDataComm.platObj[iplat].imgSrc;
-				$scope.shopList.shops[i].isInvalid=($scope.shopList.shops[i].isInvalid==="1");
+				$scope.shopList.shops[i].isInvalid = ($scope.shopList.shops[i].isInvalid === "1");
 			}
 		})
-		.error(function(status,response){
+		.error(function(status, response) {
 			console.log("连接失败");
 		});
 
 
-		$scope.showediticon=function(index){
-			showedition(index);
-		};
-		
+	$scope.showediticon = function(index) {
+		showedition(index);
+	};
 
-		$scope.del = function(shopplat,shopname){
-			var myPopup = $ionicPopup.show({
-				template: '删除店铺将无法获取宝贝、订单也无法分享店铺中的宝贝详情，您确定要删除吗？',
-					// title: '提示',
-					buttons: [{
-						text: '取消'
-					}, {
-						text: '<b>确定</b>',
-						type: 'button-energized',
-						onTap: function(e) {
-							$scope.delshop(shopplat,shopname);
+
+	$scope.del = function(shopplat, shopname) {
+		var myPopup = $ionicPopup.show({
+			template: '删除店铺将无法获取宝贝、订单也无法分享店铺中的宝贝详情，您确定要删除吗？',
+			// title: '提示',
+			buttons: [{
+				text: '取消'
+			}, {
+				text: '<b>确定</b>',
+				type: 'button-energized',
+				onTap: function(e) {
+					$scope.delshop(shopplat, shopname);
+				}
+			}]
+		});
+	};
+
+	$scope.goon = shouquanClick;
+	
+	$scope.delshop = function(shopplat, shopname) {
+		$scope.delshopinfo = {
+			orgName: $rootScope.orgName,
+			plat: shopplat,
+			shopName: shopname
+		};
+		$scope.delshopinfo.method = "softbanana.app.shop.delete";
+		var api = SBMJSONP("deleteShop", $scope.delshopinfo);
+		$http.jsonp(api.url)
+			.success(function(data) {
+				if (data.isSuccess) {
+					for (var i in $scope.shopList.shops) {
+						if ($scope.shopList.shops[i].shopName == $scope.delshopinfo.shopName) {
+							$scope.shopList.shops.splice(i, 1);
 						}
-					}]
-				});
-		};
-
-		$scope.goon = function(shopplat,shopname){
-			$state.go("shouquanhelp")
-
-					// $state.go("viewshop",{url:shouquan[shopplat]})
-
-				};
-				$scope.delshop = function(shopplat,shopname){
-					$scope.delshopinfo = {
-						orgName:$rootScope.orgName,
-						plat:shopplat,
-						shopName:shopname
-					};
-					$scope.delshopinfo.method = "softbanana.app.shop.delete";
-					var api = SBMJSONP("deleteShop",$scope.delshopinfo);
-					$http.jsonp(api.url)
-					.success(function(data){
-						if(data.isSuccess){
-							for(var i in $scope.shopList.shops){
-								if($scope.shopList.shops[i].shopName == $scope.delshopinfo.shopName){
-									$scope.shopList.shops.splice(i,1);
-								}
-							}
-						}else{
-							console.log(data.map.errorMsg);
-						}	
-					})
-					.error(function(status,response){
-						console.log("连接失败");
-					});
-				};
-			}])
+					}
+				} else {
+					console.log(data.map.errorMsg);
+				}
+			})
+			.error(function(status, response) {
+				console.log("连接失败");
+			});
+	};
+}])
 
 //用户反馈
 .controller('feedBack', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup', function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup){
@@ -221,7 +217,7 @@
 	};
 }])
 
-.controller('shopsCtrl', ['$rootScope', '$scope', '$state','shouquan', function($rootScope, $scope, $state,shouquan){
+.controller('shopsCtrl', ['$rootScope', '$scope', '$state','shouquan','shouquanClick', function($rootScope, $scope, $state,shouquan,shouquanClick){
 		// //有赞
 		// $scope.youzan = shouquan.KDT;
 		// //微店
@@ -237,30 +233,53 @@
 		// //当当
 		// $scope.dangdang = shouquan.DANGDANG;
 
-		$scope.shouquanclick=function(plat){
+		$scope.shouquanclick=shouquanClick;
+		// function(plat){
 
-			if (plat==='KDT'||plat==='WD'){
+		// 	if (plat==='KDT'||plat==='WD'){
 
-				$state.go('viewshop',{url:shouquan[plat]});
+		// 		$state.go('viewshop',{url:shouquan[plat]});
 
 
-			}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
+		// 	}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
 
-				// $state.go('viewshop',{url:shouquan[plat]});
-				try{
-					JavaScriptInterface.openWebWith(shouquan[plat]);
-				}catch(e){
+		// 		// $state.go('viewshop',{url:shouquan[plat]});
+		// 		try{
+		// 			JavaScriptInterface.openWebWith(shouquan[plat]);
+		// 		}catch(e){
 
-				};
-				$state.go('home');
+		// 		};
+		// 		$state.go('home');
 
-			}else{
-				$state.go('shouquanhelp');
-			}
+		// 	}else{
+		// 		$state.go('shouquanhelp');
+		// 	}
+		// }
+
+}])
+
+.factory('shouquanClick', ['$state','shouquan', function($state,shouquan){
+	return function shouquanClick(plat){
+		if (plat==='KDT'||plat==='WD'){
+
+			$state.go('viewshop',{url:shouquan[plat]});
+
+
+		}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
+
+			// $state.go('viewshop',{url:shouquan[plat]});
+			try{
+				JavaScriptInterface.openWebWith(shouquan[plat]);
+			}catch(e){
+
+			};
+			$state.go('home');
+
+		}else{
+			$state.go('shouquanhelp');
 		}
-
-
-	}])
+	};
+}])
 
 .controller('viewshopCtrl', ['$scope','$state','$stateParams',function($scope,$state,$stateParams){
 	//店铺授权

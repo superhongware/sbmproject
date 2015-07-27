@@ -220,7 +220,7 @@ console.log(wx);
 
 				// $scope.loadover = true;
 
-				console.log(data);
+				console.log(['宝贝秀数据',data]);
 				//宝贝秀删除后不执行后面代码
 				if (!data.isSuccess) {
 					thereisnoshow();

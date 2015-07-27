@@ -84,7 +84,7 @@ creatshowmodule
 			buttons: [{
 				text: '本机图片'
 			}, {
-				text: '店铺图片空间'
+				text: '宝贝图片空间'
 			}],
 			// destructiveText: 'Delete',
 			titleText: '选择图片源',

@@ -64,6 +64,7 @@ angular.module('starter',
 		templateUrl: "templates/index/home.html",
 		controller:'indexCtrl'
 	})
+
 	.state('shops', {
 		url: "/shops",
 		templateUrl: "templates/index/shops.html",

@@ -1,10 +1,10 @@
 <div class="threepoints">
 
 	<div class="pagemainbtn pagemainbtnhide">
-		<div class="centerround"  id="parmabtn" ng-click="parma($event)">
+		<div class="centerround"  id="parmabtn" ng-click="parma($event)" ng-if="pinfo.noSalesProperty">
 			<span class="parmabtn">参数</span>
 		</div>
-		<div class="centerround" id="standabtn"  ng-hide="!pinfo.salesProperty" ng-click="standa($event)">
+		<div class="centerround" id="standabtn"  ng-if="pinfo.salesProperty" ng-click="standa($event)">
 			<span class="standabtn" >规格</span>
 		</div>
 		<div class="centerround current" id="buybtn" ng-click="buybuybuy(pinfo.detailUrl)">
