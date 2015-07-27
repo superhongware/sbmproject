@@ -110,18 +110,18 @@
 				console.log(['店铺', data]);
 				if(data.shops.length>0){
 					//有店铺
-					var shopisInvalid=true;
+					var shopisInvalid=false;
 					for(var i in data.shops){
-						if(data.shops[i].isInvalid==false){
-							shopisInvalid=false;
+						if(data.shops[i].isInvalid=='true'){
+							shopisInvalid=true;
 						}
 					}
 					if(shopisInvalid){
-						//无未授权直接进首页
-						$state.go("home");
-					}else{
 						//有店铺未授权 跳到授权页面
 						$state.go("set-expired");
+					}else{
+						//无未授权直接进首页
+						$state.go("home");
 					}
 
 				}else{

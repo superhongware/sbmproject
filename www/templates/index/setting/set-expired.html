@@ -7,7 +7,7 @@
       <ion-item 
       class="item-remove-animate item-avatar item-icon-right lineHeight40" 
       type="item-text-wrap" 
-      ng-repeat="shop in shopList.shops" ng-if="shop.isInvalid==0">
+      ng-repeat="shop in shopList.shops" ng-if="shop.isInvalid">
           <img ng-src="{{shop.imgsrc}}">
           <span class="shopname">{{shop.shopName}}</span>
           <span class="rightwrap">
