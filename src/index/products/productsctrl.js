@@ -26,7 +26,10 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 * [pageData 模块数据]
 	 * @type {Object}
 	 */
-	pageData = {
+			
+			
+
+	$scope.pageData = {
 		lastId: '',
 		pageSize: 10,
 		direction: '', //up next
@@ -41,6 +44,8 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 		pageViewState: JSON.parse(sessionStorage.getItem('productListPageViewState')) //{currShop,currStatus}
 	};
 
+
+
 	$scope.showediticon=function(index){
 		showedition(index);
 	};
@@ -52,16 +57,34 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 			// debugger;
 
 	pageFunc.init = function() {
-		// if (pageData.orgName && typeof(pageData.orgName) != 'undefined') {
 
-			console.log(['pageData.pageViewState',pageData.pageViewState]);
-			if (pageData.pageViewState) {
-				pageData.currShop = pageData.pageViewState.currShop;
-				pageData.currStatus = pageData.pageViewState.currStatus;
+			//取缓存
+			var pageDatasession=JSON.parse(sessionStorage.getItem("pageData"));
+			if(pageDatasession){
+				//有缓存 直接读缓存
+				$scope.pageData=pageDatasession;
+				//有缓存 回到页面之前的位置
+				setTimeout(function() {
+					if ($rootScope.zmyscrollTop && $rootScope.zmyscrollTop > 0) {
 
-				pageData.isOnsaleStatus = pageData.currStatus == 'onsale';
+						$ionicScrollDelegate.$getByHandle('mainScroll').scrollTo(0, $rootScope.zmyscrollTop);
+						$rootScope.zmyscrollTop = 0
+					} else {
+						$rootScope.zmyscrollTop = 0
+					}
+				})
+
+				return;
+			}
+
+			console.log(['pageData.pageViewState',$scope.pageData.pageViewState]);
+			if ($scope.pageData.pageViewState) {
+				$scope.pageData.currShop = $scope.pageData.pageViewState.currShop;
+				$scope.pageData.currStatus = $scope.pageData.pageViewState.currStatus;
+
+				$scope.pageData.isOnsaleStatus = $scope.pageData.currStatus == 'onsale';
 			} else {
-				pageData.pageViewState = {
+				$scope.pageData.pageViewState = {
 					currShop: {},
 					currStatus: 'onsale'
 				};
@@ -69,7 +92,7 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 				
 			//如果是淘小铺版本,直接加载数据，不用加载店铺的其他数据了
 			if ($rootScope.istaobao) {
-				pageData.currShop={
+				$scope.pageData.currShop={
 					plat:  $rootScope.plat,
 					shopName: $rootScope.shopName
 				};
@@ -86,12 +109,14 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 						var b = data[a].plat;
 						data[a].img = getDataComm.platObj[b].imgSrc;
 					}
-					pageData.shopList = data;
-					if (pageData.currShop === null) {
-						pageData.currShop = pageData.shopList[0];
+					$scope.pageData.shopList = data;
+					if ($scope.pageData.currShop === null) {
+						$scope.pageData.currShop = $scope.pageData.shopList[0];
 					}else{
-						pageFunc.setSelectShop(pageData.currShop);
+						pageFunc.setSelectShop($scope.pageData.currShop);
 					}
+
+
 					pageFunc.loadData();
 				} else {
 					//alert('');
@@ -105,39 +130,21 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	};
 
 	pageFunc.setCurrPageViewState = function(currShop, currStatus) {
-		pageData.pageViewState.currShop = currShop;
-		pageData.pageViewState.currStatus = currStatus;
+		$scope.pageData.pageViewState.currShop = currShop;
+		$scope.pageData.pageViewState.currStatus = currStatus;
 		//更新上下架状态
-		pageData.currStatus = currStatus;
+		$scope.pageData.currStatus = currStatus;
 		//更新上下架按钮样式
-		pageData.isOnsaleStatus = currStatus == 'onsale';
+		$scope.pageData.isOnsaleStatus = currStatus == 'onsale';
 
-		sessionStorage.setItem('productListPageViewState', JSON.stringify(pageData.pageViewState));
+		sessionStorage.setItem('productListPageViewState', JSON.stringify($scope.pageData.pageViewState));
 	};
 
 	pageFunc.loadDataComplete = function() {
 		$ionicLoading.hide();
 		$scope.$broadcast('scroll.refreshComplete');
 		$scope.$broadcast('scroll.infiniteScrollComplete');
-		pageData.isPostBack = true;
-      
-		setTimeout(function(){
-			
-			if($rootScope.zmyscrollTop&&$rootScope.zmyscrollTop>0){
-				
-				$ionicScrollDelegate.$getByHandle('mainScroll').scrollTo(0,$rootScope.zmyscrollTop);$rootScope.zmyscrollTop=0
-			}
-			else{
-				$rootScope.zmyscrollTop=0
-			}
-			
-			
-		})
-
-
-		
-		
-		
+		$scope.pageData.isPostBack = true;		
 	};
 
 
@@ -151,8 +158,8 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 
 		pageFunc.setSelectShop(item);
 
-		pageData.lastId = '';
-		pageData.direction = '';
+		$scope.pageData.lastId = '';
+		$scope.pageData.direction = '';
 
 		pageFunc.loadData(true);
 
@@ -160,22 +167,22 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	};
 
 	pageFunc.setSelectShop = function(item){
-		for (var i in pageData.shopList) {
-			if(pageData.shopList[i].id === item.id){
-				pageData.shopList[i].checked = true;
-				pageData.currShop=pageData.shopList[i];
+		for (var i in $scope.pageData.shopList) {
+			if($scope.pageData.shopList[i].id === item.id){
+				$scope.pageData.shopList[i].checked = true;
+				$scope.pageData.currShop=$scope.pageData.shopList[i];
 			}else{
-				pageData.shopList[i].checked=false;
+				$scope.pageData.shopList[i].checked=false;
 			}
 		}
 		//设置 当前上下架状态 跟 当前门店
 		pageFunc.setCurrPageViewState(
-			pageData.currShop,
-			// pageData.pageViewState.currStatus === null ? 'onsale' : pageData.pageViewState.currStatus
+			$scope.pageData.currShop,
+			// $scope.pageData.pageViewState.currStatus === null ? 'onsale' : $scope.pageData.pageViewState.currStatus
 			'onsale'
 
 		);
-		console.log(["设置店铺",pageData.currShop])
+		console.log(["设置店铺",$scope.pageData.currShop])
 	};
 
 
@@ -185,7 +192,7 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 */
 	pageFunc.refreshServer = function() {
 		// alert(0)
-		if(!pageData.currShop){
+		if(!$scope.pageData.currShop){
 			$ionicLoading.show({
 				template: "没有店铺，无法同步",
 				duration:2000,
@@ -198,8 +205,8 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 		});
 
 		productComm.refreshServer({
-			shopName: pageData.currShop.shopName,
-			plat: pageData.currShop.plat,
+			shopName: $scope.pageData.currShop.shopName,
+			plat: $scope.pageData.currShop.plat,
 		}, function(data) {
 			$ionicLoading.hide();
 			// console.log();
@@ -224,9 +231,9 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 */
 	pageFunc.refreshproductList = function() {
 		console.log('refreshproductList');
-		pageData.direction = 'next';
-		if (pageData.productList.length > 0) {
-			pageData.lastId = pageData.productList[0].id;
+		$scope.pageData.direction = 'next';
+		if ($scope.pageData.productList.length > 0) {
+			$scope.pageData.lastId = $scope.pageData.productList[0].id;
 		
 		}
 		
@@ -239,9 +246,9 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 */
 	pageFunc.loadMoreData = function() {
 		console.log('loadMoreData');
-		pageData.direction = 'up';
-		if (pageData.productList.length > 0) {
-			pageData.lastId = pageData.productList[pageData.productList.length - 1].id;
+		$scope.pageData.direction = 'up';
+		if ($scope.pageData.productList.length > 0) {
+			$scope.pageData.lastId = $scope.pageData.productList[$scope.pageData.productList.length - 1].id;
 		}
 		pageFunc.loadData();
 
@@ -253,12 +260,12 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 * @return {[type]}        [description]
 	 */
 	pageFunc.loadDataByStatus = function(status) {
-		pageData.lastId = '';
-		pageData.direction = '';
-		pageData.currStatus = status;
+		$scope.pageData.lastId = '';
+		$scope.pageData.direction = '';
+		$scope.pageData.currStatus = status;
 		pageFunc.setCurrPageViewState(
-			pageData.pageViewState.currShop === null ? pageData.shopList[0] : pageData.pageViewState.currShop,
-			pageData.currStatus
+			$scope.pageData.pageViewState.currShop === null ? $scope.pageData.shopList[0] : $scope.pageData.pageViewState.currShop,
+			$scope.pageData.currStatus
 		);
 		pageFunc.loadData(true);
 	};
@@ -270,7 +277,7 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 */
 	pageFunc.loadData = function(isClearCurrData) {
 
-		if (pageData.direction != 'up') {
+		if ($scope.pageData.direction != 'up') {
 			$ionicLoading.show({
 				template: "正在加载...",
 				duration:2000
@@ -279,15 +286,15 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 		}
 
 
-		console.log(['pageData',pageData])
+		console.log(['$scope.pageData',$scope.pageData])
 
 		var option = {
-			shopName: pageData.currShop.shopName,
-			status: pageData.currStatus,
-			action: pageData.direction,
-			pageNo: pageData.lastId,
-			pageSize: pageData.pageSize,
-			plat: pageData.currShop.plat
+			shopName: $scope.pageData.currShop.shopName,
+			status: $scope.pageData.currStatus,
+			action: $scope.pageData.direction,
+			pageNo: $scope.pageData.lastId,
+			pageSize: $scope.pageData.pageSize,
+			plat: $scope.pageData.currShop.plat
 		};
 
 		console.log(['pageFunc.loadData option',option]);
@@ -302,7 +309,7 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 
 			pageFunc.loadDataComplete();
            
-			if (data.length === 0 && pageData.direction === 'up') {
+			if (data.length === 0 && $scope.pageData.direction === 'up') {
                
 				//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
 				if($scope.thereisnoproduct===""){
@@ -310,7 +317,7 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 					 $(".noproduct-bg").show()
 
 				}
-				pageData.isHaveMoreData = false;
+				$scope.pageData.isHaveMoreData = false;
 				return;
 			}else{
 				//有数据  不提示同步宝贝
@@ -318,22 +325,24 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 			}
 
 			if (isClearCurrData) {
-				pageData.productList = [];
+				$scope.pageData.productList = [];
 			}
-			if (pageData.direction === 'up') { //moredata
-				pageData.productList = pageData.productList.concat(data);
+			if ($scope.pageData.direction === 'up') { //moredata
+				$scope.pageData.productList = $scope.pageData.productList.concat(data);
 			} else {
-				pageData.productList = data.concat(pageData.productList);
+				$scope.pageData.productList = data.concat($scope.pageData.productList);
 			}
 
-			if (pageData.isPostBack && (pageData.direction === 'up' || pageData.direction === '') && data.length > 0) {
-				pageData.isHaveMoreData = true;
+			if ($scope.pageData.isPostBack && ($scope.pageData.direction === 'up' || $scope.pageData.direction === '') && data.length > 0) {
+				$scope.pageData.isHaveMoreData = true;
 			}
 
-			pageData.isPostBack = true;
-          
-			console.log('pageData.productList');
-			console.log(pageData.productList);
+
+
+			$scope.pageData.isPostBack = true;
+
+			sessionStorage.setItem("pageData",JSON.stringify($scope.pageData));
+
 
 		}, function(status, response, msg) {
 			pageFunc.loadDataComplete();
@@ -344,7 +353,7 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 
 	pageFunc.showDetail = function(item) {
 		var currSelectProduct = {
-			orgName: pageData.orgName,
+			orgName: $scope.pageData.orgName,
 			numIid: item.numIid,
 			plat: item.plat
 		};
@@ -354,7 +363,6 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 		$state.go("productDetail");
 	};
 
-	$scope.pageData = pageData;
 	$scope.pageFunc = pageFunc;
 
 	loginCheck();
