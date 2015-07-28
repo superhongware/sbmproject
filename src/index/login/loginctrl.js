@@ -112,10 +112,11 @@
 					//有店铺
 					var shopisInvalid=false;
 					for(var i in data.shops){
-						if(data.shops[i].isInvalid=='true'){
+						if(data.shops[i].isInvalid=='1'){
 							shopisInvalid=true;
 						}
 					}
+
 					if(shopisInvalid){
 						//有店铺未授权 跳到授权页面
 						$state.go("set-expired");
@@ -140,6 +141,106 @@
 
 		$(".error-tip").hide();
 	};
+}])
+
+.controller('getmypwCtrl', ['$scope','$http','$timeout','$ionicPopup','SBMJSONP', function($scope,$http,$timeout,$ionicPopup,SBMJSONP){
+	
+	$scope.maindata={
+		phone:"",
+		codetime:'',
+		code1:"",//输入的验证码
+		code2:"",//取得的验证码
+		codeok:false,//输入验证码位数是否正确
+	};
+
+
+
+	$scope.getcodeSubmit=function(){
+		if($scope.maindata.codetime>0){
+			return
+		}else{
+			$scope.maindata.codetime=60;
+			//获取验证码倒计时
+			nogetcode();
+		}
+		console.log($scope.maindata)
+
+		var codedata={
+			phone:$scope.maindata.phone,
+			method:'softbanana.app.password.sendcode'
+		}
+		var api = SBMJSONP("sendCode", codedata);
+
+		$http.jsonp(api.url)
+		.success(function(data){
+			console.log(['验证码',data])
+			if(data.code){
+				$scope.maindata.code2=data.code;
+			}
+		})
+		.error(function(data){
+			console.log(['验证码失败',data])
+		})
+	}
+
+	$scope.getpwSubmit=function(){
+		if($scope.maindata.code2!=$scope.maindata.code1){
+			$ionicPopup.show({
+				title: "找回密码",
+				template: "请输入正确的验证码",
+				buttons: [{
+					text: "好的",
+					type: "button-energized",
+				}]
+			});
+			return;
+		}
+
+		var pwdata={
+			phone:$scope.maindata.phone,
+			isRight:$scope.maindata.code2==$scope.maindata.code1,
+			method:'softbanana.app.password.sendPsd'
+		}
+		var api = SBMJSONP("sendPsd",pwdata);
+
+		$http.jsonp(api.url)
+		.success(function(data){
+			console.log(['取密码',data])
+			if(data.isSuccess){
+				var getpwsuccess=$ionicPopup.show({
+					title: "找回密码",
+					template: "密码已发送到您手机上",
+					buttons: [{
+						text: "好的",
+						type: "button-energized",
+					}]
+				});
+				getpwsuccess.then(function(){
+					window.history.go(-1);
+				})
+			}
+		})
+		.error(function(data){
+			console.log(['取密码失败',data])
+		})
+	}
+
+
+
+
+
+	//获取验证码倒计时
+	function nogetcode(){
+		if($scope.maindata.codetime>0){
+			$timeout(function(){
+				$scope.maindata.codetime--;
+				nogetcode();
+			},1000)
+		}else{
+			$scope.maindata.codetime='';
+		}
+	}
+
 }])
 
 //注册页

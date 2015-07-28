@@ -60,9 +60,12 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 
 			//取缓存
 			var pageDatasession=JSON.parse(sessionStorage.getItem("pageData"));
-			if(pageDatasession){
+			if(pageDatasession&&pageDatasession.productList.length>0){
 				//有缓存 直接读缓存
 				$scope.pageData=pageDatasession;
+				if($scope.pageData.productList.length>0){
+					$scope.thereisnoproduct=false;
+				}
 				//有缓存 回到页面之前的位置
 				setTimeout(function() {
 					if ($rootScope.zmyscrollTop && $rootScope.zmyscrollTop > 0) {
@@ -155,6 +158,11 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 */
 	pageFunc.loadDataByShop = function(item) {
 		console.log('loadDataByShop');
+
+		//清空缓存
+		$scope.pageData.productList=[];
+		//每第一次打开店铺  要把 没有商品提示同步 的遮罩层 重新恢复默认
+		$scope.thereisnoproduct="";
 
 		pageFunc.setSelectShop(item);
 
@@ -270,6 +278,11 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 		pageFunc.loadData(true);
 	};
 
+
+	$scope.closenoproduct=function(){
+		$scope.thereisnoproduct=false;
+	}
+
 	/**
 	 * [loadData 加载产品数据]
 	 * @param  {Boolean} isClearCurrData [是否清除当前视图数据]
@@ -309,12 +322,13 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 
 			pageFunc.loadDataComplete();
            
-			if (data.length === 0 && $scope.pageData.direction === 'up') {
-               
+
+               // alert($scope.pageData.productList)
+			if (data.length === 0) {
 				//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
 				if($scope.thereisnoproduct===""){
 					$scope.thereisnoproduct=true;
-					 $(".noproduct-bg").show()
+					 // $(".noproduct-bg").show()
 
 				}
 				$scope.pageData.isHaveMoreData = false;

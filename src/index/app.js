@@ -52,6 +52,11 @@ angular.module('starter',
 		templateUrl: "templates/index/login/sign_up.html?v=0.0.1",
 		controller:'sign_upCtrl'
 	})
+	.state('getmypw', {
+		url: "/getmypw",
+		templateUrl: "templates/index/login/getmypw.html",
+		controller:'getmypwCtrl'
+	})
 	//淘小铺授权
 	.state('taoxiaopu', {
 		url: "/taoxiaopu",

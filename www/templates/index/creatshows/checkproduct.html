@@ -1,8 +1,6 @@
 <ion-view view-title="第1步:选择宝贝" class="sbm_products warpProductList">
   <ion-nav-buttons side="right">
-    <button class="button" ng-click="pageFunc.refreshServer()">
-    同步
-    </button>
+    <button class="button" ng-click="pageFunc.refreshServer()">同步</button>
   </ion-nav-buttons>
 
   <ion-side-menus enable-menu-with-back-views-"true">
@@ -20,17 +18,20 @@
       </div>
 
       <div class="wsndxyxgg ion-volume-high" ui-sref="appadone">
-         <div style="overflow:hidden;width:calc(100%-26px);height:30px;left:26px;position:absolute;top:0">
-        <div class="adtext">【宝贝复制】主图、详情轻松复制。 <span class="smalltext">了解更多>></span></div>
-         </div>
+        <div style="overflow:hidden;width:calc(100%-26px);height:30px;left:26px;position:absolute;top:0">
+          <div class="adtext">
+            【宝贝复制】主图、详情轻松复制。
+            <span class="smalltext">了解更多>></span>
+          </div>
+        </div>
       </div>
 
-      <div class="noproduct ng-hide" ng-show="thereisnoproduct"></div>
+      <div class="noproduct ng-hide" ng-show="thereisnoproduct" ng-click="closenoproduct()"></div>
+
       <ion-content class="paddingtop44">
         <ion-refresher
         pulling-text="下拉更新..."
-        on-refresh="pageFunc.refreshproductList()">
-        </ion-refresher>
+        on-refresh="pageFunc.refreshproductList()"></ion-refresher>
 
         <ion-list>
           <ion-item
@@ -49,9 +50,9 @@
                   <div class="Clear"></div>
                 </div>
                 <div>
-                    <p class="colorYellow floatL">￥{{item.price}}</p>
-                    <p class="floatR">{{item.num}}件</p>
-                    <div class="Clear"></div>
+                  <p class="colorYellow floatL">￥{{item.price}}</p>
+                  <p class="floatR">{{item.num}}件</p>
+                  <div class="Clear"></div>
                 </div>
               </li>
             </ul>
@@ -61,13 +62,8 @@
 
 
 
-
-
-
-            
           </ion-item>
-          <div class="warpNoData" ng-if="pageData.productList.length == 0">
-            <i class="iconfont icon-logo"></i>
+          <div class="warpNoData" ng-if="pageData.productList.length == 0"> <i class="iconfont icon-logo"></i>
             <span ng-if="pageData.isOnsaleStatus">该店铺没有上架的宝贝</span>
             <span ng-if="!pageData.isOnsaleStatus">该店铺没有下架的宝贝</span>
           </div>
@@ -79,8 +75,7 @@
           on-infinite="pageFunc.loadMoreData()"
           distance="20%"
           spinner="ios"
-          >
-        </ion-infinite-scroll>
+          ></ion-infinite-scroll>
       </ion-content>
 
     </ion-side-menu-content>
@@ -90,15 +85,13 @@
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
-           <img src="{{item.img}}">
-           {{item.shopName}}
-          </ion-item>
+            <img src="{{item.img}}">{{item.shopName}}</ion-item>
         </ion-list>
       </ion-content>
     </ion-side-menu>
 
   </ion-side-menus>
 
-<div class="noproduct-bg"><img src="../../../img/noproduct.png" class="noproduct-img"></div>
+  <div class="noproduct-bg">
+    <img src="../../../img/noproduct.png" class="noproduct-img"></div>
 </ion-view>
-
