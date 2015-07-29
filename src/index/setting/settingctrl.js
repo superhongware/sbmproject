@@ -7,7 +7,6 @@
  settingmodule.controller('settingCtrl', [
  	'$scope', '$ionicPopup','$state', 'myCookie', 'loginCheck','TBAPI',
  	function($scope, $ionicPopup,$state, myCookie, loginCheck,TBAPI) {
-
 	//隐藏淘宝标题栏
 	TBAPI.hideTitle();
 

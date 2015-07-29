@@ -60,12 +60,10 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 
 			//取缓存
 			var pageDatasession=JSON.parse(sessionStorage.getItem("pageData"));
-			if(pageDatasession&&pageDatasession.productList.length>0){
+			if(pageDatasession){
 				//有缓存 直接读缓存
 				$scope.pageData=pageDatasession;
-				if($scope.pageData.productList.length>0){
-					$scope.thereisnoproduct=false;
-				}
+				
 				//有缓存 回到页面之前的位置
 				setTimeout(function() {
 					if ($rootScope.zmyscrollTop && $rootScope.zmyscrollTop > 0) {
@@ -158,11 +156,6 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 	 */
 	pageFunc.loadDataByShop = function(item) {
 		console.log('loadDataByShop');
-
-		//清空缓存
-		$scope.pageData.productList=[];
-		//每第一次打开店铺  要把 没有商品提示同步 的遮罩层 重新恢复默认
-		$scope.thereisnoproduct="";
 
 		pageFunc.setSelectShop(item);
 
@@ -278,11 +271,6 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 		pageFunc.loadData(true);
 	};
 
-
-	$scope.closenoproduct=function(){
-		$scope.thereisnoproduct=false;
-	}
-
 	/**
 	 * [loadData 加载产品数据]
 	 * @param  {Boolean} isClearCurrData [是否清除当前视图数据]
@@ -322,13 +310,12 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 
 			pageFunc.loadDataComplete();
            
-
-               // alert($scope.pageData.productList)
-			if (data.length === 0) {
+			if (data.length === 0 && $scope.pageData.direction === 'up') {
+               
 				//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
 				if($scope.thereisnoproduct===""){
 					$scope.thereisnoproduct=true;
-					 // $(".noproduct-bg").show()
+					 $(".noproduct-bg").show()
 
 				}
 				$scope.pageData.isHaveMoreData = false;
@@ -343,8 +330,10 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 			}
 			if ($scope.pageData.direction === 'up') { //moredata
 				$scope.pageData.productList = $scope.pageData.productList.concat(data);
+				
 			} else {
 				$scope.pageData.productList = data.concat($scope.pageData.productList);
+				
 			}
 
 			if ($scope.pageData.isPostBack && ($scope.pageData.direction === 'up' || $scope.pageData.direction === '') && data.length > 0) {
@@ -356,8 +345,23 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 			$scope.pageData.isPostBack = true;
 
 			sessionStorage.setItem("pageData",JSON.stringify($scope.pageData));
+if (myCookie.get("zm2")) {
+$(".collection-repeat-container").children().eq(0).css("border","2px solid #ff0000");
+					myCookie.add("zm2", "2", 999)
+					setTimeout(function() {
 
+						$(".zm-bgx2,.zm-img2a").appendTo("body");
+						$(".zm-bgx2").addClass("zm-bg")
+						$(".zm-bg,.zm-img2a").css({
+							"opacity": 1
+						})
+					}, 10)
 
+				} else {
+					setTimeout(function() {
+						$(".zm-bgx2,.zm-img2a").remove()
+					}, 10)
+				}
 		}, function(status, response, msg) {
 			pageFunc.loadDataComplete();
 			console.log('数据查询连接失败');
@@ -377,6 +381,16 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 		$state.go("productDetail");
 	};
 
+
+
+$scope.zm2Fn = function() {
+			$(".zm-img2a,.zm-bgx2").remove();
+			
+			
+			var href=$(".collection-repeat-container").find("a").eq(0).attr("href");
+			window.location.href=href
+
+		}
 	$scope.pageFunc = pageFunc;
 
 	loginCheck();
