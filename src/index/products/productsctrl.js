@@ -345,7 +345,7 @@ function($scope, $ionicLoading, $rootScope, $state,$ionicScrollDelegate, product
 			$scope.pageData.isPostBack = true;
 
 			sessionStorage.setItem("pageData",JSON.stringify($scope.pageData));
-if (myCookie.get("zm2")) {
+if (!myCookie.get("zm2")) {
 $(".collection-repeat-container").children().eq(0).css("border","2px solid #ff0000");
 					myCookie.add("zm2", "2", 999)
 					setTimeout(function() {
