@@ -71,26 +71,7 @@
     bottom: 0px;
     left: 0px;
     padding:@bottompadding @bottompadding 0 @bottompadding;
-    .startbutton{
-      font-size: 24px;
-
-      height: 14vh;
-      line-height:  14vh;
-      margin: 5px 0 0 0;
-
-      span.text{
-        margin-right: 10px;
-      }
-      i.icon-logo{
-        font-size: 30px;
-      }
-      i.icon-startarrow{
-        font-size: 12px;
-        position: absolute;
-        padding-top: 1px;
-      }
-    }
-
+    
     .row{
       padding: 0;
       .col-33,.col-50{
@@ -115,6 +96,25 @@
       }
     }
   }//.home_bottom
+.startbutton{
+      font-size: 24px;
+
+      height: 14vh;
+      line-height:  14vh;
+      margin: 5px 0 0 0;
+
+      span.text{
+        margin-right: 10px;
+      }
+      i.icon-logo{
+        font-size: 30px;
+      }
+      i.icon-startarrow{
+        font-size: 12px;
+        position: absolute;
+        padding-top: 1px; 
+      }
+    }
 
 }
 @-webkit-keyframes animatekey
@@ -210,3 +210,6 @@
   background-image:-webkit-linear-gradient(rgba(148, 53, 20, 0.9), rgba(98, 19, 84, 0.9) 50%, rgba(75, 44, 148, 0.9)); 
   z-index: -9;
 }
+
+.zm-bg{position:fixed;background: rgba(0,0,0,.6);width:3000px;height:3000px;top:0;left:-400px;z-index:22;opacity: 0;-webkit-transition:all .4s;top:-1000px}
+.zm-img{width:100%;position:absolute;opacity: 0;transition:all .4s;z-index:99999999;}

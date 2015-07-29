@@ -1,104 +1,82 @@
 <ion-view view-title="第1步:选择宝贝" class="sbm_products warpProductList">
-  <ion-nav-buttons side="right">
-    <button class="button" ng-click="pageFunc.refreshServer()">
-    同步
-    </button>
-  </ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button" ng-click="pageFunc.refreshServer()">
+			同步
+		</button>
+	</ion-nav-buttons>
 
-  <ion-side-menus enable-menu-with-back-views-"true">
-    <!-- Center content -->
-    <ion-side-menu-content class="paddingtop88" ng-class="isthereshowad">
+	<ion-side-menus enable-menu-with-back-views- "true">
+		<!-- Center content -->
+		<ion-side-menu-content class="paddingtop88" ng-class="isthereshowad">
 
-      <div class="bar bar-subheader">
-        <button class="button button-icon icon ion-navicon ng-hide" menu-toggle="left1" ng-show="!istaobao" ></button>
-        <div class="checkbtn">
-          <div class="button-bar">
-            <a class="button" ng-class="{'button-energized': pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
-            <a class="button" ng-class="{'button-energized': !pageData.isOnsaleStatus}"  ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
-          </div>
-        </div>
-      </div>
+			<div class="bar bar-subheader">
+				<button class="button button-icon icon ion-navicon ng-hide" menu-toggle="left1" ng-show="!istaobao"></button>
+				<div class="checkbtn">
+					<div class="button-bar">
+						<a class="button" ng-class="{'button-energized': pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('onsale')">上架中</a>
+						<a class="button" ng-class="{'button-energized': !pageData.isOnsaleStatus}" ng-click="pageFunc.loadDataByStatus('instock')">已下架</a>
+					</div>
+				</div>
+			</div>
 
-      <div class="wsndxyxgg ion-volume-high" ui-sref="appadone">
-         <div style="overflow:hidden;width:calc(100%-26px);height:30px;left:26px;position:absolute;top:0">
-        <div class="adtext">【宝贝复制】主图、详情轻松复制。 <span class="smalltext">了解更多>></span></div>
-         </div>
-      </div>
+			<div class="wsndxyxgg ion-volume-high" ui-sref="appadone">
+				<div style="overflow:hidden;width:calc(100%-26px);height:30px;left:26px;position:absolute;top:0">
+					<div class="adtext">【宝贝复制】主图、详情轻松复制。 <span class="smalltext">了解更多>></span></div>
+				</div>
+			</div>
 
-      <div class="noproduct ng-hide" ng-show="thereisnoproduct"></div>
-      <ion-content class="paddingtop44">
-        <ion-refresher
-        pulling-text="下拉更新..."
-        on-refresh="pageFunc.refreshproductList()">
-        </ion-refresher>
+			<div class="noproduct ng-hide" ng-show="thereisnoproduct"></div>
+			<ion-content class="paddingtop44">
+				<ion-refresher pulling-text="下拉更新..." on-refresh="pageFunc.refreshproductList()">
+				</ion-refresher>
 
-        <ion-list>
-          <ion-item
-          class="item-remove-animate item-avatar item-icon-right animate-repeat"  
-          type="item-text-wrap"
-          collection-repeat="item in pageData.productList"
-          ui-sref="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})"
-          >
-            <img ng-src="{{item.picUrl}}" class="imgProduct">
-            <ul class="productInfo">
-              <li class="floatL">
-                <div class="mTop6 mBottom9">
-                  <span  class="floatL productName">{{item.title}}</span>
-                  <img ng-src="{{item.picPlatUrl}}" class="imgPlat floatL"/>
-                  <span class="xiu floatL" ng-if="item.hasDetail != '0'">秀</span>
-                  <div class="Clear"></div>
-                </div>
-                <div>
-                    <p class="colorYellow floatL">￥{{item.price}}</p>
-                    <p class="floatR">{{item.num}}件</p>
-                    <div class="Clear"></div>
-                </div>
-              </li>
-            </ul>
+				<ion-list>
+					<ion-item class="item-remove-animate item-avatar item-icon-right animate-repeat" type="item-text-wrap" collection-repeat="item in pageData.productList" ui-sref="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})">
+						<img ng-src="{{item.picUrl}}" class="imgProduct">
+						<ul class="productInfo">
+							<li class="floatL">
+								<div class="mTop6 mBottom9">
+									<span class="floatL productName">{{item.title}}</span>
+									<img ng-src="{{item.picPlatUrl}}" class="imgPlat floatL" />
+									<span class="xiu floatL" ng-if="item.hasDetail != '0'">秀</span>
+									<div class="Clear"></div>
+								</div>
+								<div>
+									<p class="colorYellow floatL">￥{{item.price}}</p>
+									<p class="floatR">{{item.num}}件</p>
+									<div class="Clear"></div>
+								</div>
+							</li>
+						</ul>
 
+					</ion-item>
+					<div class="warpNoData" ng-if="pageData.productList.length == 0">
+						<i class="iconfont icon-logo"></i>
+						<span ng-if="pageData.isOnsaleStatus">该店铺没有上架的宝贝</span>
+						<span ng-if="!pageData.isOnsaleStatus">该店铺没有下架的宝贝</span>
+					</div>
+				</ion-list>
 
+				<ion-infinite-scroll ng-if="pageData.isHaveMoreData" icon="ion-loading-c" on-infinite="pageFunc.loadMoreData()" distance="20%" spinner="ios">
+				</ion-infinite-scroll>
+			</ion-content>
 
+		</ion-side-menu-content>
 
+		<!-- Left menu -->
+		<ion-side-menu side="left" class="paddingtop44 warpShopMenu" width="140">
+			<ion-content>
+				<ion-list ng-repeat="item in pageData.shopList">
+					<ion-item menu-close ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
+						<img src="{{item.img}}"> {{item.shopName}}
+					</ion-item>
+				</ion-list>
+			</ion-content>
+		</ion-side-menu>
 
+	</ion-side-menus>
 
-
-
-
-            
-          </ion-item>
-          <div class="warpNoData" ng-if="pageData.productList.length == 0">
-            <i class="iconfont icon-logo"></i>
-            <span ng-if="pageData.isOnsaleStatus">该店铺没有上架的宝贝</span>
-            <span ng-if="!pageData.isOnsaleStatus">该店铺没有下架的宝贝</span>
-          </div>
-        </ion-list>
-
-        <ion-infinite-scroll
-          ng-if="pageData.isHaveMoreData"
-          icon="ion-loading-c"
-          on-infinite="pageFunc.loadMoreData()"
-          distance="20%"
-          spinner="ios"
-          >
-        </ion-infinite-scroll>
-      </ion-content>
-
-    </ion-side-menu-content>
-
-    <!-- Left menu -->
-    <ion-side-menu side="left"  class="paddingtop44 warpShopMenu" width="140">
-      <ion-content>
-        <ion-list ng-repeat="item in pageData.shopList">
-          <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
-           <img src="{{item.img}}">
-           {{item.shopName}}
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-side-menu>
-
-  </ion-side-menus>
-
-<div class="noproduct-bg"><img src="../../../img/noproduct.png" class="noproduct-img"></div>
+	<div class="noproduct-bg"><img src="../../../img/noproduct.png" class="noproduct-img"></div>
 </ion-view>
-
+<img src="../../img/zm2.png" class="zm-img zm-img2a" style="top:110px;left:0" ng-click="zm2Fn()" />
+<div class="zm-bgx2"></div>
