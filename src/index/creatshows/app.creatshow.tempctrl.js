@@ -285,7 +285,28 @@ $scope.zm6Fn = function() {
 			
 		}
 		$scope.zm10Fn = function() {
-			$(".zm-img10a,.zm-bgx5").remove()
+			$(".zm-img10a").remove();
+			$(".zm-img11a").show()
+					$(".zm-img11a").css({
+						"opacity": 1
+					})	
+			var href='#/editpages/editer/1604/2/7';
+			window.location.href=href;
+			
+		}
+		$scope.zm11Fn = function() {
+			$(".zm-img11a").remove();
+			$(".zm-img12a").show()
+					$(".zm-img12a").css({
+						"opacity": 1
+					})	
+			var href='#/editpages/editer/1604/3/5';
+			window.location.href=href;
+			
+		}
+		$scope.zm12Fn = function() {
+			$(".zm-img12a,.zm-bgx5").remove();
+			
 			
 		}
 		//小页面宽度
@@ -356,8 +377,8 @@ $scope.zm6Fn = function() {
 
 							myCookie.add("zm5", "5", 999)
 							setTimeout(function() {
-                                $(".zm-img6a,.zm-img7a,.zm-img8a,.zm-img9a,.zm-img10a").hide()
-								$(".zm-bgx5,.zm-img5a,.zm-img6a,.zm-img7a,.zm-img8a,.zm-img9a,.zm-img10a").appendTo("body");
+                                $(".zm-img6a,.zm-img7a,.zm-img8a,.zm-img9a,.zm-img10a,.zm-img11a,.zm-img12a").hide()
+								$(".zm-bgx5,.zm-img5a,.zm-img6a,.zm-img7a,.zm-img8a,.zm-img9a,.zm-img10a,.zm-img11a,.zm-img12a").appendTo("body");
 								$(".zm-bgx5").addClass("zm-bg")
 								$(".zm-bg,.zm-img5a").css({
 									"opacity": 1
@@ -366,7 +387,7 @@ $scope.zm6Fn = function() {
 
 						} else {
 							setTimeout(function() {
-								$(".zm-bgx5,.zm-img5a,.zm-img6a,.zm-img7a,.zm-img8a,.zm-img9a,.zm-img10a").remove()
+								$(".zm-bgx5,.zm-img5a,.zm-img6a,.zm-img7a,.zm-img8a,.zm-img9a,.zm-img10a,.zm-img11a,.zm-img12a").remove()
 							}, 10)
 						}
 					})
