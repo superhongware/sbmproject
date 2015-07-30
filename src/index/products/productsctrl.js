@@ -73,6 +73,9 @@ productsmodule.controller('productsCtrl', [
 					} else {
 						$rootScope.zmyscrollTop = 0
 					}
+					setTimeout(function() {
+						$(".zm-bgx2,.zm-img2a").remove()
+					}, 10)
 				})
 
 				return;
