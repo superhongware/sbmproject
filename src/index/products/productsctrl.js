@@ -60,7 +60,13 @@ productsmodule.controller('productsCtrl', [
 
 			//取缓存
 			var pageDatasession = JSON.parse(sessionStorage.getItem("pageData"));
-			if (pageDatasession) {
+			if(pageDatasession&&pageDatasession.productList.length>0){
+
+				//有缓存 直接读缓存
+				$scope.pageData=pageDatasession;
+				if($scope.pageData.productList.length>0){
+					$scope.thereisnoproduct=false;
+				}
 				//有缓存 直接读缓存
 				$scope.pageData = pageDatasession;
 
@@ -156,6 +162,10 @@ productsmodule.controller('productsCtrl', [
 		 */
 		pageFunc.loadDataByShop = function(item) {
 			console.log('loadDataByShop');
+			//清空缓存
+			$scope.pageData.productList=[];
+			//每第一次打开店铺  要把 没有商品提示同步 的遮罩层 重新恢复默认
+			$scope.thereisnoproduct="";
 
 			pageFunc.setSelectShop(item);
 
@@ -315,7 +325,7 @@ productsmodule.controller('productsCtrl', [
 					//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
 					if ($scope.thereisnoproduct === "") {
 						$scope.thereisnoproduct = true;
-						$(".noproduct-bg").show()
+						//$(".noproduct-bg").show()
 
 					}
 					$scope.pageData.isHaveMoreData = false;
@@ -382,6 +392,10 @@ productsmodule.controller('productsCtrl', [
 			$state.go("productDetail");
 		};
 
+
+	$scope.closenoproduct=function(){
+		$scope.thereisnoproduct=false;
+	}
 
 
 		$scope.zm2Fn = function() {
