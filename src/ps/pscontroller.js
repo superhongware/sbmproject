@@ -144,18 +144,19 @@ console.log(wx);
 		// history.pushState(state,state.title,state.url);
 	};
 
-   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.jpg',"txt":"软香蕉宝贝秀","link":"http://www.softbanana.com/sb3/index.jsp?businesssources="},
+   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.png',"txt":"洛可可智慧生活","link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3mtJvlj6%2Flj6%2FmmbrmhafnlJ%2FmtLsmZGV0YWlsaWQ9NSZwcm9kdWN0aWQ9NDM1MDY5OTc0MjAmcGxhdD1UQU9CQU8%3D&from=groupmessage&isappinstalled=0 "},
 	{
 		"lastPageIndex":"2",
-		"img":'img/pagetemp1.jpg',
-		"txt":"软香蕉宝贝秀",
-		"link":"http://www.softbanana.com/sb3/index.jsp?businesssources="
+		"img":'img/pagetemp2.png',
+		"txt":"乐贝智能数码店",
+		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3kuZDotJ3mmbrog73mlbDnoIHlupcmZGV0YWlsaWQ9MTImcHJvZHVjdGlkPTQ1NTUzNTY4OTU5JnBsYXQ9VEFPQkFP&from=timeline&isappinstalled=0 "
 		
 	},{
 		"lastPageIndex":"3",
-		"img":'img/pagetemp1.jpg',
-		"txt":"软香蕉宝贝秀",
-		"link":"http://www.softbanana.com/sb3/index.jsp?businesssources="
+		"img":'img/pagetemp3.png',
+		"txt":"锦歌布艺家纺",
+		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3plKbmrYzluIPoibrlrrbnuromZGV0YWlsaWQ9MTAmcHJvZHVjdGlkPTQ1MTA0NzM3NzAyJnBsYXQ9VEFPQkFP&from=timeline&isappinstalled=0 "
+
 	}
 	];
 	window.onpopstate=function(event){

@@ -108,7 +108,8 @@
 				text-align: center;
 				color: #fff;
 				width: 100%;
-				display: block
+				display: block;
+				font-size:18px;
 			}
 			.pred-content a.pred-am1 {
 				-webkit-transform: translate3d(95px, 0px, 0px) rotateY(0deg);
@@ -208,7 +209,7 @@ var _hmt = _hmt || [];
 			<div class="pred-silder" id='hit'>
 				<div class="pred-prev" onclick="swipeChange(1)"></div>
 				<div class="pred-content">
-					<a class="pred-page pred-am{{a.lastPageIndex}} apred{{a.lastPageIndex}}" ng-repeat="a in lastPagedata" href="{{a.link}}" target="_blank">
+					<a class="pred-page pred-am{{a.lastPageIndex}} apred{{a.lastPageIndex}}" ng-repeat="a in lastPagedata" href="{{a.link}}">
 						<img src="{{a.img}}" />
 						<span>{{a.txt}}</span>
 						<div class="page-master"></div>
