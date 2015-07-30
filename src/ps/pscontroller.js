@@ -156,6 +156,7 @@ console.log(wx);
 		"img":'img/pagetemp3.png',
 		"txt":"锦歌布艺家纺",
 		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3plKbmrYzluIPoibrlrrbnuromZGV0YWlsaWQ9MTAmcHJvZHVjdGlkPTQ1MTA0NzM3NzAyJnBsYXQ9VEFPQkFP&from=timeline&isappinstalled=0 "
+
 	}
 	];
 	window.onpopstate=function(event){
