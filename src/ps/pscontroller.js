@@ -144,18 +144,18 @@ console.log(wx);
 		// history.pushState(state,state.title,state.url);
 	};
 
-   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.jpg',"txt":"来源文字","link":"http://www.baidu.com"},
+   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.jpg',"txt":"软香蕉宝贝秀","link":"http://www.softbanana.com/sb3/index.jsp?businesssources="},
 	{
 		"lastPageIndex":"2",
 		"img":'img/pagetemp1.jpg',
-		"txt":"来源文字",
-		"link":"http://www.baidu.com"
+		"txt":"软香蕉宝贝秀",
+		"link":"http://www.softbanana.com/sb3/index.jsp?businesssources="
 		
 	},{
 		"lastPageIndex":"3",
 		"img":'img/pagetemp1.jpg',
-		"txt":"来源文字",
-		"link":"http://www.baidu.com"
+		"txt":"软香蕉宝贝秀",
+		"link":"http://www.softbanana.com/sb3/index.jsp?businesssources="
 	}
 	];
 	window.onpopstate=function(event){
