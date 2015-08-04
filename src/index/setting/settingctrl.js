@@ -257,11 +257,17 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 }])
 
-.factory('shouquanClick', ['$state','shouquan', function($state,shouquan){
+.factory('shouquanClick', ['$rootScope','$state','shouquan', function($rootScope,$state,shouquan){
 	return function shouquanClick(plat){
 		if (plat==='KDT'||plat==='WD'){
 
 			$state.go('viewshop',{url:shouquan[plat]});
+
+
+		}else if(plat==='TAOBAO'){
+			var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
+			
+			$state.go('viewshop',{url:url});
 
 
 		}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
@@ -297,14 +303,29 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 
 }])
-.controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state',function($scope, $rootScope,$state) {
-	$scope.gotaoxiaopu=function(){
+.controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state','shouquan',function($scope, $rootScope,$state,shouquan) {
 		var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
-		// var url=location.origin+"/#sqsuccess";
 
+
+	$scope.gotaoxiaopu=function(){
+		// var url=location.origin+"/#sqsuccess";
 		// JavaScriptInterface.openWebWith(url);
 		$state.go('viewshop',{url:url});
 	}
+
+	$scope.gotosafaribuy=function(){
+		try{
+			JavaScriptInterface.openWebWith(shouquan['TAOBAO']);
+		}catch(e){
+
+		};
+	}
+
+	$scope.goback=function(){
+		console.log(window.location.href.split("#")[0]+"#/viewshop/"+url)
+		window.parent.location.href=window.location.href.split("#")[0]+"#/viewshop/https:%252F%252Foauth.taobao.com%252Fauthorize%3Fresponse_type=code&client_id=23127514&redirect_uri=http:%252F%252Fbaobeixiu.play.admin.jaeapp.com%252FbbxShopNameIsExists&view=wap&state=appbanana";
+	}
+
 
 }])
 .controller('sqsuccessCtrl', ['$scope','$state', function($scope,$state){
@@ -319,11 +340,9 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 
 
+// http://localhost:3000/#/viewshop/https:%252F%252Foauth.taobao.com%252Fauthorize%3Fresponse_type=code&client_id=23127514&redirect_uri=http:%252F%252Fbaobeixiu.play.admin.jaeapp.com%252FbbxShopNameIsExists&view=wap&state=appbanana
 
-
-
-
-
+// http://localhost:3000/#/viewshop/https%3A%2F%2Foauth.taobao.com%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3D23127514%26redirect_uri%3Dhttp%3A%2F%2Fbaobeixiu.play.admin.jaeapp.com%2FbbxShopNameIsExists%26view%3Dwap%26state%3Dappbanana
 
 
 

@@ -116,11 +116,20 @@
 	color:#fff;
 }
 .taoxiaopubox{
+	.icon-gantanhao{
+		.square(70px);
+		line-height: 70px;
+		font-size: 60px;
+		display: block;
+		color: #ea2300;
+		margin: 20px auto 0 auto;
+		text-align: center;
+	}
 	.bigbutton{
-		.size(45%,15vw);
+		.size(45%,3.2em);
 		display: block;
 		text-decoration: none;
-		line-height: 15vw;
+		line-height: 3.2em;
 		margin: 0 auto;
 		margin-top: 25%;
 		background-color: @mainyellow;
@@ -140,6 +149,37 @@
 		span{
 			color: #3c8cf9;
 		}
+	}
+	.bigbutton2{
+		&:extend(.taoxiaopubox .bigbutton);
+		margin-top:0;
+	}
+	.textbar2{
+		&:extend(.taoxiaopubox .textbar);
+		.size(90%,auto);
+		text-align: center;
+		font-size: 16px;
+		margin-bottom: 20px;
+		span{
+			padding: 0 10px;
+			background-color: #fff;
+		}
+	}
+
+	.centerspacebox{
+		width: 100%;
+		height: 70px;
+	}
+	.centerlinebox{
+		width: 90%;
+		border-bottom: 1px solid #ccc;
+		position: absolute;
+		z-index: -1;
+		top: 271px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+
 	}
 	.shouquantext{
 		padding-top: 100px;

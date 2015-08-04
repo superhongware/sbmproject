@@ -2,8 +2,12 @@
 
 	<div class="home_top"  ng-class="{animates:ishows}">
 		<a class="button" ui-sref="setting"><i class="iconfont icon-setting"></i></a>
-		<a class="button ng-hide" ng-show="!istaobao"  ui-sref="taoxiaopu"><i class="iconfont icon-store1"></i></a>
-		<span ng-if="thereisnoshops"  class="thereisnoshops">
+		<!-- ui-sref="taoxiaopu" -->
+		<a class="button ng-hide" 
+		ui-sref="shops"
+		ng-show="!istaobao">
+			<i class="iconfont icon-store1"></i></a>
+			<span ng-if="thereisnoshops"  class="thereisnoshops">
 			<span class="angularicon"></span>
 			点此授权店铺
 		</span>
@@ -18,9 +22,9 @@
 			<i class="iconfont icon-logo"></i>
 			<span class="text">开始制作宝贝秀</span>
 			<i class="iconfont icon-startarrow"></i>
-			<img src="../../img/zm1b.png" class="zm-img zm-img1b" style="top:50%;width:15%;right:10px"/>
+			<img ng-src="../../img/zm1b.png" class="zm-img zm-img1b" style="top:50%;width:15%;right:10px"/>
 		</button>
-		<img src="../../img/zm1a.png" class="zm-img zm-img1a" style="bottom:100%;left:0"/>
+		<img ng-src="../../img/zm1a.png" class="zm-img zm-img1a" style="bottom:100%;left:0"/>
 		
 		<div class="zm-bgx1"></div>
 		<div class="row">
@@ -40,7 +44,7 @@
 
 	</div>
 	
-<!--	<!--
+<!--
 	<div class="aside-open"></div>
 	<div class="aside-open2"></div>-->
 </ion-view>

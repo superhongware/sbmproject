@@ -54,12 +54,7 @@
 		})
 		loginSubmit(data,function(msg){
 			$ionicLoading.hide();
-			myCookie.add("orgName",base64.encode(data.orgName),720);
-			myCookie.add("userName",base64.encode(data.userName),720);
 
-			$rootScope.orgName=data.orgName;
-			$rootScope.userName=data.userName;
-			$rootScope.orgCode=msg.user.orgCode;
 			// console.log(["$rootScope.orgName",$rootScope.orgName]);
 			// console.log(["$rootScope.orgCode",$rootScope.orgCode]);
 			// console.log(["myCookie.get orgName",base64.decode(myCookie.get('orgName'))]);
@@ -244,8 +239,8 @@
 }])
 
 //注册页
-.controller('sign_upCtrl', ['$rootScope','$scope', '$state', '$ionicPopup', "$http",'$ionicLoading', "SBMJSONP",'myCookie','base64',
-	function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,myCookie,base64) {
+.controller('sign_upCtrl', ['$rootScope','$scope', '$state', '$ionicPopup', "$http",'$ionicLoading', "SBMJSONP",'myCookie','base64','loginSubmit',
+	function($rootScope,$scope, $state, $ionicPopup, $http,$ionicLoading, SBMJSONP,myCookie,base64,loginSubmit) {
 		$scope.yourdata = {
 			orgName: "",
 			userName: "",
@@ -431,11 +426,13 @@ if($scope.yourdata.orgName===''){
 					}]
 				});
 				siginsuccess.then(function(res){
-					myCookie.add("orgName",base64.encode($scope.yourdata.orgName),720);
-					myCookie.add("userName",base64.encode($scope.yourdata.userName),720);
-					$rootScope.orgName=$scope.yourdata.orgName;
-					$rootScope.userName=$scope.yourdata.userName;
-					$state.go("taoxiaopu");
+					console.log(["res",res])
+
+					//注册成功后自动登录  获取code
+					loginSubmit($scope.yourdata,function(msg){
+						$state.go("taoxiaopu");
+					})
+
 				})
 			}else{
 				console.log(data);

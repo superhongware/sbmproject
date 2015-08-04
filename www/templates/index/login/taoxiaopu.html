@@ -1,10 +1,18 @@
-<ion-view view-title="授权店铺" class="sbm_products taoxiaopubox">
+<ion-view view-title="授权店铺" class="sbm_products taoxiaopubox"  hide-nav-bar="true">
 
     <ion-content>
-        <div ng-click="gotaoxiaopu()" class="bigbutton">我已使用过宝贝秀</div>
+<!--         <div ng-click="gotaoxiaopu()" class="bigbutton">我已使用过宝贝秀</div>
         <p class="textbar">若您已经在<span>淘宝服务市场导购过</span>宝贝秀请点击上面按钮授权，我们将为您同步淘宝店铺宝贝及您制作过的宝贝秀</p>
         <div ui-sref="shops" class="bigbutton">我要授权新店铺</div>
-        <p class="textbar">若您是<span>第一次使用宝贝秀</span>,请点击上面的按钮来授权您的店铺数据</p>
+        <p class="textbar">若您是<span>第一次使用宝贝秀</span>,请点击上面的按钮来授权您的店铺数据</p> -->
+		
+		<p><span class="iconfont icon-gantanhao"></span></p>
+        <p class="textbar2">您还没订购宝贝秀，请订购后再次登录!</p>
+        <div ng-click="gotosafaribuy()" class="bigbutton2">立即订购</div>
+		<div class="centerspacebox"></div>
+        <p class="textbar2"><span>我已成功订购宝贝秀</span></p>
+        <div ng-click="goback()" class="bigbutton2">再次授权</div>
+		<div class="centerlinebox"></div>
     </ion-content>
 
 </ion-view>

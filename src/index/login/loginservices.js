@@ -16,6 +16,14 @@ loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup',
 			.success(function(data) {
 				console.log(data);
 				if(data.isSuccess){
+
+					myCookie.add("orgName",base64.encode(logindata.orgName),720);
+					myCookie.add("userName",base64.encode(logindata.userName),720);
+					myCookie.add("orgCode",base64.encode(data.user.orgCode),720);
+					$rootScope.orgName=logindata.orgName;
+					$rootScope.userName=logindata.userName;
+					$rootScope.orgCode=data.user.orgCode;
+
 					callback(data);
 				}else{
 					errorcallback(data.map.errorMsg);
