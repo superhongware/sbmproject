@@ -117,7 +117,7 @@ starterctrl.controller('mainviewCtrl', [
 			.success(function(data) {
 				console.log(0);
 				console.log(['店铺', data]);
-				if (data.shops && !data.shops.length == 0) {
+				if((data.shops&&!data.shops.length==0)||$rootScope.istaobao){
 					$scope.thereisnoshops = false;
 				} else {
 					$scope.thereisnoshops = true;

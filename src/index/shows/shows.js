@@ -52,7 +52,7 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 				console.log(["宝贝秀数据",data,$scope.thereisnoshow]);
 
 				loadDataComplete();
-				for(var i in data.details){
+				for(var i =0;i<data.details.length;i++){
 					if(data.details[i].llCount === ""){
 						data.details[i].llCount = 0;
 					}
