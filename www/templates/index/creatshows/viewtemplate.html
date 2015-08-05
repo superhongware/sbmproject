@@ -1,9 +1,16 @@
 <ion-view view-title="{{viewneam}}" class="viewtemplate">
+
+    <ion-nav-buttons side="left">
+      <button class="button back-button buttons button-clear button-clear header-item ng-hide" ng-show="showbackbtn" ng-click="goback()">
+        <i class="icon ion-android-arrow-back" ng-if="!isios"></i>
+        <i class="icon ion-ios-arrow-back" ng-if="isios"></i>
+        返回
+      </button>
+    </ion-nav-buttons>
+
 	<ion-nav-buttons side="right">
 		<button class="button" ng-click="viewbtn()" style="z-index:999">{{viewbtnneam}}</button><img src="../../img/zm4.png" class="zm-img zm-img4a" style="top:30px;width:350px;right:0" />
-<div class="zm-bgx4">
-</div>
-
+		<div class="zm-bgx4"></div>
 	</ion-nav-buttons>
 <!-- 	<iframe class="viewbox" ng-src="{{iframesrc}}" frameborder="0"></iframe> -->
 </ion-view>

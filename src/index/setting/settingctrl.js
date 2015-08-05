@@ -41,10 +41,26 @@
 		};
 		$scope.setPw = function(){
 
-			if(($scope.setdata.newPassword!=$scope.setdata.newPassword1)&&($scope.setdata.newPassword!=="")){
+			if($scope.setdata.oldPassword===''){
+				$(".error-tip").eq(0).children(".rect").text('旧密码不允许为空');
+				$(".error-tip").eq(0).show();
+				return;
+			}
+
+			if($scope.setdata.newPassword===""){
+				$(".error-tip").eq(1).children(".rect").text('新密码不允许为空');
+				$(".error-tip").eq(1).show();
+				return;
+			}else if($scope.setdata.newPassword.length<6 || $scope.setdata.newPassword.length>24){
+				$(".error-tip").eq(1).children(".rect").text('用户密码长度在6~24之间');
+				$(".error-tip").eq(1).show();
+				return;
+			}else if($scope.setdata.newPassword!==$scope.setdata.newPassword1){
 				$(".error-tip").eq(2).show();
 				return;
 			}
+
+
 			$scope.setdata.method = "softbanana.app.password.update";
 			console.log($scope.setdata)
 			var api = SBMJSONP("updatePassword",$scope.setdata);
@@ -74,18 +90,12 @@
 
 				}else{
 					console.log(data.map.errorMsg);
-					if(data.map.errorMsg === "旧密码不允许为空"){
-						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(0).show();
-					}else if(data.map.errorMsg === "密码错误"){
+					if(data.map.errorMsg === "密码错误"){
 						$(".error-tip").eq(0).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(0).show();
 					}else if(data.map.errorMsg === "密码修改失败"){
 						$(".error-tip").eq(2).children(".rect").text(data.map.errorMsg);
 						$(".error-tip").eq(2).show();
-					}else if(data.map.errorMsg === "新密码不允许为空"){
-						$(".error-tip").eq(1).children(".rect").text(data.map.errorMsg);
-						$(".error-tip").eq(1).show();
 					}
 				}
 			})
@@ -216,7 +226,7 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 	};
 }])
 
-.controller('shopsCtrl', ['$rootScope', '$scope', '$state','shouquan','shouquanClick', function($rootScope, $scope, $state,shouquan,shouquanClick){
+.controller('shopsCtrl', ['$rootScope', '$scope', '$state','$ionicNavBarDelegate','shouquan','shouquanClick', function($rootScope, $scope, $state,$ionicNavBarDelegate,shouquan,shouquanClick){
 		// //有赞
 		// $scope.youzan = shouquan.KDT;
 		// //微店
@@ -232,6 +242,17 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 		// //当当
 		// $scope.dangdang = shouquan.DANGDANG;
 
+
+		//直接进入viewshopCtrl页  会没有返回按钮  返回shop页后  shop页的返回将不是回首页  这边加上这个让shop页的返回，回到首页  查看viewshopCtrl
+		if($rootScope.homeisindex==="viewshop"){
+			$ionicNavBarDelegate.showBackButton(false);
+		}
+		$scope.showbackbtn=!$ionicNavBarDelegate.showBackButton();
+		$scope.goback=function(){
+			$state.go("home");
+		}
+
+		//授权按钮点击
 		$scope.shouquanclick=shouquanClick;
 		// function(plat){
 
@@ -286,7 +307,18 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 	};
 }])
 
-.controller('viewshopCtrl', ['$scope','$state','$stateParams',function($scope,$state,$stateParams){
+.controller('viewshopCtrl', ['$rootScope','$scope','$state','$stateParams','$ionicNavBarDelegate',function($rootScope,$scope,$state,$stateParams,$ionicNavBarDelegate){
+
+	//检测返回按钮是否显示，不显示就显示回店铺页的按钮
+	$scope.showbackbtn=!$ionicNavBarDelegate.showBackButton();
+	//直接进入此页  会没有返回按钮  返回shop页后  shop页的返回将不是回首页  这边加上这个让shop页的返回，回到首页  查看shopsCtrl
+	if(!$rootScope.homeisindex||$rootScope.homeisindex==="viewshop"){
+		$rootScope.homeisindex="viewshop";
+	}
+	$scope.goback=function(){
+		$state.go("shops");
+	}
+
 	//店铺授权
 	$(".viewtemplate").append('<iframe style="overflow-x:auto;overflow-y:auto;" height='+($(window).height()-44)+' class="viewbox" src='+$stateParams.url+' frameborder="0"></iframe>');
 	$scope.viewbtnneam="首页";

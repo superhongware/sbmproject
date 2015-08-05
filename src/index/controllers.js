@@ -43,8 +43,12 @@ starterctrl.controller('mainviewCtrl', [
 				// });
 			});
 		}
-		
 
+		if(navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1){
+			$rootScope.isios=false;
+		}else{
+			$rootScope.isios=true;
+		}
 			// $scope.show= function(){
 			// 	$ionicLoading.show({
 			// 		template:"loading...",
@@ -60,12 +64,17 @@ starterctrl.controller('mainviewCtrl', [
 
 //首页
 .controller('indexCtrl', [
-	'$scope', '$rootScope', 'loginCheck', 'getRequest', '$http', 'base64', 'TBAPI', 'SBMJSONP','myCookie',
-	function($scope, $rootScope, loginCheck, getRequest, $http, base64, TBAPI, SBMJSONP,myCookie) {
+	'$scope', '$rootScope', 'loginCheck', 'getRequest', '$http', '$ionicNavBarDelegate','base64', 'TBAPI', 'SBMJSONP','myCookie',
+	function($scope, $rootScope, loginCheck, getRequest, $http, $ionicNavBarDelegate , base64, TBAPI, SBMJSONP,myCookie) {
 
 		loginCheck();
+		$ionicNavBarDelegate.showBackButton(true)
+		//此参数专门处理 直接进入非首页  会没有返回按钮的问题
+		//需要直接出现 ‘返回’ 按钮的页面会检查这个值 如果是第一次进入 那这个值就没有  那就把页面中的返回按钮显示出来
+      	if(!$rootScope.homeisindex){
+      		$rootScope.homeisindex='home';
+      	}
 
-      	
       	if (!myCookie.get("zm1")) {
 			myCookie.add("zm1","1",999)
 			setTimeout(function() {
@@ -165,10 +174,8 @@ starterctrl.controller('mainviewCtrl', [
 			} else if ($rootScope.editz) {
 				$scope.$broadcast('saveShowImg');
 				history.go("-1")
-			} else {
-
+			}else{
 				history.go("-1")
-
 			}
 
 

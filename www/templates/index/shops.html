@@ -1,4 +1,11 @@
 <ion-view view-title="店铺授权" class="shops">
+    <ion-nav-buttons side="left">
+      <button class="button back-button buttons button-clear button-clear header-item ng-hide" ng-show="showbackbtn" ng-click="goback()">
+        <i class="icon ion-android-arrow-back" ng-if="!isios"></i>
+        <i class="icon ion-ios-arrow-back" ng-if="isios"></i>
+        返回
+      </button>
+    </ion-nav-buttons>
   <ion-nav-buttons side="right">
     <button class="button" ui-sref="home">首页</button>
   </ion-nav-buttons>

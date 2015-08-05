@@ -246,7 +246,7 @@
 			userName: "",
 			password: "",
 			phone: "",
-			email: "xingyu@softbanana.com",
+			email: "xingyu.cheng@softbanana.com",
 			channel:"app"
 		};
 		$scope.password={
@@ -430,7 +430,7 @@ if($scope.yourdata.orgName===''){
 
 					//注册成功后自动登录  获取code
 					loginSubmit($scope.yourdata,function(msg){
-						$state.go("taoxiaopu");
+						$state.go("shops");
 					})
 
 				})

@@ -178,8 +178,8 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 	return function SBMJSONP(url,data){
 		var lastdata=systemdata(data);
 		// var lasturl="http://jira.hongware.cn:8084/openApi/dyncSoftBanana/app/"+url;
-		var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
-		// var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
+		// var lasturl="http://swapi.hongware.com/openApi/dyncSoftBanana/app/"+url;
+		var lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		// if(location.host.match("192.168.51")){
 		// 	lasturl="http://192.168.1.213/openApi/dyncSoftBanana/app/"+url;
 		// }
@@ -670,10 +670,10 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 	var shouquan={
 			TMALL:"http://fuwu.taobao.com/ser/detail.html?spm=a1z13.1113643.0.0.Wp7gXJ&service_code=FW_GOODS-1000049183&tracelog=search",
 			TAOBAO:"http://fuwu.taobao.com/ser/detail.html?spm=a1z13.1113643.0.0.Wp7gXJ&service_code=FW_GOODS-1000049183&tracelog=search",
-			KDT:"http://open.koudaitong.com/oauth/authorize?client_id=2c436c071a453a55&response_type=code&state=softbanana&redirect_uri=http://api.softbanana.com/openApi/kdtback/"+$rootScope.orgCode+"/kdt/mobilebbx",
+			KDT:"http://open.koudaitong.com/oauth/authorize?client_id=2c436c071a453a55&response_type=code&state=mobilebbx&redirect_uri=http://api.softbanana.com/openApi/kdtback/"+$rootScope.orgCode+"/kdt",
 			JINGD:"http://fw.jd.com/94404.html",
 			PAIPAI:"http://fw.paipai.com/193744.html",
-			WD:"http://api.vdian.com/oauth2/authorize?appkey=617938&redirect_uri="+encodeURIComponent("http://api.softbanana.com/openApi/wdback/"+$rootScope.orgCode+"/kdgw/mobilebbx")+"&response_type=code&state=STATE",
+			WD:"http://api.vdian.com/oauth2/authorize?appkey=617938&redirect_uri="+encodeURIComponent("http://api.softbanana.com/openApi/wdback/"+$rootScope.orgCode+"/kdgw")+"&response_type=code&state=mobilebbx",
 			DANGDANG:"http://fuwu.dangdang.com/appdetail?app_id=2100003535",
 			YHD:"http://fuwu.yhd.com/application/gotoAppDetail.do?appId=3753",
 	}
