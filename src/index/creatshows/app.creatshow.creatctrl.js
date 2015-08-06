@@ -77,9 +77,14 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope', '$scope', '$http'
 
 
 			console.log(0);
-		if (!myCookie.get("zm4")) {
-			myCookie.add("zm4", "4", 999)
+			
+		if (myCookie.get("zm4")) {
+			myCookie.add("zm4", "4", 999);
 			setTimeout(function() {
+				$(".zm-img4a").css("right","0")
+			},1000)
+			setTimeout(function() {
+				$(".zm-img4a").css("right","0")
 				$(".zm-bgx4").addClass("zm-bg")
 				$(".zm-bg,.zm-img").css({
 					"opacity": 1

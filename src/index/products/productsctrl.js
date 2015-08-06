@@ -71,18 +71,7 @@ productsmodule.controller('productsCtrl', [
 				$scope.pageData = pageDatasession;
 
 				//有缓存 回到页面之前的位置
-				setTimeout(function() {
-					if ($rootScope.zmyscrollTop && $rootScope.zmyscrollTop > 0) {
-
-						$ionicScrollDelegate.$getByHandle('mainScroll').scrollTo(0, $rootScope.zmyscrollTop);
-						$rootScope.zmyscrollTop = 0
-					} else {
-						$rootScope.zmyscrollTop = 0
-					}
-					setTimeout(function() {
-						$(".zm-bgx2,.zm-img2a").remove()
-					}, 10)
-				})
+				
 
 				return;
 			}
@@ -359,7 +348,8 @@ productsmodule.controller('productsCtrl', [
 
 				sessionStorage.setItem("pageData", JSON.stringify($scope.pageData));
 				
-				if (!myCookie.get("zm2")) {
+				if($scope.pageData.productList.length>0){
+					if (!myCookie.get("zm2")) {
 					$(".collection-repeat-container").children().eq(0).css("border", "2px solid #ff0000");
 					myCookie.add("zm2", "2", 999)
 					setTimeout(function() {
@@ -367,7 +357,7 @@ productsmodule.controller('productsCtrl', [
 						$(".zm-bgx2,.zm-img2a").appendTo("body");
 						$(".zm-bgx2").addClass("zm-bg")
 						$(".zm-bg,.zm-img2a").css({
-							"opacity": 1
+							"opacity": 1,"left":0
 						})
 					}, 10)
 
@@ -376,6 +366,8 @@ productsmodule.controller('productsCtrl', [
 						$(".zm-bgx2,.zm-img2a").remove()
 					}, 10)
 				}
+				}
+				
 			}, function(status, response, msg) {
 				pageFunc.loadDataComplete();
 				console.log('数据查询连接失败');
