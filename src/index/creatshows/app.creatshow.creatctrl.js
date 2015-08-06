@@ -78,7 +78,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope', '$scope', '$http'
 
 			console.log(0);
 			
-		if (myCookie.get("zm4")) {
+		if (!myCookie.get("zm4")) {
 			myCookie.add("zm4", "4", 999);
 			setTimeout(function() {
 				$(".zm-img4a").css("right","0")
