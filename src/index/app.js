@@ -164,6 +164,11 @@ angular.module('starter',
 		templateUrl: "templates/index/setting/sqerror.html",
 		controller:"sqsuccessCtrl"
 	})
+	.state('sqago', {
+		url: "/sqago",
+		templateUrl: "templates/index/setting/sqago.html",
+		controller:'sqsuccessCtrl'
+	})
 	//帮助页面
 	.state('set-help', {
 		url: "/set-help",

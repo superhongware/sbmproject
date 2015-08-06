@@ -288,21 +288,22 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 			$state.go('viewshop',{url:shouquan[plat]});
 
 
-		}else if(plat==='TAOBAO'){
-			var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
-			
-			$state.go('viewshop',{url:url});
-
-
 		}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
-
 			// $state.go('viewshop',{url:shouquan[plat]});
-			try{
-				JavaScriptInterface.openWebWith(shouquan[plat]);
-			}catch(e){
+			
+			if(plat==='TAOBAO'){
+				var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
+				
+				$state.go('viewshop',{url:url});
+			}else{
 
-			};
-			$state.go('home');
+				try{
+					JavaScriptInterface.openWebWith(shouquan[plat]);
+				}catch(e){
+
+				};
+				$state.go('home');
+			}
 
 		}else{
 			$state.go('shouquanhelp');
