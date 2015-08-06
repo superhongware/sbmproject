@@ -3,11 +3,11 @@
 	{
 		"PageId":1,
 		"pageTitle":"纯图",
-		"pageImg":"img/pagetemp1.jpg",
+		"pageImg":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg",
 		"pagedata":{
 				"templatePageId": 1,
 				"detailPageImage": [
-					{"img":"img/pagetemp1.jpg"}
+					{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"}
 				],
 				"detailPageText": [{"txt":""}]
 		}
@@ -15,11 +15,11 @@
 	{
 		"PageId":2,
 		"pageTitle":"文字封腰",
-		"pageImg":"img/pagetemp2.jpg",
+		"pageImg":"http://baobeixiu.softbanana.com/img/pagetemp2.jpg",
 		"pagedata":	{
 			"templatePageId": 2,
 			"detailPageImage": [
-				{"img":"img/pagetemp1.jpg"}
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"SOFTBANANA"},
@@ -33,11 +33,11 @@
 	{
 		"PageId":3,
 		"pageTitle":"局部文字",
-		"pageImg":"img/pagetemp3.jpg",
+		"pageImg":"http://baobeixiu.softbanana.com/img/pagetemp3.jpg",
 		"pagedata":	{
 			"templatePageId": 3,
 			"detailPageImage": [
-				{"img":"img/pagetemp1.jpg"}
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"高清大图"},
@@ -48,11 +48,11 @@
 	{
 		"PageId":6,
 		"pageTitle":"上图下字",
-		"pageImg":"img/pagetemp4.jpg",
+		"pageImg":"http://baobeixiu.softbanana.com/img/pagetemp4.jpg",
 		"pagedata":	{
 			"templatePageId": 6,
 			"detailPageImage": [
-				{"img":"img/pagetemp1.jpg"}
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"细节展示，无微不至"},
@@ -64,13 +64,13 @@
 	{
 		"PageId":5,
 		"pageTitle":"多图带字",
-		"pageImg":"img/pagetemp5.jpg",
+		"pageImg":"http://baobeixiu.softbanana.com/img/pagetemp5.jpg",
 		"pagedata":	{
 			"templatePageId": 5,
 			"detailPageImage": [
-				{"img":"img/pagetemp1.jpg"},
-				{"img":"img/pagetemp1.jpg"},
-				{"img":"img/pagetemp1.jpg"}
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"},
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"},
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"}
 			],
 			"detailPageText": [
 				{"txt":"多图结合"},
@@ -81,13 +81,13 @@
 	{
 		"PageId":7,
 		"pageTitle":"三连横图",
-		"pageImg":"img/pagetemp6.jpg",
+		"pageImg":"http://baobeixiu.softbanana.com/img/pagetemp6.jpg",
 		"pagedata":	{
 			"templatePageId": 7,
 			"detailPageImage": [
-				{"img":"img/pagetemp1.jpg"},
-				{"img":"img/pagetemp1.jpg"},
-				{"img":"img/pagetemp1.jpg"}
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"},
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"},
+				{"img":"http://baobeixiu.softbanana.com/img/pagetemp1.jpg"}
 			],
 			"detailPageText": [{"txt":""}]
 

@@ -296,63 +296,76 @@
 		return json; 
 	} 
 	$scope.sign_up = function() {
-		var sign=0;
+
 
 		if($scope.yourdata.orgName===''){
 			// alert(1)
 			$(".error-tip").eq(0).children(".rect").text("请输入商家名称");
 			$(".error-tip").eq(0).show();
-			sign=1;
+			return;
+		}
+
+		if($scope.yourdata.orgName.length>12){
+			// alert(1)
+			$(".error-tip").eq(0).children(".rect").text("商家名称长度不能超过12位");
+			$(".error-tip").eq(0).show();
+			return;
 		}
 
 		if($scope.yourdata.userName===''){
 			$(".error-tip").eq(1).children(".rect").text("请输入用户名");
 			$(".error-tip").eq(1).show();
-			sign=1;
+			return;
+		}
+		if($scope.yourdata.userName.length>12){
+			// alert(1)
+			$(".error-tip").eq(1).children(".rect").text("用户名长度不能超过12位");
+			$(".error-tip").eq(1).show();
+			return;
 		}
 
         // var res1 = /^[\u4e00-\u9fa5a-z]+$/gi;
         var res1 =/^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;
-if($scope.yourdata.orgName===''){
+		if($scope.yourdata.orgName===''){
 			// alert(1)
 			$(".error-tip").eq(0).children(".rect").text("请输入商家名称");
 			$(".error-tip").eq(0).show();
-			sign=1;
+			return;
 		}
 		else if(!res1.test($scope.yourdata.orgName)){
 			$(".error-tip").eq(0).children(".rect").text("不能输入特殊字符");
 			$(".error-tip").eq(0).show();
-			sign=1;
+			return;
 		}
 		var res2 = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;
 
 		if($scope.yourdata.userName===''){
 			$(".error-tip").eq(1).children(".rect").text("请输入用户名");
 			$(".error-tip").eq(1).show();
-			sign=1;
+			return;
 		}
 		else if(!res2.test($scope.yourdata.userName)){
 			$(".error-tip").eq(1).children(".rect").text("不能输入特殊字符");
 
 			$(".error-tip").eq(1).show();
-			sign=1;
+			return;
 		}
 
 		if($scope.yourdata.password===""){
 
 			$(".error-tip").eq(2).children(".rect").text("请输入密码");
 			$(".error-tip").eq(2).show();
-		sign=1;
+		return;
 
 		}else if($scope.yourdata.password.length<6||$scope.yourdata.password.length>24){
 			$(".error-tip").eq(2).children(".rect").text("密码请再6~24位之间");
 			$(".error-tip").eq(2).show();
-			sign=1;
+			return;
 		}
 		if($scope.yourdata.password!==$scope.password.password){
 			$(".error-tip").eq(3).children(".rect").text("两次输入的密码不一致");
 			$(".error-tip").eq(3).show();
-			sign=1;
+			return;
 		}
 		// alert(0)
 
@@ -362,7 +375,7 @@ if($scope.yourdata.orgName===''){
 		if(!reg0.test($scope.yourdata.phone)&&($scope.yourdata.phone!=="")){
 			$(".error-tip").eq(4).children(".rect").text("手机号格式错误");
 			$(".error-tip").eq(4).show();
-		sign=1;
+		return;
 		}
 
 		var  reg= /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -372,22 +385,22 @@ if($scope.yourdata.orgName===''){
 		if(!reg.test($scope.yourdata.email)&&($scope.yourdata.email!=="")){
 			$(".error-tip").eq(5).children(".rect").text("邮箱格式错误");
 			$(".error-tip").eq(5).show();
-			sign=1;
+			return;
 		}
 		    if($scope.password.password==''){
 			$(".error-tip").eq(3).children(".rect").text("确认密码不能为空");
 			$(".error-tip").eq(3).show();
-			sign=1;
+			return;
 		}
          if($scope.yourdata.phone==''){
 			$(".error-tip").eq(4).children(".rect").text("手机号不能为空");
 			$(".error-tip").eq(4).show();
-			sign=1;
+			return;
 		}
              if($scope.yourdata.email==''){
 			$(".error-tip").eq(5).children(".rect").text("邮箱不能为空");
 			$(".error-tip").eq(5).show();
-			sign=1;
+			return;
 		}
 
 
@@ -406,7 +419,7 @@ if($scope.yourdata.orgName===''){
 		// 	return;
 		// }
 
-       if(sign==0){
+
        	$scope.yourdata.method = "softbanana.app.user.regist";
 		var api = SBMJSONP("registUser", $scope.yourdata);
 		console.log($scope.yourdata);
@@ -454,7 +467,7 @@ if($scope.yourdata.orgName===''){
 			console.log("连接失败");
 
 		});
-       }
+       
 		
 
 		//缓存之前填的资料

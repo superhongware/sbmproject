@@ -23,7 +23,8 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 		lastId: 0,
 		direction: '', //up next
 		isPostBack: false,
-		isHaveMoreData : false
+		isHaveMoreData : false,
+		shopName:$rootScope.istaobao?$rootScope.shopName:""
 	};
 	function loadData(option){
 		$scope.showsList = {
@@ -33,6 +34,7 @@ function($rootScope, $scope, $http, $state, $stateParams, $ionicLoading, $ionicL
 			action: option.direction,
 			isHaveMoreData: option.isHaveMoreData,
 			isPostBack:option.isPostBack,
+			shopName:option.shopName,
 			method : "softbanana.app.detail.list"
 		};
 		var api = SBMJSONP("listDetail",$scope.showsList);

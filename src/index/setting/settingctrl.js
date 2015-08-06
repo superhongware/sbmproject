@@ -122,15 +122,18 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 	var api = SBMJSONP("searchShop", $scope.orgdatas);
 	// $scope.datacomm = getDataComm;
 	$http.jsonp(api.url)
-		.success(function(data) {
+		.success(function(shopdata) {
 			console.log(0);
-			console.log(['店铺', data]);
-			$scope.shopList = data;
-			for (var i in $scope.shopList.shops) {
-				var iplat = $scope.shopList.shops[i].plat;
-				$scope.shopList.shops[i].imgsrc = getDataComm.platObj[iplat].imgSrc;
-				$scope.shopList.shops[i].isInvalid = ($scope.shopList.shops[i].isInvalid === "1");
+			console.log(['店铺', shopdata]);
+			for (var i in shopdata.shops) {
+				var iplat = shopdata.shops[i].plat;
+				shopdata.shops[i].imgsrc = getDataComm.platObj[iplat].imgSrc;
+				shopdata.shops[i].isInvalid = (shopdata.shops[i].isInvalid === "1");
+				if(shopdata.shops[i].isInvalid){
+					shopdata.shops.unshift(shopdata.shops.splice(i,1)[0])
+				}
 			}
+			$scope.shopList = shopdata;
 		})
 		.error(function(status, response) {
 			console.log("连接失败");
