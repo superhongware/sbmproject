@@ -144,18 +144,18 @@ console.log(wx);
 		// history.pushState(state,state.title,state.url);
 	};
 
-   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.png',"txt":"洛可可智慧生活","link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3mtJvlj6%2Flj6%2FmmbrmhafnlJ%2FmtLsmZGV0YWlsaWQ9NSZwcm9kdWN0aWQ9NDM1MDY5OTc0MjAmcGxhdD1UQU9CQU8%3D&from=groupmessage&isappinstalled=0 "},
+   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.png',"txt":"我的王汪忘","link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT1zb2Z0YmFuYW5h5oiR55qE546L5rGq5b%2BYJmRldGFpbGlkPTQmcHJvZHVjdGlkPTQ1MzQ1Mzg2NzQyJnBsYXQ9VEFPQkFP "},
 	{
 		"lastPageIndex":"2",
 		"img":'img/pagetemp2.png',
-		"txt":"乐贝智能数码店",
-		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3kuZDotJ3mmbrog73mlbDnoIHlupcmZGV0YWlsaWQ9MTImcHJvZHVjdGlkPTQ1NTUzNTY4OTU5JnBsYXQ9VEFPQkFP&from=timeline&isappinstalled=0 "
+		"txt":"霜云jessica",
+		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT1zb2Z0YmFuYW5h6Zyc5LqRamVzc2ljYSZkZXRhaWxpZD00JnByb2R1Y3RpZD00NTYxMTU2NTk5NyZwbGF0PVRBT0JBTw%3D%3D&from=timeline&isappinstalled=0"
 		
 	},{
 		"lastPageIndex":"3",
 		"img":'img/pagetemp3.png',
-		"txt":"锦歌布艺家纺",
-		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3plKbmrYzluIPoibrlrrbnuromZGV0YWlsaWQ9MTAmcHJvZHVjdGlkPTQ1MTA0NzM3NzAyJnBsYXQ9VEFPQkFP&from=timeline&isappinstalled=0 "
+		"txt":"沙漠孤狼ok",
+		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3ogIHooZflnYrlubPku7fotoXluIImZGV0YWlsaWQ9MyZwcm9kdWN0aWQ9NDQ2NDE4ODUzNTImcGxhdD1UQU9CQU8%3D"
 
 	}
 	];
