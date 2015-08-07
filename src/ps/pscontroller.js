@@ -144,17 +144,17 @@ console.log(wx);
 		// history.pushState(state,state.title,state.url);
 	};
 
-   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.png',"txt":"我的王汪忘","link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT1zb2Z0YmFuYW5h5oiR55qE546L5rGq5b%2BYJmRldGFpbGlkPTQmcHJvZHVjdGlkPTQ1MzQ1Mzg2NzQyJnBsYXQ9VEFPQkFP "},
+   $scope.lastPagedata=[{"lastPageIndex":"1","img":'img/pagetemp1.png',"txt":"来自：我的王汪忘","link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT1zb2Z0YmFuYW5h5oiR55qE546L5rGq5b%2BYJmRldGFpbGlkPTQmcHJvZHVjdGlkPTQ1MzQ1Mzg2NzQyJnBsYXQ9VEFPQkFP "},
 	{
 		"lastPageIndex":"2",
 		"img":'img/pagetemp2.png',
-		"txt":"霜云jessica",
+		"txt":"来自：霜云jessica",
 		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT1zb2Z0YmFuYW5h6Zyc5LqRamVzc2ljYSZkZXRhaWxpZD00JnByb2R1Y3RpZD00NTYxMTU2NTk5NyZwbGF0PVRBT0JBTw%3D%3D&from=timeline&isappinstalled=0"
 		
 	},{
 		"lastPageIndex":"3",
 		"img":'img/pagetemp3.png',
-		"txt":"沙漠孤狼ok",
+		"txt":"来自：沙漠孤狼ok",
 		"link":"http://baobeixiu.softbanana.com/ps.html?b3JnbmFtZT3ogIHooZflnYrlubPku7fotoXluIImZGV0YWlsaWQ9MyZwcm9kdWN0aWQ9NDQ2NDE4ODUzNTImcGxhdD1UQU9CQU8%3D"
 
 	}

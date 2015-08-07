@@ -84,7 +84,7 @@ creatshowmodule.controller('checktemplateCtrl', ['$rootScope', '$scope', '$http'
 				$(".zm-img4a").css("right","0")
 			},1000)
 			setTimeout(function() {
-				$(".zm-img4a").css("right","0")
+				
 				$(".zm-bgx4").addClass("zm-bg")
 				$(".zm-bg,.zm-img").css({
 					"opacity": 1
