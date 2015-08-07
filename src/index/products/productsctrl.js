@@ -219,6 +219,7 @@ productsmodule.controller('productsCtrl', [
 				console.log('数据查询连接失败');
 			});
 			// alert(1)
+			$scope.thereisnoproduct = false;
 
 			setTimeout(function() {
 				// alert(0)
@@ -234,10 +235,10 @@ productsmodule.controller('productsCtrl', [
 		 */
 		pageFunc.refreshproductList = function() {
 			console.log('refreshproductList');
+
 			$scope.pageData.direction = 'next';
 			if ($scope.pageData.productList.length > 0) {
 				$scope.pageData.lastId = $scope.pageData.productList[0].id;
-
 			}
 
 			pageFunc.loadData();
@@ -288,6 +289,7 @@ productsmodule.controller('productsCtrl', [
 
 			}
 
+						// alert($scope.thereisnoproduct)
 
 			console.log(['$scope.pageData', $scope.pageData])
 
@@ -303,8 +305,8 @@ productsmodule.controller('productsCtrl', [
 			console.log(['pageFunc.loadData option', option]);
 			// console.log(option);
 
-
 			productComm.loadProductData(option, function(data) {
+			
 
 
 				// alert(JSON.stringify(data))
@@ -312,13 +314,15 @@ productsmodule.controller('productsCtrl', [
 
 				pageFunc.loadDataComplete();
 
-				if (data.length === 0 && $scope.pageData.direction === 'up') {
+				//没有数据的时候
+
+
+				if (data.length === 0 && $scope.pageData.direction !== 'next') {
 
 					//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
-					if ($scope.thereisnoproduct === "") {
+					if ($scope.pageData.direction === '' && $scope.thereisnoproduct==='') {
 						$scope.thereisnoproduct = true;
 						//$(".noproduct-bg").show()
-
 					}
 					$scope.pageData.isHaveMoreData = false;
 					return;

@@ -676,6 +676,7 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 			WD:"http://api.vdian.com/oauth2/authorize?appkey=617938&redirect_uri="+encodeURIComponent("http://api.softbanana.com/openApi/wdback/"+$rootScope.orgCode+"/kdgw")+"&response_type=code&state=mobilebbx",
 			DANGDANG:"http://fuwu.dangdang.com/appdetail?app_id=2100003535",
 			YHD:"http://fuwu.yhd.com/application/gotoAppDetail.do?appId=3753",
+			TAOXIAOPU:"https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com&view=wap&state=app"+$rootScope.orgName,
 	}
 	return shouquan;
 }])

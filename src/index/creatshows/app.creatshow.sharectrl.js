@@ -1,8 +1,8 @@
 creatshowmodule
 //分享页
 .controller('shareCtrl',
-	['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','$ionicActionSheet','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei',
-	function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionSheet,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei){
+	['$http','$scope','$rootScope','$stateParams','$ionicLoading','$state','$ionicActionSheet','$ionicPopup','sendShowImg','SBMJSONP','checklocalimg','loginCheck','drawShowImg','compressShowImg','creatpsurl','saveShow','checkoutbaobei',
+	function($http,$scope,$rootScope,$stateParams,$ionicLoading,$state,$ionicActionSheet,$ionicPopup,sendShowImg,SBMJSONP,checklocalimg,loginCheck,drawShowImg,compressShowImg,creatpsurl,saveShow,checkoutbaobei){
 
 		loginCheck();
 
@@ -132,6 +132,15 @@ creatshowmodule
          	};
 
          	JavaScriptInterface.shareWithjson(JSON.stringify(jsondata));
+         }else{
+			$ionicPopup.show({
+				title: "分享提示",
+				template: "该宝贝已下架,上架宝贝后分享才有效果哦！",
+				buttons: [{
+					text: "我知道了",
+					type: "button-energized",
+				}]
+			});
          }
          
          

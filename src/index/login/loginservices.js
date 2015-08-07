@@ -23,7 +23,7 @@ loginmodule.factory('loginSubmit', ['$rootScope','$http','$state','$ionicPopup',
 					$rootScope.orgName=logindata.orgName;
 					$rootScope.userName=logindata.userName;
 					$rootScope.orgCode=data.user.orgCode;
-
+					
 					callback(data);
 				}else{
 					errorcallback(data.map.errorMsg);

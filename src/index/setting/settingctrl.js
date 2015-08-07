@@ -247,13 +247,24 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 
 		//直接进入viewshopCtrl页  会没有返回按钮  返回shop页后  shop页的返回将不是回首页  这边加上这个让shop页的返回，回到首页  查看viewshopCtrl
-		if($rootScope.homeisindex==="viewshop"){
-			$ionicNavBarDelegate.showBackButton(false);
-		}
-		$scope.showbackbtn=!$ionicNavBarDelegate.showBackButton();
-		$scope.goback=function(){
-			$state.go("home");
-		}
+
+		
+		
+		// $scope.showbackbtn=!$ionicNavBarDelegate.showBackButton(true)
+		// alert($ionicNavBarDelegate.showBackButton())
+
+		// alert($ionicNavBarDelegate.showBackButton())
+
+		// if($rootScope.homeisindex==="viewshop"){
+		// 	$scope.showbackbtn=!$ionicNavBarDelegate.showBackButton(false)
+		// }
+
+		// console.log($ionicNavBarDelegate.showBackButton())
+
+
+		// $scope.goback=function(){
+		// 	$state.go("home");
+		// }
 
 		//授权按钮点击
 		$scope.shouquanclick=shouquanClick;
@@ -283,17 +294,20 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 .factory('shouquanClick', ['$rootScope','$state','shouquan', function($rootScope,$state,shouquan){
 	return function shouquanClick(plat){
-		if (plat==='KDT'||plat==='WD'){
+		if (plat==='WD'){
 
 			$state.go('viewshop',{url:shouquan[plat]});
 
 
+		}else if(plat==='KDT'){
+			// location.href=shouquan[plat]
+			$state.go('viewshop',{url:shouquan[plat]});
+
 		}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
 			// $state.go('viewshop',{url:shouquan[plat]});
-			
+
 			if(plat==='TAOBAO'){
-				var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
-				
+				var url=shouquan.TAOXIAOPU;		
 				$state.go('viewshop',{url:url});
 			}else{
 
@@ -314,13 +328,15 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 .controller('viewshopCtrl', ['$rootScope','$scope','$state','$stateParams','$ionicNavBarDelegate',function($rootScope,$scope,$state,$stateParams,$ionicNavBarDelegate){
 
 	//检测返回按钮是否显示，不显示就显示回店铺页的按钮
-	$scope.showbackbtn=!$ionicNavBarDelegate.showBackButton();
-	//直接进入此页  会没有返回按钮  返回shop页后  shop页的返回将不是回首页  这边加上这个让shop页的返回，回到首页  查看shopsCtrl
-	if(!$rootScope.homeisindex||$rootScope.homeisindex==="viewshop"){
-		$rootScope.homeisindex="viewshop";
-	}
+	$scope.showbackbtn=!$ionicNavBarDelegate.showBackButton(true);
+	// alert($scope.showbackbtn)
+	// //直接进入此页  会没有返回按钮  返回shop页后  shop页的返回将不是回首页  这边加上这个让shop页的返回，回到首页  查看shopsCtrl
+	// if(!$rootScope.homeisindex||$rootScope.homeisindex==="viewshop"){
+	// 	$rootScope.homeisindex="viewshop";
+	// 	$scope.showbackbtn=!$ionicNavBarDelegate.showBackButton(false);
+	// }
 	$scope.goback=function(){
-		$state.go("shops");
+		$state.go("home");
 	}
 
 	//店铺授权
@@ -340,8 +356,8 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 }])
 .controller('taoxiaopuCtrl', ['$scope', '$rootScope','$state','shouquan',function($scope, $rootScope,$state,shouquan) {
-		var url="https://oauth.taobao.com/authorize?response_type=code&client_id=23127514&redirect_uri=http://baobeixiu.play.admin.jaeapp.com/bbxShopNameIsExists&view=wap&state=app"+$rootScope.orgName
-
+	
+	var url=shouquan.TAOXIAOPU;
 
 	$scope.gotaoxiaopu=function(){
 		// var url=location.origin+"/#sqsuccess";
@@ -359,7 +375,7 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 	$scope.goback=function(){
 		console.log(window.location.href.split("#")[0]+"#/viewshop/"+url)
-		window.parent.location.href=window.location.href.split("#")[0]+"#/viewshop/https:%252F%252Foauth.taobao.com%252Fauthorize%3Fresponse_type=code&client_id=23127514&redirect_uri=http:%252F%252Fbaobeixiu.play.admin.jaeapp.com%252FbbxShopNameIsExists&view=wap&state=appbanana";
+		window.parent.location.href=window.location.href.split("#")[0]+"#/viewshop/https:%252F%252Foauth.taobao.com%252Fauthorize%3Fresponse_type=code&client_id=23127514&redirect_uri=http:%252F%252Fbaobeixiu.play.admin.jaeapp.com%252&view=wap&state=appbanana";
 	}
 
 
@@ -372,14 +388,6 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 	}
 }])
 ;
-
-
-
-
-// http://localhost:3000/#/viewshop/https:%252F%252Foauth.taobao.com%252Fauthorize%3Fresponse_type=code&client_id=23127514&redirect_uri=http:%252F%252Fbaobeixiu.play.admin.jaeapp.com%252FbbxShopNameIsExists&view=wap&state=appbanana
-
-// http://localhost:3000/#/viewshop/https%3A%2F%2Foauth.taobao.com%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3D23127514%26redirect_uri%3Dhttp%3A%2F%2Fbaobeixiu.play.admin.jaeapp.com%2FbbxShopNameIsExists%26view%3Dwap%26state%3Dappbanana
-
 
 
 

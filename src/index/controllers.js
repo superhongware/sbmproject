@@ -68,7 +68,7 @@ starterctrl.controller('mainviewCtrl', [
 	function($scope, $rootScope, loginCheck, getRequest, $http, $ionicNavBarDelegate , base64, TBAPI, SBMJSONP,myCookie) {
 
 		loginCheck();
-		$ionicNavBarDelegate.showBackButton(true)
+		// $ionicNavBarDelegate.showBackButton(true)
 		//此参数专门处理 直接进入非首页  会没有返回按钮的问题
 		//需要直接出现 ‘返回’ 按钮的页面会检查这个值 如果是第一次进入 那这个值就没有  那就把页面中的返回按钮显示出来
       	if(!$rootScope.homeisindex){
@@ -121,6 +121,24 @@ starterctrl.controller('mainviewCtrl', [
 					$scope.thereisnoshops = false;
 				} else {
 					$scope.thereisnoshops = true;
+
+
+					//有过期店铺跳到过期店铺页
+					if(!$rootScope.hasgoexpired){
+						$rootScope.hasgoexpired=true;
+						var shopisInvalid=false;
+						for(var i in data.shops){
+							if(data.shops[i].isInvalid=='1'){
+								shopisInvalid=true;
+							}
+						}
+
+						if(shopisInvalid){
+							//有店铺未授权 跳到授权页面
+							$state.go("set-expired");
+						}
+						
+					}
 				}
 				// $scope.shopList = data;
 				// for (var i in $scope.shopList.shops){
