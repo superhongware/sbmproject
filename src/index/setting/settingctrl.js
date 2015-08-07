@@ -191,10 +191,18 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 //用户反馈
 .controller('feedBack', ['$rootScope', '$scope', '$state', '$http', 'SBMJSONP', 'getDataComm', '$ionicPopup', function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup){
+	var platform=''
+	if(navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1){
+		platform="Android";
+	}else if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+		platform="ios";
+	};
+
 	$scope.feeddata = {
 		orgName: $rootScope.orgName,
-		terminalInfo: navigator.userAgent,
-		text: ""
+		terminalType: navigator.userAgent,
+		terminalOS:platform,
+		text: "",
 	};
 	$scope.feedback = function(){
 		var text=$(".feedbacktext").val();
@@ -298,10 +306,16 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 
 			$state.go('viewshop',{url:shouquan[plat]});
 
-
 		}else if(plat==='KDT'){
-			// location.href=shouquan[plat]
-			$state.go('viewshop',{url:shouquan[plat]});
+			if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+				//ios壳有问题，口袋通授权会失败
+				location.href=shouquan[plat]
+			}else{
+				$state.go('viewshop',{url:shouquan[plat]});
+			}
+		}else if(plat==='JINGD'){
+			//ios 安卓 京东都引导到PC授权
+			$state.go('shouquanhelp');
 
 		}else if (navigator.userAgent.match("iPhone")||navigator.userAgent.match("iPod")||navigator.userAgent.match("iPad")){
 			// $state.go('viewshop',{url:shouquan[plat]});
