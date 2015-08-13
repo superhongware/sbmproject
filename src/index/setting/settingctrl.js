@@ -21,6 +21,8 @@
 				type: 'button-energized',
 				onTap: function(e) {
 					myCookie.delete("orgName");
+					//清空宝贝列表数据
+					sessionStorage.setItem("pageData",'null');
 					$state.go("login");
 					// loginCheck();
 				}
@@ -309,7 +311,12 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 		}else if(plat==='KDT'){
 			if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
 				//ios壳有问题，口袋通授权会失败
-				location.href=shouquan[plat]
+				// location.href=shouquan[plat]
+				try {
+					JavaScriptInterface.openWebWith(shouquan[plat]);
+				} catch (e) {
+
+				};
 			}else{
 				$state.go('viewshop',{url:shouquan[plat]});
 			}
@@ -373,6 +380,8 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 	
 	var url=shouquan.TAOXIAOPU;
 
+
+
 	$scope.gotaoxiaopu=function(){
 		// var url=location.origin+"/#sqsuccess";
 		// JavaScriptInterface.openWebWith(url);
@@ -398,7 +407,16 @@ function($rootScope, $scope, $state, $http, SBMJSONP, getDataComm, $ionicPopup, 
 	// $state.go("home")
 
 	$scope.letsgohome=function(){
-		window.parent.location.href=window.location.href.split("#")[0]+"#/home";
+		if(!navigator.userAgent.match('Safari')){
+			window.parent.location.href=window.location.href.split("#")[0]+"#/home";
+		}else{
+			try{
+				location.href="softbanana://";
+				// JavaScriptInterface.openWebWith(shouquan['TAOBAO']);
+			}catch(e){
+				alert("不行不行不行")
+			};	
+		}
 	}
 }])
 ;

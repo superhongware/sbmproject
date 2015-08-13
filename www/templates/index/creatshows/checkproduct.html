@@ -1,5 +1,4 @@
 <ion-view view-title="第1步:选择宝贝" class="sbm_products warpProductList">
-
   <ion-nav-buttons side="right">
     <button class="button" ng-click="pageFunc.refreshServer()">同步</button>
   </ion-nav-buttons>
@@ -29,7 +28,7 @@
 
       <div class="noproduct ng-hide" ng-show="thereisnoproduct" ng-click="closenoproduct()"></div>
 
-      <ion-content class="paddingtop44">
+      <ion-content class="paddingtop44" delegate-handle="mainScroll">
         <ion-refresher
         pulling-text="下拉更新..."
         on-refresh="pageFunc.refreshproductList()"></ion-refresher>
@@ -39,7 +38,7 @@
           class="item-remove-animate item-avatar item-icon-right animate-repeat"  
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
-          ui-sref="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})"
+          ng-click="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})"
           >
             <img ng-src="{{item.picUrl}}" class="imgProduct">
             <ul class="productInfo">
@@ -66,7 +65,8 @@
           </ion-item>
           <div class="warpNoData" ng-if="pageData.productList.length == 0"> <i class="iconfont icon-logo"></i>
             <span ng-if="pageData.isOnsaleStatus">该店铺没有上架的宝贝</span>
-            <span ng-if="!pageData.isOnsaleStatus">该店铺没有下架的宝贝</span>
+            <span ng-if="!pageData.isOnsaleStatus&&pageData.currShop.plat!='WD'">该店铺没有下架的宝贝</span>
+            <span ng-if="!pageData.isOnsaleStatus&&pageData.currShop.plat=='WD'">微店暂不支持下架宝贝查询</span>
           </div>
         </ion-list>
 

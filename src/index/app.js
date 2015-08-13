@@ -13,27 +13,31 @@ angular.module('starter',
 	'starter.controllers',
 	'starter.services',
 	'starter.directives'])
-.run(['$ionicPlatform','$rootScope','myCookie', function($ionicPlatform,$rootScope,myCookie){
-	$rootScope.viewanimate="gogogo";
+.run(['$ionicPlatform','$rootScope','myCookie','loginCheck', function($ionicPlatform,$rootScope,myCookie,loginCheck){
+	$rootScope.viewanimate = "gogogo";
 
-	//用户第一次打开跳到preview页面  预览宝贝秀功能
-	if(myCookie.get("preview")!=="preview1"){
-		myCookie.add("preview","preview1",2160);
-		location.href=location.origin+"/preview.html";
+	loginCheck();
+
+	//用户第一次打开跳到preview页面  预览宝贝秀功能  但是进入授权成功页不跳preview页面
+	if (!$rootScope.istaobao && myCookie.get("preview") !== "preview1" && !location.hash.match("#/sq")) {
+		myCookie.add("preview", "preview1", 2160);
+		location.href = location.origin + "/preview.html";
 		return;
+	} else {
+		myCookie.add("preview", "preview1", 2160);
 	};
 
-  	$ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
+	$ionicPlatform.ready(function() {
+		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+		// for form inputs)
+		if (window.cordova && window.cordova.plugins.Keyboard) {
+			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+		}
+		if (window.StatusBar) {
+			// org.apache.cordova.statusbar required
+			StatusBar.styleDefault();
+		}
+	});
 }])
 .config(['$stateProvider','$urlRouterProvider','$ionicConfigProvider',function($stateProvider,$urlRouterProvider,$ionicConfigProvider) {
 	// $ionicConfigProvider.backButton.text("返回");

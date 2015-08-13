@@ -375,7 +375,7 @@ creatshowmodule.factory('changepagesize', function(){
 					var imgurls=productdata.picUrl.split(",");
 					console.log(imgurls[0])
 					//填充模板数据
-					tempdata.detailTitle = productdata.title;
+					tempdata.detailTitle = productdata.title.substr(0 ,20);
 					tempdata.detailDesc = "超好超好，超赞超赞，就要他啦，oh！我的宝贝！";
 					tempdata.detailImage = imgurls[0];
 					tempdata.shopName = productdata.shopName;

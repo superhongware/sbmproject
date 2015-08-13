@@ -70,9 +70,40 @@ productsmodule.controller('productsCtrl', [
 				//有缓存 直接读缓存
 				$scope.pageData = pageDatasession;
 
-				//有缓存 回到页面之前的位置
-				
+				// 有缓存也要更新店铺
+				if (!$rootScope.istaobao) {
+					getDataComm.loadShopList(function(data) {
+						console.log(['店铺数据1', data]);
+						if (data && data.length > 0) {
+							for (var a in data) {
+								var b = data[a].plat;
+								data[a].img = getDataComm.platObj[b].imgSrc;
+							}
+							$scope.pageData.shopList = data;
+							if ($scope.pageData.currShop === null) {
+								$scope.pageData.currShop = $scope.pageData.shopList[0];
+							} else {
+								pageFunc.setSelectShop($scope.pageData.currShop);
+							}
 
+						} else {
+							//alert('');
+						}
+					}, function(data) {
+						console.log(['店铺数据', data]);
+					});
+				}
+
+				//有缓存 回到页面之前的位置
+				setTimeout(function() {
+					if ($rootScope.zmyscrollTop && $rootScope.zmyscrollTop > 0) {
+						$ionicScrollDelegate.$getByHandle('mainScroll').scrollTo(0, $rootScope.zmyscrollTop);
+						$rootScope.zmyscrollTop = 0
+					} else {
+						$rootScope.zmyscrollTop = 0
+					}
+				})
+				
 				return;
 			}
 
@@ -99,7 +130,7 @@ productsmodule.controller('productsCtrl', [
 				return;
 			}
 
-
+			// 加载店铺数据
 			getDataComm.loadShopList(function(data) {
 				console.log(['店铺数据1', data]);
 
@@ -314,11 +345,14 @@ productsmodule.controller('productsCtrl', [
 
 				pageFunc.loadDataComplete();
 
+				//数据清空
+				if (isClearCurrData) {
+					$scope.pageData.productList = [];
+				}
+
+
 				//没有数据的时候
-
-
 				if (data.length === 0 && $scope.pageData.direction !== 'next') {
-
 					//第一次就没数据提示没有上架中的宝贝  让用户同步宝贝
 					if ($scope.pageData.direction === '' && $scope.thereisnoproduct==='') {
 						$scope.thereisnoproduct = true;
@@ -331,9 +365,8 @@ productsmodule.controller('productsCtrl', [
 					$scope.thereisnoproduct = false;
 				}
 
-				if (isClearCurrData) {
-					$scope.pageData.productList = [];
-				}
+
+
 				if ($scope.pageData.direction === 'up') { //moredata
 					$scope.pageData.productList = $scope.pageData.productList.concat(data);
 
@@ -378,7 +411,7 @@ productsmodule.controller('productsCtrl', [
 			});
 
 		};
-
+		//记录当前滚动位置
 		pageFunc.showDetail = function(item) {
 			var currSelectProduct = {
 				orgName: $scope.pageData.orgName,
@@ -386,10 +419,14 @@ productsmodule.controller('productsCtrl', [
 				plat: item.plat
 			};
 			$rootScope.zmyscrollTop = $ionicScrollDelegate.getScrollPosition().top;
-
 			localStorage.setItem('currSelectProduct', JSON.stringify(currSelectProduct));
 			$state.go("productDetail");
 		};
+		//记录当前滚动位置
+		$scope.checktemplate=function(datainfo){
+			$rootScope.zmyscrollTop = $ionicScrollDelegate.getScrollPosition().top;
+			$state.go('checktemplate',datainfo)
+		}
 
 
 	$scope.closenoproduct=function(){
@@ -400,9 +437,10 @@ productsmodule.controller('productsCtrl', [
 		$scope.zm2Fn = function() {
 			$(".zm-img2a,.zm-bgx2").remove();
 
+			$state.go('checktemplate',{productId:$scope.pageData.productList[0].numIid,productPlat:$scope.pageData.currShop.plat})
 
-			var href = $(".collection-repeat-container").find("a").eq(0).attr("href");
-			window.location.href = href
+			// var href = $(".collection-repeat-container").find("a").eq(0).attr("href");
+			// window.location.href = href
 
 		}
 		$scope.pageFunc = pageFunc;

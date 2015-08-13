@@ -57,7 +57,7 @@
               </li>
             </ul>
 
-            <span class="openoptions" ng-click="showediticon($index)"> <i class="iconfont icon-points" ></i>
+            <span class="openoptions" ng-click="showediticon($event)"> <i class="iconfont icon-points" ></i>
             </span>
 
             <ion-option-button class="button-dark" ui-sref="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})">制作宝贝秀</ion-option-button>
@@ -65,7 +65,8 @@
           </ion-item>
           <div class="warpNoData" ng-if="pageData.productList.length == 0"> <i class="iconfont icon-logo"></i>
             <span ng-if="pageData.isOnsaleStatus">该店铺没有上架的宝贝</span>
-            <span ng-if="!pageData.isOnsaleStatus">该店铺没有下架的宝贝</span>
+            <span ng-if="!pageData.isOnsaleStatus&&pageData.currShop.plat!='WD'">该店铺没有下架的宝贝</span>
+            <span ng-if="!pageData.isOnsaleStatus&&pageData.currShop.plat=='WD'">微店暂不支持下架宝贝查询</span>
           </div>
         </ion-list>
 

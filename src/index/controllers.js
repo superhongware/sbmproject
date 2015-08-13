@@ -16,7 +16,6 @@ starterctrl.controller('mainviewCtrl', [
 		// 	$scope.sncybtnhide=toState.controller==="productsCtrl"?false:true;
 		// });
 
-		loginCheck();
 		showadcheck();
      
 
@@ -66,7 +65,6 @@ starterctrl.controller('mainviewCtrl', [
 .controller('indexCtrl', [
 	'$scope', '$rootScope', 'loginCheck', 'getRequest', '$http', '$ionicNavBarDelegate','base64', 'TBAPI', 'SBMJSONP','myCookie',
 	function($scope, $rootScope, loginCheck, getRequest, $http, $ionicNavBarDelegate , base64, TBAPI, SBMJSONP,myCookie) {
-
 		loginCheck();
 		// $ionicNavBarDelegate.showBackButton(true)
 		//此参数专门处理 直接进入非首页  会没有返回按钮的问题
@@ -75,19 +73,7 @@ starterctrl.controller('mainviewCtrl', [
       		$rootScope.homeisindex='home';
       	}
 
-      	if (!myCookie.get("zm1")) {
-			myCookie.add("zm1","1",999)
-			setTimeout(function() {
-				$(".zm-bgx1").addClass("zm-bg")
-				$(".zm-bg,.zm-img").css({"opacity":1})
-			}, 2000)
-		
-		}
-		else{
-			setTimeout(function() {
-			$(".zm-bgx1,.zm-img1a,.zm-img1b").remove() 
-			}, 2000)
-		}
+
 	
 		//首页动画只登陆时显示一次
 		$rootScope.ishow = ($rootScope.ishow === undefined) ? true : $rootScope.ishow;
@@ -119,9 +105,24 @@ starterctrl.controller('mainviewCtrl', [
 				console.log(['店铺', data]);
 				if((data.shops&&!data.shops.length==0)||$rootScope.istaobao){
 					$scope.thereisnoshops = false;
+					//引导动画
+					if (!myCookie.get("zm1")) {
+						myCookie.add("zm1", "1", 999)
+						setTimeout(function() {
+							$(".zm-bgx1").addClass("zm-bg")
+							$(".zm-bg,.zm-img").css({
+								"opacity": 1
+							})
+						}, 1000)
+
+					} else {
+						setTimeout(function() {
+							$(".zm-bgx1,.zm-img1a,.zm-img1b").remove()
+						}, 2000)
+					}
+
 				} else {
 					$scope.thereisnoshops = true;
-
 
 					//有过期店铺跳到过期店铺页
 					if(!$rootScope.hasgoexpired){
@@ -173,21 +174,19 @@ starterctrl.controller('mainviewCtrl', [
 		$scope.myGoBack = function() {
 			console.log("00000");
 
-			if ($cacheFactory.get('cacheback')) {
+			if (location.hash.match('#/editpages/editer/') && $cacheFactory.get('cacheback')) {
 				$scope.$broadcast('saveShowImg');
 				var cacheback = $cacheFactory.get('cacheback');
-				var cachecount = cacheback.get('count') + 2;
+				var cachecount = cacheback.get('count') + 1;
 				var c = "-" + cachecount;
 				history.go(c);
 				cacheback.removeAll();
 				cacheback.put('url', "1");
 				cacheback.put('count', 0);
 
-
-
-			} else if ($(".addpage").length > 0 && !$rootScope.editz) {
-				$scope.$broadcast('saveShowImg');
-				history.go("-2")
+			// } else if (location.hash.match('#/editpages/editer/') && !$rootScope.editz) {
+			// 	$scope.$broadcast('saveShowImg');
+			// 	history.go("-2")
 
 			} else if ($rootScope.editz) {
 				$scope.$broadcast('saveShowImg');

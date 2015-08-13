@@ -649,8 +649,13 @@ function($state,myCookie,base64,base64url,getRequest2,$rootScope,debase64url){
 })
 .factory('showedition',  function(){
 	return function showedition(index){
+		
+		if(typeof index ==="number"){
+			var thisitem=$(".showlistitem").eq(index);
+		}else{
+			var thisitem=$(index.currentTarget).parents('.showlistitem')
+		}
 		console.log($(".showlistitem").eq(index));
-		var thisitem=$(".showlistitem").eq(index);
 		var itemoptions=thisitem.find(".item-options");
 		if(itemoptions.hasClass("invisible")){		
 			itemoptions.removeClass("invisible");
