@@ -35,7 +35,7 @@
 
         <ion-list>
           <ion-item
-          class="item-remove-animate item-avatar item-icon-right animate-repeat"  
+          class="item-remove-animate item-avatar item-icon-right animate-repeat"
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
           ng-click="checktemplate({productId:item.numIid,productPlat:pageData.currShop.plat})"
@@ -86,7 +86,7 @@
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
-            <img src="{{item.img}}">{{item.shopName}}</ion-item>
+            <img ng-src="{{item.img}}">{{item.shopName}}</ion-item>
         </ion-list>
       </ion-content>
     </ion-side-menu>

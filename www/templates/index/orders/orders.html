@@ -21,7 +21,7 @@
 
         <ion-list class="warpOrderList">
           <ion-item
-            class="item-avatar item-icon-right orderItem" 
+            class="item-avatar item-icon-right orderItem"
             ng-repeat="item in pageData.orderList"
             ng-click="pageFunc.showOrderDetail(item)"
             ng-href="javascripe:;"
@@ -56,7 +56,7 @@
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)"  class="borderbtm">
-           <img src="{{item.img}}">
+           <img ng-src="{{item.img}}">
             {{item.shopName}}
           </ion-item>
         </ion-list>

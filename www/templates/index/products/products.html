@@ -6,7 +6,7 @@
   <ion-side-menus enable-menu-with-back-views-"true">
     <!-- Center content -->
     <ion-side-menu-content class="paddingtop88" ng-class="isthereshowad">
-  
+
       <div class="bar bar-subheader">
         <button class="button button-icon icon ion-navicon ng-hide" menu-toggle="left1" ng-show="!istaobao" ></button>
         <div class="checkbtn">
@@ -35,7 +35,7 @@
 
         <ion-list>
           <ion-item
-          class="item-remove-animate item-avatar item-icon-right animate-repeat showlistitem"  
+          class="item-remove-animate item-avatar item-icon-right animate-repeat showlistitem"
           type="item-text-wrap"
           collection-repeat="item in pageData.productList"
 
@@ -86,7 +86,7 @@
       <ion-content>
         <ion-list ng-repeat="item in pageData.shopList">
           <ion-item menu-close  ng-class="{selectItem: item.checked}" ng-click="pageFunc.loadDataByShop(item)">
-            <img src="{{item.img}}">{{item.shopName}}</ion-item>
+            <img ng-src="{{item.img}}">{{item.shopName}}</ion-item>
         </ion-list>
       </ion-content>
     </ion-side-menu>

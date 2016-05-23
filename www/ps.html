@@ -1,4 +1,4 @@
-	
+
 <!DOCTYPE html>
 <html ng-app="SBMPS">
 <head>
@@ -36,7 +36,7 @@
 				width:280px;
 				margin-left:-140px;
 				left:50%;
-				
+
 			}
 			.page-lasttip img{width:30px;display:inline-block;float:left}
 			.page-lasttip span{;display:inline-block;line-height:30px;float:left}
@@ -163,7 +163,7 @@ var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "//hm.baidu.com/hm.js?3294be8925f64fe2800b8ba4567b2838";
-  var s = document.getElementsByTagName("script")[0]; 
+  var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
@@ -186,18 +186,18 @@ var _hmt = _hmt || [];
 
 	<!-- mainbox -->
 	<div id="mainbox" class="nostart" ng-class="{showmainbox:showmainbox}">
-		<div 
+		<div
 		class="ps_page tmp{{page.templatePageId}}"
 		ng-click="hidePagemaStanda()"
 		ng-repeat="page in showdata.pages">
-			<span 
+			<span
 			class="ps_img ps_img{{$index+1}}"
 			ng-repeat="img in page.detailPageImage track by $index"
 			imgsrc="{{img.img}}"
 			style="background-image:url({{img.img}})"></span>
 
-			<span 
-			class="ps_text ps_text{{$index+1}}" 
+			<span
+			class="ps_text ps_text{{$index+1}}"
 			ng-repeat="text in page.detailPageText track by $index">{{text.txt}}</span>
 
 			<span class='tapuptip'></span>
@@ -210,16 +210,16 @@ var _hmt = _hmt || [];
 				<div class="pred-prev" onclick="swipeChange(1)"></div>
 				<div class="pred-content">
 					<a class="pred-page pred-am{{a.lastPageIndex}} apred{{a.lastPageIndex}}" ng-repeat="a in lastPagedata" href="{{a.link}}">
-						<img src="{{a.img}}" />
+						<img ng-src="{{a.img}}" />
 						<span>{{a.txt}}</span>
 						<div class="page-master"></div>
 					</a>
-					
+
 
 				</div>
 				<div class="pred-next" onclick="swipeChange(0)"></div>
 			</div>
-			
+
 			<a href="#" class="page-lastbtn" ng-click="showhelpme()">免费制作宝贝秀</a>
 			<p class="page-lasttip"><img src="img/_r5_c4.png" /><span>宝贝秀由软香蕉免费提供技术支持</span></p>
 		</div>
@@ -238,7 +238,7 @@ var _hmt = _hmt || [];
 		<span class="laodpecent">
 			<span class="nowpencent"></span>
 		</span>
-		<div class="loadingoutbox1">	
+		<div class="loadingoutbox1">
 			<div class="loadingoutbox2">
 				<div class="laoding">
 					<span class="iconfont icon-logo"></span>
@@ -246,7 +246,7 @@ var _hmt = _hmt || [];
 				</div>
 			</div>
 		</div>
-	
+
 		<span class="text1">软香蕉正在玩命加载中…</span>
 		<!-- <span class="text2">宝贝秀由软香蕉提供免费技术支持</span> -->
 	</div>
@@ -257,7 +257,7 @@ var _hmt = _hmt || [];
 	<!-- <div class="softbanana"><span class="iconfont icon-logo"></span>由软香蕉提供免费技术支持</div> -->
 	<div three-points></div>
 
-	
+
 <script>
 
 		var el = document.querySelector("#hit");
